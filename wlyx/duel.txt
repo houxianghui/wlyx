@@ -1,0 +1,211 @@
+<div style="margin: 10px">
+	<!-- NPC 对话框 -->
+<div class="npc_dlg">
+	<div class="npc_dlg_top"><div class="npc_dlg_top_right"></div><div class="npc_dlg_top_left"></div></div>
+	<div class="npc_dlg_body">
+		<div class="npc_dlg_content container">
+			<b>盖天：</b>
+			<div>
+								<div style="float: left; width: 100%; display:">
+					竞技场是一个自由竞技的场所，在这里你能找到与你势均力敌的对手来挑战。每次挑战，根据你的排名都会获得 <span class="highlight">荣誉值</span> 奖励，如果你挑战胜利还能获得更多荣誉值！<br />竞技场中被你挑战并击败的对手，你可以立刻前往 <span class="highlight">奴隶市场</span> 中抢夺他的奴隶。<br />
+					
+						
+													
+							
+													
+						
+						
+															</div>
+							</div>
+		</div>
+	</div>
+	<div class="npc_dlg_bottom">
+		<div class="npc_dlg_bottom_right">
+			<div class="npc_dlg_arrow"></div>
+			<div class="npc_dlg_image"><img alt="" src="http://static.hero.9wee.com/npc/32.jpg" /></div>
+		</div>
+		<div class="npc_dlg_bottom_left"></div>
+	</div>
+</div><!-- npc_dlg -->
+
+
+	<div style="margin-top: 10px">
+
+		<div style="float:left; width: 52%; margin-right: 10px;">
+			<div class="scroll_container">
+				<div class="scroll_top"><div class="scroll_top_right"></div><div class="scroll_top_left"></div></div>
+				<div class="scroll_body">
+					<div class="scroll_content">	
+						<div class="scroll_inner">
+
+							<div style="margin: 3px">
+								<div>
+									<span class="important">武士竞技场</span>
+																		适合等级：<span class="highlight small_font">Lv.27</span> 以下
+																										</div>
+
+								<div id="duel_event_box">
+									<ul id="duel_event_container">
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33517)">江湖人物</a >】击败了【<a href="javascript:void(0);" onclick="view_role(27626)">爱鱼de猪</a>】，取得了 32 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(30837)">joyie826</a >】击败了【<a href="javascript:void(0);" onclick="view_role(23812)">rosechuan</a>】，取得了 30 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33494)">DestinyC</a >】击败了【<a href="javascript:void(0);" onclick="view_role(12480)">gala</a>】，取得了 25 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33089)">闷起脑壳玩</a >】击败了【<a href="javascript:void(0);" onclick="view_role(7905)">龙枪</a>】，取得了 3 连胜，他正在大杀特杀！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(32994)">RU虎添益</a >】击败了【<a href="javascript:void(0);" onclick="view_role(15703)">斩破天</a>】，取得了 51 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(21166)">gqk135</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33398)">lylinpan</a>】，取得了 37 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(22831)">FFY1</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33506)">兵临城下</a>】，取得了 4 连胜，她已经主宰了竞技场了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33315)">鱼上钩</a >】击败了【<a href="javascript:void(0);" onclick="view_role(5344)">凌雨涵</a>】，取得了 104 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33494)">DestinyC</a >】击败了【<a href="javascript:void(0);" onclick="view_role(25179)">风飞飞</a>】，取得了 24 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33209)">各显神通</a >】击败了【<a href="javascript:void(0);" onclick="view_role(28328)">龙岩</a>】，取得了 15 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(21166)">gqk135</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33398)">lylinpan</a>】，取得了 36 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(32994)">RU虎添益</a >】击败了【<a href="javascript:void(0);" onclick="view_role(22956)">红将军</a>】，取得了 50 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(22831)">FFY1</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33506)">兵临城下</a>】，取得了 3 连胜，她正在大杀特杀！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33209)">各显神通</a >】击败了【<a href="javascript:void(0);" onclick="view_role(19505)">被拋棄de榊</a>】，取得了 14 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(21166)">gqk135</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33398)">lylinpan</a>】，取得了 35 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33521)">黄裳</a >】击败了【<a href="javascript:void(0);" onclick="view_role(30385)">阿渺</a>】，取得了 4 连胜，她已经主宰了竞技场了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(32994)">RU虎添益</a >】击败了【<a href="javascript:void(0);" onclick="view_role(31356)">聆芷</a>】，取得了 49 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(21166)">gqk135</a >】击败了【<a href="javascript:void(0);" onclick="view_role(33398)">lylinpan</a>】，取得了 34 连胜，他已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(33315)">鱼上钩</a >】击败了【<a href="javascript:void(0);" onclick="view_role(12548)">==云天=</a>】，取得了 103 连胜，她已经超越神了！</li>
+																			<li>【<a href="javascript:void(0);" onclick="view_role(29037)">浅 、思念</a>】击败了【<a href="javascript:void(0);" onclick="view_role(24280)">秘密仓库</a>】，取得了 5 连胜，简直是杀人如麻，快来人阻止他！</li>
+																		</ul>
+								</div>
+
+								<div>
+									排名：武士 <span class="highlight small_font">No.3007</span>
+									&nbsp;&nbsp;
+									荣誉：<span class="highlight small_font">144 / 21,000</span>
+								</div>
+
+								<div style="height: 122px; overflow-y: auto">
+								<ul>
+																	<li><span class="date">07月11日 13:14</span><br/><span class="highlight">R_FOREVER</span> 在竞技场对你发起了挑战！【<a href="javascript:void(0);" onclick="view_combat ( '171110497692' )">查看</a>】</li>
+																	<li><span class="date">07月09日 18:23</span><br/>你在竞技场对 <span class="highlight">燚燚</span> 发起了挑战！【<a href="javascript:void(0);" onclick="view_combat ( '170910411309' )">查看</a>】</li>
+																	<li><span class="date">07月09日 18:02</span><br/>你在竞技场对 <span class="highlight">surware55</span> 发起了挑战！【<a href="javascript:void(0);" onclick="view_combat ( '170910410703' )">查看</a>】</li>
+																</ul>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="scroll_bottom"><div class="scroll_bottom_right"></div><div class="scroll_bottom_left"></div></div>
+				<div class="scroll_bottom_bar" style="width:208px"></div>
+			</div><!-- scroll_container -->
+		</div>
+
+		<div style="line-height: 20px;">
+			今日你已经发起了 <span class="highlight">0 / 15</span> 场挑战。
+			<br />
+						<span id="can_hall_combat">下次发起挑战还需：<span id="duel_combat_delay" class="highlight"></span></span>
+									</td>
+			</tr>
+		</div>
+
+		<div style="float: left; width: 46%">
+			<table class="data_grid" style="width:310px; margin-bottom: 0">
+				<tr>
+					<th align="left" width="32%">可挑战对手</th>
+					<th align="left" width="35%">竞技场排名</th>
+										<th align="left" width="15%">等级</th>
+										<th align="center" width="18%">操作</th>
+				</tr>
+			</table>
+			<div style="width:335px; height:188px; overflow-y:auto">
+				<table class="data_grid" style="width:310px; margin-top: 0">
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 32024 )" title="风中行者">风中行者</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2728</span></td>
+												<td align="left" width="15%" class="small_font">Lv.14</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 32024, '风中行者', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 21655 )" title="火星人">火星人</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2759</span></td>
+												<td align="left" width="15%" class="small_font">Lv.18</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 21655, '火星人', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 32781 )" title="壬生狼">壬生狼</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2790</span></td>
+												<td align="left" width="15%" class="small_font">Lv.13</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 32781, '壬生狼', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 33196 )" title="刘帅">刘帅</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2821</span></td>
+												<td align="left" width="15%" class="small_font">Lv.17</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 33196, '刘帅', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 23829 )" title="R_FOREVER">R_FO...</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2852</span></td>
+												<td align="left" width="15%" class="small_font">Lv.17</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 23829, 'R_FOREVER', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 23478 )" title="终极一号">终极一号</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2883</span></td>
+												<td align="left" width="15%" class="small_font">Lv.20</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 23478, '终极一号', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 23751 )" title="anniversary02">anni...</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2914</span></td>
+												<td align="left" width="15%" class="small_font">Lv.15</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 23751, 'anniversary02', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 2555 )" title="liyunlei2100">liyu...</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2945</span></td>
+												<td align="left" width="15%" class="small_font">Lv.18</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 2555, 'liyunlei2100', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr  >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 24224 )" title="踢馆_53">踢馆_53</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.2976</span></td>
+												<td align="left" width="15%" class="small_font">Lv.23</td>
+												<td align="center" width="18%">
+																													<a href="javascript:void(0);" onclick="fnDuelRoleFight( 24224, '踢馆_53', '3', '武士', 60, 3007, 0, 27, 3 );">发起挑战</a>
+																											</td>
+					</tr>
+										<tr style="background-color:#dedad1" >
+						<td align="left" width="32%"><a href="javascript:void(0);" onclick="view_role ( 27939 )" title="重名@雪儿">重名@雪儿</a></td>
+						<td align="left" width="35%">武士 <span class="highlight small_font">No.3007</span></td>
+												<td align="left" width="15%" class="small_font">Lv.18</td>
+												<td align="center" width="18%">
+												--
+												</td>
+					</tr>
+									</table>
+			</div>
+
+		</div>
+</div>
+<script type="text/javascript">
+window.duelTimeDelay = null;
+fnCanHallCombat ();
+
+if ( window.duelEventScrollTimmer ) clearInterval ( window.duelEventScrollTimmer );
+window.duelEventsScroller = new scrollingBox ( 'duelEventsScroller', 'duel_event_box', 'duel_event_container' );
+window.duelEventScrollTimmer = setInterval ( 'duelEventsScroller.autoScroll(0)', 8000 );
+
+</script><script type="text/javascript">
+removeClass ( 'city_menu_17', 'active' );
+</script>
+
