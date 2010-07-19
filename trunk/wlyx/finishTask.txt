@@ -1,0 +1,193 @@
+﻿<div style="margin: 10px">
+	<!-- NPC 对话框 -->
+<div class="npc_dlg">
+	<div class="npc_dlg_top"><div class="npc_dlg_top_right"></div><div class="npc_dlg_top_left"></div></div>
+	<div class="npc_dlg_body">
+		<div class="npc_dlg_content container">
+			<b>任务头目：</b>
+			<div>
+								<div style="float: left; width: 100%; display:">
+					别看我风度翩翩，英俊潇洒，天生练武奇才，还不是接这些任务成长的。<br /><span class="highlight">战斗型</span> 任务：可获得经验奖励。<span class="highlight">收集型</span> 任务：可获得铜币奖励。<br /><span class="highlight">竞技场</span> 任务：可获得声望奖励。<span class="highlight">刺杀型</span> 任务：可获得国家贡献和精力点奖励。<br />
+					
+						
+																													<a href="javascript:void(0);" onclick="complete_mission ( 'day', 43001, 'item_id=665' );" class="button_next_message">关于【收集物资】</a>
+
+							
+							
+																																				<a href="javascript:void(0);" onclick="complete_mission ( 'day', 43006, 'item_id=663' );" class="button_next_message">关于【寻访异物】</a>
+
+							
+							
+													
+						
+						
+															</div>
+							</div>
+		</div>
+	</div>
+	<div class="npc_dlg_bottom">
+		<div class="npc_dlg_bottom_right">
+			<div class="npc_dlg_arrow"></div>
+			<div class="npc_dlg_image"><img alt="" src="http://static.hero.9wee.com/npc/19.jpg" /></div>
+		</div>
+		<div class="npc_dlg_bottom_left"></div>
+	</div>
+</div><!-- npc_dlg -->
+
+<script type="text/javascript">
+var objNpcBarrier = $ ( 'scene_npc_monster_barrier_ul' );
+if ( objNpcBarrier ) fnChkDetail ();
+
+var objMissionBox = $ ( 'field_mission_box' );
+if ( objMissionBox ) load_role_mission_list ( 1, 'field_mission_box', true, true );
+</script>
+
+	<div style="margin-top: 15px;">
+		<div style="float:left; margin: 0 15px 0 0;">
+			<div class="scroll_container" style="width:500px">
+				<div class="scroll_top"><div class="scroll_top_right"></div><div class="scroll_top_left"></div></div>
+				<div class="scroll_body">
+					<div class="scroll_content">	
+						<div class="scroll_inner container">
+						
+							<div style="text-align:center;">
+								<div style="width: 440px; height:225px; margin: 0 auto;">
+
+																	<div>
+										<table class="data_grid" style="width:420px; margin-bottom: 0;">
+											<tr>
+												<th width="20%" align="left">任务名称</th><th width="18%" align="center">所属类别</th><th width="15%" align="center">任务类型</th><th align="right" width="42%">任务状态</th>
+											</tr>
+										</table>
+									</div>
+									<div style="height: 150px; overflow: auto">
+										<table class="data_grid" style="width:420px; margin-top: 0;">
+																						<tr>
+												<td width="20%" align="left"><a href="javascript:void(0);" onclick="view_mission ( 'day', 41004, true )">【见义勇为】</a></td>
+												<td width="18%" align="center">日常任务</td>
+												<td width="15%" align="center">战斗型</td>
+												<td width="42%" align="right" style="line-height: 20px">
+
+													
+																										<a href="javascript:void(0);" onclick="view_mission ( 'day', 41004, true )" class="purple">领取奖励</a>
+																									</td>
+											</tr>
+																						<tr>
+												<td width="20%" align="left"><a href="javascript:void(0);" onclick="view_mission ( 'day', 44001, true )">【寻人启事】</a></td>
+												<td width="18%" align="center">日常任务</td>
+												<td width="15%" align="center">对话型</td>
+												<td width="42%" align="right" style="line-height: 20px">
+
+																										<a href="javascript:void(0);" title="委托自动完成" src="http://static.hero.9wee.com/icons/icon-brand.gif" onclick="mission_auto_complete ( 'day', '44001', '300' )">自动完成</a> |
+													
+													
+																												<span style="color:red">进行中</span>
+														
+																									</td>
+											</tr>
+																						<tr>
+												<td width="20%" align="left"><a href="javascript:void(0);" onclick="view_mission ( 'day', 43001, true )">【收集物资】</a></td>
+												<td width="18%" align="center">日常任务</td>
+												<td width="15%" align="center">收集型</td>
+												<td width="42%" align="right" style="line-height: 20px">
+
+																										<a href="javascript:void(0);" title="委托自动完成" src="http://static.hero.9wee.com/icons/icon-brand.gif" onclick="mission_auto_complete ( 'day', '43001', '1800' )">自动完成</a> |
+													
+													
+																												<span style="color:red">进行中</span>
+														
+																									</td>
+											</tr>
+																						<tr>
+												<td width="20%" align="left"><a href="javascript:void(0);" onclick="view_mission ( 'day', 43006, true )">【寻访异物】</a></td>
+												<td width="18%" align="center">日常任务</td>
+												<td width="15%" align="center">收集型</td>
+												<td width="42%" align="right" style="line-height: 20px">
+
+																										<a href="javascript:void(0);" title="委托自动完成" src="http://static.hero.9wee.com/icons/icon-brand.gif" onclick="mission_auto_complete ( 'day', '43006', '1800' )">自动完成</a> |
+													
+													
+																												<span style="color:red">进行中</span>
+														
+																									</td>
+											</tr>
+																					</table>
+								<!-- day_weal -->
+																								<!-- day_weal -->
+									</div>
+
+								
+																	<div>
+										<table width="100%" class="nopadding">
+											<tr>
+												<td align="left">
+													今日已接受任务数量：<span class="highlight">0 / 20</span>&nbsp;&nbsp;<!--活动期间完成数量：<span class="highlight">3</span>-->												</td>												
+												<td align="right" rowspan="2">
+																										<a href="javascript:void(0);" onclick="show_alert ( '你当前已经有 4 项正在进行的日常任务，暂时不能刷新任务！<br />请放弃或完成部分任务后再尝试刷新！' )" class="large_button">立即刷新</a>
+																									</td>
+											</tr>
+											<tr>
+												<td align="left">	距离下一批任务刷新还有：<span id="task_counter" class="highlight">00:00:00</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="http://static.hero.9wee.com/styles/default/arrow-right.gif" align="absmiddle" onclick="open_task_find();" style="cursor:pointer;">&nbsp;<b><a onclick="open_task_find();" href="javascript:void(0);" class="purple">我要任务找回</a></b></td>
+											</tr>
+										</table>
+									</div>
+								
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="scroll_bottom"><div class="scroll_bottom_right"></div><div class="scroll_bottom_left"></div></div>
+				<div class="scroll_bottom_bar"></div>
+			</div><!-- scroll_container -->
+		</div>
+
+		<div style="float:left; width:185px">
+			<div class="role_mission_header"></div>
+			<div class="role_mission">
+
+				<div class="role_mission_top">当 前 任 务</div>
+				<div class="role_mission_body" style="height:235px">
+					<ul class="role_mission_content" style="height:235px" id="module_box_role_mission">
+						<!-- 任务信息 -->
+			<li class="mission_title">【主线任务】</li>
+		<li>&lt; 暂无 &gt;</li>
+				<li class="mission_title">【支线任务】</li>
+		<li>&lt; 暂无 &gt;</li>
+				<li class="mission_title">【日常任务】</li>
+		<li><a href="javascript:void(0);" onclick="view_mission ( 'day', '41004' )">见义勇为</a></li>
+		<li><a href="javascript:void(0);" onclick="view_mission ( 'day', '43001' )">收集物资</a></li>
+		<li><a href="javascript:void(0);" onclick="view_mission ( 'day', '43006' )">寻访异物</a></li>
+		<li><a href="javascript:void(0);" onclick="view_mission ( 'day', '44001' )">寻人启事</a></li>
+							</ul>
+				</div>
+
+			</div><!-- role_mission -->
+			<div class="role_mission_footer"></div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+<!--
+	if ( window.taskCounter )
+	{
+		taskCounter.clear ();
+		taskCounter = null;
+	}
+	last_url['content'] = last_url['content'].replace ( 'refresh=1', '' );
+	loader.refreshCache ();
+if ( !window.taskCounter )
+{
+	window.taskCounter = new clsCounter ( 'taskCounter' );
+	taskCounter.init ( 'task_counter', 7200, 'refresh_content ( null, true )' );
+}
+//-->
+</script>
+<script type="text/javascript">
+removeClass ( 'city_menu_10', 'active' );
+</script>
+
