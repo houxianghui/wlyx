@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,7 +12,7 @@ import java.net.URL;
 import com.blue.common.User;
 
 public class PageService {
-	public static String getPageWithCookie(String page,User user){
+	public static String getPageWithCookie(String page, User user) {
 		String str = null;
 		int count = 3;
 		do {
@@ -25,10 +26,10 @@ public class PageService {
 			}
 		} while ((str == null) && (count-- > 0));
 		return str;
-		
+
 	}
-	private static String _getPageWithCookie(String page, 
-			User user) {
+
+	private static String _getPageWithCookie(String page, User user) {
 		InputStream is = null;
 		try {
 			String line;
@@ -63,5 +64,30 @@ public class PageService {
 			}
 		}
 		return null;
+	}
+
+	public static String postPage(String page, String data,User user)
+			throws Exception {
+		String line;
+		URL url = new URL(page);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setDoOutput(true);
+		con.setRequestMethod("POST");
+		con.addRequestProperty("Host", "s4.verycd.9wee.com");
+		con.addRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded");
+		con.addRequestProperty("Cookie", user.getCookie());
+		OutputStream os = con.getOutputStream();
+		os.write(data.getBytes("UTF-8"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				con.getInputStream(), "UTF-8"));
+
+		StringBuilder b = new StringBuilder();
+		while ((line = reader.readLine()) != null) {
+			b.append(line);
+			System.out.println(line);
+		}
+		reader.close();
+		return b.toString();
 	}
 }

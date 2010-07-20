@@ -5,8 +5,11 @@ import java.util.Map;
 
 
 public class LevelVSMonstor {
-	public Map<String, String[]> monstors = new HashMap<String, String[]>();
-	public LevelVSMonstor() {
+	private static Map<String, String[]> monstors = new HashMap<String, String[]>();
+	private LevelVSMonstor() {
+		
+	}
+	static {
 		monstors.put("17", new String[]{"安平郡","巨鹿镇","洛河道","爆裂剑首"});
 		monstors.put("18", new String[]{"安平郡","巨鹿镇","洛河道","爆裂剑首"});
 		monstors.put("19", new String[]{"安平郡","巨鹿镇","洛河道","狂天狮"});
@@ -72,7 +75,7 @@ public class LevelVSMonstor {
 		monstors.put("86", new String[]{"中牟","云梦山","毛遂洞","重剑客"});
 		monstors.put("87", new String[]{"中牟","云梦山","水帘洞","独行剑客"});
 	}
-	public String[] getMonstorInfo(String level){
+	public static String[] getMonstorInfo(String level){
 		return monstors.get(level);
 	}
 }

@@ -3,16 +3,18 @@ package com.blue.common;
 import java.util.HashMap;
 
 public class Map {
-	private HashMap<String, String>  bigMap = new HashMap<String, String>();
-	private java.util.Map<String, String> secMap = new HashMap<String, String>();
-	private java.util.Map<String, String> thirdMap = new HashMap<String, String>();
-	
-	public Map() {
+	private static HashMap<String, String>  bigMap = new HashMap<String, String>();
+	private static java.util.Map<String, String> secMap = new HashMap<String, String>();
+	private static java.util.Map<String, String> thirdMap = new HashMap<String, String>();
+	static{
 		initBigMap();
 		initSecMap();
 		initThird();
 	}
-	public String getId(int level,String position){
+	private Map() {
+		
+	}
+	public static String getId(int level,String position){
 		if(level == 1){
 			return bigMap.get(position);
 		}
@@ -25,7 +27,7 @@ public class Map {
 		}
 		return null;
 	}
-	private void initSecMap(){
+	private static void initSecMap(){
 		secMap.put("巨鹿镇", "");
 		secMap.put("赵国官营", "");
 		secMap.put("青石路", "");
@@ -41,7 +43,7 @@ public class Map {
 		secMap.put("古巫源地", "");
 		secMap.put("浮台", "");
 		secMap.put("云梦山", "");
-		secMap.put("五岩山", "");
+		secMap.put("五岩山", "157");
 		secMap.put("悬棺", "");
 		secMap.put("天刹洞", "");
 		secMap.put("卫国城墙", "");
@@ -50,7 +52,7 @@ public class Map {
 		secMap.put("地底牢狱", "");
 		secMap.put("舍身崖", "");
 	}
-	private void initThird(){
+	private static void initThird(){
 		thirdMap.put("洛河道", "");
 		thirdMap.put("铁狱牢房", "");
 		thirdMap.put("右将军府", "");
@@ -79,7 +81,7 @@ public class Map {
 		thirdMap.put("日月坪", "");
 		thirdMap.put("铜尸棺", "");
 		thirdMap.put("孙膑洞", "");
-		thirdMap.put("四象迷阵", "");
+		thirdMap.put("四象迷阵", "502");
 		thirdMap.put("万劫碑", "");
 		thirdMap.put("同福窑", "");
 		thirdMap.put("摘心台", "");
@@ -89,7 +91,7 @@ public class Map {
 		thirdMap.put("毛遂洞", "");
 		thirdMap.put("水帘洞", "");
 	}
-	private void initBigMap() {
+	private static void initBigMap() {
 		bigMap.put("蓟京", "8");
 		bigMap.put("渔阳郡", "19");
 		bigMap.put("济南郡", "24");
