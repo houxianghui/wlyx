@@ -1,7 +1,5 @@
 package com.blue.duel;
 
-import java.util.List;
-
 import com.blue.common.User;
 
 public class DuelThread extends Thread {
@@ -15,19 +13,15 @@ public class DuelThread extends Thread {
 	@Override
 	public void run() {
 		while(true){
-			boolean success = false;
-			d.setChallengerInfo(user);
-			if(user.getChallengeTimes()<15){
-				List<Challenger> l = user.getChallengeList();
-				Challenger c = l.get(l.size()-2);
-				success = d.challenge(user, c);
-				System.out.println("challenge "+c.getId()+" success");
-			}
 			try{
-				if(success){
-					sleep(1000*60*60);
+				if(d.challenge(user)){
+					if(!user.isFastChallenge()){
+						sleep(1000*60*60);
+					}else{
+						sleep(1000*60*10);
+					}
 				}else{
-					sleep(10*60*1000);
+					sleep(60*1000);
 				}
 			}catch(Exception e){}
 		}

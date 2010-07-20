@@ -1,16 +1,42 @@
 package com.blue.common;
 
-import java.util.List;
-
-import com.blue.duel.Challenger;
-import com.blue.task.Task;
 import com.blue.tools.CookieManage;
 
 public class User {
 	private String userName;
 	private String password;
-	private String wealDate;
+	private String wealDate;	//上次占卜时间
+	private String level;		//等级
+	private String point;		//精力点数
+	private String url;			//所在服务器
+	private int beginTime;		//修炼开始时间
+	private int endTime;		//修炼结束时间
+	private int workType;		//日常任务类型
+	private boolean needXunLian;	//是否需要大厅
+	private boolean needJingJi;		//是否需要竞技
+	private String cookie;			
+	private int challengeTimes;		//需要自动竞技次数
+	private int duelNo;				//竞技场排名
+	private boolean fastChallenge;	//是否快速竞技
 	
+	public boolean isFastChallenge() {
+		return fastChallenge;
+	}
+	public void setFastChallenge(boolean fastChallenge) {
+		this.fastChallenge = fastChallenge;
+	}
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 	public String getWealDate() {
 		return wealDate;
 	}
@@ -65,37 +91,14 @@ public class User {
 	public void setNeedJingJi(boolean needJingJi) {
 		this.needJingJi = needJingJi;
 	}
-	private String url;
-	private int beginTime;
-	private int endTime;
-	private int workType;
-	private boolean needXunLian;
-	private boolean needJingJi;
-	private String cookie;
-	private int challengeTimes;
-	private List<Challenger> challengeList;
-	private int duelNo;
-	private List<Task> taskList;
 	
-	
-	public List<Task> getTaskList() {
-		return taskList;
-	}
-	public void setTaskList(List<Task> taskList) {
-		this.taskList = taskList;
-	}
 	public int getDuelNo() {
 		return duelNo;
 	}
 	public void setDuelNo(int duelNo) {
 		this.duelNo = duelNo;
 	}
-	public List<Challenger> getChallengeList() {
-		return challengeList;
-	}
-	public void setChallengeList(List<Challenger> challengeList) {
-		this.challengeList = challengeList;
-	}
+
 	public int getChallengeTimes() {
 		return challengeTimes;
 	}
