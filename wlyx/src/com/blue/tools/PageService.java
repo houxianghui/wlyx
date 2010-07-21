@@ -79,6 +79,9 @@ public class PageService {
 		con.addRequestProperty("Cookie", user.getCookie());
 		OutputStream os = con.getOutputStream();
 		os.write(data.getBytes("UTF-8"));
+		os.flush();
+		os.close();
+		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				con.getInputStream(), "UTF-8"));
 

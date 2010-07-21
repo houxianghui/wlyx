@@ -1,8 +1,12 @@
 package com.blue.monstor;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 /**
@@ -24,15 +28,16 @@ import com.blue.tools.Tools;
  *
  */
 
+
 public class Monstor {
-//	private String checkItem
+	private static final String KILL_URL="modules/auto_combats.php?act=start";
+	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	
-	public boolean killMonstor(User user,Portal p){
+	public boolean killMonstor(User user,Portal p)throws Exception{
 		p.setUserInfo(user);
-		moveToMonstor(user);	
-		return false;
+		return moveToMonstor(user);	
 	}
-	private boolean moveToMonstor(User user){
+	private boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		int times = 3;
@@ -62,11 +67,22 @@ public class Monstor {
 		if(times == 0){
 			return false;
 		}
-		killIt(monstor[3]);
-		return true;
+		Matcher m = p.matcher(page);
+		String mid = null;
+		while(m.find()){
+			if(m.group(2).equals(level)){
+				mid = m.group(1);
+				break;
+			}
+		}
+		return killIt(mid, user);
 	}
-	private boolean killIt(String monstor){
-		return false;
+	private boolean killIt(String monstor,User user)throws Exception{
+		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
+		String page = PageService.postPage(url, getData(monstor,user), user);
+		return Tools.success(page);
 	}
-	
+	private String getData(String monstor,User user){
+		return "mid="+monstor+"&select_frequency="+user.getKillMonstorOnce()+"&callback_func_name=callbackFnStartAutoCombat";
+	}
 }
