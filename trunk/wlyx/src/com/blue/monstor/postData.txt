@@ -1,0 +1,15 @@
+POST http://s4.verycd.9wee.com/modules/auto_combats.php?act=start&timeStamp=1279695609515 HTTP/1.1
+Accept: */*
+Accept-Language: zh-cn
+Referer: http://s4.verycd.9wee.com/
+Content-Type: application/x-www-form-urlencoded
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)
+Host: s4.verycd.9wee.com
+Content-Length: 70
+Proxy-Connection: Keep-Alive
+Pragma: no-cache
+Cookie: online_time=258; last_online_time=1277819907359; 25840_FCM=1; 25337_FCM=1; 25381_FCM=1; 30196_FCM=1; 29433_FCM=1; 27939_FCM=1; 29506_FCM=1; 50hero_session=VTMGal04VD5Sc1EiVG9cawE8DiYNcwchAmUGKQM8A2MHbVJhUy0HbAIrDTdUZF5iV2pddVwkUmgDbwE7BDkIYFU4BiVdb1RbUnxRO1QgXHEBPQ53DTwHagI6BnkDPANrB2NSb1NhBzYCNQ1oVHdealcjXW1cZlI0AzsBfgQmCGZVPAY3XW1UbVJiUSRUO1wMAXIObg1zB3ACOwYoA2gDNwc6UiZTagc6AjkNZFQ5XnNXa10kXG1SNgMyAWYEdwh6VT0GPl1mVGhSYVE7VCBcPQFZDnANbAcnAiIGYAMhAzgHN1I%2BUy0HJQI3DWFUMF4OVzldM1x1UjwDaAFmBGcIPFVmBmhdMlQ%2FUntRa1RsXGkBJA52DWkHPgJlBgQDPANjB21SYVMtB2wCKw03VGNea1dyXQ9cD1JfA1kBBAQNCCtVaQYjXTtUNVI7UWtUd1w3AW8Odw1nBzACbAY%2BAzYDXQd0Um1TYgcyAnoNNlQmXmtXYV1tXHVSNwMjAWcEJggzVWMGZV07VCZSfVEiVDBcIQFZDnYNYwczAmwGBAMwA2sHclJwU2cHdQJjDUNUbl4iV2pdb1xtUiUDbQEzBDIIYFU8Bg9daFR0UipRalQmXGkBNw42DTwHcAIyBmoDawMsBzFSMFM9B3kCbg08VHteYFdyXWxcJFI9AzUBZgR3CGpVPQY0XWRUJlIzUSJUb1xgATQOPg0kBzQCNAZrAzQDYwc4UjJTawduAmoNblQ2XmhXaF1uXDJSMANiAToEZwhsVWMGaV0zVGVSOFEyVGFcYgE2DjUNYgdwAjsGJg%3D%3D; 50hero_session_key=AzYEZwBoUztSO1BZUwoPWFMMAVMLWFRZ; 25483_FCM=1; hiddenIm=0; 50hero_session_AT=VWMAZF02UjtSPgw1BzMONAc4CjI%3D; __utma=247480783.886384627.1279011724.1279011724.1279011724.1; __utmz=247480783.1279011724.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+
+mid=63&select_frequency=1&callback_func_name=callbackFnStartAutoCombat

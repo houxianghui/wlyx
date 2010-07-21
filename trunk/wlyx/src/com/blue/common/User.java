@@ -18,6 +18,16 @@ public class User {
 	private int challengeTimes;		//需要自动竞技次数
 	private int duelNo;				//竞技场排名
 	private boolean fastChallenge;	//是否快速竞技
+	private String killMonstorOnce;	//每次击杀怪物个数
+	
+	
+	public String getKillMonstorOnce() {
+		return killMonstorOnce;
+	}
+	public void setKillMonstorOnce(String killMonstorOnce) {
+		this.killMonstorOnce = killMonstorOnce;
+	}
+	
 	
 	public boolean isFastChallenge() {
 		return fastChallenge;
