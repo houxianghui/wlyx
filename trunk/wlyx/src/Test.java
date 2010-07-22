@@ -5,14 +5,44 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.tools.Tools;
+
 
 public class Test {
 	public static void main(String[] args)throws Exception {
-		String s = "tes中华 老字号 fdsf";
-		Pattern p = Pattern.compile(".*(\\s+).*");
-		Matcher m = p.matcher(s);
+		Pattern p = Pattern.compile("scene_pk_status\":(\\S+?),\"id\":\"(\\d+?)\",\"name\":\"(\\S+?)\"");
+		Matcher m = p.matcher(readText("secMap.txt"));
 		while(m.find()){
-			System.out.println(m.group());
+			System.out.println(m.group(2)+Tools.hexToString(m.group(3)));
+		}
+	}
+	public static void getBigMap()throws Exception{
+		Pattern p = Pattern.compile("id\":\"(\\d+?)\",\"rank\":\"\\d+?\",\"name\":\"(\\S+)\",\"country_id\":\"(\\d+?)\",");
+		Matcher m = p.matcher(readText("bigMap.txt"));
+		while(m.find()){
+			System.out.println(m.group(1) + " "+Tools.hexToString(m.group(2)));
+		}
+	}
+	public static void makeMap()throws Exception{
+		//17      能  	爆裂剑首  20    安平郡|巨鹿镇|洛河道
+		Pattern p = Pattern.compile("(\\d+).*?(\\d+).*?(\\S+)");
+		Matcher m = p.matcher(readText("monstors.txt"));
+		while(m.find()){
+			System.out.print("monstors.put(\"");
+			System.out.print(m.group(1));
+			System.out.print("\", new String[]{");
+			
+			
+			String s = m.group(3);
+			String[] t = s.split("\\|");
+			
+			for(int i = 0;i < t.length;i++){
+				System.out.print("\""+t[i]+"\"");
+				if(i != t.length -1 ){
+					System.out.print(",");
+				}
+			}
+			System.out.println("});");
 		}
 	}
 	public static String readText(String fileName)throws Exception{
@@ -26,15 +56,5 @@ public class Test {
 			sb.append(s+"\n");
 		}
 		return sb.toString();
-	}
-	public static void hexToString(String s)throws Exception{
-        byte[] b = new byte[s.length()/2];
-        for(int i = 0,j=0;i<s.length();i++,i++,j++){
-            byte b1= Integer.valueOf(s.charAt(i)+"", 16).byteValue();
-            byte b2 = Integer.valueOf(s.charAt(i+1)+"",16).byteValue();
-            b[j] = (byte)((b1<<4)+b2);
-        }
-        String value = new String(b,"gbk");
-        System.out.println(value);
-}
+	}	
 }

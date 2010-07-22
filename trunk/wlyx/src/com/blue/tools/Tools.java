@@ -18,4 +18,19 @@ public class Tools {
 	public static boolean success(String page){
 		return !page.contains("{\"error\":true") && page.length() > 10;
 	}
+	/*
+	 *\\uhhhh
+	 */
+	public static String hexToString(String hex){
+		StringBuilder sb = new StringBuilder();
+		String[] t = hex.split("\\\\u");
+		for(int i = 0;i < t.length;i++){
+			try{
+				char c = (char)Integer.parseInt(t[i],16);
+				sb.append(c);
+			}catch(Exception e){}
+			
+		}
+		return sb.toString();
+	}
 }

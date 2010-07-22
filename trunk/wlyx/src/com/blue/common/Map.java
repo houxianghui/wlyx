@@ -105,18 +105,18 @@ public class Map {
 		bigMap.put("¹í¹È", "144");
 		bigMap.put("äÅ³Ø", "164");
 		
-		bigMap.put("ÁÙ×Í", "");
-		bigMap.put("ÊÙ´º", "");
-		bigMap.put("ĞÂÖ£", "");
-		bigMap.put("ÏÌÑô", "");
-		bigMap.put("ºªµ¦", "");
-		bigMap.put("´óÁº", "");
+		bigMap.put("ÁÙ×Í", "9");
+		bigMap.put("ÊÙ´º", "10");
+		bigMap.put("ĞÂÖ£", "11");
+		bigMap.put("ÏÌÑô", "13");
+		bigMap.put("ºªµ¦", "7");
+		bigMap.put("´óÁº", "12");
 		
-		bigMap.put("ÕÔÑà¹ÙµÀ", "");
-		bigMap.put("ÑàÆë¹ÙµÀ", "");
-		bigMap.put("Æë³ş¹ÙµÀ", "64");
-		bigMap.put("³şº«¹ÙµÀ", "68");
-		bigMap.put("º«Îº¹ÙµÀ", "");
-		bigMap.put("ÎºÕÔ¹ÙµÀ", "");
+		bigMap.put("ÕÔÑà¹ÙµÀ", "44");
+		bigMap.put("ÑàÆë¹ÙµÀ", "51");
+		bigMap.put("Æë³ş¹ÙµÀ", "58");
+		bigMap.put("³şº«¹ÙµÀ", "65");
+		bigMap.put("º«Îº¹ÙµÀ", "72");
+		bigMap.put("ÎºÕÔ¹ÙµÀ", "79");
 	}
 }
