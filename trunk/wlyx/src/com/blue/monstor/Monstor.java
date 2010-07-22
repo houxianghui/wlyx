@@ -1,5 +1,8 @@
 package com.blue.monstor;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +22,9 @@ import com.blue.tools.Tools;
  * 全部出售
  * http://s4.verycd.9wee.com/modules/role_item.php?act=sell_all_temp&timeStamp=1279249631858
  * 
+ * 出售
+ * http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=3011599&from=temp&to=shop&shop_id=0&timeStamp=1279793643031&callback_func_name=itemClass.dragItemCallback
+ * 
  * 自动完成免费：http://s4.verycd.9wee.com/modules/auto_combats.php?act=show&mid=29&timeStamp=1279182628328&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster
  * 挂起训练：http://s4.verycd.9wee.com/modules/auto_combats.php?act=complete&isfree=1&timeStamp=1279182562076&callback_func_name=callbackFnCancelAutoCombat
  * 怪物信息
@@ -31,11 +37,14 @@ import com.blue.tools.Tools;
 
 public class Monstor {
 	private static final String KILL_URL="modules/auto_combats.php?act=start";
-	
+	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
+	private static final String PUT_TO_PACK = "modules/role_item.php?act=drag_item&from=temp&to=pack&callback_func_name=itemClass.dragItemCallback&id=";
+	private static final String SELL = "modules/role_item.php?act=drag_item&from=temp&to=shop&shop_id=0&callback_func_name=itemClass.dragItemCallback&id=";
 	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private Pattern temp = Pattern.compile("temp\":\\{.*");
 	
 	public boolean killMonstor(User user,Portal p)throws Exception{
 		p.setUserInfo(user);
@@ -92,20 +101,60 @@ public class Monstor {
 	/*
 	 * group(1) id
 	 * group(2) name
-	 * group(3) quality
+	 * group(3) quality 4紫装  2 绿 3 蓝 
 	 * group(4) check
 	 * 
 	 */
-	public boolean checkItem(User user){
+	public void checkItem(User user){
+		List<Item> l = getTempPack(user);
+		Iterator<Item> it = l.iterator();
+		while(it.hasNext()){
+			Item i = it.next();
+			if(i.getChecked().equals("0")){
+				checkIt(user, i.getId());
+			}
+			if(i.getChecked().equals("1") && i.getQuality().compareTo("3")<0){
+				sellItem(user, i.getId());
+			}
+		}
+		l = getTempPack(user);
+		it = l.iterator();
+		while(it.hasNext()){
+			Item i = it.next();
+			if(i.getQuality().compareTo("3")>=0){
+				putToPack(user, i.getId());
+			}
+		}		
+		
+	}
+	private List<Item> getTempPack(User user){
 		String url = user.getUrl()+Portal.USER_INFO+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = item.matcher(page);
-		while(m.find()){
-			System.out.print(m.group(1)+" ");
-			String s = m.group(2);
-			System.out.print(Tools.hexToString(s));
-			System.out.println(" "+m.group(3)+" "+m.group(4));
+		Matcher m1 = temp.matcher(page);
+		if(m1.find()){
+			page = m1.group();
 		}
+		Matcher m = item.matcher(page);
+		List<Item> l = new ArrayList<Item>();
+		while(m.find()){
+			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(4)));
+			
+		}
+		return l;
+	}
+	private boolean putToPack(User user,String id){
+		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		return Tools.success(page);
+	}
+	private boolean checkIt(User user,String id){
+		String url = user.getUrl()+CHECK_URL+id+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		return Tools.success(page);
+	}
+	private boolean sellItem(User user,String id){
+		String url = user.getUrl()+SELL+id+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
 	}
 }
