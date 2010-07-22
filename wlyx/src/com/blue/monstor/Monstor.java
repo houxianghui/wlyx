@@ -31,7 +31,11 @@ import com.blue.tools.Tools;
 
 public class Monstor {
 	private static final String KILL_URL="modules/auto_combats.php?act=start";
+	
+	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
+	//id+name+quality+checked
+	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	
 	public boolean killMonstor(User user,Portal p)throws Exception{
 		p.setUserInfo(user);
@@ -84,5 +88,24 @@ public class Monstor {
 	}
 	private String getData(String monstor,User user){
 		return "mid="+monstor+"&select_frequency="+user.getKillMonstorOnce()+"&callback_func_name=callbackFnStartAutoCombat";
+	}
+	/*
+	 * group(1) id
+	 * group(2) name
+	 * group(3) quality
+	 * group(4) check
+	 * 
+	 */
+	public boolean checkItem(User user){
+		String url = user.getUrl()+Portal.USER_INFO+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = item.matcher(page);
+		while(m.find()){
+			System.out.print(m.group(1)+" ");
+			String s = m.group(2);
+			System.out.print(Tools.hexToString(s));
+			System.out.println(" "+m.group(3)+" "+m.group(4));
+		}
+		return Tools.success(page);
 	}
 }
