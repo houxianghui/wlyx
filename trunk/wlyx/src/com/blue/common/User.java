@@ -6,14 +6,25 @@ public class User {
 	private String userName;
 	private String password;
 	private String wealDate;	//上次占卜时间
+	
 	private String level;		//等级
 	private String point;		//精力点数
-	private String url;			//所在服务器
+	private int savePoint;		//保留精力点数
 	private int beginTime;		//修炼开始时间
+	public int getSavePoint() {
+		return savePoint;
+	}
+	public void setSavePoint(int savePoint) {
+		this.savePoint = savePoint;
+	}
 	private int endTime;		//修炼结束时间
+	
+	private String url;			//所在服务器	
 	private int workType;		//日常任务类型
+	
 	private boolean needXunLian;	//是否需要大厅
 	private boolean needJingJi;		//是否需要竞技
+	
 	private String cookie;			
 	private int challengeTimes;		//需要自动竞技次数
 	private int duelNo;				//竞技场排名
