@@ -1,3 +1,4 @@
+import com.blue.common.Portal;
 import com.blue.common.User;
 import com.blue.monstor.Monstor;
 
@@ -14,7 +15,9 @@ public class Main {
 		user.setPassword("abc123");
 		user.login();
 		
-		Monstor m = new Monstor();
-		m.checkItem(user);
+//		Monstor m = new Monstor();
+//		m.checkItem(user);
+		Portal p = new Portal();
+		p.setUserInfo(user);
 	}
 }

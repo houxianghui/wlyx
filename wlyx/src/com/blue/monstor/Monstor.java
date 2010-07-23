@@ -46,11 +46,15 @@ public class Monstor {
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private Pattern temp = Pattern.compile("temp\":\\{.*");
 	
-	public boolean killMonstor(User user,Portal p)throws Exception{
-		p.setUserInfo(user);
+	public synchronized boolean killMonstor(User user)throws Exception{
+		Portal.setUserInfo(user);
+		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
+			return Portal.goHome(user);
+		}
+		checkItem(user);
 		return moveToMonstor(user);	
 	}
-	private boolean moveToMonstor(User user)throws Exception{
+	private synchronized boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		int times = 3;
@@ -71,14 +75,16 @@ public class Monstor {
 		if(times == 0){
 			return false;
 		}
-		times = 3;
-		page = Move.thirdMove(user, monstor[2]);
-		while(!Tools.success(page) && times > 0){
-			System.out.println("move to "+monstor[0]+" failed! retry!");
-			times--;
-		}
-		if(times == 0){
-			return false;
+		if(monstor[2].trim().length() != 0){
+			times = 3;
+			page = Move.thirdMove(user, monstor[2]);
+			while(!Tools.success(page) && times > 0){
+				System.out.println("move to "+monstor[0]+" failed! retry!");
+				times--;
+			}
+			if(times == 0){
+				return false;
+			}
 		}
 		Matcher m = p.matcher(page);
 		String mid = null;
@@ -96,7 +102,12 @@ public class Monstor {
 		return Tools.success(page);
 	}
 	private String getData(String monstor,User user){
-		return "mid="+monstor+"&select_frequency="+user.getKillMonstorOnce()+"&callback_func_name=callbackFnStartAutoCombat";
+		int point = Integer.parseInt(user.getPoint());
+		int killOnce = Integer.parseInt(user.getKillMonstorOnce());
+		if(point - killOnce <= user.getSavePoint()){
+			killOnce = point - user.getSavePoint();
+		}
+		return "mid="+monstor+"&select_frequency="+killOnce+"&callback_func_name=callbackFnStartAutoCombat";
 	}
 	/*
 	 * group(1) id
