@@ -15,7 +15,7 @@ public class MonstorThread extends Thread {
 		while(true){
 			try{
 				if(monstor.killMonstor(user)){
-					sleep(5*60*1000);
+					sleep(3*60*1000);
 				}else{
 					sleep(10*1000);
 				}
