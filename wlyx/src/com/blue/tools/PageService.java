@@ -88,7 +88,7 @@ public class PageService {
 		StringBuilder b = new StringBuilder();
 		while ((line = reader.readLine()) != null) {
 			b.append(line);
-			System.out.println(line);
+//			System.out.println(line);
 		}
 		reader.close();
 		return b.toString();

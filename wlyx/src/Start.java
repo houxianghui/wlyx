@@ -7,6 +7,8 @@ import com.blue.daily.DailyWeals;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.Duel;
 import com.blue.duel.DuelThread;
+import com.blue.monstor.Monstor;
+import com.blue.monstor.MonstorThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTask;
 import com.blue.task.AutoTaskThread;
@@ -33,7 +35,7 @@ public class Start {
 		AutoTask at = new AutoTask();
 		Warrior warrior = new Warrior();
 		DailyWeals dw = new DailyWeals();
-		
+		Monstor m = new Monstor();
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			it.next().login();
@@ -42,6 +44,7 @@ public class Start {
 			new AutoTaskThread(at, user);
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
+			new MonstorThread(user, m);
 		}
 	}
 }

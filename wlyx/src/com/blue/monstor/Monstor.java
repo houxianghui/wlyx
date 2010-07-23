@@ -44,7 +44,7 @@ public class Monstor {
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
-	private Pattern temp = Pattern.compile("temp\":\\{.*");
+	private Pattern temp = Pattern.compile("temp\":\\{.*?");
 	
 	public synchronized boolean killMonstor(User user)throws Exception{
 		Portal.setUserInfo(user);
@@ -88,11 +88,23 @@ public class Monstor {
 		}
 		Matcher m = p.matcher(page);
 		String mid = null;
+		int l = Integer.parseInt(level)+3;
+		String tmp = null;
+		boolean find = false;
 		while(m.find()){
-			if(m.group(2).equals(level)){
+			int i = Integer.parseInt(m.group(2));
+			if(i == l){
 				mid = m.group(1);
+				find = true;
 				break;
 			}
+			if(l-i == 1){
+				tmp = m.group(1);
+			}
+			
+		}
+		if(!find){
+			mid = tmp;
 		}
 		return killIt(mid, user);
 	}
@@ -107,6 +119,7 @@ public class Monstor {
 		if(point - killOnce <= user.getSavePoint()){
 			killOnce = point - user.getSavePoint();
 		}
+		System.out.println("正在对"+monstor+"发起"+killOnce+"次自动攻击");
 		return "mid="+monstor+"&select_frequency="+killOnce+"&callback_func_name=callbackFnStartAutoCombat";
 	}
 	/*
@@ -116,7 +129,7 @@ public class Monstor {
 	 * group(4) check
 	 * 
 	 */
-	public void checkItem(User user){
+	private void checkItem(User user){
 		List<Item> l = getTempPack(user);
 		Iterator<Item> it = l.iterator();
 		while(it.hasNext()){
@@ -152,6 +165,14 @@ public class Monstor {
 			
 		}
 		return l;
+	}
+	public void displayTempPack(User user){
+		List<Item> l = getTempPack(user);
+		Iterator<Item> it = l.iterator();
+		while(it.hasNext()){
+			Item i = it.next();
+			System.out.println(i.getName()+" "+i.getQuality());
+		}
 	}
 	private boolean putToPack(User user,String id){
 		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
