@@ -11,6 +11,20 @@ public class User {
 	private String point;		//精力点数
 	private int savePoint;		//保留精力点数
 	private int beginTime;		//修炼开始时间
+	private boolean canMove;	//是否可移动状态
+	private String status;		//角色状态
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public boolean isCanMove() {
+		return canMove;
+	}
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
 	public int getSavePoint() {
 		return savePoint;
 	}

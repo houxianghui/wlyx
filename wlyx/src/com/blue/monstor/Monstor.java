@@ -44,7 +44,7 @@ public class Monstor {
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
-	private Pattern temp = Pattern.compile("temp\":\\{.*?");
+	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
 	
 	public synchronized boolean killMonstor(User user)throws Exception{
 		Portal.setUserInfo(user);
@@ -57,6 +57,10 @@ public class Monstor {
 	private synchronized boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
+		if(!user.isCanMove()){
+			System.out.println("角色"+user.getStatus()+",停止移动");
+			return true;
+		}
 		int times = 3;
 		String page = Move.worldMove(user, monstor[0]);
 		while(!Tools.success(page) && times > 0){
@@ -130,7 +134,11 @@ public class Monstor {
 	 * 
 	 */
 	private void checkItem(User user){
+		System.out.println("开始鉴定物品");
 		List<Item> l = getTempPack(user);
+		if(l == null){
+			return;
+		}
 		Iterator<Item> it = l.iterator();
 		while(it.hasNext()){
 			Item i = it.next();
@@ -157,6 +165,8 @@ public class Monstor {
 		Matcher m1 = temp.matcher(page);
 		if(m1.find()){
 			page = m1.group();
+		}else{
+			return null;
 		}
 		Matcher m = item.matcher(page);
 		List<Item> l = new ArrayList<Item>();
@@ -177,16 +187,19 @@ public class Monstor {
 	private boolean putToPack(User user,String id){
 		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("put "+id+" to bag");
 		return Tools.success(page);
 	}
 	private boolean checkIt(User user,String id){
 		String url = user.getUrl()+CHECK_URL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("check item "+id+" success");
 		return Tools.success(page);
 	}
 	private boolean sellItem(User user,String id){
 		String url = user.getUrl()+SELL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("售出"+id);
 		return Tools.success(page);
 	}
 }

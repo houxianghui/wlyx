@@ -1,0 +1,92 @@
+<div class="info_list">
+	<div>
+				<a href="javascript:void(0);" style="float: right; margin-right: 5px" onclick="view_mission ( 'day', 44001, true )">查看详情</a></a>
+		
+		<span class="important">【寻人启事】</span>
+		<span class="highlight">日常任务</span> - <span class="highlight">对话型</span>		
+	</div>
+	<div class="message_quote container">
+		<ul>
+		
+									
+			<li>
+				1. 前往<span class="text_scene">渔阳郡武阳镇</span><span class="text_scene">筑乐台</span>找到<span class="text_npc">高渐离</span>。
+				
+				
+																	<!--
+						<a href="javascript:void(0);" class="purple" onclick="show_confirm( '确定要花费 <span class=\'highlight\'>500</span> 铜币直接传送到目标场景吗？', 'fnMoveToMissionScene( 44001, 1, \'day\' )' );">【传送】</a>&nbsp;&nbsp;
+						-->
+						<a href="javascript:void(0);" class="purple" onclick="fnMoveToMissionScene( 44001, 1, 'day', 500, '铜币' );">【传送】</a>&nbsp;&nbsp;
+											
+											<span style="color:red;">未完成</span>
+					
+					
+				
+			</li>
+										
+			<li>
+				2. 返回<span class="text_scene">任务组织</span>向<span class="text_npc">任务头目</span>报告。
+				
+				
+																
+											<span style="color:red;">未完成</span>
+					
+					
+				
+			</li>
+							</ul>
+	</div>
+</div>
+<div class="info_list">
+	<div>
+				<a href="javascript:void(0);" style="float: right; margin-right: 5px" onclick="view_mission ( 'day', 43005, true )">查看详情</a></a>
+		
+		<span class="important">【绝世神兵】</span>
+		<span class="highlight">日常任务</span> - <span class="highlight">收集型</span>		
+	</div>
+	<div class="message_quote container">
+		<ul>
+		
+									
+			<li>
+				1. 前往<span class="text_scene">河东郡高都镇</span>的<span class="text_scene">龙阳府</span>杀死<span class="text_monster">藏剑客</span>，收集 7 个<span class="text_item">银针</span>交给<span class="text_npc">任务头目</span>。
+				
+				
+																	<!--
+						<a href="javascript:void(0);" class="purple" onclick="show_confirm( '确定要花费 <span class=\'highlight\'>500</span> 铜币直接传送到目标场景吗？', 'fnMoveToMissionScene( 43005, 1, \'day\' )' );">【传送】</a>&nbsp;&nbsp;
+						-->
+						<a href="javascript:void(0);" class="purple" onclick="fnMoveToMissionScene( 43005, 1, 'day', 500, '铜币' );">【传送】</a>&nbsp;&nbsp;
+											
+											<span style="color:red;">(0/7)</span>
+					
+					
+				
+			</li>
+							</ul>
+	</div>
+</div>
+<div class="info_list">
+	<div>
+				<span style="float: right; margin-right: 5px; line-height: 22px;">将于 <span class="highlight">07月23日 22:45</span> 完成</span>
+		
+		<span class="important">【搜罗奇珍】</span>
+		<span class="highlight">日常任务</span> - <span class="highlight">收集型</span>		
+	</div>
+	<div class="message_quote container">
+		<ul>
+		
+									
+			<li>
+				1. 前往<span class="text_scene">河东郡百邑镇</span>的<span class="text_scene">山林路</span>杀死<span class="text_monster">狂天狮</span>，收集 8 个<span class="text_item">狮爪</span>交给<span class="text_npc">任务头目</span>。
+				
+				
+			</li>
+							</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+<!--
+window.rolemissionCurrentState = 1;
+//-->
+</script>

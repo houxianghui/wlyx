@@ -18,8 +18,8 @@ import com.blue.warrior.WarriorThread;
 
 public class Start {
 	public static void main(String[] args) throws Exception{
-		System.getProperties().put("socksProxyHost", "127.0.0.1");
-		System.getProperties().put("socksProxyPort", "1080");
+//		System.getProperties().put("socksProxyHost", "127.0.0.1");
+//		System.getProperties().put("socksProxyPort", "1080");
 		List<User> l = new ArrayList<User>();
 		User user = new User();
 		user.setUrl("s4.verycd.9wee.com");

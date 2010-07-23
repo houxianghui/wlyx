@@ -21,18 +21,21 @@ public class Move {
 		String id = Map.getId(1, key);
 		String url = user.getUrl()+WORLD_MOVE+id+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("world move to "+id);
 		return page;
 	}
 	public static String secMove(User user,String key){
 		String id = Map.getId(2, key);
 		String url = user.getUrl()+WALK+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("sec move to "+id);
 		return page;
 	}
 	public static String thirdMove(User user,String key){
 		String id = Map.getId(3, key);
 		String url = user.getUrl()+THIRD+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("third move to "+id);
 		return page;
 	}
 }

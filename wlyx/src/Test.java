@@ -10,11 +10,14 @@ import com.blue.tools.Tools;
 
 public class Test {
 	public static void main(String[] args)throws Exception {
-		Pattern p = Pattern.compile("scene_pk_status\":(\\S+?),\"id\":\"(\\d+?)\",\"name\":\"(\\S+?)\"");
-		Matcher m = p.matcher(readText("secMap.txt"));
+		//item_id":"20376","role_id":"25337","shop_id":"10","name":"\u795e\u5973\u8170\u5e26","equip_type":"4","w
+		Pattern p = Pattern.compile("temp\":\\{\".*",Pattern.DOTALL);
+		Matcher m = p.matcher(readText("userInfo.txt"));
+		String page = null;
 		while(m.find()){
-			System.out.println(m.group(2)+Tools.hexToString(m.group(3)));
+			System.out.println(m.group());
 		}
+		
 	}
 	public static void getBigMap()throws Exception{
 		Pattern p = Pattern.compile("id\":\"(\\d+?)\",\"rank\":\"\\d+?\",\"name\":\"(\\S+)\",\"country_id\":\"(\\d+?)\",");
