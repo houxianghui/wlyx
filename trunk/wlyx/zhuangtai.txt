@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="英雄,武林英雄,战国,网页游戏,webgame,休闲游戏,绿色网游" />
+	<meta name="description" content="武林英雄" />
+	<title>武林英雄 - 大型武侠网页游戏 - VeryCD 4 5合区（原潜龙勿用 鸿渐于陆）</title>
+	<link type="text/css" rel="stylesheet" href="/common/css/default/default.css" media="all" />
+	<link type="text/css" rel="stylesheet" href="/extends/im_center/im.css" media="all" />
+	<script type="text/javascript" src="/common/js_lang/zh_cn.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/common.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/game.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/role.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/scene.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/titlebox.js?rnd=20100721"></script>
+	<script type="text/javascript" src="/common/script/province.js"></script>
+	<script type="text/javascript" src="/extends/im_center/filter.js"></script>
+	<script type="text/javascript" src="/extends/im_center/classIm_zh_cn.js"></script>
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+
+<body onKeyUp='keyEvent(event)'>
+<!-- 头部 -->
+<script type="text/javascript">
+<!-- 
+var contentPanels = {
+
+	// 信函 
+	'message' : { 'menus' : [ [ '历史信函', 'message.php?highlight=0', 'dialog' ], [ '事件簿', 'message.php?highlight=1', 'dialog' ], [ '交易记录', 'message.php?highlight=2', 'dialog' ], [ '撰写信函', 'send_message.php', 'dialog' ] ] },
+
+	// 任务
+	'mission' : { 'menus' : [ [ '当前任务', 'role_mission.php?highlight=0', 'dialog' ], [ '可接任务', 'role_mission.php?highlight=1', 'dialog' ] ] },
+
+	// 地图
+	'map' : { 'menus' : [ [ '世界地图', 'map.php', 'dialog' ] ] },
+
+	// 社交
+	'sociality' : { 'menus' : [ [ '好友名录', 'role_buddy.php?highlight=0', 'dialog' ], [ '仇敌名录', 'role_buddy.php?highlight=1', 'dialog' ], [ '查找玩家', 'view_role.php?act=by_name', 'dialog' ],[ '主仆互动', 'role_slavery.php', 'dialog' ], [ '拜师带徒', 'master_student.php', 'dialog' ], [ '交易记录', 'message.php?highlight=3', 'dialog' ] ] },
+
+	// 武馆
+	'team' : { 'menus' : [ [ '我的武馆', 'team.php?act=my_team', 'dialog' ], /* [ '护馆踢馆', 'warrior.php?act=team' ], */ [ '武馆邀请', 'team.php?act=role_get_invitation', 'dialog' ], [ '武馆查询', 'team.php?act=team_list', 'dialog' ] ] },
+
+	// 国家
+	'country': { 'menus' : [ [ '国家信息', 'country.php?act=info', 'dialog' ], [ '君侯选举', 'country.php?act=master', 'dialog' ], [ '历届君侯', 'country.php?act=master_history', 'dialog' ], [ '国家名人堂', 'country.php?act=offers', 'dialog' ], [ '国家通缉犯', 'country.php?act=malefactors', 'dialog' ], [ '国家管理', 'country.php?act=manage', 'dialog' ] ] },
+
+	// 排名
+	'rank': { 'menus' : [ [ '个人排名', 'rank.php?highlight=0', 'dialog' ], [ '属性排名', 'rank.php?highlight=1', 'dialog' ], [ '武馆排名', 'rank.php?highlight=2', 'dialog' ],[ '战场排行','rank.php?highlight=3', 'dialog' ],[ '幻境塔排行','rank.php?highlight=4', 'dialog' ],[ '联赛英雄榜','rank_arena.php', 'dialog' ]] },
+
+	// 商城
+	'shop': { 'menus' : [ [ '高级材料', 'shop.php?act=treasure', 'dialog' ], /* ['高级装备', 'shop.php?act=regie', 'dialog'] , /*[ '拍卖场', 'shop.php?act=auction', 'dialog' ], */ [ '高级账号', 'shop.php?act=vip', 'dialog' ] ,[ '幻境塔积分', 'shop.php?act=pve', 'dialog' ]/*, [ '高级材料', 'shop.php?act=treasure', 'dialog' ], [ '武馆商城', 'shop.php?act=team', 'dialog' ]*/ ] },
+
+	// 设施
+	'duel' : { 'menus' : [ [ '竞技场', 'duel.php?act=hall', '17', '竞技场是所有玩家可自由进行竞技的场所，这里可轻易找到其他玩家进行挑战。挑战胜利则可获得荣誉值' ], [ '奴隶市场', 'duel.php?act=slavery', '18', '在竞技场中挑战对手获胜后，你需要在此再跟对方印证一下手艺，才能抢到他的奴隶，或把他本人俘获为奴隶' ], [ '荣誉树', 'duel.php?act=glory', '19', '荣誉树下结硕果，这里是武士们获得荣誉嘉奖的场所，你可以使用竞技场内攒下的荣誉来购买你想要的功能。' ], [ '幻境塔', 'duel.php?act=pvehall', '37', '一座充满神秘色彩的高塔，不少能人异士都想进去一探究竟。' ],  ['交易市场','market.php','dialog'],['美女画廊','beauty.php','dialog'],['武林大会','olympics.php','dialog'],['渑池守卫战','war.php?rand=' + new Date().getTime(),'dialog'] ] },
+
+	// 角色
+	'role' : { 'menus' : [ [ '人物', 'role_info.php' ], [ '技能', 'role_skill.php' ] ] }
+
+};
+
+window.bulletinScriptUrl = 'http://game.verycd.com/html/hero/javascript/VeryCD_JS_title_news.js';
+
+
+window.windowTitle = '武林英雄 - 大型武侠网页游戏 - VeryCD 4 5合区（原潜龙勿用 鸿渐于陆）';
+window.globalData = {"moneyNames":{"1":"\u94dc\u5e01","2":"\u9ec4\u91d1","3":"\u79ef\u5206","4":"\u793c\u5238"},"itemSets":{"1":{"name":"\u731b\u864e\u5957\u88c5","quantity":"7"},"2":{"name":"\u4ed9\u9e64\u5957\u88c5","quantity":"7"},"3":{"name":"\u730e\u9e70\u5957\u88c5","quantity":"7"},"4":{"name":"\u9738\u6c14\u5957\u88c5","quantity":"7"},"5":{"name":"\u4e7e\u5764\u5957\u88c5","quantity":"7"},"6":{"name":"\u7075\u52a8\u5957\u88c5","quantity":"7"},"7":{"name":"\u8c6a\u6770\u5957\u88c5","quantity":"7"},"8":{"name":"\u4fa0\u5ba2\u5957\u88c5","quantity":"7"},"9":{"name":"\u9690\u58eb\u5957\u88c5","quantity":"7"},"10":{"name":"\u5962\u534e\u5957\u88c5\r\n","quantity":"6"},"11":{"name":"\u6740\u624b\u5934\u76ee\u5957\u88c5","quantity":"2"},"12":{"name":"\u51b0\u9e9f\u5957\u88c5","quantity":"7"},"13":{"name":"\u788e\u7389\u5957\u88c5","quantity":"7"},"14":{"name":"\u9f99\u51e4\u5957\u88c5","quantity":"7"},"15":{"name":"\u5929\u6daf\u5957\u88c5","quantity":"7"},"16":{"name":"\u7d2b\u9704\u5957\u88c5","quantity":"7"},"17":{"name":"\u9756\u90aa\u5957\u88c5","quantity":"7"},"18":{"name":"\u5546\u5468\u5957\u88c5","quantity":"2"},"19":{"name":"\u7765\u7768\u5957\u88c5","quantity":"7"},"20":{"name":"\u70bd\u7075\u5957\u88c5","quantity":"7"},"21":{"name":"\u971c\u534e\u5957\u88c5","quantity":"7"},"22":{"name":"\u77f3\u5934\u5957\u88c5","quantity":"2"}},"equipTypes":{"1":"\u6b66\u5668","2":"\u5e3d\u5b50","3":"\u4e0a\u88c5","4":"\u8170\u5e26","5":"\u62a4\u8155","6":"\u4e0b\u88c5","7":"\u978b\u5b50","8":"\u62ab\u98ce","9":"\u9879\u94fe","10":"\u8170\u9970"},"gradations":{"1":"\u6d41\u6d6a\u8005","2":"\u98df\u5ba2","3":"\u6b66\u58eb","4":"\u7cbe\u82f1\u6b66\u58eb","5":"\u6b66\u58eb\u7edf\u9886","6":"\u4f8d\u536b","7":"\u7cbe\u82f1\u4f8d\u536b","8":"\u4f8d\u536b\u7edf\u9886","9":"\u5175\u536b","10":"\u7cbe\u82f1\u5175\u536b","11":"\u5175\u536b\u7edf\u9886","12":"\u90fd\u536b","13":"\u7cbe\u82f1\u90fd\u536b","14":"\u90fd\u536b\u7edf\u9886","15":"\u7981\u536b","16":"\u7cbe\u82f1\u7981\u536b","17":"\u7981\u536b\u7edf\u9886","18":"\u5c06\u519b","19":"\u4e0a\u5c06\u519b","20":"\u5143\u5e05"},"weaponClass":["\u7a7a\u624b","\u67aa","\u5251","\u5315\u9996","\u722a\u7259","\u8e44\u89d2","\u5251\u5b97","\u7834\u574f","\u9759\u7269","\u5f13\u7bad"],"skillClass":{"1":"\u7834\u574f\u7cfb","2":"\u9632\u62a4\u7cfb","3":"\u5251\u5b97\u7cfb","4":"\u6c14\u5b97\u7cfb","5":"\u63a7\u5236\u7cfb","6":"\u523a\u6740\u7cfb"},"countries":{"1":"\u79e6\u56fd","2":"\u9f50\u56fd","3":"\u695a\u56fd","4":"\u9b4f\u56fd","5":"\u71d5\u56fd","6":"\u8d75\u56fd","7":"\u97e9\u56fd","8":"\u84ec\u83b1","9":"\u6e11\u6c60","10":"\u6218\u573a"},"attributes":{"1":"\u91d1","2":"\u6728","3":"\u6c34","4":"\u706b","5":"\u571f"},"armourTypes":{"1":{"armour_type_name":"\u91cd\u7532","armour_fit_skill_class":"1,2,3"},"2":{"armour_type_name":"\u4e2d\u7532","armour_fit_skill_class":"1,2,3,4"},"3":{"armour_type_name":"\u8f7b\u7532","armour_fit_skill_class":null}}};
+window.roleInCity = 0;
+window.globalChatGradation = 9;
+
+//防沉迷
+window.fcm_role_id = '27939_FCM';
+setCookie( '27939_FCM' , 1 );
+//防沉迷
+
+process.start ();
+
+window.onload = function ()
+{
+	load_modules ( 'role_info.php', 'role_base' );
+	load_stage ( '/modules/scene.php' );
+
+	clsSocket.globalChatPrice = '1';
+	clsSocket.globalChatMoneyName = '黄金';
+
+	window.clsIm = new classIm ();
+	clsIm.channels = {
+		'R' : { 'name' : lang ( 'im_chl_R' ), 'desc' : lang ( 'rookie_channel_desc' ), 'show_in_global' : false },
+		'C' : { 'name' : lang ( 'im_chl_C' ), 'desc' : lang ( 'country_channel_desc' ) },
+		'S' : { 'name' : lang ( 'im_chl_S' ), 'desc' : lang ( 'scene_channel_desc' ) },
+		'M' : { 'name' : lang ( 'im_chl_M' ), 'desc' : lang ( 'master_channel_desc' ), 'view_online' : true },
+		'T' : { 'name' : lang ( 'im_chl_T' ), 'desc' : lang ( 'team_channel_desc' ), 'view_online' : true },
+		'G' : { 'name' : lang ( 'im_chl_G' ), 'desc' : lang ( 'group_channel_desc' ), 'view_online' : true },
+		'TK' : { 'name' : lang ( 'im_chl_TK' ), 'desc' : lang ( 'tk_channel_desc' ), 'view_online' : true },
+		'TP' : { 'name' : lang ( 'im_chl_TP' ), 'desc' : lang ( 'tp_channel_desc' ), 'view_online' : true },
+		'TS' : { 'name' : lang ( 'im_chl_TS' ), 'desc' : lang ( 'ts_channel_desc' ), 'view_online' : true }
+	};
+
+		clsIm.nickname = "重名@雪儿";
+	clsIm.login_key = "b9f610d80d27eeda4dd34e85d86a0445";
+	clsIm.host = "210.83.84.131";
+	clsIm.port = "3925";
+	clsIm.swf_path = "/extends/im_center/socket.swf";
+	clsIm.feedback_url = "http://cs.9wee.com/";
+	clsIm.operation_icon = 'http://static.hero.9wee.com/icons/icon-extend-lite.gif';
+
+	clsSocket.preMessages = {"14":{"role_id":"2782","role_name":"\u5e7d\u4f51","post_time":"23:12:35","message":"\u53e4\u9053\u8c01\u6765\u554a\uff1f","is_deleted":"0"},"13":{"role_id":"19875","role_name":"\u5bc2\u5bdeE","post_time":"23:12:51","message":"William\u518d\u9192\u9192\u3002\u3002\u3002","is_deleted":"0"},"12":{"role_id":"19875","role_name":"\u5bc2\u5bdeE","post_time":"23:12:56","message":"\u63a5\u4ea4\u6613\u3002\u3002\u3002","is_deleted":"0"},"11":{"role_id":"1157","role_name":"\u968f\u5cf0\u9010\u9896","post_time":"23:13:28","message":"PP","is_deleted":"0"},"10":{"role_id":"1157","role_name":"\u968f\u5cf0\u9010\u9896","post_time":"23:13:36","message":"\u770b\u770b\u4f60\u90a3\u8fb9\u6709\u4f0f\u864e11 12\u4e48\uff1f","is_deleted":"0"},"9":{"role_id":"3409","role_name":"jamboy","post_time":"23:13:39","message":"\u9876\u592913\uff0c\u8c01\u6709\uff1f\uff1f","is_deleted":"0"},"8":{"role_id":"19875","role_name":"\u5bc2\u5bdeE","post_time":"23:13:53","message":"\u6211\u53bb\u770b\u770b","is_deleted":"0"},"7":{"role_id":"9959","role_name":"zj_811031","post_time":"23:14:09","message":"JAM,==.\u6211\u53bb\u5e2e\u4f60\u627e\u627e","is_deleted":"0"},"6":{"role_id":"3409","role_name":"jamboy","post_time":"23:14:17","message":"\u591a\u8c22~~","is_deleted":"0"},"5":{"role_id":"21647","role_name":"Mr.William","post_time":"23:14:17","message":"\u6536\u5230 \u8c22\u8c22","is_deleted":"0"},"4":{"role_id":"2782","role_name":"\u5e7d\u4f51","post_time":"23:14:32","message":"\u53e4\u9053\u518d\u6765\u4e00\u4f4d","is_deleted":"0"},"3":{"role_id":"21647","role_name":"Mr.William","post_time":"23:15:25","message":"\u6211","is_deleted":"0"},"2":{"role_id":"8415","role_name":"\u5bc2\u5bde\u82cd\u5929","post_time":"23:15:28","message":"kn\u600e\u4e48\u6210\u84dd\u725b\u4e86","is_deleted":"0"},"1":{"role_id":"21647","role_name":"Mr.William","post_time":"23:15:29","message":"\u80fd\u5e26\u5417","is_deleted":"0"},"0":{"role_id":"1157","role_name":"\u968f\u5cf0\u9010\u9896","post_time":"23:15:37","message":"\u55ef\uff1f","is_deleted":"0"}};
+	clsSocket.init ();
+	
+	clsIm.join_channel ( "C", '5' );
+
+
+
+
+
+	window.preMasterList = null;
+	setTimeout ( 'msShowMasterChat()', 5000 );
+
+	changeStuStatus ( 2 );
+	setTimeout ( "msAutoChat ();", 20000 );
+	setTimeout ( "sysAutoChat ();", 60000 );
+
+
+	document.body.oncontextmenu = function () { return false; }
+	window.onresize = function ()
+	{
+		fitDiv ( 'game_box', 'wrapper' );
+	}
+
+	start_check_message ( 90000 );
+
+	pre_load_image (
+		'http://static.hero.9wee.com/icons/icon-close.gif',
+		'http://static.hero.9wee.com/icons/icon-close-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/switch-button-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/switch-button-hover.gif',
+		'http://static.hero.9wee.com/styles/default/navi-menu-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/button-bg-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/short-button-bg-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/large-button-bg-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/normal-button-bg-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/long-button-bg-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/block-bg.gif',
+		'http://static.hero.9wee.com/styles/default/block-h-bg.gif',
+		'http://static.hero.9wee.com/styles/default/navi-icon-highlight.gif',
+		'http://static.hero.9wee.com/styles/default/navi-icon-active.gif'
+	);
+
+	// fitDiv ( 'game_box', 'wrapper' );
+	// $('game_box').style.visibility = 'visible';
+
+	// process.finish ();
+}
+
+function load_wee_inner_bbs ( noJump )
+{
+	var ctrl = $('wee_inner_bbs_ctrl');
+	ctrl.style.backgroundImage = 'url(http://static.hero.9wee.com/icons/icon-arrow-up.gif)';
+	ctrl.setAttribute ( 'titlecontent', '隐藏交流论坛' );
+	ctrl.onclick = function ()
+	{
+		hide_wee_inner_bbs ();
+	};
+	$('wee_inner_bbs').style.display = 'block';
+
+	var strUrl = window.location.hostname;
+	var area = strUrl.substring(0, strUrl.indexOf('.'));
+
+	$('wee_inner_bbs').src = 'http://www.9wee.com/group/inline.php?gid=145&area=' + area;
+	$('game_box').style.height = '1050px';
+
+	setCookie ( 'show_wee_inner_bbs', 1 );
+	fitDiv ( 'game_box', 'wrapper' );
+
+	if ( noJump == null )
+	{
+		window.location = '#bbs';
+	}
+}
+
+function hide_wee_inner_bbs ( noJump )
+{
+	var ctrl = $('wee_inner_bbs_ctrl');
+	ctrl.style.backgroundImage = 'url(http://static.hero.9wee.com/icons/icon-arrow-down.gif)';
+	ctrl.setAttribute ( 'titlecontent', '显示交流论坛' );
+	ctrl.onclick = function ()
+	{
+		load_wee_inner_bbs ();
+	};
+	$('wee_inner_bbs').style.display = 'none';
+	$('wee_inner_bbs').src = 'about:blank';
+	$('game_box').style.height = '522px';
+
+	setCookie ( 'show_wee_inner_bbs', 0 );
+	fitDiv ( 'game_box', 'wrapper' );
+
+	if ( noJump == null )
+	{
+		window.location = '#top';
+	}
+}
+
+
+function online_time_alert(){
+	var nowDate = new Date();
+	var online_time;
+	var tmpTime = parseInt(getCookie('totalTime_27939'));
+	if( typeof( totalTime ) == "undefined" || Math.abs( totalTime - tmpTime ) >= 120 ) totalTime = tmpTime;
+	if( isNaN ( totalTime ) ) totalTime = 0;
+	var fcm=parseInt(getCookie(fcm_role_id));
+	//设置在线时间显示
+
+	$( 'show_fcm' ).style.display = "block";
+	
+	if(fcm != 1){
+		if(totalTime>=0){
+			var lostTime= totalTime*1000;//获取毫秒数
+			var lostSeconds=Math.floor(lostTime/1000);
+			var lostHour=lostSeconds>=3600?Math.floor(lostSeconds/3600):0;
+			var lostMinutes=lostSeconds-lostHour*3600;
+			lostMinutes=lostMinutes>=60?Math.floor(lostMinutes/60):0;
+			lostSeconds=lostSeconds-lostHour*3600-lostMinutes*60;
+			lostHour=lostHour>0?(lostHour>=10?lostHour:'0'+lostHour):'00';
+			lostMinutes=lostMinutes>0?(lostMinutes>=10?lostMinutes:'0'+lostMinutes):'00';
+			lostSeconds=lostSeconds>0?(lostSeconds>=10?lostSeconds:'0'+lostSeconds):'00';
+			$('timeOnline').innerHTML=lostHour+":"+lostMinutes+":"+lostSeconds;
+			totalTime = totalTime + 1;
+			if( totalTime % 30 == 0 )
+			{
+				setCookie( 'totalTime_27939' , totalTime );
+			}
+			
+		}
+		if(lostHour){
+			if ( lostHour >0 && lostHour<=2 && lostMinutes%30==0 && lostSeconds%30==0 ) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_0_2',lostHour ), 0 );
+			if ( lostHour ==3  && lostMinutes%30==0 && lostSeconds%30==0 ) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_3',lostHour ), 0 );
+			if ( lostHour>=3 && lostHour<5 && lostMinutes%15 == 0 && lostSeconds%10==0) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_3_5' ), 0 );
+			if ( lostHour>=5 && lostMinutes%15 == 0 && lostSeconds%15==0) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_5' ), 0 );
+		}
+	
+		setTimeout ( "try { online_time_alert(); } catch ( e ) {};", 1000);
+	}else{
+		$('fcm_show').innerHTML = "";
+	}
+
+}
+//-->
+</script>
+
+<div id="top_bar">
+	<div id="top_bar_content">
+
+		<div id="bulletin_box">
+			<div id="bulletin_border">
+				<ul class="bulletin_content" id="hero_news_title">
+					<li>正在载入最新游戏公告，请稍候...</li>
+				</ul>
+			</div>
+		</div><!-- bulletin_box -->
+
+		<div class="buttons">
+			<div class="time">
+				<script type="text/javascript">
+				<!--
+				var showTimeSysTime = 1279898141000;
+				//-->
+				</script>
+				<script type="text/javascript" src="/common/script/show_time.js"></script>
+			</div><!-- time -->
+					<a href="http://game.verycd.com/hero_bbs" target="_blank" style="padding:0">论坛交流</a>
+			<a id="top_button_gift" class="top_button_gift" href="javascript:void(0);" onclick="dialog.open ( '/modules/awards.php', 'dlg_awards' )">礼包 / 新手卡</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="addBookmark ( windowTitle, window.location.href )">加入收藏</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="dialog.open ( '/modules/setting.php?act=prefer', 'dlg_setting' )">设置</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="charge_gold ()">充值</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="get_help ( 'yxjs/' )">帮助</a>
+			<a class="top_button_normal" href="/passport.php?act=logout&referer=http://s4.verycd.9wee.com">退出</a>
+		</div><!-- buttons -->
+	</div><!-- top_bar_content -->
+</div><!-- top_bar -->
+
+<div id="footer">
+	<div class="content">
+		<div id="navi">
+			<ul>
+				<li class="logo">
+								<a href="http://game.verycd.com/hero" target="_blank"></a>
+								</li>
+				<li><a href="javascript:void(0);" id="navi_button_map" onclick="load_panel ( 'duel' );" onmouseover="navi_toggle_menu ( 'duel', this );">设施</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_sociality" onclick="load_panel ( 'sociality' );" onmouseover="navi_toggle_menu ( 'sociality', this );">社交</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_team" onclick="load_panel ( 'team' );" onmouseover="navi_toggle_menu ( 'team', this );">武馆</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_country" onclick="load_panel ( 'country' );" onmouseover="navi_toggle_menu ( 'country', this );">国家</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_rank" onclick="load_panel ( 'rank' );" onmouseover="navi_toggle_menu ( 'rank', this );">排名</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_shop" onclick="load_panel ( 'shop' );" onmouseover="navi_toggle_menu ( 'shop', this );">商城</a></li>
+			</ul>
+		</div>
+
+	</div>
+</div><!-- navi -->
+
+<div id="wrapper" onmouseover="navi_hide_menu ( naviLastMenu );">
+	<a name="top"></a>
+	<div id="game_box" class="container">
+		<div class="stage_container">
+			<div class="stage_top"><div class="stage_top_right"></div><div class="stage_top_left"></div></div>
+			<div class="stage_body">
+				<div id="stage" class="stage_content"></div>
+			</div>
+			<div class="stage_bottom"><div class="stage_bottom_right"></div><div class="stage_bottom_left"></div></div>
+		</div><!-- stage_container -->
+
+		<div id="main" class="main">
+			<div class="border_top"></div>
+			<a class="dialog_close" href="javascript:void(0);" onclick="close_panel ();" title="关闭"></a>
+			<div class="main_container">
+				<div class="main_content">
+					<div class="main_menu" id="main_menu"></div>
+					<div class="container" id="content"></div>
+				</div><!-- main_content -->
+			</div><!-- main_container -->
+			<div class="border_bottom"></div>
+		</div><!-- main -->
+
+		<div>
+			<div class="left">
+				<div class="account_info">
+					<div class="account_info_title">武林英雄</div>
+					<div class="role_base_top"></div>
+					<div id="module_box_role_base">
+						<div class="role_visual">
+
+	<div id="role_item_states_box" class="role_item_states_box"></div>
+	<div id="role_skill_states_box" class="role_skill_states_box"></div>
+
+	<div class="role_visual_img" onclick="dialog.open('/modules/upload_avatar.php', 'dlg_upload_avatar')" title="更换人物形象"  style="cursor: pointer; width:172px; height:172px"
+	><img id="role_visualize_img" alt="" src="http://static.hero.9wee.com/styles/default/visualize-2.jpg" title="更换人物形象" style="width:172px; height:172px" /></div>
+	<div class="role_name_bar">
+		<span style="float:right"><a href="javascript:void(0);" onclick="dialog.open ( '/modules/shop.php?act=vip', 'dlg_shop' )" title="点击升级或延长高级账号时间">普通账号↑</a></span>
+		<span class="highlight" title="查看改名记录"><a onclick="dialog.open('/modules/role_name.php', 'dlg_change_name' );">重名@雪儿</a></span>
+			</div>
+
+</div>
+
+<div id="quick_buttons" class="quick_buttons container">
+	<a href="javascript:void(0);" onclick="load_panel ( 'mission' );close_rookie_tips( 'mission' );" id="quick_button_mission">任务</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'role', 0 );close_rookie_tips( 'role' );" id="quick_button_role" >人物</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'role', 1 );">技能</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'message' );" id="quick_button_message">信函</a>
+</div>
+
+<table class="nopadding" style="margin: 3px 0 0 3px" width="98%" height="213">
+	<tr>
+		<td width="40">等级：</td>
+		<td height="24">
+			Lv.<span class="highlight" name="text_role_level">20</span>
+			
+			剑士
+			<a href="javascript:void(0);" onclick="role_gradation ()" title="点击查看职位详细信息" id="link_role_gradation">燕国武士</a>
+		</td>
+	</tr>
+	<tr>
+		<td>经验：</td>
+		<td>	
+			<div class="point_bar_bg" title="等级：<span class=highlight>Lv.20</span> / 当前等级上限：<span class=highlight>Lv.98</span><br />经验：<span class=highlight>75,650 / 81,040</span>">
+				<div id="point_exp" class="point_bar_1" style="width:93%" title="等级：<span class=highlight>Lv.20</span> / 当前等级上限：<span class=highlight>Lv.98</span><br />经验：<span class=highlight>75,650 / 81,040</span>"></div>
+			</div>
+
+		</td>
+	</tr>
+	<tr>
+		<td>气血：</td>
+		<td>
+			<div style="float:left">
+				<div class="point_bar_bg" title="当前气血：<span class=highlight>508 / 511</span><br />">
+					<div id="point_life" class="point_bar_2" style="width:99%" title="当前气血：<span class=highlight>508 / 511</span><br />"></div>
+				</div>
+			</div>
+			<div style="float:left; margin-left: 3px">
+				<div onclick="buy_pool ()" class="life_pool_0" title="<span class='highlight'>便携式气血包</span> <span class='special'>( 点击购买库存 )</span><br />九维网推出的先进产品，可在每场战斗结束时自动为携带者提供气血补给 <br />当前库存：<span class='highlight'>10,000 / 100,000</span>" titlewidth="300"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>内息：</td>
+		<td>
+			<div style="float:left">
+					<div class="point_bar_bg" title="当前内息：<span class=highlight>1039 / 1045</span><br />">
+						<div id="point_mana" class="point_bar_3" style="width:99%" title="当前内息：<span class=highlight>1039 / 1045</span><br />"></div>
+					</div>
+			</div>
+			<div style="float:left; margin-left: 3px">
+				<div onclick="buy_pool ()" class="mana_pool_0" title="<span class='highlight'>便携式内息包</span> <span class='special'>( 点击购买库存 )</span><br />九维网推出的先进产品，可在每场战斗结束时自动为携带者提供内息补给 <br />当前库存：<span class='highlight'>10,000 / 100,000</span>" titlewidth="300"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">精力：</td>
+		<td>
+			<div style="float:left; width: 125px">
+				<span class="highlight small_font"><span id="text_energy" name="text_energy" class="highlight" title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">181</span> / <span id="text_energy_max" name="text_energy_max" class="highlight" title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">200</span></span>
+				&nbsp;<a href="javascript:void(0);" onclick="if ( !roleInCity ) { show_alert ( window.lang ( 'restore_energy_tip' ) ); } else { load_panel ( 'warrior', 2 ) }" title="精力将于每天早上 8 点自动恢复，也可以在客房补充精力">恢复精力</a>
+			</div>
+					</td>
+	</tr>
+	<tr>
+		<td>状态：</td>
+		<td>
+			<table class="nopadding"><tr>
+				<td width="50">
+				<span class="highlight" id="text_stat" name="text_stat">
+				<span style="color:#2f783f">正常</span></span>
+				</td>
+				<td>
+					PK：<span id="text_pk_status"><span style="color:red" title="在杀戮状态下可主动刺杀其他玩家，其他玩家也可刺杀你">杀戮</span></span>
+					<a href="javascript:void(0);" onclick="show_confirm ( window.lang ( 'pk_status_confirm' ), 'switch_pk_status ()' )">切换</a>
+				</td>
+			</tr></table>
+		</td>
+	</tr>
+	<tr>
+						<td>身份：</td><td><a class="highlight" onclick="load_panel ( 'sociality', 3 )" title="点击查看主仆关系" >自由身</a> [ <a href="javascript:void(0);" onclick="if ( !load_panel ( 'duel', 1, false ) ) show_alert ( window.lang ( 'catch_slave_tip' ) );">我要俘获奴隶</a> ]</td>
+					</tr>
+	<tr height="22">
+		<td>铜币：</td>
+		<td>
+			<span id="text_money" class="small_text small_font" style="font-weight: normal; width:120px">310,035</span>
+		</td>
+	</tr>
+	<tr height="22">
+		<td>黄金：</td>
+		<td>
+			<span id="text_gold" class="small_text small_font" style="width:64px; font-weight: normal; margin-right: 6px;">0</span>
+			<a href="javascript:void(0);" onclick="charge_gold ()" style="float:left">兑购黄金</a>
+		</td>
+	</tr>
+	<tr height="22">
+		<td>礼券：</td>
+		<td>
+			<span id="text_ticket" class="small_text small_font" style="width:64px; font-weight: normal; margin-right: 6px;">358</span>
+			<a href="javascript:void(0);" onclick="dialog.open( '/modules/upgrade_help.php', 'dlg_upgrade_help' );" class="purple">升级导航</a>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+<!--
+
+window.roleLifePercentWeak = 0.2;
+//window.roleStat = '';
+window.roleStat = '';
+window.inCombat = '';
+
+window.langRolePoints = {
+	'role_stat_weak' : "<span style=\"color:#9d8b7e\" title=\"虚弱状态时气血和内息将停止自动恢复\">虚弱</span>",
+	'role_stat_train' : "<a href=\"javascript:void(0);\" onclick=\"start_train ()\">训练中</a>",
+	'role_stat_work' : "<a href=\"javascript:void(0);\" onclick=\"start_work ()\">授艺中</a>",
+	'role_stat_normal' : "<span style=\"color:#2f783f\">正常</span>",
+	'role_stat_in_combat' : "<a href=\"javascript:void(0);\" onclick=\"view_combat ( '%0' )\">战斗中</a>",
+	'life_detail' : "当前气血：<span class=highlight>%0 / %1</span>",
+	'mana_detail' : "当前内息：<span class=highlight>%0 / %1</span>"
+};
+
+window.roleStates = [];
+window.roleStatesTimmer = 0;
+role_load_states ();
+
+if ( window.intervalRefreshRoleInfo != null ) clearTimeout ( window.intervalRefreshRoleInfo );
+window.intervalRefreshRoleInfo = setTimeout ( "loader.refreshCache (); load_modules ( 'role_info.php', 'role_base' );", 60000 );
+// show_dead_box ( true );
+highlight_button_message ( window.countNewMessage );
+
+
+if ( !window.roleInfo ) window.roleInfo = {};
+if ( window.roleInfo['gradation'] && 3 > window.roleInfo['gradation'] )
+{
+	role_gradation_alert ();
+}
+window.roleInfo['level'] = 20;
+window.roleInfo['gradation'] = 3;
+//-->
+</script>
+					</div>
+					<div class="role_base_bottom"></div>
+				</div><!-- account_info -->
+			</div><!-- left -->
+		</div>
+
+				<div id="wee_inner_bbs_frame" class="container">			
+			<iframe id="wee_inner_bbs" src="about:blank"></iframe>
+		</div>
+
+	</div><!-- wrapper_container -->
+
+</div><!-- wrapper -->
+
+<!-- Player Bulletin list Box -->
+<div id="player_bulletin_box"></div>
+<!-- Player Bulletin Box -->
+
+<!-- 9wee live -->
+
+
+
+
+<!-- 底部 -->
+</body>
+</html>

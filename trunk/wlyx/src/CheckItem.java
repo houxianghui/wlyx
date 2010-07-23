@@ -5,8 +5,8 @@ import com.blue.monstor.Monstor;
 
 public class CheckItem {
 	public static void main(String[] args)throws Exception {
-		System.getProperties().put("socksProxyHost", "127.0.0.1");
-		System.getProperties().put("socksProxyPort", "1080");
+//		System.getProperties().put("socksProxyHost", "127.0.0.1");
+//		System.getProperties().put("socksProxyPort", "1080");
 		
 		User user = new User();
 		user.setUrl("s4.verycd.9wee.com");

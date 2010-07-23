@@ -12,8 +12,12 @@ public class Portal {
 	//http://s4.verycd.9wee.com/modules/scenes_role.php?sid=0&timeStamp=1279868148062&callback_func_name=switch_scene_callback
 	public static final String GO_HOME = "modules/scenes_role.php?sid=0&callback_func_name=switch_scene_callback";
 	
+	private static Pattern scene = Pattern.compile("var now_scene_id = (\\d+)"); 
+	private static Pattern zhuangTai = Pattern.compile("状态：.*?(正常|死亡|训练中|战斗中|修炼中)",Pattern.DOTALL);
+	
 	private static Pattern p = Pattern.compile("等级：<span class=highlight>Lv.(\\d+)");
 	private static Pattern point = Pattern.compile("点精力\">(\\d+)</span> / ");
+	
 	public static boolean setUserInfo(User user){
 		user.setKillMonstorOnce("1");
 		String url = user.getUrl();
@@ -29,12 +33,31 @@ public class Portal {
 		if(user.getSavePoint() == 0){
 			user.setSavePoint(20);
 		}
+		m = zhuangTai.matcher(page);
+		if(m.find()){
+			user.setStatus(m.group(1));
+			if(!"正常".equals(m.group(1))){
+				user.setCanMove(false);
+			}else{
+				user.setCanMove(true);
+			}
+		}
+		
 		return Tools.success(page);
 	}
 	public static boolean goHome(User user){
 		String url = user.getUrl()+GO_HOME+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
+	}
+	public static String getSceneId(User user){
+		String url = user.getUrl();
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = scene.matcher(page);
+		if(m.find()){
+			return m.group(1);
+		}
+		return null;
 	}
 	
 }
