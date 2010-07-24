@@ -30,7 +30,7 @@ public class Map {
 	private static void initSecMap(){
 		secMap.put("巨鹿镇", "17");
 		secMap.put("赵国官营", "46");
-		secMap.put("青石路", "");
+		secMap.put("青石路", "45");
 		secMap.put("平邑镇", "");
 		secMap.put("乱葬坟堆", "");
 		secMap.put("古战场", "");
@@ -55,7 +55,7 @@ public class Map {
 	private static void initThird(){
 		thirdMap.put("洛河道", "180");
 		thirdMap.put("铁狱牢房", "226");
-		thirdMap.put("右将军府", "");
+		thirdMap.put("右将军府", "224");
 		thirdMap.put("红枫林", "");
 		thirdMap.put("万葬场", "");
 		thirdMap.put("寂静原野", "");

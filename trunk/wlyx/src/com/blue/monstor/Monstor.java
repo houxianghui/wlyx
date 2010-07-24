@@ -46,7 +46,7 @@ public class Monstor {
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
 	
-	public synchronized boolean killMonstor(User user)throws Exception{
+	public boolean killMonstor(User user)throws Exception{
 		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
@@ -56,7 +56,7 @@ public class Monstor {
 		}
 		return moveToMonstor(user);	
 	}
-	private synchronized boolean moveToMonstor(User user)throws Exception{
+	private  boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		if(!user.isCanMove()){
@@ -181,6 +181,9 @@ public class Monstor {
 	}
 	public void displayTempPack(User user){
 		List<Item> l = getTempPack(user);
+		if(l == null){
+			System.out.println("no item in temp pack");
+		}
 		Iterator<Item> it = l.iterator();
 		while(it.hasNext()){
 			Item i = it.next();

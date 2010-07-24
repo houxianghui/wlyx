@@ -3,19 +3,21 @@ package com.blue.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.beauty.Beauty;
 import com.blue.common.User;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class AutoTask {
 	private Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
-	private Pattern reward = Pattern.compile("<li>[经验|铜币|物品].*?(\\d+)");
+	private Pattern reward = Pattern.compile("<li>(经验|铜币|物品).*?(\\d+)");
 	private Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
 	private Pattern p2 = Pattern.compile("立即完成");
 	private Pattern free = Pattern.compile("免费完成任务.*?complete_auto_mission.*?(\\d+?),");
 	private Pattern outTask = Pattern.compile("view_mission \\( 'day', (\\d+), true \\)");
 	private Pattern hasDoing = Pattern.compile("将于.*? 完成");
 	private Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
+	private Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / 20");
 	
 	public static final String TASK_LIST_URL = "modules/task.php";
 	public static final String TASK_DETAIL_URL = "modules/role_mission.php?act=detail&function=day&id=";
@@ -23,13 +25,19 @@ public class AutoTask {
 	public static final String AUTO_TASK_URL = "modules/role_mission.php?act=detail&op=auto_complete&function=day&id=";
 	public static final String REWARD_URL="modules/role_mission.php?act=rewards&function=day&id=";
 	public static final String FREE_FINISH="modules/role_mission.php?act=detail&op=complete_auto_mission&function=day&isfree=1&callback_func_name=mission_common_callback&id=";
-	public static final String JING_YAN_TU = "";
 	//http://s4.verycd.9wee.com/modules/role_mission.php?timeStamp=1279894625156&act=list&state=1&callback_func_name=ajaxCallback&callback_obj_name=field_mission_box
 	public static final String TASK_LIST_OUT = "modules/role_mission.php?act=list&state=1&callback_func_name=ajaxCallback&callback_obj_name=field_mission_box";
 	
 	public void autoAcceptTask(User user){
 		String url = getTaskListUrl(user);
 		String page = PageService.getPageWithCookie(url, user);
+		Matcher count = taskCount.matcher(page);
+		if(count.find()){
+			int i = Integer.parseInt(count.group(1));
+			if(i > 4){
+				Beauty.dailyTask(user);
+			}
+		}
 		Matcher m = p.matcher(page);		
 		while(m.find()){
 			if(acceptTask(user, m.group(1))){
@@ -54,14 +62,21 @@ public class AutoTask {
 		}
 		return false;
 	}
-	private String getTaskInfo(User user,String taskId){
+	private boolean getTask(User user,String taskId){
 		String url = user.getUrl()+TASK_DETAIL_URL+taskId+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = reward.matcher(page);
 		if(m.find()){
-			return m.group(1);
+			if(m.group(1).equals("铜币")){
+				if(Integer.parseInt(m.group(2))> user.getMiniMoney()){
+					return true;
+				}
+			}
+			if(m.group(1).equals("经验")){
+				return true;
+			}
 		}
-		return null;
+		return false;
 	}
 	public void autoFinishTask(User user){
 		String url = getTaskListUrl(user);
@@ -100,9 +115,12 @@ public class AutoTask {
 		}
 	}
 	private boolean acceptTask(User user,String taskId){
-		String url = user.getUrl()+ACCEPT_TASK_URL+taskId+Tools.getTimeStamp(true);
-		String page = PageService.getPageWithCookie(url, user);
-		return Tools.success(page);
+		if(getTask(user, taskId)){
+			String url = user.getUrl()+ACCEPT_TASK_URL+taskId+Tools.getTimeStamp(true);
+			String page = PageService.getPageWithCookie(url, user);
+			return Tools.success(page);
+		}
+		return false;
 		
 	}
 	public boolean getReward(User user){
