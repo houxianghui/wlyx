@@ -13,6 +13,22 @@ public class User {
 	private int beginTime;		//修炼开始时间
 	private boolean canMove;	//是否可移动状态
 	private String status;		//角色状态
+	private int miniMoney = 10000;		//最低金额
+	private int miniJingYan;	//最小经验
+	
+	
+	public int getMiniMoney() {
+		return miniMoney;
+	}
+	public void setMiniMoney(int miniMoney) {
+		this.miniMoney = miniMoney;
+	}
+	public int getMiniJingYan() {
+		return miniJingYan;
+	}
+	public void setMiniJingYan(int miniJingYan) {
+		this.miniJingYan = miniJingYan;
+	}
 	public String getStatus() {
 		return status;
 	}

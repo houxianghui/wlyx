@@ -16,23 +16,13 @@ import com.blue.warrior.Warrior;
 import com.blue.warrior.WarriorThread;
 
 
-public class Start {
+public class Temp {
 	public static void main(String[] args) throws Exception{
 //		System.getProperties().put("socksProxyHost", "127.0.0.1");
 //		System.getProperties().put("socksProxyPort", "1080");
 		List<User> l = new ArrayList<User>();
 		User user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("xue_ranger");
-		user.setPassword("abc123");
-		user.setMiniJingYan(100);
-		l.add(user);
-		user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("songlijun_tju");
-		user.setPassword("zxcvbnm");
-		l.add(user);		
-		user = new User();
+		
 		user.setUrl("s4.verycd.9wee.com");
 		user.setUserName("sp_lulu");
 		user.setPassword("abc123");
@@ -61,7 +51,7 @@ public class Start {
 			new AutoTaskThread(at, user);
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
-			new MonstorThread(user, m);
+//			new MonstorThread(user, m);
 		}
 	}
 }
