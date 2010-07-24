@@ -1,7 +1,7 @@
 <div class="dlg_title">日常任务</div>
 <div style="width:550px">
-	<form method="post" onsubmit="mission_accept ( 'day', '41004' ); return false;">
-	<div class="important">【见义勇为】</div>
+	<form method="post" onsubmit="mission_accept ( 'day', '44001' ); return false;">
+	<div class="important">【寻人启事】</div>
 	<div class="line" style="width:100%;"></div>
 
 			<!-- NPC 对话框 -->
@@ -12,7 +12,7 @@
 			<b>任务头目：</b>
 			<div>
 								<div style="float: left; width: 100%; display:">
-					你来的真是太巧了，昨日一批剑齿虎突然闯入渔阳郡武阳镇，严重威胁到当地安危，官府也无可奈何，假如你能前去铲除 8 个剑齿虎，官府必当重重有赏！<br />
+					你听说过朱亥吗？是的，有人在悬赏这家伙的下落，听说有人在河东郡百邑镇山林路见到过他，不过要当心，这家伙也许是个危险分子！<br />
 					
 						
 						
@@ -40,9 +40,12 @@
 
 	
 	
-	<li>经验：<span class="highlight">+1570</span></span></li>				
+					
 </ul>
 
+<li style="float: left; width: 95%">
+					物品：<span id="mission_reward_1" class="highlight underline">两仪的冰晶靴</span> &nbsp;&nbsp;
+			</li>
 	</div>
 
 	<div class="line" style="width:100%"></div>
@@ -56,7 +59,7 @@
 		<!-- add by arrok 2009-7-14 -->
 				<!-- add by arrok 2009-7-14 -->
 
-		1. 前往<span class="text_scene">渔阳郡</span>的<span class="text_scene">武阳镇</span>杀死 8 个<span class="text_monster">剑齿虎</span>。
+		1. 前往<span class="text_scene">河东郡百邑镇</span><span class="text_scene">山林路</span>找到<span class="text_npc">朱亥</span>。
 	</div>
 			<div>
 		
@@ -75,7 +78,7 @@
 	<div class="important">接受条件</div>
 	<div class="container" style="width: 100%">
 		<ul class="part4">
-									<li>等级：<span style="color:green">Lv.10</span></li>
+									<li>等级：<span style="color:green">Lv.15</span></li>
 								</ul>
 	</div>
 	
@@ -84,7 +87,7 @@
 	<div class="line" style="width:100%"></div>
 	<div style="margin-top: 5px; text-align: center">
 			<input type="submit" class="button" value="接受任务" />
-		<input type="button" class="button" value="委托完成" onclick="mission_auto_complete ( 'day', '41004', '1800' )" />		<input type="button" class="button" value="以后再说" onclick="dialog.close ()" />
+		<input type="button" class="button" value="委托完成" onclick="mission_auto_complete ( 'day', '44001', '300' )" />		<input type="button" class="button" value="以后再说" onclick="dialog.close ()" />
 		</div>
 	</form>
 </div>
@@ -93,11 +96,10 @@ var dlgNpc = $( 'dlg_view_npc' );
 if ( dlgNpc ) dlgNpc.id = 'dlg_view_mission';
 
 var itemClassMission = new roleItemClass ( 'itemClassMission' );
-var rewardItems = ;
+var rewardItems = {"1":{"item_id":"1","mission_id":"44001","role_id":"25337","name":"\u4e24\u4eea\u7684\u51b0\u6676\u9774","equip_type":"7","weapon_class":"0","describe":"","position_x":"0","position_y":"0","item_type":"10","class":"3","specs_x":"2","specs_y":"2","durability":"60","item_lv":"0","quality":"2","bool_tourist_trap":"0","quality_lv":"70","sell_price":"23122","buy_price":"5780","binding_type":"1","effect_object":"1","duration":"0","role_lv_limit":"70","role_gradation_limit":"13","role_metier_limit":"0","role_gender_limit":"2","role_country_limit":"0","upgrade_count":"1","strengthen_count":"0","max_strengthen":"0","min_damage":"0","max_damage":"0","defence":"82","base_id":"475","amend_speed":"0","armour_type":"3","attribute":"0","superpose_count":"0","effects":"25:1;","strengthen_effects":null,"is_checkup":"1","set_id":"0","series_id":"155","item_request":"0","can_affixes":"1","can_use":"0","can_loot":"1","can_buy":"1","can_sale":"1","can_drop":"1","can_transfer":"0","can_repair":"1","can_derive":"0","can_doff":"1","max_durability":"60","max_superpose":"0","superpose":"0","self_state":"","derive_id":"0","max_upgrade":"9","material_type":"default","originality_defence":"82","role_str_limit":"49","role_vit_limit":"0","role_dex_limit":"124","damage_per_second":"0","upgrade_effects":"","rewardQuantity":"1","checkItemPrice":2050,"itemEffects":{"25":"\u5438\u53d6\u5185\u606f <span class=highlight>+1%<\/span>"},"pic":"14f7625b6655551e4c553028e4491c8b","armourFitSkillClass":[],"bindingStatus":true,"theory_max_strengthen":"0"}};
 for ( var i in rewardItems )
 {
 	var obj = $( 'mission_reward_' + rewardItems[i].item_id );
 	if ( obj ) obj.setAttribute ( 'titleContent', itemClassMission.makeItemTitle ( rewardItems[i] ) );
 }
 </script>
-

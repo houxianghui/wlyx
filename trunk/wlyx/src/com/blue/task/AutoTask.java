@@ -18,6 +18,7 @@ public class AutoTask {
 	private Pattern hasDoing = Pattern.compile("将于.*? 完成");
 	private Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
 	private Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / 20");
+	private Pattern dialog = Pattern.compile("quality\":\"(\\d+)\",");
 	
 	public static final String TASK_LIST_URL = "modules/task.php";
 	public static final String TASK_DETAIL_URL = "modules/role_mission.php?act=detail&function=day&id=";
@@ -74,6 +75,14 @@ public class AutoTask {
 			}
 			if(m.group(1).equals("经验")){
 				return true;
+			}
+			if(m.group(1).equals("物品")){
+				Matcher t = dialog.matcher(page);
+				if(t.find()){
+					if("4".equals(t.group(1))){
+						return true;
+					}
+				}
 			}
 		}
 		return false;
