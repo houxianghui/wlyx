@@ -28,7 +28,7 @@ public class Map {
 		return null;
 	}
 	private static void initSecMap(){
-		secMap.put("巨鹿镇", "");
+		secMap.put("巨鹿镇", "17");
 		secMap.put("赵国官营", "46");
 		secMap.put("青石路", "");
 		secMap.put("平邑镇", "");
@@ -53,7 +53,7 @@ public class Map {
 		secMap.put("舍身崖", "");
 	}
 	private static void initThird(){
-		thirdMap.put("洛河道", "");
+		thirdMap.put("洛河道", "180");
 		thirdMap.put("铁狱牢房", "226");
 		thirdMap.put("右将军府", "");
 		thirdMap.put("红枫林", "");

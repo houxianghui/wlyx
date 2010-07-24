@@ -51,7 +51,9 @@ public class Monstor {
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
 		}
-		checkItem(user);
+		if(!user.getStatus().equals("修炼中") && !user.getStatus().equals("战斗中")){
+			checkItem(user);
+		}
 		return moveToMonstor(user);	
 	}
 	private synchronized boolean moveToMonstor(User user)throws Exception{
@@ -137,15 +139,16 @@ public class Monstor {
 		System.out.println("开始鉴定物品");
 		List<Item> l = getTempPack(user);
 		if(l == null){
+			System.out.println("没有物品需要鉴定");
 			return;
 		}
 		Iterator<Item> it = l.iterator();
 		while(it.hasNext()){
 			Item i = it.next();
-			if(i.getChecked().equals("0")){
+			if(i.getChecked().equals("0") && i.getQuality().compareTo("3")>=0){
 				checkIt(user, i.getId());
 			}
-			if(i.getChecked().equals("1") && i.getQuality().compareTo("3")<0){
+			if(i.getQuality().compareTo("3")<0){
 				sellItem(user, i.getId());
 			}
 		}

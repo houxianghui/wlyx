@@ -19,7 +19,7 @@ public class Portal {
 	private static Pattern point = Pattern.compile("µã¾«Á¦\">(\\d+)</span> / ");
 	
 	public static boolean setUserInfo(User user){
-		user.setKillMonstorOnce("1");
+		user.setKillMonstorOnce("24");
 		String url = user.getUrl();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = p.matcher(page);

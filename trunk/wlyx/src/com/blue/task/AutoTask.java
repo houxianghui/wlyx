@@ -13,7 +13,7 @@ public class AutoTask {
 	private Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
 	private Pattern p2 = Pattern.compile("立即完成");
 	private Pattern free = Pattern.compile("免费完成任务.*?complete_auto_mission.*?(\\d+?),");
-	private Pattern outTask = Pattern.compile("view_mission.*?(\\d+).*?查看详情");
+	private Pattern outTask = Pattern.compile("view_mission \\( 'day', (\\d+), true \\)");
 	private Pattern hasDoing = Pattern.compile("将于.*? 完成");
 	private Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
 	
@@ -23,7 +23,7 @@ public class AutoTask {
 	public static final String AUTO_TASK_URL = "modules/role_mission.php?act=detail&op=auto_complete&function=day&id=";
 	public static final String REWARD_URL="modules/role_mission.php?act=rewards&function=day&id=";
 	public static final String FREE_FINISH="modules/role_mission.php?act=detail&op=complete_auto_mission&function=day&isfree=1&callback_func_name=mission_common_callback&id=";
-	
+	public static final String JING_YAN_TU = "";
 	//http://s4.verycd.9wee.com/modules/role_mission.php?timeStamp=1279894625156&act=list&state=1&callback_func_name=ajaxCallback&callback_obj_name=field_mission_box
 	public static final String TASK_LIST_OUT = "modules/role_mission.php?act=list&state=1&callback_func_name=ajaxCallback&callback_obj_name=field_mission_box";
 	
@@ -87,6 +87,7 @@ public class AutoTask {
 		String s = PageService.getPageWithCookie(url, user);
 		Matcher m = hasDoing.matcher(s);
 		if(m.find()){
+			System.out.println("already has task doing");
 			return;
 		}
 		Matcher m2 = outTask.matcher(s);

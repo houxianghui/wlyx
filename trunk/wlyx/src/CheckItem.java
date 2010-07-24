@@ -10,8 +10,8 @@ public class CheckItem {
 		
 		User user = new User();
 		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("xue_ranger");
-		user.setPassword("abc123");
+		user.setUserName("songlijun_tju");
+		user.setPassword("zxcvbnm");
 		user.login();
 		
 		Monstor m = new Monstor();
