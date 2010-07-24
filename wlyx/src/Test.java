@@ -11,11 +11,11 @@ import com.blue.tools.Tools;
 public class Test {
 	public static void main(String[] args)throws Exception {
 		//item_id":"20376","role_id":"25337","shop_id":"10","name":"\u795e\u5973\u8170\u5e26","equip_type":"4","w
-		Pattern p = Pattern.compile("temp\":\\{\".*",Pattern.DOTALL);
-		Matcher m = p.matcher(readText("userInfo.txt"));
+		Pattern p = Pattern.compile("id\":\"(\\d+)\",\"name\":\"(\\S+?)\"",Pattern.DOTALL);
+		Matcher m = p.matcher(readText("beauty.txt"));
 		String page = null;
 		while(m.find()){
-			System.out.println(m.group());
+			System.out.println(m.group(1)+Tools.hexToString(m.group(2)));
 		}
 		
 	}
