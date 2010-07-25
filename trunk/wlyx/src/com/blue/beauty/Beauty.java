@@ -6,7 +6,6 @@ import com.blue.tools.Tools;
 
 public class Beauty {
 	public static final String OPEN_MEI_NV = "http://s4.verycd.9wee.com/modules/beauty.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_duel";
-	//modules/beauty.php?act=set_effect&set_id=8&rand=1279976599937&timeStamp=1279974548171&callback_func_name=getBeautySetEffectCallback
 	public static final String MEI_NV = "modules/beauty.php?act=set_effect&callback_func_name=ajaxCallback&callback_obj_name=dlg_set_effect_erreo&set_id=";
 	public static final String RI_CHANG = "8";
 	public static final String JING_YAN = "4";	
