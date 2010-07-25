@@ -1,0 +1,333 @@
+<div class="city_home_bg">
+	<img src="http://static.hero.9wee.com/scenes/city/global_mc.jpg" alt="" border="0" hidefocus="true" />
+	</div>
+<div class="city_scene_name">渑池</div>
+<div class="wulindahui_tips">
+   <div class="tips_bg"></div>
+   <div id="tips_cont" class="tips_cont"></div>
+</div>
+
+<!--
+<div class="city_scene_name_lite" style="margin-left: 207px"><a href="javascript:void(0);" onclick="dialog.load ( '/modules/upgrade_help.php?act=secupdate' )" title="教你如何玩转资料片">资料片导航</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px; margin-top:50px;"><a href="javascript:void(0);" onclick="load_panel ( 'duel', 5 );" title="进入美女画廊">美女画廊</a></div>
+-->
+<div class="city_scene_name_lite" style="margin-left: 307px"><a href="javascript:void(0);" onclick="dialog.open('modules/ore.php');" title="道具兑换礼包">道具兑换</a></div>
+<div class="city_scene_name_lite" style="margin-left: 307px; margin-top:50px;" ><a href="javascript:void(0);" onclick="load_panel ( 'duel', 7 );" title="渑池守卫战">渑池守卫战</a></div>
+<div class="city_scene_name_lite" style="margin-left: 407px"><a href="javascript:void(0);" onclick="load_panel ( 'map' )" title="打开野外大地图">野外大地图</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px;"><a id="div_578" href="javascript:void(0);" onclick="fnWorldTransport( 578, 1 );" title="传送到【函谷关】副本入口" transport_scene_name="函谷关" pay_money="<span class='highlight'>500</span> 铜币" error_tip="">函谷关副本</a></div>
+
+
+<div class="city_scene_name_lite" style="margin-left: 607px;"><a href="javascript:void(0);" onclick="show_confirm ( '确定要返回国都吗？', 'window.roleInCity = 0; switch_scene ( 0, \'国都\' )' );" title="返回国都">返回国都</a></div>
+
+<div class="city_scene_name_lite" style="margin-left: 407px; margin-top:50px;"><a href="javascript:void(0);" onclick="fnWeals();" title="每日福利占卜">每日福利</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px; margin-top:50px;" ><a href="javascript:void(0);" onclick="showServerArean();" title="黄金联赛">黄金联赛</a></div>
+<div class="city_scene_name_lite" style="margin-left: 607px; margin-top:50px;"><a href="javascript:void(0);" onclick="dialog.open('modules/olympics.php');" title="武林大会">武林大会</a></div>
+
+<div class="city_home_menu city_mc" id="city_mc_menu"></div>
+
+<script type="text/javascript">
+<!--
+
+var is_show_match	= 1;
+var rand_key		= 0;
+var user_level_diff = 0;
+var match_time		= 76;
+var role_level		= 77;
+
+if( role_level >= 60 )
+{
+	if( is_show_match )
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>开幕尚有 <b class="special">' + match_time + '</b> 天！';
+	}
+	else
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">“武林大会”</a> 正火热进行中！';
+	}
+}
+else
+{
+	if( is_show_match )
+	{
+		if( rand_key )
+		{
+			$('tips_cont').innerHTML = '您再升 <b class="special">'+ user_level_diff +'</b> 级就能参加<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>角逐大奖了！';
+		}
+		else
+		{
+			$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>开幕尚有 <b class="special">' + match_time + '</b> 天！';
+		}
+	}
+	else
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">“武林大会”</a> 正火热进行中！';
+	}
+}
+
+isInstanceZone = 0;
+
+window.roleInCity = 1;
+dialog.close ( 'dlg_map' );
+
+city_go_out = function ()
+{
+	removeClass ( 'city_menu_out', 'active' );
+		dialog.open( '/modules/mc_exit_city.php?act=mc_exit', 'dlg_mc_exit' );
+	};
+
+// 武士行馆
+contentPanels['warrior'] = { 'menus' :[ [ '大厅', 'warrior.php?act=hall', '1', '武士行馆的大厅，可在此地见到馆主' ], 	[ '演武厅', 'warrior.php?act=arena', '2', '武士行馆的演武厅，每天举行的演武大会是这里最热闹的时候。能参加这里的比武就有机会获得声望值' ], 	[ '客房', 'warrior.php?act=guestroom', '3', '武士行馆的客房，可以在此补充体力' ], 	[ '武馆', 'warrior.php?act=team', '20', '这里有战国所有国家出名的武馆，你可以加入它们或选择踢馆、护馆、闲逛来参与无穷尽的武馆战斗。荣誉和耻辱将永远伴随着你。' ], 	 ] };
+
+// 集市
+contentPanels['bazaar'] = { 'menus': [ [ '神秘店铺', 'bazaar.php?act=shop&shop_id=10', '16', '神秘店铺，谁也不知道每天这里到底会卖些啥' ], 	[ '铸造屋', 'bazaar.php?act=smithing', '9', '集市的铸造屋，可以在此铸造你的装备' ], 	 ] };
+
+// 杀手组织
+contentPanels['task'] = { 'menus': [ [ '任务组织', 'task.php', '10', '任务组织，这里的头目通常会交给你一些日常任务' ], 	 ] };
+
+window.panelMenuIndex['bazaar'] = 0;
+
+var cityHomeMenu = $( 'city_mc_menu' );
+var cityHomeMenuKeys = [ 'warrior', 'bazaar', 'task', 'duel' ];
+var html = '<li>';
+for ( var i in cityHomeMenuKeys )
+{
+	var idx = cityHomeMenuKeys[i];
+	for ( var j in contentPanels[idx].menus )
+	{
+		var menuItem = contentPanels[idx].menus[j];
+		if ( menuItem[2] == 'dialog' ) continue;
+
+		html += '<a href="javascript:void(0);" onclick="load_panel ( \'' + idx + '\', ' + j + ' )" id="city_menu_' + menuItem[2] + '" title="' + menuItem[3] + '" titlewidth="240">' + menuItem[0] + '</a>';
+	}
+}
+
+html += '<a href="javascript:void(0);" onclick="city_go_out ();" id="city_menu_out" title="城外是一个充满了纷争的世界，你将面对很多未知的挑战，所以，还是把行囊准备的充足些再出城吧！" titlewidth="350">出城</a>';
+html += '<a href="javascript:void(0);" onclick="view_stock ();" id="city_menu_stock" title="当你有多余的物品不方便携带时，可以将它们存放到仓库。" titlewidth="240">仓库</a>';
+html += '<a href="javascript:void(0);" onclick="view_market ();" id="city_menu_market" title="你可以在此出售一些你自己用不到的装备，换取一些黄金。" titlewidth="240">交易市场</a>';
+html += '</li>';
+cityHomeMenu.innerHTML = html;
+
+clsIm.join_channel ( 'S', 164 );
+
+loader.refreshCache ();
+//-->
+</script>
+<input type="hidden" id="ntsid" />
+<div class="field_container">
+<!--<input type="button" class="button" value="我要加入" onclick="fnJoinTeamFights( '116', '1011' );" />-->
+	<div style="float: left; width:525px;">
+		<div class="container" style="padding-bottom: 10px;">
+
+			<div class="field_left">
+				<div class="field_frame">
+					<div class="field_title"><div class="field_title_frame"><div class="field_title_content" id="map_name"></div></div></div>
+					<div class="field_frame_content">
+						<div id="scene_list" style="background:url(http://static.hero.9wee.com/scenes/team/team-scenes.jpg)"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field_center">
+				<div class="field_box">
+					<div class="field_main">
+						<div style="height: 75px">
+							<div style="float:right">
+								<a href="javascript:void(0);" onclick="fnLeaveTeamScene();" class="purple">离开武馆</a>
+							</div>
+							<div class="field_box_title">
+								<div id="scene_name" class="field_name_div"></div>
+							</div>
+							<div id="scene_des"></div>
+						</div>
+
+						<div class="field_objects" id="team_scene_build_state_ul" style="height: 80px;">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="container">
+			<div id="scene_bottom_div" class="field_switch_box instance_scene">
+
+				<div class="field_switch_buttons" id="field_switch_buttons">
+					<a href="javascript:void(0);" onclick="field_box_switch_show ( 'scene_events' ); highlight ( this )" class="highlight">驻点事件</a>
+					<a href="javascript:void(0);" onclick="field_box_switch_show ( 'fight_events' ); highlight ( this )">战斗信息</a>
+				</div>
+
+				<div id="field_box_switches" class="field_switch_content">
+					<div id="field_box_switch_scene_events" style="display:none">
+						<div class="scene_events">
+							<ul id="scene_events_ul"></ul>
+						</div>
+					</div>
+					<div id="field_box_switch_fight_events">
+						<ul id="fight_events_ul"></ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div style="float: left">
+		<div class="container" style="float:left;clear:both;">
+			<div class="field_right">
+				<div class="field_frame">
+					<div class="field_title"><div class="field_title_frame"><div class="field_title_content">武馆驻点玩家列表</div></div></div>
+					<div class="field_frame_content" style="height:290px">
+						<div class="field_buttons">
+							<a href="javascript:void(0);" onclick="document.getElementById('pop_div_search_role').style.display='block';" class="field_button_search">玩家查询</a>
+							<a href="javascript:void(0);" onclick="fnViewMoreRoleTeamScene( 'view_more', null, null, null );" class="field_button_more">查看更多</a>
+						</div>
+						<div class="container switch_tags_team_scene" style="margin-top: 4px;">
+							<a id="href_0" href="javascript:void(0);" onclick="fnInitTeamSceneRolesList ( 'field_role_list_ul', '0', false ); highlight ( this ); this.blur ();" style="margin-left:5px;">护馆方</a>
+							<a id="href_1" href="javascript:void(0);" onclick="fnInitTeamSceneRolesList ( 'field_role_list_ul', '1', false ); highlight ( this ); this.blur ();">闲逛方</a>
+							<a id="href_2" href="javascript:void(0);" onclick="fnInitTeamSceneRolesList ( 'field_role_list_ul', '2', false ); highlight ( this ); this.blur ();">踢馆方</a>
+						</div>
+						<div class="field_role_list" id="scene_role">
+							<ul id="field_role_list_ul_0" style="height: 213px; overflow-y: auto; display:none;"></ul>
+							<ul id="field_role_list_ul_1" style="height: 213px; overflow-y: auto; display:none;"></ul>
+							<ul id="field_role_list_ul_2" style="height: 213px; overflow-y: auto; display:none;"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="container" style="float:left;clear:both;margin-top:10px;">
+			<div class="field_right">
+				<div class="field_frame">
+					<div class="field_title"><div class="field_title_frame"><div class="field_title_content">玩家锁定</div></div></div>
+					<div class="field_frame_content" style="height:112px">
+						<div class="field_role_list" id="scene_lock_role">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		
+		
+	</div>
+
+</div>
+
+<!-- hidden DIV search -->
+<div class="pop_div_search_role" id="pop_div_search_role">
+<!-- start -->
+<form id ="team_scene_form" onsubmit='return fnSearchRoleTeamScene ( this )'>
+<table>
+	<tr>
+	<td align="right"><a class="pop_div_search_role_close" title="" href="javascript:void(0);" onclick="$('pop_div_search_role').style.display='none';" titlecontent="关闭"></a></td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center" ><b>选择您要搜索的条件</b></td>
+	</tr>
+	<tr>
+		<td>名称：</td>
+		<td>
+			<input id="s_role_name" name="s_role_name" type="text" size="18" maxlength="15" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td>国家：</td>
+		<td>
+			<select id="select_country" name="select_country">
+				<option value="0" selected>国家无限制</option>
+																				<option value="2">齐国</option>
+																<option value="3">楚国</option>
+																<option value="4">魏国</option>
+																<option value="5">燕国</option>
+																<option value="6">赵国</option>
+																<option value="7">韩国</option>
+																																			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>职位：</td>
+		<td>
+			<select id="select_gradation" name="select_gradation">
+				<option value="0" selected>职业无限制</option>
+								<option value="1">流浪者</option>
+								<option value="2">食客</option>
+								<option value="3">武士</option>
+								<option value="4">精英武士</option>
+								<option value="5">武士统领</option>
+								<option value="6">侍卫</option>
+								<option value="7">精英侍卫</option>
+								<option value="8">侍卫统领</option>
+								<option value="9">兵卫</option>
+								<option value="10">精英兵卫</option>
+								<option value="11">兵卫统领</option>
+								<option value="12">都卫</option>
+								<option value="13">精英都卫</option>
+								<option value="14">都卫统领</option>
+								<option value="15">禁卫</option>
+								<option value="16">精英禁卫</option>
+								<option value="17">禁卫统领</option>
+								<option value="18">将军</option>
+								<option value="19">上将军</option>
+								<option value="20">元帅</option>
+							</select>
+		</td>
+	</tr>
+	<tr>
+		<td>等级：</td>
+		<td>
+			<select id="select_level" name="select_level">
+				<option value="0" selected>等级无限制</option>
+				<option value="1">有挑战性</option>
+				<option value="2">不具挑战性</option>
+				<option value="3">极度危险</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>立场：</td>
+		<td>
+			<select id="select_standPoint" name="select_standPoint">
+				<option value="-1" selected>立场无限制</option>
+				<option value="0">护馆方</option>
+				<option value="1">闲逛方</option>
+				<option value="2">踢馆方</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center" valign="bottom">
+			<input class="button" type="submit" value="查询" >
+		</td>
+	</tr>
+</table>
+<input type="hidden" id="hid_role_name" name="hid_role_name">
+<input type="hidden" id="hid_role_country" name="hid_role_country">
+<input type="hidden" id="hid_role_gradation" name="hid_role_gradation">
+<input type="hidden" id="hid_role_level" name="hid_role_level">
+<input type="hidden" id="hid_role_standPoint" name="hid_role_standPoint">
+</form>
+<!-- end -->
+</div>
+<!-- hidden DIV search -->
+
+<!-- hidden lock msg -->
+<div id='lockmsg' style="display:none;">
+<div id="group_btn"><span class="highlight">友情提示</span></div>
+<div id="group_role" class="group_role_list">
+<ul id="group_role_list_ul"><div style="line-height: 19px; padding: 0pt 4px;">武馆战打斗极其混乱，危机四伏！点击玩家名字后面的<img src="http://static.hero.9wee.com/icons/icon-lock.gif" align="absmiddle" >图标可对对方进行锁定攻击。</div></ul>
+</div>
+</div>
+<script type="text/javascript">
+//window.instanceEnterFlag = 2;
+window.isInstanceZone = 0;
+window.roleInCity = 0;
+dialog.close ( 'dlg_map' );
+callbackInitTeamScene( {"s_time":1280049457,"team_scene_base":{"1":{"id":"1","position":"1","name":"\u6b66\u9986\u5927\u95e8","description":"\u5728\u6b66\u9986\u9a7b\u5730\u6218\u6597\u4e2d\u6b7b\u4ea1\u7684\u89d2\u8272\u90fd\u4f1a\u56de\u5230\u6b64\u5730\u590d\u6d3b\u3002\u6b7b\u4ea1\u7684\u89d2\u8272\u4f1a\u5931\u53bb\u5728\u9a7b\u5730\u573a\u666f\u5185\u79ef\u7d2f\u7684\u6240\u6709\u677f\u7816\u3002<br \/>\u3010<b><span style=\"color:red\">\u8e22\u9986\u65b9<\/span><\/b>\u3011\u6467\u6bc1\u9a7b\u5730\u5927\u95e8\u7684\u8010\u4e45\u540e\u624d\u80fd\u5411\u524d\u79fb\u52a8<br \/>\u3010<b><span style=\"color:green\">\u62a4\u9986\u65b9<\/span><\/b>\u3011\u53ef\u968f\u610f\u5728\u672c\u6b66\u9986\u9a7b\u5730\u573a\u666f\u5185\u81ea\u7531\u79fb\u52a8<br \/>\u3010<b><span span style=\"color:#CC66FF\">\u95f2\u901b\u65b9<\/span><\/b>\u3011\u65e0\u6cd5\u83b7\u5f97\u8010\u4e45\u5ea6\uff0c\u79fb\u52a8\u65b9\u5f0f\u4e0e\u8e22\u9986\u65b9\u76f8\u540c","build_max_level":"0","restore_max_effect_level":"0","restore_max_numbers":"0","build_max_durable_level":"0","coordinates":"65,55,65,285","width":"65","height":"55","left":"65","top":"285"},"2":{"id":"2","position":"2","name":"\u7384\u6b66\u95e8","description":"\u5317\u65b9\u7384\u6b66\uff0c\u592a\u9634\u5316\u751f\uff0c\u865a\u5371\u8868\u8d28\uff0c\u9f9f\u86c7\u53f0\u5f62\uff0c\u76d8\u6e38\u4e5d\u5730\uff0c\u7edf\u6444\u4e07\u7075\uff0c\u6765\u5230\u6b66\u9986\u9a7b\u5730\u6f14\u5316\u6210\u7b2c\u4e00\u9053\u5927\u95e8\u3002","build_max_level":"100","restore_max_effect_level":"100","restore_max_numbers":"100","build_max_durable_level":"$team_level * 10","coordinates":"65,55,120,225","width":"65","height":"55","left":"120","top":"225"},"3":{"id":"3","position":"3","name":"\u6731\u96c0\u95e8","description":"\u5357\u65b9\u6731\u96c0\uff0c\u4f17\u79bd\u4e4b\u957f\uff0c\u4e39\u7a74\u5316\u751f\uff0c\u78a7\u96f7\u6d41\u54cd\uff0c\u5947\u5f69\u4e94\u8272\uff0c\u795e\u4eea\u516d\u8c61\uff0c\u6765\u5230\u6b66\u9986\u9a7b\u5730\u6f14\u5316\u6210\u7b2c\u4e8c\u9053\u5927\u95e8\u3002","build_max_level":"100","restore_max_effect_level":"100","restore_max_numbers":"100","build_max_durable_level":"$team_level * 10","coordinates":"65,55,30,160","width":"65","height":"55","left":"30","top":"160"},"4":{"id":"4","position":"4","name":"\u767d\u864e\u95e8","description":"\u897f\u65b9\u767d\u864e\uff0c\u4e0a\u5e94\u89dc\u5bbf\uff0c\u82f1\u82f1\u7d20\u8d28\uff0c\u8083\u8083\u6e05\u97f3\uff0c\u5a01\u6151\u79bd\u517d\uff0c\u5578\u52a8\u5c71\u6797\uff0c\u6765\u5230\u6b66\u9986\u9a7b\u5730\u6f14\u5316\u6210\u7b2c\u4e09\u9053\u5927\u95e8\u3002","build_max_level":"100","restore_max_effect_level":"100","restore_max_numbers":"100","build_max_durable_level":"$team_level * 10","coordinates":"65,55,130,120","width":"65","height":"55","left":"130","top":"120"},"5":{"id":"5","position":"5","name":"\u9752\u9f99\u95e8","description":"\u4e1c\u65b9\u9752\u9f99\uff0c\u89d2\u4ea2\u4e4b\u7cbe\uff0c\u5410\u4e91\u90c1\u6c14\uff0c\u558a\u96f7\u53d1\u58f0\uff0c\u98de\u7fd4\u516b\u6781\uff0c\u5468\u6e38\u56db\u51a5\uff0c\u6765\u5230\u6b66\u9986\u9a7b\u5730\u6f14\u5316\u6210\u7b2c\u56db\u9053\u5927\u95e8\u3002","build_max_level":"100","restore_max_effect_level":"100","restore_max_numbers":"100","build_max_durable_level":"$team_level * 10","coordinates":"75,60,65,60","width":"75","height":"60","left":"65","top":"60"}},"team_id":"61","team_name":"\u9f4a\u602a","ntsid":"2","ntsname":"\u7384\u6b66\u95e8","ntsdes":"\u5317\u65b9\u7384\u6b66\uff0c\u592a\u9634\u5316\u751f\uff0c\u865a\u5371\u8868\u8d28\uff0c\u9f9f\u86c7\u53f0\u5f62\uff0c\u76d8\u6e38\u4e5d\u5730\uff0c\u7edf\u6444\u4e07\u7075\uff0c\u6765\u5230\u6b66\u9986\u9a7b\u5730\u6f14\u5316\u6210\u7b2c\u4e00\u9053\u5927\u95e8\u3002","gender":"1","s_now_team_scene_id":"2","s_open_time":"10","s_close_time":"18","is_close":0,"is_break":0,"s_role_id":"25840","s_roles_hu":[{"team_id":"61","team_scene_id":"2","role_id":"30830","role_name":"Taylor","role_standpoint":"0","country":"2","is_dead":"0","title":"\u3010\u62a4\u9986\u3011Taylor Lv.64 (\u523a\u6740\u7cfb)","country_title":"\u9f50\u56fd","full_role_name":"Taylor","is_online":1},{"team_id":"61","team_scene_id":"2","role_id":"30977","role_name":"Rio","role_standpoint":"0","country":"2","is_dead":"0","title":"\u3010\u62a4\u9986\u3011Rio Lv.63 (\u5251\u5b97\u7cfb)","country_title":"\u9f50\u56fd","full_role_name":"Rio","is_online":1},{"team_id":"61","team_scene_id":"2","role_id":"30758","role_name":"\u5927\u9b54\u4ed3\u5e9300","role_standpoint":"0","country":"2","is_dead":"0","title":"\u3010\u62a4\u9986\u3011\u5927\u9b54\u4ed3\u5e93001 Lv.35 (\u523a\u6740\u7cfb)","country_title":"\u9f50\u56fd","full_role_name":"\u5927\u9b54\u4ed3\u5e93001","is_online":0},{"team_id":"61","team_scene_id":"2","role_id":"30759","role_name":"\u5927\u9b54\u4ed3\u5e9300","role_standpoint":"0","country":"2","is_dead":"0","title":"\u3010\u62a4\u9986\u3011\u5927\u9b54\u4ed3\u5e93002 Lv.35 (\u523a\u6740\u7cfb)","country_title":"\u9f50\u56fd","full_role_name":"\u5927\u9b54\u4ed3\u5e93002","is_online":0}],"s_roles_guang":[],"s_roles_ti":[{"team_id":"61","team_scene_id":"2","role_id":"14107","role_name":"\u975e\u592a\u90ce","role_standpoint":"2","country":"3","is_dead":"0","title":"\u3010\u8e22\u9986\u3011\u975e\u592a\u90ce Lv.79 (\u6c14\u5b97\u7cfb)","country_title":"\u695a\u56fd","full_role_name":"\u975e\u592a\u90ce","is_online":0},{"team_id":"61","team_scene_id":"2","role_id":"19588","role_name":"FOX","role_standpoint":"2","country":"4","is_dead":"0","title":"\u3010\u8e22\u9986\u3011FOX Lv.92 (\u63a7\u5236\u7cfb)","country_title":"\u9b4f\u56fd","full_role_name":"FOX","is_online":0}],"s_fight":[{"event_id":"340709","role_id":"25840","event_time":"07\u670825\u65e5 17:13","event_type":"8","content":"\u4f60\u5728\u7ade\u6280\u573a\u5bf9 <span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511179869' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"},{"event_id":"340538","role_id":"25840","event_time":"07\u670825\u65e5 17:02","event_type":"8","content":"<span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u5728\u7ade\u6280\u573a\u5bf9\u4f60\u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511179392' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"},{"event_id":"339844","role_id":"25840","event_time":"07\u670825\u65e5 16:09","event_type":"8","content":"\u4f60\u5728\u7ade\u6280\u573a\u5bf9 <span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511177220' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"},{"event_id":"339245","role_id":"25840","event_time":"07\u670825\u65e5 14:46","event_type":"8","content":"<span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u5728\u7ade\u6280\u573a\u5bf9\u4f60\u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511173372' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"},{"event_id":"339135","role_id":"25840","event_time":"07\u670825\u65e5 14:33","event_type":"8","content":"<span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u5728\u7ade\u6280\u573a\u5bf9\u4f60\u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511172955' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"},{"event_id":"338952","role_id":"25840","event_time":"07\u670825\u65e5 14:13","event_type":"8","content":"\u4f60\u5728\u7ade\u6280\u573a\u5bf9 <span class=\"highlight\">\u98ce\u4e91\u5c71\u6c34<\/span> \u53d1\u8d77\u4e86\u6311\u6218\uff01\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ( '172511172275' )\">\u67e5\u770b<\/a>\u3011","deleted":"0"}],"s_build_state":{"team_id":"61","team_scene_id":"2","build_level_currency":"0","build_level":"1","build_durable_level_currency":"3354","current_build_durable_level":"43","current_build_durable":"289183","build_max_durable":"291800","restore_numbers_currency":"0","restore_numbers":"1","restore_effect_level_currency":"0","restore_effect_level":"1","restore_effect":"210","today_restore_numbers":"0","last_restore_time":"0","scene_time_up":"1273556457","team_scene_energy":"140563","scene_name":"\u7384\u6b66\u95e8"},"myStandPoint":"2","s_scene_event":[{"id":"984","team_id":"61","scene_id":"2","event_type":"2","event_time":"07\u670824\u65e5 12:18","event_content":"\u62a4\u9986\u65b9\u3010<a href=\"javascript:void(0);\" onclick=\"view_role(31226)\">\u767d\u4e91\u98de<\/a>\u3011\u80cc\u9760\u7740\u6b66\u9986\u5927\u95e8\u7f13\u7f13\u6ed1\u5012\uff0c\u8e22\u9986\u65b9\u3010<a href=\"javascript:void(0);\" onclick=\"view_role(22949)\">reallim<\/a>\u3011\u6325\u4e86\u6325\u5e26\u7740\u6b8b\u8840\u7684\u6b66\u5668\uff0c\u73af\u89c6\u56db\u5468\uff0c\u5bfb\u627e\u4e0b\u4e00\u4e2a\u76ee\u6807\u3002\u3010<a href=\"javascript:void(0);\" onclick=\"view_combat ('172411120860')\">\u67e5\u770b<\/a>\u3011"}],"s_is_captain":0,"s_total_durable":62,"s_single_durable":490,"s_stay_times":0,"s_break_billboard":[{"team_id":"37","team_name":"\u7075\u5883\u80e1\u540c","enemy_id":"61","enemy_name":"\u9f4a\u602a","reduce_durable":"47165","last_action_time":"1279878706","cut_team_name":"\u7075\u5883\u80e1\u540c"},{"team_id":"45","team_name":"\u975e\u8bda\u52ff\u6270","enemy_id":"61","enemy_name":"\u9f4a\u602a","reduce_durable":"44061","last_action_time":"1279877613","cut_team_name":"\u975e\u8bda\u52ff\u6270"},{"team_id":"30","team_name":"\u7cbe\u6b66\u95e8","enemy_id":"61","enemy_name":"\u9f4a\u602a","reduce_durable":"41087","last_action_time":"1280049307","cut_team_name":"\u7cbe\u6b66\u95e8"},{"team_id":"43","team_name":"\u6625\u79cb\u6218\u56fd","enemy_id":"61","enemy_name":"\u9f4a\u602a","reduce_durable":"20510","last_action_time":"1279960075","cut_team_name":"\u6625\u79cb\u6218\u56fd"}],"s_myIsDead":null,"s_extra_durable":"0","s_all_durable":62,"role_base":"<div class=\"role_visual\">\n\n\t<div id=\"role_item_states_box\" class=\"role_item_states_box\"><\/div>\n\t<div id=\"role_skill_states_box\" class=\"role_skill_states_box\"><\/div>\n\n\t<div class=\"role_visual_img\" onclick=\"dialog.open('\/modules\/upload_avatar.php', 'dlg_upload_avatar')\" title=\"\u66f4\u6362\u4eba\u7269\u5f62\u8c61\"  style=\"cursor: pointer; width:172px; height:172px\"\n\t><img id=\"role_visualize_img\" alt=\"\" src=\"http:\/\/static.hero.9wee.com\/styles\/default\/visualize-1.jpg\" title=\"\u66f4\u6362\u4eba\u7269\u5f62\u8c61\" style=\"width:172px; height:172px\" \/><\/div>\n\t<div class=\"role_name_bar\">\n\t\t<span style=\"float:right\"><a href=\"javascript:void(0);\" onclick=\"dialog.open ( '\/modules\/shop.php?act=vip', 'dlg_shop' )\" title=\"\u70b9\u51fb\u5347\u7ea7\u6216\u5ef6\u957f\u9ad8\u7ea7\u8d26\u53f7\u65f6\u95f4\">\u666e\u901a\u8d26\u53f7\u2191<\/a><\/span>\n\t\t<span class=\"highlight\" title=\"\u67e5\u770b\u6539\u540d\u8bb0\u5f55\"><a onclick=\"dialog.open('\/modules\/role_name.php', 'dlg_change_name' );\">\u6697\u5f71\u523a\u5ba2<\/a><\/span>\n\t\t\t<\/div>\n\n<\/div>\n\n<div id=\"quick_buttons\" class=\"quick_buttons container\">\n\t<a href=\"javascript:void(0);\" onclick=\"load_panel ( 'mission' );close_rookie_tips( 'mission' );\" id=\"quick_button_mission\">\u4efb\u52a1<\/a>\n\t<a href=\"javascript:void(0);\" onclick=\"load_panel ( 'role', 0 );close_rookie_tips( 'role' );\" id=\"quick_button_role\" >\u4eba\u7269<\/a>\n\t<a href=\"javascript:void(0);\" onclick=\"load_panel ( 'role', 1 );\">\u6280\u80fd<\/a>\n\t<a href=\"javascript:void(0);\" onclick=\"load_panel ( 'message' );\" id=\"quick_button_message\">\u4fe1\u51fd<\/a>\n<\/div>\n\n<table class=\"nopadding\" style=\"margin: 3px 0 0 3px\" width=\"98%\" height=\"213\">\n\t<tr>\n\t\t<td width=\"40\">\u7b49\u7ea7\uff1a<\/td>\n\t\t<td height=\"24\">\n\t\t\tLv.<span class=\"highlight\" name=\"text_role_level\">77<\/span>\n\t\t\t\n\t\t\t\u5251\u5c0a\n\t\t\t<a href=\"javascript:void(0);\" onclick=\"role_gradation ()\" title=\"\u70b9\u51fb\u67e5\u770b\u804c\u4f4d\u8be6\u7ec6\u4fe1\u606f\" id=\"link_role_gradation\">\u71d5\u56fd\u7981\u536b<\/a>\n\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t<td>\u7ecf\u9a8c\uff1a<\/td>\n\t\t<td>\t\n\t\t\t<div class=\"point_bar_bg\" title=\"\u7b49\u7ea7\uff1a<span class=highlight>Lv.77<\/span> \/ \u5f53\u524d\u7b49\u7ea7\u4e0a\u9650\uff1a<span class=highlight>Lv.98<\/span><br \/>\u7ecf\u9a8c\uff1a<span class=highlight>7,017,617 \/ 11,792,247<\/span>\">\n\t\t\t\t<div id=\"point_exp\" class=\"point_bar_1\" style=\"width:60%\" title=\"\u7b49\u7ea7\uff1a<span class=highlight>Lv.77<\/span> \/ \u5f53\u524d\u7b49\u7ea7\u4e0a\u9650\uff1a<span class=highlight>Lv.98<\/span><br \/>\u7ecf\u9a8c\uff1a<span class=highlight>7,017,617 \/ 11,792,247<\/span>\"><\/div>\n\t\t\t<\/div>\n\n\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t<td>\u6c14\u8840\uff1a<\/td>\n\t\t<td>\n\t\t\t<div style=\"float:left\">\n\t\t\t\t<div class=\"point_bar_bg\" title=\"\u5f53\u524d\u6c14\u8840\uff1a<span class=highlight>2794 \/ 2975<\/span><br \/>\">\n\t\t\t\t\t<div id=\"point_life\" class=\"point_bar_2\" style=\"width:94%\" title=\"\u5f53\u524d\u6c14\u8840\uff1a<span class=highlight>2794 \/ 2975<\/span><br \/>\"><\/div>\n\t\t\t\t<\/div>\n\t\t\t<\/div>\n\t\t\t<div style=\"float:left; margin-left: 3px\">\n\t\t\t\t<div onclick=\"buy_pool ()\" class=\"life_pool_0\" title=\"<span class='highlight'>\u4fbf\u643a\u5f0f\u6c14\u8840\u5305<\/span> <span class='special'>( \u70b9\u51fb\u8d2d\u4e70\u5e93\u5b58 )<\/span><br \/>\u4e5d\u7ef4\u7f51\u63a8\u51fa\u7684\u5148\u8fdb\u4ea7\u54c1\uff0c\u53ef\u5728\u6bcf\u573a\u6218\u6597\u7ed3\u675f\u65f6\u81ea\u52a8\u4e3a\u643a\u5e26\u8005\u63d0\u4f9b\u6c14\u8840\u8865\u7ed9 <br \/>\u5f53\u524d\u5e93\u5b58\uff1a<span class='highlight'>0 \/ 100,000<\/span>\" titlewidth=\"300\"><\/div>\n\t\t\t<\/div>\n\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t<td>\u5185\u606f\uff1a<\/td>\n\t\t<td>\n\t\t\t<div style=\"float:left\">\n\t\t\t\t\t<div class=\"point_bar_bg\" title=\"\u5f53\u524d\u5185\u606f\uff1a<span class=highlight>1849 \/ 1849<\/span><br \/>\">\n\t\t\t\t\t\t<div id=\"point_mana\" class=\"point_bar_3\" style=\"width:100%\" title=\"\u5f53\u524d\u5185\u606f\uff1a<span class=highlight>1849 \/ 1849<\/span><br \/>\"><\/div>\n\t\t\t\t\t<\/div>\n\t\t\t<\/div>\n\t\t\t<div style=\"float:left; margin-left: 3px\">\n\t\t\t\t<div onclick=\"buy_pool ()\" class=\"mana_pool_0\" title=\"<span class='highlight'>\u4fbf\u643a\u5f0f\u5185\u606f\u5305<\/span> <span class='special'>( \u70b9\u51fb\u8d2d\u4e70\u5e93\u5b58 )<\/span><br \/>\u4e5d\u7ef4\u7f51\u63a8\u51fa\u7684\u5148\u8fdb\u4ea7\u54c1\uff0c\u53ef\u5728\u6bcf\u573a\u6218\u6597\u7ed3\u675f\u65f6\u81ea\u52a8\u4e3a\u643a\u5e26\u8005\u63d0\u4f9b\u5185\u606f\u8865\u7ed9 <br \/>\u5f53\u524d\u5e93\u5b58\uff1a<span class='highlight'>0 \/ 100,000<\/span>\" titlewidth=\"300\"><\/div>\n\t\t\t<\/div>\n\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t<td title=\"\u6bcf\u5929\u65e9\u4e0a 8 \u70b9\u5c06\u81ea\u52a8\u4e00\u6b21\u6027\u6062\u590d <span class='highlight'>90<\/span> \u70b9\u7cbe\u529b\">\u7cbe\u529b\uff1a<\/td>\n\t\t<td>\n\t\t\t<div style=\"float:left; width: 125px\">\n\t\t\t\t<span class=\"highlight small_font\"><span id=\"text_energy\" name=\"text_energy\" class=\"highlight\" title=\"\u6bcf\u5929\u65e9\u4e0a 8 \u70b9\u5c06\u81ea\u52a8\u4e00\u6b21\u6027\u6062\u590d <span class='highlight'>90<\/span> \u70b9\u7cbe\u529b\">110<\/span> \/ <span id=\"text_energy_max\" name=\"text_energy_max\" class=\"highlight\" title=\"\u6bcf\u5929\u65e9\u4e0a 8 \u70b9\u5c06\u81ea\u52a8\u4e00\u6b21\u6027\u6062\u590d <span class='highlight'>90<\/span> \u70b9\u7cbe\u529b\">200<\/span><\/span>\n\t\t\t\t&nbsp;<a href=\"javascript:void(0);\" onclick=\"if ( !roleInCity ) { show_alert ( window.lang ( 'restore_energy_tip' ) ); } else { load_panel ( 'warrior', 2 ) }\" title=\"\u7cbe\u529b\u5c06\u4e8e\u6bcf\u5929\u65e9\u4e0a 8 \u70b9\u81ea\u52a8\u6062\u590d\uff0c\u4e5f\u53ef\u4ee5\u5728\u5ba2\u623f\u8865\u5145\u7cbe\u529b\">\u6062\u590d\u7cbe\u529b<\/a>\n\t\t\t<\/div>\n\t\t\t\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t<td>\u72b6\u6001\uff1a<\/td>\n\t\t<td>\n\t\t\t<table class=\"nopadding\"><tr>\n\t\t\t\t<td width=\"50\">\n\t\t\t\t<span class=\"highlight\" id=\"text_stat\" name=\"text_stat\">\n\t\t\t\t<a href=\"javascript:void(0);\" onclick=\"start_train ()\">\u8bad\u7ec3\u4e2d<\/a><\/span>\n\t\t\t\t<\/td>\n\t\t\t\t<td>\n\t\t\t\t\tPK\uff1a<span id=\"text_pk_status\"><span style=\"color:red\" title=\"\u5728\u6740\u622e\u72b6\u6001\u4e0b\u53ef\u4e3b\u52a8\u523a\u6740\u5176\u4ed6\u73a9\u5bb6\uff0c\u5176\u4ed6\u73a9\u5bb6\u4e5f\u53ef\u523a\u6740\u4f60\">\u6740\u622e<\/span><\/span>\n\t\t\t\t\t<a href=\"javascript:void(0);\" onclick=\"show_confirm ( window.lang ( 'pk_status_confirm' ), 'switch_pk_status ()' )\">\u5207\u6362<\/a>\n\t\t\t\t<\/td>\n\t\t\t<\/tr><\/table>\n\t\t<\/td>\n\t<\/tr>\n\t<tr>\n\t\t\t\t\t\t\t\t<td>\u8eab\u4efd\uff1a<\/td><td><a class=\"highlight\" onclick=\"load_panel ( 'sociality', 3 )\" title=\"\u70b9\u51fb\u67e5\u770b\u4e3b\u4ec6\u5173\u7cfb\">\u5974\u96b6\u4e3b<\/a> [ <a href=\"javascript:void(0);\" onclick=\"if ( !load_panel ( 'duel', 1, false ) ) show_alert ( window.lang ( 'catch_slave_tip' ) );\">\u4fd8\u83b7\u66f4\u591a\u5974\u96b6<\/a> ]<\/td>\n\t\t\t<\/tr>\n\t<tr height=\"22\">\n\t\t<td>\u94dc\u5e01\uff1a<\/td>\n\t\t<td>\n\t\t\t<span id=\"text_money\" class=\"small_text small_font\" style=\"font-weight: normal; width:120px\">4,074,270<\/span>\n\t\t<\/td>\n\t<\/tr>\n\t<tr height=\"22\">\n\t\t<td>\u9ec4\u91d1\uff1a<\/td>\n\t\t<td>\n\t\t\t<span id=\"text_gold\" class=\"small_text small_font\" style=\"width:64px; font-weight: normal; margin-right: 6px;\">0<\/span>\n\t\t\t<a href=\"javascript:void(0);\" onclick=\"charge_gold ()\" style=\"float:left\">\u5151\u8d2d\u9ec4\u91d1<\/a>\n\t\t<\/td>\n\t<\/tr>\n\t<tr height=\"22\">\n\t\t<td>\u793c\u5238\uff1a<\/td>\n\t\t<td>\n\t\t\t<span id=\"text_ticket\" class=\"small_text small_font\" style=\"width:64px; font-weight: normal; margin-right: 6px;\">687<\/span>\n\t\t\t<a href=\"javascript:void(0);\" onclick=\"dialog.open( '\/modules\/upgrade_help.php', 'dlg_upgrade_help' );\" class=\"purple\">\u5347\u7ea7\u5bfc\u822a<\/a>\n\t\t<\/td>\n\t<\/tr>\n<\/table>\n<script type=\"text\/javascript\">\n<!--\n\nwindow.roleLifePercentWeak = 0.2;\n\/\/window.roleStat = 'train';\nwindow.roleStat = 'train';\nwindow.inCombat = '';\n\nwindow.langRolePoints = {\n\t'role_stat_weak' : \"<span style=\\\"color:#9d8b7e\\\" title=\\\"\u865a\u5f31\u72b6\u6001\u65f6\u6c14\u8840\u548c\u5185\u606f\u5c06\u505c\u6b62\u81ea\u52a8\u6062\u590d\\\">\u865a\u5f31<\/span>\",\n\t'role_stat_train' : \"<a href=\\\"javascript:void(0);\\\" onclick=\\\"start_train ()\\\">\u8bad\u7ec3\u4e2d<\/a>\",\n\t'role_stat_work' : \"<a href=\\\"javascript:void(0);\\\" onclick=\\\"start_work ()\\\">\u6388\u827a\u4e2d<\/a>\",\n\t'role_stat_normal' : \"<span style=\\\"color:#2f783f\\\">\u6b63\u5e38<\/span>\",\n\t'role_stat_in_combat' : \"<a href=\\\"javascript:void(0);\\\" onclick=\\\"view_combat ( '%0' )\\\">\u6218\u6597\u4e2d<\/a>\",\n\t'life_detail' : \"\u5f53\u524d\u6c14\u8840\uff1a<span class=highlight>%0 \/ %1<\/span>\",\n\t'mana_detail' : \"\u5f53\u524d\u5185\u606f\uff1a<span class=highlight>%0 \/ %1<\/span>\"\n};\n\nwindow.roleStates = [];\nwindow.roleStatesTimmer = 0;\nrole_load_states ();\n\nif ( window.intervalRefreshRoleInfo != null ) clearTimeout ( window.intervalRefreshRoleInfo );\nwindow.intervalRefreshRoleInfo = setTimeout ( \"loader.refreshCache (); load_modules ( 'role_info.php', 'role_base' );\", 60000 );\n\/\/ show_dead_box ( true );\nhighlight_button_message ( window.countNewMessage );\n\n\nif ( !window.roleInfo ) window.roleInfo = {};\nif ( window.roleInfo['gradation'] && 15 > window.roleInfo['gradation'] )\n{\n\trole_gradation_alert ();\n}\nwindow.roleInfo['level'] = 77;\nwindow.roleInfo['gradation'] = 15;\n\/\/-->\n<\/script>","sceneEnergy":null} , true );
+
+teamUnLockRole( 0 );
+</script>

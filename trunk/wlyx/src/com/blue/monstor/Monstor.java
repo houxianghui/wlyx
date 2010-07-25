@@ -53,9 +53,7 @@ public class Monstor {
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
 		}
-		int now = getNow();
-		if(user.getBeginTime() > now || now > user.getEndTime()){
-			System.out.println("not monstor time ,go home");
+		if(!user.isShouldKillMonstor()){
 			return Portal.goHome(user);
 		}
 		if(!user.getStatus().equals("ÐÞÁ¶ÖÐ") && !user.getStatus().equals("Õ½¶·ÖÐ")){
@@ -63,10 +61,7 @@ public class Monstor {
 		}
 		return moveToMonstor(user);	
 	}
-	private int getNow(){
-		Calendar c = Calendar.getInstance();
-		return c.get(Calendar.HOUR_OF_DAY);
-	}
+
 	private  boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);

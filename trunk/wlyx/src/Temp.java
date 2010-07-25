@@ -25,6 +25,10 @@ public class Temp {
 		User user = new User();
 		
 		user.setUrl("s4.verycd.9wee.com");
+		user.setUserName("songlijun_tju");
+		user.setPassword("zxcvbnm");
+		l.add(user);
+		user.setUrl("s4.verycd.9wee.com");
 		user.setUserName("sp_lulu");
 		user.setPassword("abc123");
 		l.add(user);
@@ -53,7 +57,7 @@ public class Temp {
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
 			Beauty.tiGuan(user);
-//			new MonstorThread(user, m);
+			new MonstorThread(user, m);
 		}
 	}
 }

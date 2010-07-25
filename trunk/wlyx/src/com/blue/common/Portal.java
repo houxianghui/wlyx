@@ -1,5 +1,6 @@
 package com.blue.common;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +43,21 @@ public class Portal {
 				user.setCanMove(true);
 			}
 		}
-		
+		int now = getNow();
+		if(user.getBeginTime() > now || now > user.getEndTime()){
+			user.setShouldKillMonstor(false);
+		}else{
+			if(Integer.parseInt(user.getPoint()) > user.getSavePoint()){
+				user.setShouldKillMonstor(true);
+			}else{
+				user.setShouldKillMonstor(false);
+			}
+		}
 		return Tools.success(page);
+	}
+	private static int getNow(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.HOUR_OF_DAY);
 	}
 	public static boolean goHome(User user){
 		String url = user.getUrl()+GO_HOME+Tools.getTimeStamp(true);
