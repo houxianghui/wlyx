@@ -11,9 +11,7 @@ import com.blue.tools.Tools;
 public class Test {
 	public static void main(String[] args)throws Exception {
 		//item_id":"20376","role_id":"25337","shop_id":"10","name":"\u795e\u5973\u8170\u5e26","equip_type":"4","w
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.HOUR_OF_DAY, 24);
-		System.out.println(c.get(Calendar.HOUR_OF_DAY));
+		
 		
 	}
 	public static void getBigMap()throws Exception{

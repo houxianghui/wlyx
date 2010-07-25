@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.blue.beauty.Beauty;
 import com.blue.common.User;
 import com.blue.daily.DailyWeals;
 import com.blue.daily.DailyWealsThread;
@@ -27,16 +28,16 @@ public class Temp {
 		user.setUserName("sp_lulu");
 		user.setPassword("abc123");
 		l.add(user);
-		user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("blue_ranger");
-		user.setPassword("abc123");
-		l.add(user);
-		user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("xianghui_hou");
-		user.setPassword("abc123");
-		l.add(user);
+//		user = new User();
+//		user.setUrl("s4.verycd.9wee.com");
+//		user.setUserName("blue_ranger");
+//		user.setPassword("abc123");
+//		l.add(user);
+//		user = new User();
+//		user.setUrl("s4.verycd.9wee.com");
+//		user.setUserName("xianghui_hou");
+//		user.setPassword("abc123");
+//		l.add(user);
 		Duel d = new Duel();
 		AutoTask at = new AutoTask();
 		Warrior warrior = new Warrior();
@@ -51,6 +52,7 @@ public class Temp {
 			new AutoTaskThread(at, user);
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
+			Beauty.tiGuan(user);
 //			new MonstorThread(user, m);
 		}
 	}
