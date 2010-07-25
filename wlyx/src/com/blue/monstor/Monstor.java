@@ -1,11 +1,13 @@
 package com.blue.monstor;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.beauty.Beauty;
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
@@ -51,10 +53,19 @@ public class Monstor {
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
 		}
+		int now = getNow();
+		if(user.getBeginTime() > now || now > user.getEndTime()){
+			System.out.println("not monstor time ,go home");
+			return Portal.goHome(user);
+		}
 		if(!user.getStatus().equals("ÐÞÁ¶ÖÐ") && !user.getStatus().equals("Õ½¶·ÖÐ")){
 			checkItem(user);
 		}
 		return moveToMonstor(user);	
+	}
+	private int getNow(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.HOUR_OF_DAY);
 	}
 	private  boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
@@ -115,6 +126,7 @@ public class Monstor {
 		return killIt(mid, user);
 	}
 	private boolean killIt(String monstor,User user)throws Exception{
+		Beauty.jingYan(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
 		String page = PageService.postPage(url, getData(monstor,user), user);
 		return Tools.success(page);
@@ -183,6 +195,7 @@ public class Monstor {
 		List<Item> l = getTempPack(user);
 		if(l == null){
 			System.out.println("no item in temp pack");
+			return;
 		}
 		Iterator<Item> it = l.iterator();
 		while(it.hasNext()){

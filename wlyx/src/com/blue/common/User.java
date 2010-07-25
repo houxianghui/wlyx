@@ -10,12 +10,24 @@ public class User {
 	private String level;		//等级
 	private String point;		//精力点数
 	private int savePoint;		//保留精力点数
-	private int beginTime;		//修炼开始时间
+	private int beginTime=0;		//修炼开始时间
 	private boolean canMove;	//是否可移动状态
 	private String status;		//角色状态
 	private int miniMoney = 10000;		//最低金额
 	private int miniJingYan;	//最小经验
+	private int endTime=8;		//修炼结束时间
 	
+	private String url;			//所在服务器	
+	private int workType;		//日常任务类型
+	
+	private boolean needXunLian;	//是否需要大厅
+	private boolean needJingJi;		//是否需要竞技
+	
+	private String cookie;			
+	private int challengeTimes;		//需要自动竞技次数
+	private int duelNo;				//竞技场排名
+	private boolean fastChallenge;	//是否快速竞技
+	private String killMonstorOnce;	//每次击杀怪物个数
 	
 	public int getMiniMoney() {
 		return miniMoney;
@@ -47,19 +59,7 @@ public class User {
 	public void setSavePoint(int savePoint) {
 		this.savePoint = savePoint;
 	}
-	private int endTime;		//修炼结束时间
 	
-	private String url;			//所在服务器	
-	private int workType;		//日常任务类型
-	
-	private boolean needXunLian;	//是否需要大厅
-	private boolean needJingJi;		//是否需要竞技
-	
-	private String cookie;			
-	private int challengeTimes;		//需要自动竞技次数
-	private int duelNo;				//竞技场排名
-	private boolean fastChallenge;	//是否快速竞技
-	private String killMonstorOnce;	//每次击杀怪物个数
 	
 	
 	public String getKillMonstorOnce() {
