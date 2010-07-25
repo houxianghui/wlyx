@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.beauty.Beauty;
 import com.blue.common.User;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
@@ -28,6 +29,9 @@ public class Duel{
 		Matcher m2 = times.matcher(page);
 		if(m2.find()){
 			user.setChallengeTimes(Integer.parseInt(m2.group(1)));
+			if(user.getChallengeTimes() > 2){
+				Beauty.jingJi(user);
+			}
 			System.out.println("您发起了"+user.getChallengeTimes()+"次竞技");
 		}
 		
