@@ -29,6 +29,14 @@ public class User {
 	private boolean fastChallenge;	//是否快速竞技
 	private String killMonstorOnce;	//每次击杀怪物个数
 	
+	private boolean shouldKillMonstor ;
+	
+	public boolean isShouldKillMonstor() {
+		return shouldKillMonstor;
+	}
+	public void setShouldKillMonstor(boolean shouldKillMonstor) {
+		this.shouldKillMonstor = shouldKillMonstor;
+	}
 	public int getMiniMoney() {
 		return miniMoney;
 	}

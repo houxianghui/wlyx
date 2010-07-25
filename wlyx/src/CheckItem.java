@@ -30,7 +30,12 @@ public class CheckItem {
 		user.setPassword("abc123");
 		user.login();
 		l.add(user);
-		
+		user = new User();
+		user.setUrl("s4.verycd.9wee.com");
+		user.setUserName("songlijun_tju");
+		user.setPassword("zxcvbnm");
+		user.login();
+		l.add(user);
 		
 		Monstor m = new Monstor();
 		Iterator<User> it = l.iterator();

@@ -1,0 +1,115 @@
+<div class="city_home_bg">
+	<img src="http://static.hero.9wee.com/scenes/city/global_mc.jpg" alt="" border="0" hidefocus="true" />
+	</div>
+<div class="city_scene_name">渑池</div>
+<div class="wulindahui_tips">
+   <div class="tips_bg"></div>
+   <div id="tips_cont" class="tips_cont"></div>
+</div>
+
+<!--
+<div class="city_scene_name_lite" style="margin-left: 207px"><a href="javascript:void(0);" onclick="dialog.load ( '/modules/upgrade_help.php?act=secupdate' )" title="教你如何玩转资料片">资料片导航</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px; margin-top:50px;"><a href="javascript:void(0);" onclick="load_panel ( 'duel', 5 );" title="进入美女画廊">美女画廊</a></div>
+-->
+<div class="city_scene_name_lite" style="margin-left: 307px"><a href="javascript:void(0);" onclick="dialog.open('modules/ore.php');" title="道具兑换礼包">道具兑换</a></div>
+<div class="city_scene_name_lite" style="margin-left: 307px; margin-top:50px;" ><a href="javascript:void(0);" onclick="load_panel ( 'duel', 7 );" title="渑池守卫战">渑池守卫战</a></div>
+<div class="city_scene_name_lite" style="margin-left: 407px"><a href="javascript:void(0);" onclick="load_panel ( 'map' )" title="打开野外大地图">野外大地图</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px;"><a id="div_578" href="javascript:void(0);" onclick="fnWorldTransport( 578, 1 );" title="传送到【函谷关】副本入口" transport_scene_name="函谷关" pay_money="<span class='highlight'>500</span> 铜币" error_tip="">函谷关副本</a></div>
+
+
+<div class="city_scene_name_lite" style="margin-left: 607px;"><a href="javascript:void(0);" onclick="show_confirm ( '确定要返回国都吗？', 'window.roleInCity = 0; switch_scene ( 0, \'国都\' )' );" title="返回国都">返回国都</a></div>
+
+<div class="city_scene_name_lite" style="margin-left: 407px; margin-top:50px;"><a href="javascript:void(0);" onclick="fnWeals();" title="每日福利占卜">每日福利</a></div>
+<div class="city_scene_name_lite" style="margin-left: 507px; margin-top:50px;" ><a href="javascript:void(0);" onclick="showServerArean();" title="黄金联赛">黄金联赛</a></div>
+<div class="city_scene_name_lite" style="margin-left: 607px; margin-top:50px;"><a href="javascript:void(0);" onclick="dialog.open('modules/olympics.php');" title="武林大会">武林大会</a></div>
+
+<div class="city_home_menu city_mc" id="city_mc_menu"></div>
+
+<script type="text/javascript">
+<!--
+
+var is_show_match	= 1;
+var rand_key		= 0;
+var user_level_diff = 0;
+var match_time		= 76;
+var role_level		= 77;
+
+if( role_level >= 60 )
+{
+	if( is_show_match )
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>开幕尚有 <b class="special">' + match_time + '</b> 天！';
+	}
+	else
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">“武林大会”</a> 正火热进行中！';
+	}
+}
+else
+{
+	if( is_show_match )
+	{
+		if( rand_key )
+		{
+			$('tips_cont').innerHTML = '您再升 <b class="special">'+ user_level_diff +'</b> 级就能参加<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>角逐大奖了！';
+		}
+		else
+		{
+			$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">武林大会</a>开幕尚有 <b class="special">' + match_time + '</b> 天！';
+		}
+	}
+	else
+	{
+		$('tips_cont').innerHTML = '武道巅峰谁争雄！<a target="_blank" style="color: rgb(255, 0, 0); text-decoration: underline;" href="http://www.50hero.com">“武林大会”</a> 正火热进行中！';
+	}
+}
+
+isInstanceZone = 0;
+
+window.roleInCity = 1;
+dialog.close ( 'dlg_map' );
+
+city_go_out = function ()
+{
+	removeClass ( 'city_menu_out', 'active' );
+		dialog.open( '/modules/mc_exit_city.php?act=mc_exit', 'dlg_mc_exit' );
+	};
+
+// 武士行馆
+contentPanels['warrior'] = { 'menus' :[ [ '大厅', 'warrior.php?act=hall', '1', '武士行馆的大厅，可在此地见到馆主' ], 	[ '演武厅', 'warrior.php?act=arena', '2', '武士行馆的演武厅，每天举行的演武大会是这里最热闹的时候。能参加这里的比武就有机会获得声望值' ], 	[ '客房', 'warrior.php?act=guestroom', '3', '武士行馆的客房，可以在此补充体力' ], 	[ '武馆', 'warrior.php?act=team', '20', '这里有战国所有国家出名的武馆，你可以加入它们或选择踢馆、护馆、闲逛来参与无穷尽的武馆战斗。荣誉和耻辱将永远伴随着你。' ], 	 ] };
+
+// 集市
+contentPanels['bazaar'] = { 'menus': [ [ '神秘店铺', 'bazaar.php?act=shop&shop_id=10', '16', '神秘店铺，谁也不知道每天这里到底会卖些啥' ], 	[ '铸造屋', 'bazaar.php?act=smithing', '9', '集市的铸造屋，可以在此铸造你的装备' ], 	 ] };
+
+// 杀手组织
+contentPanels['task'] = { 'menus': [ [ '任务组织', 'task.php', '10', '任务组织，这里的头目通常会交给你一些日常任务' ], 	 ] };
+
+window.panelMenuIndex['bazaar'] = 0;
+
+var cityHomeMenu = $( 'city_mc_menu' );
+var cityHomeMenuKeys = [ 'warrior', 'bazaar', 'task', 'duel' ];
+var html = '<li>';
+for ( var i in cityHomeMenuKeys )
+{
+	var idx = cityHomeMenuKeys[i];
+	for ( var j in contentPanels[idx].menus )
+	{
+		var menuItem = contentPanels[idx].menus[j];
+		if ( menuItem[2] == 'dialog' ) continue;
+
+		html += '<a href="javascript:void(0);" onclick="load_panel ( \'' + idx + '\', ' + j + ' )" id="city_menu_' + menuItem[2] + '" title="' + menuItem[3] + '" titlewidth="240">' + menuItem[0] + '</a>';
+	}
+}
+
+html += '<a href="javascript:void(0);" onclick="city_go_out ();" id="city_menu_out" title="城外是一个充满了纷争的世界，你将面对很多未知的挑战，所以，还是把行囊准备的充足些再出城吧！" titlewidth="350">出城</a>';
+html += '<a href="javascript:void(0);" onclick="view_stock ();" id="city_menu_stock" title="当你有多余的物品不方便携带时，可以将它们存放到仓库。" titlewidth="240">仓库</a>';
+html += '<a href="javascript:void(0);" onclick="view_market ();" id="city_menu_market" title="你可以在此出售一些你自己用不到的装备，换取一些黄金。" titlewidth="240">交易市场</a>';
+html += '</li>';
+cityHomeMenu.innerHTML = html;
+
+clsIm.join_channel ( 'S', 164 );
+
+loader.refreshCache ();
+//-->
+</script>
+
