@@ -15,10 +15,10 @@ public class Warrior {
 		String url = user.getUrl()+WARRIOR_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
-			System.out.println("train start success");
+			System.out.println(user.getUserName()+"train start success");
 			return true;
 		}else{
-			System.out.println("train failed");
+			System.out.println(user.getUserName()+"train failed");
 		}
 		return false;
 	}

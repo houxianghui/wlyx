@@ -10,6 +10,7 @@ import com.blue.tools.Tools;
 
 public class AutoTask {
 	private Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
+	private Pattern finish = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成.*?进行中");
 	private Pattern reward = Pattern.compile("<li>(经验|铜币|物品).*?(\\d+)");
 	private Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
 	private Pattern p2 = Pattern.compile("立即完成");
@@ -70,7 +71,7 @@ public class AutoTask {
 		if(m.find()){
 			if(m.group(1).equals("铜币")){
 				if(Integer.parseInt(m.group(2))> user.getMiniMoney()){
-					return true;
+					return false;
 				}
 			}
 			if(m.group(1).equals("经验")){
@@ -79,7 +80,8 @@ public class AutoTask {
 			if(m.group(1).equals("物品")){
 				Matcher t = dialog.matcher(page);
 				if(t.find()){
-					if("4".equals(t.group(1))){
+					int lv = Integer.parseInt(t.group(1));
+					if(lv >= 3){
 						return true;
 					}
 				}
@@ -94,7 +96,7 @@ public class AutoTask {
 		if(m.find()){
 			System.out.println("already has task doing");
 		}else{
-			Matcher m2 = p.matcher(page);
+			Matcher m2 = finish.matcher(page);
 			if(m2.find()){
 				url = user.getUrl()+AUTO_TASK_URL+m2.group(1)+Tools.getTimeStamp(true);
 				page = PageService.getPageWithCookie(url, user);			
