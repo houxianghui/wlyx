@@ -18,12 +18,11 @@ public class Login {
         p.setProperty("http.proxyPort", "8080");
 		String pageUrl = "http://secure.verycd.com/signin?f=out";
 		String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&username=xue_ranger&password=abc123&_REFERER=";
-		String s = PageService.postLogin(pageUrl, data, null);
-		System.out.println(s);
 		User user = new User();
 		user.setUserName("xue_ranger");
 		user.setPassword("abc123");
-		user.setCookie(s);
+		 PageService.login(user);
+		
 		String page = PageService.getPageWithCookie("http://s4.verycd.9wee.com/", user);
 		System.out.println(page);
 	}

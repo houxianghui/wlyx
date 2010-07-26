@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import com.blue.common.User;
 import com.blue.daily.DailyWeals;
@@ -18,8 +19,13 @@ import com.blue.warrior.WarriorThread;
 
 public class Start {
 	public static void main(String[] args) throws Exception{
-		System.getProperties().put("socksProxyHost", "127.0.0.1");
-		System.getProperties().put("socksProxyPort", "1080");
+//		System.getProperties().put("socksProxyHost", "127.0.0.1");
+//		System.getProperties().put("socksProxyPort", "1080");
+		Properties p = System.getProperties();
+		p.setProperty("https.proxyHost", "172.16.17.88");
+        p.setProperty("https.proxyPort", "8080");
+        p.setProperty("http.proxyHost", "172.16.17.88");
+        p.setProperty("http.proxyPort", "8080");
 		List<User> l = new ArrayList<User>();
 		User user = new User();
 //		user.setUrl("s4.verycd.9wee.com");

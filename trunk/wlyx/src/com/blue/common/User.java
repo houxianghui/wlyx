@@ -1,6 +1,7 @@
 package com.blue.common;
 
 import com.blue.tools.CookieManage;
+import com.blue.tools.PageService;
 
 public class User {
 	private String userName;
@@ -171,7 +172,8 @@ public class User {
 		this.cookie = cookie;
 	}
 	public boolean login()throws Exception{
-		setCookie(CookieManage.getCookie(this));
+		PageService.login(this);
+//		setCookie(.getCookie(this));
 		if(getCookie() == null){
 			return false;
 		}else{
