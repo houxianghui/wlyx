@@ -1,6 +1,5 @@
 package com.blue.tools;
 
-import java.awt.DisplayMode;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -9,8 +8,8 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -132,11 +131,14 @@ public class PageService {
 		}
 	}
 
-	public static String postLogin(String page, String data, User user)
+	public static void login( User user)
 			throws Exception {
-		URL url = new URL(page);
+		URL url = new URL("http://secure.verycd.com/signin?f=out");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		
+		String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +
+				"username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
+				"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+
+				"&_REFERER=";
 		con.setDoOutput(true);
 		
 		con.setRequestMethod("POST");
@@ -164,14 +166,13 @@ public class PageService {
 				}
 			} else if ((key.startsWith("location:"))
 					&& (value.contains("error_code"))) {
-				return null;
+				return ;
 			}
 		}
 		
-//		url = new URL("http://secure.verycd.com/signin?ak=50hero&sid=s4.verycd.9wee.com");
 		String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid=s4.verycd.9wee.com", sb.toString());
-		return getCookie(nextUrl);
-		
+		String cookie = getCookie(nextUrl);
+		user.setCookie(cookie);
 	}
 	private static String getLogin(String pageUrl, String cookie) throws Exception {
 		URL url = new URL(pageUrl);
