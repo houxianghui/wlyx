@@ -16,7 +16,8 @@ public class Duel{
 	public static final String FIGHT_URL = "modules/duel_fight.php?action=fight&rid=";
 	private Pattern p = Pattern.compile("<td.*?view_role\\s\\(\\s(\\d+).*?No.(\\d+).*?Lv.(\\d+)",Pattern.DOTALL);
 	private Pattern times = Pattern.compile("今日你已经发起了.*?(\\d+)",Pattern.MULTILINE);
-
+	//免费竞技
+	private Pattern free = Pattern.compile("");
 	public boolean challenge(User user){
 		String url = user.getUrl()+DUEL_LIST_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -32,7 +33,7 @@ public class Duel{
 			if(user.getChallengeTimes() > 2){
 				Beauty.jingJi(user);
 			}
-			System.out.println("您发起了"+user.getChallengeTimes()+"次竞技");
+			System.out.println(user.getUserName()+"您发起了"+user.getChallengeTimes()+"次竞技");
 		}
 		
 		Challenger c = l.get(l.size()-2);

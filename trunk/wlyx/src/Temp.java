@@ -19,8 +19,8 @@ import com.blue.warrior.WarriorThread;
 
 public class Temp {
 	public static void main(String[] args) throws Exception{
-//		System.getProperties().put("socksProxyHost", "127.0.0.1");
-//		System.getProperties().put("socksProxyPort", "1080");
+		System.getProperties().put("socksProxyHost", "127.0.0.1");
+		System.getProperties().put("socksProxyPort", "1080");
 		List<User> l = new ArrayList<User>();
 		User user = new User();
 		
@@ -28,10 +28,10 @@ public class Temp {
 		user.setUserName("songlijun_tju");
 		user.setPassword("zxcvbnm");
 		l.add(user);
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("sp_lulu");
-		user.setPassword("abc123");
-		l.add(user);
+//		user.setUrl("s4.verycd.9wee.com");
+//		user.setUserName("sp_lulu");
+//		user.setPassword("abc123");
+//		l.add(user);
 //		user = new User();
 //		user.setUrl("s4.verycd.9wee.com");
 //		user.setUserName("blue_ranger");
@@ -56,7 +56,7 @@ public class Temp {
 			new AutoTaskThread(at, user);
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
-			Beauty.tiGuan(user);
+//			Beauty.tiGuan(user);
 			new MonstorThread(user, m);
 		}
 	}

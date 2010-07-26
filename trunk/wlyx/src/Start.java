@@ -18,21 +18,21 @@ import com.blue.warrior.WarriorThread;
 
 public class Start {
 	public static void main(String[] args) throws Exception{
-//		System.getProperties().put("socksProxyHost", "127.0.0.1");
-//		System.getProperties().put("socksProxyPort", "1080");
+		System.getProperties().put("socksProxyHost", "127.0.0.1");
+		System.getProperties().put("socksProxyPort", "1080");
 		List<User> l = new ArrayList<User>();
 		User user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("xue_ranger");
-		user.setPassword("abc123");
-		user.setMiniJingYan(100);
-		l.add(user);
-		user = new User();
-		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("songlijun_tju");
-		user.setPassword("zxcvbnm");
-		l.add(user);		
-		user = new User();
+//		user.setUrl("s4.verycd.9wee.com");
+//		user.setUserName("xue_ranger");
+//		user.setPassword("abc123");
+//		user.setMiniJingYan(100);
+//		l.add(user);
+//		user = new User();
+//		user.setUrl("s4.verycd.9wee.com");
+//		user.setUserName("songlijun_tju");
+//		user.setPassword("zxcvbnm");
+//		l.add(user);		
+//		user = new User();
 		user.setUrl("s4.verycd.9wee.com");
 		user.setUserName("sp_lulu");
 		user.setPassword("abc123");
@@ -46,6 +46,11 @@ public class Start {
 		user.setUrl("s4.verycd.9wee.com");
 		user.setUserName("xianghui_hou");
 		user.setPassword("abc123");
+		l.add(user);
+		user = new User();
+		user.setUrl("s4.verycd.9wee.com");
+		user.setUserName("xuxudddd");
+		user.setPassword("168168");
 		l.add(user);
 		Duel d = new Duel();
 		AutoTask at = new AutoTask();
@@ -61,7 +66,7 @@ public class Start {
 			new AutoTaskThread(at, user);
 			new AutoRewardThread(at, user);
 			new DailyWealsThread(user, dw);
-			new MonstorThread(user, m);
+//			new MonstorThread(user, m);
 		}
 	}
 }
