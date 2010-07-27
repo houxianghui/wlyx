@@ -14,7 +14,7 @@ public class MonitorThread extends Thread{
 			try{
 				Beauty.rongYu(user);
 				Beauty.gongXian(user);
-				Monitor.slavy(user);
+				Monitor.activeSlavys(user);
 				
 				sleep(10*60*1000);
 			}catch(Exception e){
