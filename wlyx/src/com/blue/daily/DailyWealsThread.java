@@ -18,7 +18,7 @@ public class DailyWealsThread extends Thread {
 			//每天00:01后执行
 			try{
 				Calendar c = Calendar.getInstance();
-				int hour = c.get(Calendar.HOUR);
+				int hour = c.get(Calendar.HOUR_OF_DAY);
 				int minu = c.get(Calendar.MINUTE);
 				if(hour >= 0 ){
 					if(dw.alreadyHasWeals(user)){
