@@ -23,6 +23,8 @@ public class Monitor {
 	public static final String PAIN_SLAVY = "modules/role_slavery.php?act=pain_submit";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?timeStamp=1280242663691&callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality
 	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
+	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=1rand=1280246976709&timeStamp=1280246968613&callback_func_name=ajaxCallback
+	public static final String DAILY_WEALS = "modules/day_weals_activity.php?act=weal&callback_func_name=ajaxCallback&id=1";
 	
 	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+)国 (\\s+)</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
@@ -117,6 +119,16 @@ public class Monitor {
 				}
 			}
 		}catch(Exception e){
+			return false;
+		}
+	}
+	public static boolean dailyWeals(User user){
+		String url = user.getUrl()+DAILY_WEALS+Tools.getRandAndTime().substring(1);
+		String page = PageService.getPageWithCookie(url, user);
+		if(Tools.success(page)){
+			System.out.println(user.getUserName()+"每日福利领取成功");
+			return true;
+		}else{
 			return false;
 		}
 	}
