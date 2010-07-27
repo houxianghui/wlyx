@@ -21,9 +21,14 @@ public class Monitor {
 	public static final String COMFORT_SLAVY = "modules/role_slavery.php?act=comfort_submit";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=pain_submit&rand=1280199951562&timeStamp=1280199943328
 	public static final String PAIN_SLAVY = "modules/role_slavery.php?act=pain_submit";
+	//http://s4.verycd.9wee.com/modules/role_slavery.php?timeStamp=1280242663691&callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality
+	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
+	
 	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+)国 (\\s+)</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
 	private static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
+	private static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
+	
 	public static boolean goHome(User user){
 		String page = PageService.getPageWithCookie(RETURN_HOME, user);
 		return Tools.success(page);
@@ -44,13 +49,22 @@ public class Monitor {
 		return m.find();
 	}
 	public static boolean slavy(User user){
-		String url = user.getUrl()+SLAVY+Tools.getRandAndTime();
+		String url = user.getUrl()+GET_SLAVY_MASTER+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		if(page == null){
-			return false;
+		Matcher m = slavyMaster.matcher(page);
+		if(m.find()){
+			try{
+			url = user.getUrl()+SLAVY+Tools.getRandAndTime();
+			String data = "fawn_type=10&boss_id="+m.group(1)+"&type=3&callback_func_name=callbackFnSlaveOptSubmit";
+			page = PageService.postPage(url,data, user);
+			if(page == null){
+				return false;
+			}
+			System.out.println("讨好主人");
+			return Tools.success(page);
+			}catch(Exception e){}
 		}
-		System.out.println("讨好主人");
-		return Tools.success(page);
+		return false;
 	}
 	public static boolean activeSlavys(User user){
 		String url = user.getUrl()+SLAVY_MASTER+Tools.getTimeStamp(true);
