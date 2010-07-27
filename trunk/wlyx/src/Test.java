@@ -4,26 +4,39 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.blue.common.Monitor;
+import com.blue.common.MonitorThread;
 import com.blue.common.User;
+import com.blue.monstor.Monstor;
 import com.blue.tools.Tools;
 
 
 public class Test {
 	public static void main(String[] args)throws Exception {
 		//item_id":"20376","role_id":"25337","shop_id":"10","name":"\u795e\u5973\u8170\u5e26","equip_type":"4","w
+		Properties p = System.getProperties();
+		p.setProperty("https.proxyHost", "172.16.17.88");
+        p.setProperty("https.proxyPort", "8080");
+        p.setProperty("http.proxyHost", "172.16.17.88");
+        p.setProperty("http.proxyPort", "8080");
 		User user = new User();
 		user.setUrl("s4.verycd.9wee.com");
-		user.setUserName("sp_lulu");
+		user.setUserName("blue_ranger");
 		user.setPassword("abc123");
 		user.login();
-		
-		Monitor m = new Monitor();
-		String s = m.getScenes(user);
-		writeText("huGuan2.txt", s);
+		Monstor m = new Monstor();
+//		new MonitorThread(user);
+		boolean l = m.canFreeFinish(user);
+//		m.free
+//		System.out.println(l);
+//		Monitor.activeSlavys(user);
+//		Monitor.comfortSlavy(user, id, name)
+//		writeText("slavys.txt", s);
+//		System.out.println(s);
 	}
 	
 	public static void getBigMap()throws Exception{
@@ -69,7 +82,7 @@ public class Test {
 	}	
 	public static void writeText(String fileName,String s)throws Exception{
 		File f = new File(fileName);
-		FileWriter fr = new FileWriter(f,true);
+		FileWriter fr = new FileWriter(f,false);
 		BufferedWriter bw = new BufferedWriter(fr);
 		bw.write(s);
 		bw.close();

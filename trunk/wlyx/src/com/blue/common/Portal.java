@@ -14,7 +14,7 @@ public class Portal {
 	public static final String GO_HOME = "modules/scenes_role.php?sid=0&callback_func_name=switch_scene_callback";
 	
 	private static Pattern scene = Pattern.compile("var now_scene_id = (\\d+)"); 
-	private static Pattern zhuangTai = Pattern.compile("状态：.*?(正常|死亡|训练中|战斗中|修炼中)",Pattern.DOTALL);
+	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱)",Pattern.DOTALL);
 	
 	private static Pattern p = Pattern.compile("等级：<span class=highlight>Lv.(\\d+)");
 	private static Pattern point = Pattern.compile("点精力\">(\\d+)</span> / ");
@@ -37,14 +37,14 @@ public class Portal {
 		m = zhuangTai.matcher(page);
 		if(m.find()){
 			user.setStatus(m.group(1));
-			if(!"正常".equals(m.group(1))){
+			if(!"正常".equals(m.group(1)) && !"虚弱".equals(m.group(1))){
 				user.setCanMove(false);
 			}else{
 				user.setCanMove(true);
 			}
 		}
 		int now = getNow();
-		if(user.getBeginTime() > now || now > user.getEndTime()){
+		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
 		}else{
 			if(Integer.parseInt(user.getPoint()) > user.getSavePoint()){

@@ -27,6 +27,7 @@ import com.blue.tools.Tools;
  * http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=3011599&from=temp&to=shop&shop_id=0&timeStamp=1279793643031&callback_func_name=itemClass.dragItemCallback
  * 
  * 自动完成免费：http://s4.verycd.9wee.com/modules/auto_combats.php?act=show&mid=29&timeStamp=1279182628328&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster
+ * http://s4.verycd.9wee.com/modules/auto_combats.php?act=complete&isfree=1&timeStamp=1280214500500&callback_func_name=callbackFnCancelAutoCombat
  * 挂起训练：http://s4.verycd.9wee.com/modules/auto_combats.php?act=complete&isfree=1&timeStamp=1279182562076&callback_func_name=callbackFnCancelAutoCombat
  * 怪物信息
  * http://s4.verycd.9wee.com/modules/auto_combats.php?act=show&mid=63&timeStamp=1279615833845&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster
@@ -41,12 +42,15 @@ public class Monstor {
 	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
 	private static final String PUT_TO_PACK = "modules/role_item.php?act=drag_item&from=temp&to=pack&callback_func_name=itemClass.dragItemCallback&id=";
 	private static final String SELL = "modules/role_item.php?act=drag_item&from=temp&to=shop&shop_id=0&callback_func_name=itemClass.dragItemCallback&id=";
+	//http://s4.verycd.9wee.com/modules/auto_combats.php?act=view&rand=1280208689250&timeStamp=1280208680546&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster
+	public static final String VIEW_COMBAT="modules/auto_combats.php?act=view&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster";
 	
+	public static final String FREE_FINISH = "modules/auto_combats.php?act=complete&isfree=1&callback_func_name=callbackFnCancelAutoCombat";
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
-	
+	private Pattern freeFinish = Pattern.compile("免费完成修炼");
 	public boolean killMonstor(User user)throws Exception{
 		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
@@ -60,7 +64,12 @@ public class Monstor {
 		}
 		return moveToMonstor(user);	
 	}
-
+	public boolean canFreeFinish(User user){
+		String url = user.getUrl()+VIEW_COMBAT+Tools.getRandAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = freeFinish.matcher(page);
+		return m.find();
+	}
 	private  boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
@@ -68,34 +77,12 @@ public class Monstor {
 			System.out.println("角色"+user.getStatus()+",停止移动");
 			return true;
 		}
-		int times = 3;
-		String page = Move.worldMove(user, monstor[0]);
-		while(!Tools.success(page) && times > 0){
-			System.out.println("move to "+monstor[0]+" failed! retry!");
-			times--;
-		}
-		if(times == 0){
-			return false;
-		}
-		times = 3;
+		String page = null;
+		Move.worldMove(user, monstor[0]);
 		page = Move.secMove(user, monstor[1]);
-		while(!Tools.success(page) && times > 0){
-			System.out.println("move to "+monstor[0]+" failed! retry!");
-			times--;
-		}
-		if(times == 0){
-			return false;
-		}
+		
 		if(monstor[2].trim().length() != 0){
-			times = 3;
-			page = Move.thirdMove(user, monstor[2]);
-			while(!Tools.success(page) && times > 0){
-				System.out.println("move to "+monstor[0]+" failed! retry!");
-				times--;
-			}
-			if(times == 0){
-				return false;
-			}
+			page = Move.thirdMove(user, monstor[2]);			
 		}
 		Matcher m = p.matcher(page);
 		String mid = null;
@@ -123,8 +110,14 @@ public class Monstor {
 		Beauty.jingYan(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
 		String page = PageService.postPage(url, getData(monstor,user), user);
+		if(canFreeFinish(user)){
+			String free = user.getUrl()+FREE_FINISH+monstor+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(free, user);
+			System.out.println(user.getUserName()+"免费自动完成修炼1次");
+		}
 		return Tools.success(page);
 	}
+	
 	private String getData(String monstor,User user){
 		int point = Integer.parseInt(user.getPoint());
 		int killOnce = Integer.parseInt(user.getKillMonstorOnce());

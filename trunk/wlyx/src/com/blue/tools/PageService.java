@@ -2,6 +2,7 @@ package com.blue.tools;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -58,7 +59,8 @@ public class PageService {
 			System.out.println("NOT FOUND:" + page);
 			return null;
 		} catch (ConnectException ex) {
-		} catch (Exception ex) {
+		}catch(IOException e){} 
+		catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			try {

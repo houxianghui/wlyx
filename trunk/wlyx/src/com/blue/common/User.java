@@ -1,6 +1,5 @@
 package com.blue.common;
 
-import com.blue.tools.CookieManage;
 import com.blue.tools.PageService;
 
 public class User {
@@ -18,7 +17,7 @@ public class User {
 	private int miniJingYan;	//最小经验
 	private int endTime=8;		//修炼结束时间
 	
-	private String url;			//所在服务器	
+	private String url = "s4.verycd.9wee.com";			//所在服务器	
 	private int workType;		//日常任务类型
 	
 	private boolean needXunLian;	//是否需要大厅
@@ -116,7 +115,7 @@ public class User {
 		this.password = password;
 	}
 	public String getUrl() {
-		return url;
+		return "http://s4.verycd.9wee.com/";
 	}
 	public void setUrl(String url) {
 		this.url = "http://"+url+"/";

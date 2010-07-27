@@ -10,6 +10,7 @@ public class Warrior {
 	public boolean startTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
+			System.out.println("需要挂野，暂不进行训练");
 			return true;
 		}
 		String url = user.getUrl()+WARRIOR_URL+Tools.getTimeStamp(true);
