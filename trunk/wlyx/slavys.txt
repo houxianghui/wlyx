@@ -1,0 +1,114 @@
+<div class="dlg_title">主仆互动</div>
+
+
+<div id="div_slavery" style="width:600px; text-align: left;">
+
+	<div class="container" style="width:100%; padding: 0 0 0 0">
+		<ul class="info_list part3">
+			<li>我的身份：<span class="highlight">奴隶主</span></li>
+			<li>威望：<span class="highlight">246</span> (奴役他人总数)</li>
+			<li>人气：<span class="highlight">379</span> (被奴役总次数)</li>
+		</ul>
+	</div>
+
+	<div class="line" style="width:100%"></div>
+
+	<div style="padding: 8px 0 8px 0">
+	你目前共有 <span class="highlight">3</span> 名奴隶。奴隶会不断地给你贡献经验值，奴隶的等级越高，贡献的经验越多。奴隶贡献的经验会加入各自的累积经验栏位，并在该奴隶与你脱离主仆关系时结算，加入你的个人经验值。<br />
+	</div>
+
+	<div class="body" style="height: 222px; overflow-y: auto; overflow-x: hidden">
+		<table class="data_grid" style="width:570px; margin-bottom: 0;">
+			
+						<tr>
+				<td height="55">
+					<table class="nopadding" width="100%" height="55">
+						<tr>
+							<td rowspan="2" width="35">
+								<img alt="" title="查看人物信息" onclick="view_role ( 23444 )" src="http://static.hero.9wee.com/styles/default/avatar-thumb-2.gif" class="thumb" />
+							</td>
+							<td nowrap style="line-height: 20px">
+								<div style="float:left; width:100%">
+									<span style="float:right">
+										已效力 <span class="highlight"> 3 小时 </span>，累积经验：<span class="purple small_font">5,197</span>
+									</span>
+
+									<a href="javascript:void(0);" onclick="view_role ( 23444 )" title="厦门红楼">厦门红楼</a>
+									( Lv.74 赵国禁卫 )								
+								</div>								
+								<div style="float:left; width:100%">
+																											<!--<a href="javascript:void(0);" onclick="fnGetExpRewardFromSlave( 23444, '厦门红楼', 5197 );">收缴经验</a>-->
+									<a href="javascript:void(0);" onclick="fnPainSlave( 23444, 1 );">折磨她</a>
+									| <a href="javascript:void(0);" onclick="fnComfortSlave( 23444, 2 );">安抚她</a>
+									| <a href="javascript:void(0);" onclick="fnReleaseSlave( 23444, '厦门红楼' );">释放她</a>
+									<!-- | <a href="javascript:void(0);" onclick="clsSocket.showSlave ( 'blue_ranger', '25337', '厦门红楼', '23444' );">展示她</a> -->
+								</div>								
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+						<tr>
+				<td height="55">
+					<table class="nopadding" width="100%" height="55">
+						<tr>
+							<td rowspan="2" width="35">
+								<img alt="" title="查看人物信息" onclick="view_role ( 23494 )" src="http://static.hero.9wee.com/styles/default/avatar-thumb-2.gif" class="thumb" />
+							</td>
+							<td nowrap style="line-height: 20px">
+								<div style="float:left; width:100%">
+									<span style="float:right">
+										已效力 <span class="highlight">2 天 20 小时 </span>，累积经验：<span class="purple small_font">86,829</span>
+									</span>
+
+									<a href="javascript:void(0);" onclick="view_role ( 23494 )" title="110112hhj">110112...</a>
+									( Lv.70 燕国禁卫 )								
+								</div>								
+								<div style="float:left; width:100%">
+																											<!--<a href="javascript:void(0);" onclick="fnGetExpRewardFromSlave( 23494, '110112hhj', 86829 );">收缴经验</a>-->
+									<a href="javascript:void(0);" onclick="fnPainSlave( 23494, 1 );">折磨她</a>
+									| <a href="javascript:void(0);" onclick="fnComfortSlave( 23494, 2 );">安抚她</a>
+									| <a href="javascript:void(0);" onclick="fnReleaseSlave( 23494, '110112hhj' );">释放她</a>
+									<!-- | <a href="javascript:void(0);" onclick="clsSocket.showSlave ( 'blue_ranger', '25337', '110112hhj', '23494' );">展示她</a> -->
+								</div>								
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+						<tr>
+				<td height="55">
+					<table class="nopadding" width="100%" height="55">
+						<tr>
+							<td rowspan="2" width="35">
+								<img alt="" title="查看人物信息" onclick="view_role ( 24658 )" src="http://static.hero.9wee.com/styles/default/avatar-thumb-1.gif" class="thumb" />
+							</td>
+							<td nowrap style="line-height: 20px">
+								<div style="float:left; width:100%">
+									<span style="float:right">
+										已效力 <span class="highlight"> 1 小时 </span>，累积经验：<span class="purple small_font">205</span>
+									</span>
+
+									<a href="javascript:void(0);" onclick="view_role ( 24658 )" title="小小小强">小小小强</a>
+									( Lv.73 楚国禁卫 )								
+								</div>								
+								<div style="float:left; width:100%">
+									<div class="special" style="float:right">正在小黑屋抄写宣传手册 ( 07月27日 14:05 结束 )</div>																		<!--<a href="javascript:void(0);" onclick="fnGetExpRewardFromSlave( 24658, '小小小强', 205 );">收缴经验</a>-->
+									<a href="javascript:void(0);" onclick="fnPainSlave( 24658, 1 );">折磨他</a>
+									| <a href="javascript:void(0);" onclick="fnComfortSlave( 24658, 2 );">安抚他</a>
+									| <a href="javascript:void(0);" onclick="fnReleaseSlave( 24658, '小小小强' );">释放他</a>
+									<!-- | <a href="javascript:void(0);" onclick="clsSocket.showSlave ( 'blue_ranger', '25337', '小小小强', '24658' );">展示他</a> -->
+								</div>								
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+	
+</div>
+<script type="text/javascript">
+window.slaveryTimeExpire = null;
+</script>
