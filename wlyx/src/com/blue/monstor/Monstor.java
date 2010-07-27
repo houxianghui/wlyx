@@ -46,6 +46,9 @@ public class Monstor {
 	public static final String VIEW_COMBAT="modules/auto_combats.php?act=view&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster";
 	
 	public static final String FREE_FINISH = "modules/auto_combats.php?act=complete&isfree=1&callback_func_name=callbackFnCancelAutoCombat";
+	//http://s4.verycd.9wee.com/modules/role_item.php?act=repair_all_item&timeStamp=1280243508295&callback_func_name=itemClass.dragItemCallback
+	public static final String REPAIR = "modules/role_item.php?act=repair_all_item&callback_func_name=itemClass.dragItemCallback";
+	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
@@ -106,8 +109,15 @@ public class Monstor {
 		}
 		return killIt(mid, user);
 	}
+	private boolean repairAll(User user){
+		String url = user.getUrl()+REPAIR+Tools.getRandAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		System.out.println("ÐÞÀí×°±¸");
+		return Tools.success(page);
+	}
 	private boolean killIt(String monstor,User user)throws Exception{
 		Beauty.jingYan(user);
+		repairAll(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
 		String page = PageService.postPage(url, getData(monstor,user), user);
 		if(canFreeFinish(user)){
