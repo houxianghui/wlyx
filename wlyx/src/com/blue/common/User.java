@@ -5,6 +5,13 @@ import com.blue.tools.PageService;
 public class User {
 	private String userName;
 	private String password;
+	private String roleName;
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 	private String wealDate;	//上次占卜时间
 	
 	private String level;		//等级
@@ -26,7 +33,7 @@ public class User {
 	private String cookie;			
 	private int challengeTimes;		//需要自动竞技次数
 	private int duelNo;				//竞技场排名
-	private boolean fastChallenge;	//是否快速竞技
+	private boolean fastChallenge = true;	//是否快速竞技
 	private String killMonstorOnce;	//每次击杀怪物个数
 	
 	private boolean shouldKillMonstor ;
@@ -68,16 +75,12 @@ public class User {
 		this.savePoint = savePoint;
 	}
 	
-	
-	
 	public String getKillMonstorOnce() {
 		return killMonstorOnce;
 	}
 	public void setKillMonstorOnce(String killMonstorOnce) {
 		this.killMonstorOnce = killMonstorOnce;
 	}
-	
-	
 	public boolean isFastChallenge() {
 		return fastChallenge;
 	}
@@ -172,7 +175,7 @@ public class User {
 	}
 	public boolean login()throws Exception{
 		PageService.login(this);
-//		setCookie(.getCookie(this));
+		Portal.setUserInfo(this);
 		if(getCookie() == null){
 			return false;
 		}else{

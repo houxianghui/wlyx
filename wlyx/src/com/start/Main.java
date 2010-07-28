@@ -22,6 +22,7 @@ import com.blue.monstor.MonstorThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTask;
 import com.blue.task.AutoTaskThread;
+import com.blue.team.WuGuanThread;
 import com.blue.warrior.Warrior;
 import com.blue.warrior.WarriorThread;
 
@@ -45,6 +46,9 @@ public class Main {
 		
 		List<User> l = new ArrayList<User>();
 		while((t=br.readLine())!=null){
+			if(t.startsWith("#")){
+				continue;
+			}
 			String[] i = t.split(",");
 			if(i.length > 3){
 				User user = new User();
@@ -72,7 +76,9 @@ public class Main {
 			new DailyWealsThread(user, dw);		//√ø»’∏£¿˚
 			new MonstorThread(user, m);			//“∞—µ
 			new MonitorThread(user);			//Õº∆¨µ»
+			new WuGuanThread(user);				//Œ‰π›
 		}
+	
 	}
 	public static String readText(String fileName)throws Exception{
 		File f = new File(fileName);
