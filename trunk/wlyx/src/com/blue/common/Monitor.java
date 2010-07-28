@@ -1,5 +1,6 @@
 package com.blue.common;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,12 +28,16 @@ public class Monitor {
 	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=1rand=1280246976709&timeStamp=1280246968613&callback_func_name=ajaxCallback
 	public static final String DAILY_WEALS = "modules/day_weals_activity.php?act=weal&callback_func_name=ajaxCallback&id=1";
-	
+	//渑池演武厅奖励
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&timeStamp=1280322179334&callback_func_name=callback_load_content&callback_obj_name=content
+	public static final String MIAN_CHI = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=9_2_1280246400&team_mode=0&timeStamp=1280321831079
+	public static final String MIAN_CHI_WEAL="modules/warrior.php?act=arena&op=get_prise";
 	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+)国 (\\s+)</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
 	private static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
 	private static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
-	
+	private static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
 	public static boolean goHome(User user){
 		String page = PageService.getPageWithCookie(RETURN_HOME, user);
 		return Tools.success(page);
@@ -132,5 +137,31 @@ public class Monitor {
 		}else{
 			return false;
 		}
+	}
+	public static boolean mianChiWeals(User user){	
+		Calendar c = Calendar.getInstance();
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		if(hour > 17){
+			String page = intoMianChiYanWuTing(user);
+			Matcher m = mianChiWeal.matcher(page);
+			try{
+			if(m.find()){
+				//&arena_key=9_2_1280246400&team_mode=0&timeStamp=1280321831079
+				String url = user.getUrl()+MIAN_CHI_WEAL+"&arena_key="+m.group(1)+"&team_mode="+m.group(2)+Tools.getTimeStamp(true);
+				String data = "callback_func_name=warrior_common_callback";
+				String p = PageService.postPage(url, data,user);
+				if(Tools.success(p)){
+					logger.info(user.getRoleName()+"领取渑池演武厅奖励成功");
+					return true;
+				}
+			}
+			}catch(Exception e){}
+		}
+		return false;
+	}
+	private static String intoMianChiYanWuTing(User user){
+		String url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		return page;
 	}
 }

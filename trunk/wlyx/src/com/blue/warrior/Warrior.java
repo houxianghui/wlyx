@@ -29,7 +29,7 @@ public class Warrior {
 			return true;
 		}else{
 			if(user.getStatus().equals("ÑµÁ·ÖÐ")){
-				logger.info(user.getRoleName()+"ÑµÁ·ÖÐ,µÈ´ý");
+				return false;
 			}
 		}
 		return false;

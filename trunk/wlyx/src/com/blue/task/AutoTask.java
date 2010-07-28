@@ -22,6 +22,7 @@ public class AutoTask {
 	private Pattern hasDoing = Pattern.compile("将于.*? 完成");
 	private Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
 	private Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / 20");
+	//"quality":"3"
 	private Pattern dialog = Pattern.compile("quality\":\"(\\d+)\",");
 	
 	public static final String TASK_LIST_URL = "modules/task.php";

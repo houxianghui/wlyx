@@ -1,8 +1,11 @@
 package com.blue.common;
 
+import org.apache.log4j.Logger;
+
 import com.blue.tools.PageService;
 
 public class User {
+	private Logger logger  = Logger.getLogger(this.getClass());
 	private String userName;
 	private String password;
 	private String roleName;
@@ -179,6 +182,7 @@ public class User {
 		if(getCookie() == null){
 			return false;
 		}else{
+			logger.info(getRoleName()+"µÇÂ½³É¹¦");
 			return true;
 		}
 	}
