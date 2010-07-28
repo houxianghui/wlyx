@@ -1,13 +1,15 @@
 package com.blue.common;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
 
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class Monitor {
+	private static Logger logger = Logger.getLogger(Monitor.class);
 	//http://s4.verycd.9wee.com/modules/scenes_role.php?sid=0&timeStamp=1279162121165&callback_func_name=switch_scene_callback
 	public static final String RETURN_HOME="modules/scenes_role.php?sid=0&callback_func_name=switch_scene_callback";
 	public static final String POSITION="modules/scene.php";
@@ -62,8 +64,10 @@ public class Monitor {
 			if(page == null){
 				return false;
 			}
-			System.out.println("讨好主人");
-			return Tools.success(page);
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"讨好主人成功");
+				return true;
+			}
 			}catch(Exception e){}
 		}
 		return false;
@@ -86,10 +90,9 @@ public class Monitor {
 			String page = PageService.postPage(url, data,user);
 			
 			if(Tools.success(page)){
-				System.out.println(user.getUserName()+" comfort "+name+" success");
+				logger.info(user.getRoleName()+"安抚"+name+"成功");
 				return true;
 			}else{
-				System.out.println(user.getUserName()+" comfort "+name+" fail");
 				return false;
 			}
 		}catch(Exception e){
@@ -104,17 +107,15 @@ public class Monitor {
 			String page = PageService.postPage(url, data);
 			
 			if(Tools.success(page)){
-				System.out.println(user.getUserName()+" pain "+name+" success");
+				logger.info(user.getRoleName()+"关小黑屋"+name+"成功");
 				return true;
 			}else{
-				System.out.println(user.getUserName()+" 关黑屋 "+name+" fail");
 				data = "scene_id=0&scene_type=0&pain_type=13&slavery_scene_id=2&slavery_scene_type=durable&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
 				page = PageService.postPage(url, data,user);
 				if(Tools.success(page)){
-					System.out.println(name+"宣传武馆成功");
+					logger.info(user.getRoleName()+"折磨奴隶"+name+"宣传武馆成功");
 					return true;
 				}else{
-					System.out.println(name+"宣传武馆失败");
 					return false;
 				}
 			}
@@ -126,7 +127,7 @@ public class Monitor {
 		String url = user.getUrl()+DAILY_WEALS+Tools.getRandAndTime().substring(1);
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
-			System.out.println(user.getUserName()+"每日福利领取成功");
+			logger.info(user.getRoleName()+"每日福利领取成功");
 			return true;
 		}else{
 			return false;

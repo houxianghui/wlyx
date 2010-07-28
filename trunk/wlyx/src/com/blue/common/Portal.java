@@ -15,11 +15,11 @@ public class Portal {
 	public static final String MIAN_CHI = "modules/scene_walk.php?action=world_move&scene_id=164&callback_func_name=callbackFnWorldTransport";
 	
 	private static Pattern scene = Pattern.compile("var now_scene_id = (\\d+)"); 
-	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱)",Pattern.DOTALL);
+	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱|运输中)",Pattern.DOTALL);
 	
 	private static Pattern p = Pattern.compile("等级：<span class=highlight>Lv.(\\d+)");
 	private static Pattern point = Pattern.compile("点精力\">(\\d+)</span> / ");
-	
+	private static Pattern name = Pattern.compile("<span class=\"highlight\" title=\"查看改名记录\"><a onclick=\"dialog.open\\('/modules/role_name.php', 'dlg_change_name' \\);\">(\\S+?)</a></span>");
 	
 	
 	public static boolean setUserInfo(User user){
@@ -46,6 +46,12 @@ public class Portal {
 				user.setCanMove(true);
 			}
 		}
+		m = name.matcher(page);
+		if(m.find()){
+			user.setRoleName(m.group(1));
+		}else{
+			user.setRoleName("------");
+		}
 		int now = getNow();
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
@@ -63,7 +69,12 @@ public class Portal {
 		return c.get(Calendar.HOUR_OF_DAY);
 	}
 	public static boolean goHome(User user){
-		String url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
+		String url = null;
+		if(getNow() > 12){
+			url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
+		}else{
+			url = user.getUrl()+GO_HOME+Tools.getTimeStamp(true);
+		}
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
 	}

@@ -1,9 +1,12 @@
 package com.blue.common;
 
+import org.apache.log4j.Logger;
+
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class Move {
+	private static Logger logger = Logger.getLogger(Move.class);
 	public static final String WORLD_MOVE="modules/scene_walk.php?action=world_move&callback_func_name=callbackFnWorldTransport&scene_id=";
 	/*
 	 * 二级场景
@@ -21,21 +24,21 @@ public class Move {
 		String id = Map.getId(1, key);
 		String url = user.getUrl()+WORLD_MOVE+id+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		System.out.println("world move to "+id);
+		logger.info("移动到"+Map.getId(1, key));
 		return page;
 	}
 	public static String secMove(User user,String key){
 		String id = Map.getId(2, key);
 		String url = user.getUrl()+WALK+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		System.out.println("sec move to "+id);
+		logger.info("移动到"+Map.getId(2, key));
 		return page;
 	}
 	public static String thirdMove(User user,String key){
 		String id = Map.getId(3, key);
 		String url = user.getUrl()+THIRD+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		System.out.println("third move to "+id);
+		logger.info("移动到"+Map.getId(3, key));
 		return page;
 	}
 }
