@@ -15,7 +15,8 @@ public class MonitorThread extends Thread{
 				Beauty.rongYu(user);
 				Beauty.gongXian(user);
 				Monitor.activeSlavys(user);
-				Monitor.dailyWeals(user);
+				Monitor.dailyWeals(user);				
+				Monitor.mianChiWeals(user);
 				sleep(10*60*1000);
 			}catch(Exception e){
 				e.printStackTrace();
