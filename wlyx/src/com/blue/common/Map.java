@@ -46,10 +46,10 @@ public class Map {
 		secMap.put("ÎåÑÒÉ½", "157");
 		secMap.put("Ğü¹×", "151");
 		secMap.put("ÌìÉ²¶´", "150");
-		secMap.put("ÎÀ¹ú³ÇÇ½", "");
+		secMap.put("ÎÀ¹ú³ÇÇ½", "162");
 		secMap.put("ÉáÉíÑÂ", "163");
 		secMap.put("¾Å¹¬¸ó", "152");
-		secMap.put("µØµ×ÀÎÓü", "");
+		secMap.put("µØµ×ÀÎÓü", "153");
 	}
 	private static void initThird(){
 		thirdMap.put("ÂåºÓµÀ", "180");
@@ -61,32 +61,29 @@ public class Map {
 		thirdMap.put("¾ª¿ÖÖ®µØ", "422");
 		thirdMap.put("ÍòÕÉÌì¹µ", "423");
 		thirdMap.put("ÊÔÇ¹Ê¯", "433");
-		thirdMap.put("·Ù»ğµÀ", "");
 		thirdMap.put("ÍòÄêÇÍ±Ú", "457");
-		thirdMap.put("¾ÛÁúÅÌÊ¯", "");
+//		thirdMap.put("¾ÛÁúÅÌÊ¯", "");
 		thirdMap.put("¾üÓª½ûµØ", "445");
 		thirdMap.put("¾üÓª´óÕ¯", "446");
-		thirdMap.put("º®±ùÊÒ", "");
 		thirdMap.put("ÍòÄêÇÍ±Ú", "457");
 		thirdMap.put("ÉÏ¹ÅÌúËÉ", "458");
-		thirdMap.put("ÕĞÉñÆìÕó", "");
+//		thirdMap.put("ÕĞÉñÆìÕó", "");
 		thirdMap.put("¶ÏĞş¶´", "459");
-		thirdMap.put("ÉÏ¹ÅÌúËÉ", "");
-		thirdMap.put("º®±ùÊÒ", "");
+		thirdMap.put("ÉÏ¹ÅÌúËÉ", "458");
 		thirdMap.put("ÂäÇ¹ÁÖ", "434");
 		thirdMap.put("¸¡Ì¨»ú¹Ø", "470");
 		thirdMap.put("¸¡ÔÆÃØÊÒ", "471");
 		thirdMap.put("Ç¹»êÃØÊÒ", "453");
 		thirdMap.put("ÈÕÔÂÆº", "501");
-		thirdMap.put("Í­Ê¬¹×", "");
+		thirdMap.put("Í­Ê¬¹×", "482");
 		thirdMap.put("Ëïë÷¶´", "513");
 		thirdMap.put("ËÄÏóÃÔÕó", "502");
-		thirdMap.put("Íò½Ù±®", "");
-		thirdMap.put("Í¬¸£Ò¤", "");
+		thirdMap.put("Íò½Ù±®", "479");
+		thirdMap.put("Í¬¸£Ò¤", "521");
 		thirdMap.put("ÕªĞÄÌ¨", "525");
-		thirdMap.put("ÉúËÀ¸ó", "");
-		thirdMap.put("¹í¹È¹Ê¾Ó", "");
-		thirdMap.put("ĞşÌúÀÎÁı", "");
+		thirdMap.put("ÉúËÀ¸ó", "487");
+		thirdMap.put("¹í¹È¹Ê¾Ó", "490");
+		thirdMap.put("ĞşÌúÀÎÁı", "491");
 		thirdMap.put("Ã«Ëì¶´", "514");
 		thirdMap.put("Ë®Á±¶´", "515");
 	}
