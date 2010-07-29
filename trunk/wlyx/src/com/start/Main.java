@@ -58,6 +58,7 @@ public class Main {
 				user.setEndTime(Integer.parseInt(i[3].trim()));
 				user.setWarriorChoice(Integer.parseInt(i[4].trim()));
 				user.setDueSleepInteval(Integer.parseInt(i[5].trim()));
+				user.setMiniMoney(Integer.parseInt(i[6].trim()));
 				l.add(user);
 			}
 		}

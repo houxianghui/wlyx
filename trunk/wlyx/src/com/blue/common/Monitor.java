@@ -33,7 +33,7 @@ public class Monitor {
 	public static final String MIAN_CHI = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=9_2_1280246400&team_mode=0&timeStamp=1280321831079
 	public static final String MIAN_CHI_WEAL="modules/warrior.php?act=arena&op=get_prise";
-	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+)国 (\\s+)</div>");
+	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
 	private static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
 	private static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
@@ -50,7 +50,24 @@ public class Monitor {
 	public static boolean atHome(User user){
 		String page = getScenes(user);
 		Matcher m = p.matcher(page);
-		return m.find();
+		if(m.find()){
+			if("渑池".equals(m.group(1))){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean atMianChi(User user){
+		String page = getScenes(user);
+		Matcher m = p.matcher(page);
+		if(m.find()){
+			if("渑池".equals(m.group(1))){
+				return true;
+			}
+		}
+		return false;
 	}
 	public static boolean inWuGuan(User user){
 		String page = getScenes(user);

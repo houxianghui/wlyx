@@ -19,12 +19,12 @@ public class WarriorThread extends Thread{
 				}else{
 					if(user.getWarriorChoice() == 1){
 						warrior.startTrain(user);
-						sleep(5*1000*60);
+						
 					}else if(user.getWarriorChoice() == 2){
 						warrior.startWork(user);
 					}
 				}
-				
+				sleep(5*1000*60);
 			}catch(Exception e){}
 		}
 	}
