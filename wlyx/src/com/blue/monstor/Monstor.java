@@ -85,7 +85,22 @@ public class Monstor {
 			return true;
 		}
 		String page = null;
-		Move.worldMove(user, monstor[0]);
+		int times = 3;
+		while(times > 0){
+			page = Move.worldMove(user, monstor[0]);
+			if(!Tools.success(page)){
+				times--;
+				continue;
+			}else{
+				break;
+			}
+		}
+		if(times <= 0){
+			logger.info("连续3次移动失败，停止移动");			
+			user.setBeginTime(0);
+			user.setEndTime(0);
+			return false;
+		}
 		page = Move.secMove(user, monstor[1]);
 		if(monstor.length == 3){
 			if(monstor[2]!=null && monstor[2].trim().length() != 0){
