@@ -12,6 +12,9 @@ import com.blue.tools.Tools;
 public class Warrior {
 	Logger logger = Logger.getLogger(this.getClass());
 	public static final String WARRIOR_URL="modules/warrior.php?act=hall&op=train&hours=";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=work&hours=1&timeStamp=1280372681656
+	//真有穷鬼，挂铜板吧
+	public static final String WORK = "modules/warrior.php?act=hall&op=work&hours=";
 	public boolean startTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
@@ -28,10 +31,38 @@ public class Warrior {
 			logger.info(user.getRoleName()+"开始"+hourOnce+"小时训练成功");
 			return true;
 		}else{
-			if(user.getStatus().equals("训练中")){
+			if(user.getStatus().equals("训练中")||user.getStatus().equals("授艺中")){
 				return false;
 			}
 		}
+		return false;
+	}
+	public boolean startWork(User user){
+		Portal.setUserInfo(user);
+		String data = "callback_func_name=work_callback";
+		if(user.isShouldKillMonstor()){
+			logger.info(user.getRoleName()+"需要挂野，暂不进行授艺");
+			return true;
+		}
+		int hourOnce = 1;
+		if(need10HoursTrain()){
+			hourOnce = 10;
+		}
+		String url = user.getUrl()+WORK+hourOnce+Tools.getTimeStamp(true);
+		
+		try{
+			String page = PageService.postPage(url, data, user);
+		
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"开始"+hourOnce+"小时授艺成功");
+				return true;
+			}else{
+				if(user.getStatus().equals("训练中") || user.getStatus().equals("授艺中")){
+					return false;
+				}
+			}
+			
+		}catch(Exception e){};
 		return false;
 	}
 	public boolean need10HoursTrain(){

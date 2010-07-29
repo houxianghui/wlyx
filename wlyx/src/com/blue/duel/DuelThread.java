@@ -16,7 +16,7 @@ public class DuelThread extends Thread {
 			try{
 				if(d.challenge(user)){
 					if(!user.isFastChallenge()){
-						sleep(1000*60*60);
+						sleep(1000*60*(user.getDueSleepInteval()+10));
 					}else{
 						sleep(1000*60*10);
 					}
