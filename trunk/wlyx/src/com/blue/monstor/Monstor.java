@@ -203,10 +203,23 @@ public class Monstor {
 			return;
 		}
 		Iterator<Item> it = l.iterator();
+		logger.info("开始检查"+user.getRoleName()+"的临时包裹");
+		logger.info("----------------------------------------");
 		while(it.hasNext()){
 			Item i = it.next();
-			logger.info(i.getName()+" "+i.getQuality());
+			logger.info(i.getName()+" "+getQualityName(i.getQuality()));
 		}
+		logger.info(user.getRoleName()+"的物品检查完毕");
+	}
+	private String getQualityName(String qualityId){
+		int i = Integer.parseInt(qualityId);
+		switch(i){
+		case 1:return "普通装备";
+		case 2:return "绿色，直接卖，别鉴定了";
+		case 3:return "蓝色，值得鉴定";
+		case 4:return "紫色装备";
+		}
+		return qualityId;
 	}
 	private boolean putToPack(User user,String id){
 		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
