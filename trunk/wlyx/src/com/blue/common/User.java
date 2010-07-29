@@ -16,7 +16,14 @@ public class User {
 		this.roleName = roleName;
 	}
 	private String wealDate;	//上次占卜时间
+	private int warriorChoice = 1;	//1 训练 2 授艺 0不挂
 	
+	public int getWarriorChoice() {
+		return warriorChoice;
+	}
+	public void setWarriorChoice(int warriorChoice) {
+		this.warriorChoice = warriorChoice;
+	}
 	private String level;		//等级
 	private String point;		//精力点数
 	private int savePoint;		//保留精力点数
@@ -38,7 +45,14 @@ public class User {
 	private int duelNo;				//竞技场排名
 	private boolean fastChallenge = true;	//是否快速竞技
 	private String killMonstorOnce;	//每次击杀怪物个数
+	private int dueSleepInteval = 60;	//竞技等待时间
 	
+	public int getDueSleepInteval() {
+		return dueSleepInteval;
+	}
+	public void setDueSleepInteval(int dueSleepInteval) {
+		this.dueSleepInteval = dueSleepInteval;
+	}
 	private boolean shouldKillMonstor ;
 	
 	public boolean isShouldKillMonstor() {

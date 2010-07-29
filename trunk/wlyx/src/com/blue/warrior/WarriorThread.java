@@ -14,8 +14,17 @@ public class WarriorThread extends Thread{
 	public void run() {
 		while(true){
 			try{
-				warrior.startTrain(user);
-				sleep(5*1000*60);
+				if(user.getWarriorChoice() == 0){
+					return;
+				}else{
+					if(user.getWarriorChoice() == 1){
+						warrior.startTrain(user);
+						sleep(5*1000*60);
+					}else if(user.getWarriorChoice() == 2){
+						warrior.startWork(user);
+					}
+				}
+				
 			}catch(Exception e){}
 		}
 	}

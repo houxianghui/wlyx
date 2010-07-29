@@ -15,7 +15,7 @@ public class Portal {
 	public static final String MIAN_CHI = "modules/scene_walk.php?action=world_move&scene_id=164&callback_func_name=callbackFnWorldTransport";
 	
 	private static Pattern scene = Pattern.compile("var now_scene_id = (\\d+)"); 
-	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱|运输中)",Pattern.DOTALL);
+	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱|运输中|授艺中)",Pattern.DOTALL);
 	
 	private static Pattern p = Pattern.compile("等级：<span class=highlight>Lv.(\\d+)");
 	private static Pattern point = Pattern.compile("点精力\">(\\d+)</span> / ");

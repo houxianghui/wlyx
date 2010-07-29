@@ -50,12 +50,14 @@ public class Main {
 				continue;
 			}
 			String[] i = t.split(",");
-			if(i.length > 3){
+			if(i.length > 4){
 				User user = new User();
 				user.setUserName(i[0]);
 				user.setPassword(i[1]);
-				user.setBeginTime(Integer.parseInt(i[2]));
-				user.setEndTime(Integer.parseInt(i[3]));
+				user.setBeginTime(Integer.parseInt(i[2].trim()));
+				user.setEndTime(Integer.parseInt(i[3].trim()));
+				user.setWarriorChoice(Integer.parseInt(i[4].trim()));
+				user.setDueSleepInteval(Integer.parseInt(i[5].trim()));
 				l.add(user);
 			}
 		}

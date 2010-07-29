@@ -87,9 +87,10 @@ public class Monstor {
 		String page = null;
 		Move.worldMove(user, monstor[0]);
 		page = Move.secMove(user, monstor[1]);
-		
-		if(monstor[2].trim().length() != 0){
-			page = Move.thirdMove(user, monstor[2]);			
+		if(monstor.length == 3){
+			if(monstor[2]!=null && monstor[2].trim().length() != 0){
+				page = Move.thirdMove(user, monstor[2]);			
+			}
 		}
 		Matcher m = p.matcher(page);
 		String mid = null;
@@ -128,6 +129,11 @@ public class Monstor {
 		repairAll(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
 		String page = PageService.postPage(url, getData(monstor,user), user);
+		if(Tools.success(page)){
+			logger.info(user.getRoleName()+"正在对"+monstor+"发起自动攻击");
+		}else{
+			
+		}
 		if(canFreeFinish(user)){
 			String free = user.getUrl()+FREE_FINISH+monstor+Tools.getTimeStamp(true);
 			page = PageService.getPageWithCookie(free, user);
@@ -142,7 +148,7 @@ public class Monstor {
 		if(point - killOnce <= user.getSavePoint()){
 			killOnce = point - user.getSavePoint();
 		}
-		logger.info(user.getRoleName()+"正在对"+monstor+"发起"+killOnce+"次自动攻击");
+		
 		return "mid="+monstor+"&select_frequency="+killOnce+"&callback_func_name=callbackFnStartAutoCombat";
 	}
 	/*
