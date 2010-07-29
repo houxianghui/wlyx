@@ -26,6 +26,12 @@ public class Portal {
 		user.setKillMonstorOnce("24");
 		String url = user.getUrl();
 		String page = PageService.getPageWithCookie(url, user);
+		if(!Tools.success(page)){
+			try{
+				user.login();
+				page = PageService.getPageWithCookie(url, user);
+			}catch(Exception e){}
+		}
 		Matcher m = p.matcher(page);
 		if(m.find()){
 			user.setLevel(m.group(1));
