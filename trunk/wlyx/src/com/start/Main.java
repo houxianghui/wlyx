@@ -59,6 +59,9 @@ public class Main {
 				user.setWarriorChoice(Integer.parseInt(i[4].trim()));
 				user.setDueSleepInteval(Integer.parseInt(i[5].trim()));
 				user.setMiniMoney(Integer.parseInt(i[6].trim()));
+				user.setNeedCatchSlavy(Integer.parseInt(i[7]));
+				user.setSlavyMin(Integer.parseInt(i[8]));
+				user.setQualitySave(Integer.parseInt(i[9]));
 				l.add(user);
 			}
 		}

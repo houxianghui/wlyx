@@ -5,12 +5,19 @@ public class Item {
 	private String name;
 	private String quality;
 	private String checked;
-	
-	public Item(String id,String name,String quality,String checked) {
+	private int sellPrice;
+	public Item(String id,String name,String quality,String checked,int sellPrice) {
 		this.id = id;
 		this.name = name;
 		this.quality = quality;
 		this.checked = checked;
+		this.sellPrice = sellPrice;
+	}
+	public int getSellPrice() {
+		return sellPrice;
+	}
+	public void setSellPrice(int sellPrice) {
+		this.sellPrice = sellPrice;
 	}
 	public String getId() {
 		return id;

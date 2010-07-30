@@ -46,8 +46,10 @@ public class Monstor {
 	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
 	private static final String PUT_TO_PACK = "modules/role_item.php?act=drag_item&from=temp&to=pack&callback_func_name=itemClass.dragItemCallback&id=";
 	private static final String SELL = "modules/role_item.php?act=drag_item&from=temp&to=shop&shop_id=0&callback_func_name=itemClass.dragItemCallback&id=";
+	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=2972659&from=temp&to=none&&timeStamp=1280459658953&callback_func_name=itemClass.dragItemCallback
+	private static final String GIVE_UP = "modules/role_item.php?act=drag_item&from=temp&to=none&callback_func_name=itemClass.dragItemCallback";
 	//http://s4.verycd.9wee.com/modules/auto_combats.php?act=view&rand=1280208689250&timeStamp=1280208680546&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster
-	public static final String VIEW_COMBAT="modules/auto_combats.php?act=view&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster";
+	public static final String VIEW_COMBAT="modules/auto_combats.php?act=view&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_monster&id=";
 	
 	public static final String FREE_FINISH = "modules/auto_combats.php?act=complete&isfree=1&callback_func_name=callbackFnCancelAutoCombat";
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=repair_all_item&timeStamp=1280243508295&callback_func_name=itemClass.dragItemCallback
@@ -55,7 +57,7 @@ public class Monstor {
 	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
-	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?sell_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
 	private Pattern freeFinish = Pattern.compile("免费完成修炼");
 	public boolean killMonstor(User user)throws Exception{
@@ -194,12 +196,22 @@ public class Monstor {
 		it = l.iterator();
 		while(it.hasNext()){
 			Item i = it.next();
-			if(i.getQuality().compareTo("3")>=0){
-				putToPack(user, i.getId());
+			int quality = Integer.parseInt(i.getQuality());
+			if(quality < user.getQualitySave()){
+				if(i.getSellPrice()>0){
+					sellItem(user, i.getId());
+				}else{
+					if(i.getQuality().compareTo("3")>0){
+						putToPack(user, i.getId());
+					}else{
+						giveUp(user,i.getId());
+					}
+				}
 			}
 		}		
 		
 	}
+	
 	private List<Item> getTempPack(User user){
 		String url = user.getUrl()+Portal.USER_INFO+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -212,7 +224,7 @@ public class Monstor {
 		Matcher m = item.matcher(page);
 		List<Item> l = new ArrayList<Item>();
 		while(m.find()){
-			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(4)));
+			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(5),Integer.parseInt(m.group(4))));
 			
 		}
 		return l;
@@ -258,6 +270,12 @@ public class Monstor {
 		String url = user.getUrl()+SELL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"售出"+id);
+		return Tools.success(page);
+	}
+	private boolean giveUp(User user,String id){
+		String url = user.getUrl()+GIVE_UP+id+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		logger.info(user.getRoleName()+"扔掉"+id);
 		return Tools.success(page);
 	}
 }

@@ -8,7 +8,30 @@ public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
 	private String userName;
 	private String password;
+	public int getQualitySave() {
+		return qualitySave;
+	}
+	public void setQualitySave(int qualitySave) {
+		this.qualitySave = qualitySave;
+	}
 	private String roleName;
+	private int qualitySave = 4;
+	
+	public int getNeedCatchSlavy() {
+		return needCatchSlavy;
+	}
+	public void setNeedCatchSlavy(int needCatchSlavy) {
+		this.needCatchSlavy = needCatchSlavy;
+	}
+	private int slavyMin = 2;
+	private int needCatchSlavy = 0;
+	
+	public int getSlavyMin() {
+		return slavyMin;
+	}
+	public void setSlavyMin(int slavyMin) {
+		this.slavyMin = slavyMin;
+	}
 	public String getRoleName() {
 		return roleName;
 	}
