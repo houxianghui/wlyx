@@ -19,6 +19,8 @@ import com.blue.duel.Duel;
 import com.blue.duel.DuelThread;
 import com.blue.monstor.Monstor;
 import com.blue.monstor.MonstorThread;
+import com.blue.slavy.CatchSlavy;
+import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTask;
 import com.blue.task.AutoTaskThread;
@@ -72,6 +74,7 @@ public class Main {
 		Warrior warrior = new Warrior();
 		DailyWeals dw = new DailyWeals();
 		Monstor m = new Monstor();
+		CatchSlavy cs = new CatchSlavy();
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
@@ -84,6 +87,7 @@ public class Main {
 			new MonstorThread(user, m,at);			//Ò°Ñµ
 			new MonitorThread(user);			//Í¼Æ¬µÈ
 			new WuGuanThread(user);				//Îä¹Ý
+			new CatchSlavyThread(user, cs);		//×Ô¶¯×¥Å«
 		}
 	
 	}
