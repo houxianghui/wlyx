@@ -33,11 +33,11 @@ public class Monitor {
 	public static final String MIAN_CHI = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=9_2_1280246400&team_mode=0&timeStamp=1280321831079
 	public static final String MIAN_CHI_WEAL="modules/warrior.php?act=arena&op=get_prise";
-	private static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
+	public static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
-	private static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
-	private static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
-	private static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
+	public static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
+	public static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
+	public static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
 	public static boolean goHome(User user){
 		String page = PageService.getPageWithCookie(RETURN_HOME, user);
 		return Tools.success(page);
