@@ -81,7 +81,7 @@ public class Main {
 			new AutoTaskThread(at, user);		//任务
 			new AutoRewardThread(at, user);		//任务奖励
 			new DailyWealsThread(user, dw);		//每日福利
-			new MonstorThread(user, m);			//野训
+			new MonstorThread(user, m,at);			//野训
 			new MonitorThread(user);			//图片等
 			new WuGuanThread(user);				//武馆
 		}

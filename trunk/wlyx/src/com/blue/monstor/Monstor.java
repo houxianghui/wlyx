@@ -12,6 +12,7 @@ import com.blue.beauty.Beauty;
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.task.AutoTask;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -60,7 +61,7 @@ public class Monstor {
 	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?sell_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
 	private Pattern freeFinish = Pattern.compile("免费完成修炼");
-	public boolean killMonstor(User user)throws Exception{
+	public boolean killMonstor(User user,AutoTask at)throws Exception{
 		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
@@ -71,7 +72,7 @@ public class Monstor {
 		if(!user.getStatus().equals("修炼中") && !user.getStatus().equals("战斗中")){
 			checkItem(user);
 		}
-		return moveToMonstor(user);	
+		return moveToMonstor(user,at);	
 	}
 	public boolean canFreeFinish(User user){
 		String url = user.getUrl()+VIEW_COMBAT+Tools.getRandAndTime();
@@ -79,7 +80,7 @@ public class Monstor {
 		Matcher m = freeFinish.matcher(page);
 		return m.find();
 	}
-	private  boolean moveToMonstor(User user)throws Exception{
+	private  boolean moveToMonstor(User user,AutoTask at)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		if(!user.isCanMove()){
@@ -89,7 +90,7 @@ public class Monstor {
 		String page = null;
 		int times = 3;
 		while(times > 0){
-			page = Move.worldMove(user, monstor[0]);
+			page = Move.worldMove(user, monstor[0],at);
 			if(!Tools.success(page)){
 				times--;
 				continue;
