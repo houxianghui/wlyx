@@ -62,6 +62,7 @@ public class Main {
 				user.setNeedCatchSlavy(Integer.parseInt(i[7]));
 				user.setSlavyMin(Integer.parseInt(i[8]));
 				user.setQualitySave(Integer.parseInt(i[9]));
+				user.setSavePoint(Integer.parseInt(i[10]));
 				l.add(user);
 			}
 		}
