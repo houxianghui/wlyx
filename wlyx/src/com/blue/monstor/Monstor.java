@@ -187,10 +187,10 @@ public class Monstor {
 		while(it.hasNext()){
 			Item i = it.next();
 			if(i.getChecked().equals("0") && i.getQuality().compareTo("3")>=0){
-				checkIt(user, i.getId());
+				checkIt(user, i.getId(),i.getName());
 			}
 			if(i.getQuality().compareTo("3")<0){
-				sellItem(user, i.getId());
+				sellItem(user, i.getId(),i.getName());
 			}
 		}
 		l = getTempPack(user);
@@ -200,12 +200,12 @@ public class Monstor {
 			int quality = Integer.parseInt(i.getQuality());
 			if(quality < user.getQualitySave()){
 				if(i.getSellPrice()>0){
-					sellItem(user, i.getId());
+					sellItem(user, i.getId(),i.getName());
 				}else{
 					if(i.getQuality().compareTo("3")>0){
-						putToPack(user, i.getId());
+						putToPack(user, i.getId(),i.getName());
 					}else{
-						giveUp(user,i.getId());
+						giveUp(user,i.getId(),i.getName());
 					}
 				}
 			}
@@ -258,28 +258,28 @@ public class Monstor {
 		}
 		return qualityId;
 	}
-	private boolean putToPack(User user,String id){
+	private boolean putToPack(User user,String id,String name){
 		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info(user.getRoleName()+"放"+id+"到包裹");
+		logger.info(user.getRoleName()+"放"+name+"到包裹");
 		return Tools.success(page);
 	}
-	private boolean checkIt(User user,String id){
+	private boolean checkIt(User user,String id,String name){
 		String url = user.getUrl()+CHECK_URL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("鉴定"+id+"成功");
+		logger.info("鉴定"+name+"成功");
 		return Tools.success(page);
 	}
-	private boolean sellItem(User user,String id){
+	private boolean sellItem(User user,String id,String name){
 		String url = user.getUrl()+SELL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info(user.getRoleName()+"售出"+id);
+		logger.info(user.getRoleName()+"售出"+name);
 		return Tools.success(page);
 	}
-	private boolean giveUp(User user,String id){
+	private boolean giveUp(User user,String id,String name){
 		String url = user.getUrl()+GIVE_UP+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info(user.getRoleName()+"扔掉"+id);
+		logger.info(user.getRoleName()+"扔掉"+name);
 		return Tools.success(page);
 	}
 }
