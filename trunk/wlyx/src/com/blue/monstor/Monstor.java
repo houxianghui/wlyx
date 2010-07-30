@@ -245,6 +245,9 @@ public class Monstor {
 		}
 		logger.info(user.getRoleName()+"的物品检查完毕");
 	}
+	public void checkAndSell(User user){
+		checkItem(user);
+	}
 	private String getQualityName(String qualityId){
 		int i = Integer.parseInt(qualityId);
 		switch(i){
