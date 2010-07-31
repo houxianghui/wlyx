@@ -1,8 +1,11 @@
 package com.blue.warrior;
 
+import org.apache.log4j.Logger;
+
 import com.blue.common.User;
 
 public class WarriorThread extends Thread{
+	private Logger logger = Logger.getLogger(this.getClass());
 	private User user;
 	private Warrior warrior;
 	public WarriorThread(User user,Warrior warrior) {
@@ -25,7 +28,10 @@ public class WarriorThread extends Thread{
 					}
 				}
 				sleep(5*1000*60);
-			}catch(Exception e){}
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
 		}
 	}
 }

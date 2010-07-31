@@ -36,11 +36,11 @@ public class Move {
 		String url = user.getUrl()+WORLD_MOVE+id+Tools.getRandAndTime();
 		if(!key.equals("安平郡") && Monitor.atMianChi(user)){
 			url = user.getUrl()+FROM_MIAN_CHI+id+Tools.getTimeStamp(true);
-			logger.info("免费移动");
+			logger.info(user.getRoleName()+"免费移动");
 		}
 //		String url = user.getUrl()+WORLD_MOVE+id+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("移动到"+ key);
+		logger.info(user.getRoleName()+"移动到"+ key);
 		return page;
 	}
 	public static boolean goToMianChi(User user){
@@ -66,14 +66,14 @@ public class Move {
 		String id = Map.getId(2, key);
 		String url = user.getUrl()+WALK+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("移动到"+ key);
+		logger.info(user.getRoleName()+"移动到"+ key);
 		return page;
 	}
 	public static String thirdMove(User user,String key){
 		String id = Map.getId(3, key);
 		String url = user.getUrl()+THIRD+id+Tools.getGtimeAndTime();
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("移动到"+key);
+		logger.info(user.getRoleName()+"移动到"+key);
 		return page;
 	}
 }

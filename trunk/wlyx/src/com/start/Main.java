@@ -3,6 +3,7 @@ package com.start;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +31,31 @@ import com.blue.warrior.WarriorThread;
 
 public class Main {
 	public static void main(String[] args)throws Exception {
+		List<User> l = getUserInfo();
+		
+		Duel d = new Duel();
+		AutoTask at = new AutoTask();
+		Warrior warrior = new Warrior();
+		DailyWeals dw = new DailyWeals();
+		Monstor m = new Monstor();
+		CatchSlavy cs = new CatchSlavy();
+		Iterator<User> it = l.iterator();
+		while(it.hasNext()){
+			User user = it.next();
+			user.login();
+			new WarriorThread(user, warrior);	//大厅
+			new DuelThread(d, user);			//竞技
+			new AutoTaskThread(at, user);		//任务
+			new AutoRewardThread(at, user);		//任务奖励
+			new DailyWealsThread(user, dw);		//每日福利
+			new MonstorThread(user, m,at);			//野训
+			new MonitorThread(user);			//图片等
+			new WuGuanThread(user);				//武馆
+			new CatchSlavyThread(user, cs);		//自动抓奴
+		}
+	
+	}
+	public static List<User> getUserInfo() throws Exception, IOException {
 		String s = readText("user.ini");
 		Pattern sys = Pattern.compile("<SYSTEM_SET>\\s+(\\S+?):(\\d+?)\\s+</SYSTEM_SET>",Pattern.DOTALL);
 		Matcher sysm = sys.matcher(s);
@@ -65,31 +91,12 @@ public class Main {
 				user.setSlavyMin(Integer.parseInt(i[8]));
 				user.setQualitySave(Integer.parseInt(i[9]));
 				user.setSavePoint(Integer.parseInt(i[10]));
+				user.setNeedWar(i[11]);
+				user.setGloryBuy(i[12]);
 				l.add(user);
 			}
 		}
-		
-		Duel d = new Duel();
-		AutoTask at = new AutoTask();
-		Warrior warrior = new Warrior();
-		DailyWeals dw = new DailyWeals();
-		Monstor m = new Monstor();
-		CatchSlavy cs = new CatchSlavy();
-		Iterator<User> it = l.iterator();
-		while(it.hasNext()){
-			User user = it.next();
-			user.login();
-			new WarriorThread(user, warrior);	//大厅
-			new DuelThread(d, user);			//竞技
-			new AutoTaskThread(at, user);		//任务
-			new AutoRewardThread(at, user);		//任务奖励
-			new DailyWealsThread(user, dw);		//每日福利
-			new MonstorThread(user, m,at);			//野训
-			new MonitorThread(user);			//图片等
-			new WuGuanThread(user);				//武馆
-			new CatchSlavyThread(user, cs);		//自动抓奴
-		}
-	
+		return l;
 	}
 	public static String readText(String fileName)throws Exception{
 		File f = new File(fileName);

@@ -1,6 +1,8 @@
 package com.blue.warrior;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -15,11 +17,78 @@ public class Warrior {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=work&hours=1&timeStamp=1280372681656
 	//真有穷鬼，挂铜板吧
 	public static final String WORK = "modules/warrior.php?act=hall&op=work&hours=";
-	public boolean startTrain(User user){
+	//辎重http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=war&rand=1280557860833&timeStamp=1280557849142&callback_func_name=ajaxCallback&callback_obj_name=dlg_train_work
+	public static final String WAR = "modules/warrior.php?act=hall&op=war&callback_func_name=ajaxCallback&callback_obj_name=dlg_train_work";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=war&minters=60&timeStamp=1280557849142
+	public static final String WAR_START = "modules/warrior.php?act=hall&op=war&minters=";
+	
+	private Pattern p = Pattern.compile("<option value=\"(\\d+)\">\\d+\\ 分钟</option>\\s+</select>",Pattern.DOTALL);
+	private boolean canWar(User user){
+		if(user.getNeedWar().equals("0")){
+			return false;
+		}
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		if(day == Calendar.WEDNESDAY || day == Calendar.SATURDAY){
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
+			if(hour >= 14){
+				if(hour < 15){
+					return true;
+				}else if(hour == 15){
+					if(minute <= 30){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	private boolean canTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
-			logger.info(user.getRoleName()+"需要挂野，暂不进行训练");
+			logger.info(user.getRoleName()+"需要挂野，暂不进行大厅");
+			return false;
+		}
+		if(user.getStatus().equals("训练中")||user.getStatus().equals("授艺中")||user.getStatus().equals("运输中")){
+			return false;
+		}
+		return true;
+	}
+	public boolean startWar(User user)throws Exception{
+//		if(!canTrain(user)){
+//			return true;
+//		}
+//		if(!canWar(user)){
+//			return true;
+//		}
+		String url = user.getUrl()+WAR+Tools.getRandAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = p.matcher(page);
+		if(m.find()){
+			String data = "callback_func_name=war_callback";
+			url = user.getUrl()+WAR_START+m.group(1)+Tools.getTimeStamp(true);
+			page = PageService.postPage(url, data, user);
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"开始渑池辎重"+m.group(1)+"分钟");
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	public boolean startTrain(User user)throws Exception{
+		if(!canTrain(user)){
 			return true;
+		}
+		if(canWar(user)){
+			if(!startWar(user)){
+				logger.info(user.getRoleName()+"辎重失败，选择其它大厅方式");
+			}else{
+				return true;
+			}
 		}
 		int hourOnce = 1;
 		if(need10HoursTrain()){
@@ -30,20 +99,23 @@ public class Warrior {
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"开始"+hourOnce+"小时训练成功");
 			return true;
-		}else{
-			if(user.getStatus().equals("训练中")||user.getStatus().equals("授艺中")){
-				return false;
-			}
 		}
+		logger.info(user.getRoleName()+"挂大厅失败");
 		return false;
 	}
-	public boolean startWork(User user){
-		Portal.setUserInfo(user);
-		String data = "callback_func_name=work_callback";
-		if(user.isShouldKillMonstor()){
-			logger.info(user.getRoleName()+"需要挂野，暂不进行授艺");
+	public boolean startWork(User user)throws Exception{
+		if(!canTrain(user)){
 			return true;
 		}
+		if(canWar(user)){
+			if(!startWar(user)){
+				logger.info(user.getRoleName()+"辎重失败，选择其它大厅方式");
+			}else{
+				return true;
+			}
+		}
+		String data = "callback_func_name=work_callback";
+		
 		int hourOnce = 1;
 		if(need10HoursTrain()){
 			hourOnce = 10;
@@ -56,13 +128,12 @@ public class Warrior {
 			if(Tools.success(page)){
 				logger.info(user.getRoleName()+"开始"+hourOnce+"小时授艺成功");
 				return true;
-			}else{
-				if(user.getStatus().equals("训练中") || user.getStatus().equals("授艺中")){
-					return false;
-				}
 			}
 			
-		}catch(Exception e){};
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.info(e.getMessage());
+		}
 		return false;
 	}
 	public boolean need10HoursTrain(){

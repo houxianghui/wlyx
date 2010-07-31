@@ -33,6 +33,14 @@ public class Monitor {
 	public static final String MIAN_CHI = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=9_2_1280246400&team_mode=0&timeStamp=1280321831079
 	public static final String MIAN_CHI_WEAL="modules/warrior.php?act=arena&op=get_prise";
+	//荣誉换经验
+	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&op=buy&itemID=15&timeStamp=1280560866420&callback_func_name=callbackFnBusGloryReward
+	public static final String GLORY_TO_JING_YAN = "modules/duel.php?act=glory&op=buy&itemID=15&callback_func_name=callbackFnBusGloryReward";
+	//换紫玉
+	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1&timeStamp=1280560866420
+	public static final String GLORY_TO_ZI_YU = "modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1";
+	
+	
 	public static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
 	public static Pattern slavy = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\" title=\"(\\S+?)\">(\\S+?)</a>");
@@ -180,5 +188,29 @@ public class Monitor {
 		String url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		return page;
+	}
+	public static boolean buyGlory(User user){
+		String s = user.getGloryBuy();
+		if(s == null || s.trim().length() == 0 || "0".equals(s)){
+			return false;
+		}
+		String url = null;
+		String type = null;
+		if("1".equals(s)){
+			url = user.getUrl()+GLORY_TO_JING_YAN+Tools.getTimeStamp(true);
+			type = "经验";
+		}else if("2".equals(s)){
+			url = user.getUrl()+GLORY_TO_ZI_YU+Tools.getTimeStamp(true);
+			type = "紫玉";
+		}else{
+			return false;
+		}
+		
+		String page = PageService.getPageWithCookie(url, user);
+		if(Tools.success(page)){
+			logger.info(user.getRoleName()+"荣誉换"+type+"成功");
+			return true;
+		}
+		return false;
 	}
 }

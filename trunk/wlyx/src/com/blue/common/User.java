@@ -8,6 +8,21 @@ public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
 	private String userName;
 	private String password;
+	private String needWar;
+	private String gloryBuy;
+	
+	public String getGloryBuy() {
+		return gloryBuy;
+	}
+	public void setGloryBuy(String gloryBuy) {
+		this.gloryBuy = gloryBuy;
+	}
+	public String getNeedWar() {
+		return needWar;
+	}
+	public void setNeedWar(String needWar) {
+		this.needWar = needWar;
+	}
 	public int getQualitySave() {
 		return qualitySave;
 	}

@@ -156,6 +156,7 @@ public class Monstor {
 			String free = user.getUrl()+FREE_FINISH+monstor+Tools.getTimeStamp(true);
 			page = PageService.getPageWithCookie(free, user);
 			logger.info(user.getRoleName()+"免费自动完成修炼1次");
+			killIt(monstor,user);
 		}
 		return Tools.success(page);
 	}
@@ -193,7 +194,12 @@ public class Monstor {
 				sellItem(user, i.getId(),i.getName());
 			}
 		}
+		
 		l = getTempPack(user);
+		if(l == null){
+			logger.info(user.getRoleName()+"获得包裹信息失败");
+			return;
+		}
 		it = l.iterator();
 		while(it.hasNext()){
 			Item i = it.next();
@@ -202,11 +208,12 @@ public class Monstor {
 				if(i.getSellPrice()>0){
 					sellItem(user, i.getId(),i.getName());
 				}else{
-					if(i.getQuality().compareTo("3")>0){
-						putToPack(user, i.getId(),i.getName());
-					}else{
-						giveUp(user,i.getId(),i.getName());
-					}
+//					if(i.getQuality().compareTo("3")>0){
+//						putToPack(user, i.getId(),i.getName());
+//					}else{
+//						giveUp(user,i.getId(),i.getName());
+//					}
+					putToPack(user, i.getId(), i.getName());
 				}
 			}
 		}		
