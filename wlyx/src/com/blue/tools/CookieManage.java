@@ -9,7 +9,9 @@ import java.net.URLEncoder;
 
 import com.blue.common.User;
 
-
+/*
+ * 基础知识，项目中不再使用
+ */
 public class CookieManage {
 	public static String getCookie(User user)throws Exception{
 		String s = login(user);

@@ -14,9 +14,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.blue.common.User;
 
 public class PageService {
+	private static Logger logger = Logger.getLogger(PageService.class);
 	public static String getPageWithCookie(String page, User user) {
 		String str = null;
 		int count = 3;
@@ -28,6 +31,7 @@ public class PageService {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		} while ((str == null) && (count-- > 0));
 		return str;
@@ -55,18 +59,15 @@ public class PageService {
 				b.append("\r\n");
 			}
 			return b.toString();
-		} catch (FileNotFoundException ex) {
-			System.out.println("NOT FOUND:" + page);
-			return null;
-		} catch (ConnectException ex) {
-		}catch(IOException e){} 
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
+			logger.error(ex.getMessage());
 		} finally {
 			try {
 				if (is != null)
 					is.close();
-			} catch (Exception localException3) {
+			} catch (Exception e) {
+				logger.error(e.getMessage());
 			}
 		}
 		return null;
@@ -155,8 +156,8 @@ public class PageService {
 		os.write(data.getBytes("UTF-8"));
 		os.flush();
 		os.close();
-		
-		StringBuffer sb = new StringBuffer(" __utma=242249088.396578207.1271208283.1280120446.1280130776.185; __utmz=242249088.1280112946.182.177.utmcsr=game.verycd.com|utmccn=(referral)|utmcmd=referral|utmcct=/hero/; __utmc=242249088; __utmb=242249088.4.10.1280130776;dcm=1;");
+		//__utma=242249088.396578207.1271208283.1280120446.1280130776.185; __utmz=242249088.1280112946.182.177.utmcsr=game.verycd.com|utmccn=(referral)|utmcmd=referral|utmcct=/hero/; __utmc=242249088; __utmb=242249088.4.10.1280130776;dcm=1;
+		StringBuffer sb = new StringBuffer("");
 		String key = null;
 		for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
 			String value = con.getHeaderField(i);
@@ -168,6 +169,7 @@ public class PageService {
 				}
 			} else if ((key.startsWith("location:"))
 					&& (value.contains("error_code"))) {
+				logger.error("µÇÂ½Ê§°Ü");
 				return ;
 			}
 		}

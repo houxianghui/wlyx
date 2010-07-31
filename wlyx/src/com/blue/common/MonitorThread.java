@@ -17,6 +17,7 @@ public class MonitorThread extends Thread{
 				Monitor.activeSlavys(user);
 				Monitor.dailyWeals(user);				
 				Monitor.mianChiWeals(user);
+				Monitor.buyGlory(user);
 				sleep(10*60*1000);
 			}catch(Exception e){
 				e.printStackTrace();

@@ -4,10 +4,13 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class Portal {
+	private static Logger logger = Logger.getLogger(Portal.class);
 	//http://s4.verycd.9wee.com/modules/role_info.php?timeStamp=1279701586234&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String USER_INFO="modules/role_info.php?callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/scenes_role.php?sid=0&timeStamp=1279868148062&callback_func_name=switch_scene_callback
@@ -30,7 +33,9 @@ public class Portal {
 			try{
 				user.login();
 				page = PageService.getPageWithCookie(url, user);
-			}catch(Exception e){}
+			}catch(Exception e){
+				logger.error(user.getRoleName()+"µÇÂ½Ê§°Ü");
+			}
 		}
 		Matcher m = p.matcher(page);
 		if(m.find()){
@@ -78,9 +83,17 @@ public class Portal {
 		String url = null;
 		if(getNow() > 12){
 			url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
+			if(Monitor.atMianChi(user)){
+				return true;
+			}
 		}else{
+			
 			url = user.getUrl()+GO_HOME+Tools.getTimeStamp(true);
+			if(Monitor.atHome(user)){
+				return true;
+			}
 		}
+		
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
 	}

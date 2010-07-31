@@ -1,0 +1,19 @@
+
+<div class="container" style="width: 410px">
+	<table align="center">
+		<tr>
+			<td>加入辎重营可以根据运输时间获取荣誉奖励！加入辎重营后，将会在渑池守卫战开始后自动运送物资，此前的的时间也将获得额外的荣誉奖励！<br />为了保证物资的安全，在加入辎重营后 <span class="text_scene">你将无法出城冒险，无法使用大厅的训练、授艺功能，无法在幻境塔中进行挑战。</span><br />( 设置完成后辎重营运输将自动进行，你无需在线等待！ )<br /><br/><span class=highlight>Lv.50以上</span> 的玩家才能在大厅内加入辎重营！<br/></td>
+		</tr>
+		<tr>
+			<td>
+			 请选择你要运输的时间：  <select name="minters" id="war_minters" onchange="change_war_minters (  this.value,12240, 2460,0, 0,10 );">
+								<option value="10">10 分钟</option>
+								<option value="20">20 分钟</option>
+								<option value="30">30 分钟</option>
+								<option value="40">40 分钟</option>
+								<option value="50">50 分钟</option>
+								<option value="60">60 分钟</option>
+							</select>
+			</td>
+		</tr>
+		
