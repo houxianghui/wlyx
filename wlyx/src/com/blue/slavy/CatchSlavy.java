@@ -34,8 +34,10 @@ public class CatchSlavy {
 	private Pattern slavyList = Pattern.compile("<span class=\"highlight\">(\\S+?)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
 	private Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
 	private Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
-	private Pattern masterSlavyList = Pattern.compile("");
-	
+	//<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
+	private Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', 1 \\)\">俘获</a>");
+	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=17798&capture_role_id=20821&is_reverse=1&timeStamp=1280647211817&callback_func_name=callbackFnSlaveryFight
+	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&is_reverse=1&callback_func_name=callbackFnSlaveryFight";
 	private boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -81,14 +83,12 @@ public class CatchSlavy {
 		}
 		List<Slavy> l = getSlavyList(user);
 		Iterator<Slavy> it = l.iterator();
-		boolean catched = false;
 		//先抓自由身
 		while(it.hasNext()){
 			Slavy s = it.next();
 			if(s.level <= Integer.parseInt(user.getLevel()) && s.status.equals("自由身")){
 				if(catchIt(s.id,s.slavyName,user)){
 					logger.info(user.getRoleName()+"对"+s.slavyName+"发起奴隶捕获");
-					catched = true;
 					return true;
 				}
 			}
@@ -99,7 +99,6 @@ public class CatchSlavy {
 			Slavy s= it.next();
 			if(s.level<=Integer.parseInt(user.getLevel()) && s.status.equals("奴隶")){
 				if(catchIt(s.id, s.slavyName, user)){
-					catched = true;
 					return true;
 				}
 			}
@@ -111,14 +110,21 @@ public class CatchSlavy {
 			if(s.level<=Integer.parseInt(user.getLevel()) && s.status.equals("奴隶主")){
 				String url = user.getUrl()+SLAVYS_LIST+s.id+Tools.getRandAndTime();
 				String page = PageService.getPageWithCookie(url, user);
-				
-				if(catchIt(s.id, s.slavyName, user)){
-					catched = true;
-					return true;
+				Matcher m = masterSlavyList.matcher(page);
+				while(m.find()){
+					url = user.getUrl()+FIGHT_MASTER+getFightSlavyMaster(m.group(1), m.group(3));
+					page = PageService.getPageWithCookie(url, user);
+					if(Tools.success(page)){
+						logger.info(user.getRoleName()+"抢夺"+m.group(2)+"的奴隶"+m.group(4));
+						return true;
+					}
 				}
 			}
 		}
-		return catched;
+		return false;
+	}
+	private String getFightSlavyMaster(String masterId,String slavyId){
+		return  "&rid="+masterId+"&capture_role_id="+slavyId;
 	}
 	private boolean catchIt(String id,String name,User user){
 		String url = user.getUrl()+CATCH_SLAVY+id+Tools.getRandAndTime();

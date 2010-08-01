@@ -28,7 +28,7 @@ public class PageService {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				logger.error(e.getMessage());
+				logger.error(user.getRoleName()+" "+e.getMessage());
 			}
 		} while ((str == null) && (count-- > 0));
 		return str;
@@ -60,13 +60,13 @@ public class PageService {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			logger.error(ex.getMessage());
+			logger.error(user.getRoleName()+" "+ex.getMessage());
 		} finally {
 			try {
 				if (is != null)
 					is.close();
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				logger.error(user.getRoleName()+" "+e.getMessage());
 			}
 		}
 		return null;

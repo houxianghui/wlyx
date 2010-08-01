@@ -137,7 +137,7 @@ public class Monitor {
 			//关小黑屋
 			//scene_id=0&scene_type=0&slavery_scene_id=2&slavery_scene_type=durable&pain_type=17&slave_id=22051&type=1&callback_func_name=callbackFnSlaveOptSubmit
 			String data = "scene_id=0&scene_type=0&slavery_scene_id=2&slavery_scene_type=durable&pain_type=17&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
-			String page = PageService.postPage(url, data);
+			String page = PageService.postPage(url, data,user);
 			
 			if(Tools.success(page)){
 				logger.info(user.getRoleName()+"关小黑屋"+name+"成功");
