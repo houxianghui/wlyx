@@ -108,7 +108,9 @@ public class AutoTask {
 				}
 			}
 		}
-		freeFinish(user);
+		if(freeFinish(user)){
+			autoFinishTask(user);
+		}
 		outAutoFinish(user);
 	}
 	private void outAutoFinish(User user){
