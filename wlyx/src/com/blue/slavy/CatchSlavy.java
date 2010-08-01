@@ -31,7 +31,7 @@ public class CatchSlavy {
 							<td width="80" align="center">
 														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 11154, 'bujingyun', 1, 0 );">俘获奴隶</a>
 	 */
-	private Pattern slavyList = Pattern.compile("<span class=\"highlight\">(\\S+?)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
+	private Pattern slavyList = Pattern.compile("<span class=\"\\S+?\">(奴隶|奴隶主|自由身)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
 	private Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
 	private Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
 	//<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
@@ -99,6 +99,7 @@ public class CatchSlavy {
 			Slavy s= it.next();
 			if(s.level<=Integer.parseInt(user.getLevel()) && s.status.equals("奴隶")){
 				if(catchIt(s.id, s.slavyName, user)){
+					logger.info(user.getRoleName()+"对"+s.slavyName+"发起奴隶捕获");
 					return true;
 				}
 			}
