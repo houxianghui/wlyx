@@ -83,6 +83,7 @@ public class Monitor {
 		return m.find();
 	}
 	public static boolean slavy(User user){
+		
 		String url = user.getUrl()+GET_SLAVY_MASTER+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = slavyMaster.matcher(page);
@@ -131,8 +132,10 @@ public class Monitor {
 	}
 	public static boolean painSlavy(User user,String id,String name){
 		try{
+			// /modules/role_slavery.php?act=pain_submit&rand=1280639390157&timeStamp=1280639377847
 			String url = user.getUrl()+PAIN_SLAVY+Tools.getRandAndTime();
 			//¹ØÐ¡ºÚÎÝ
+			//scene_id=0&scene_type=0&slavery_scene_id=2&slavery_scene_type=durable&pain_type=17&slave_id=22051&type=1&callback_func_name=callbackFnSlaveOptSubmit
 			String data = "scene_id=0&scene_type=0&slavery_scene_id=2&slavery_scene_type=durable&pain_type=17&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
 			String page = PageService.postPage(url, data);
 			
