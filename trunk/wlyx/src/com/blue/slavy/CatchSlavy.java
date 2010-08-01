@@ -20,7 +20,8 @@ public class CatchSlavy {
 	public static final String SLAVY_LIST = "modules/duel.php?act=slavery&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=11154&is_reverse=0&rand=1280454988125&timeStamp=1280452728828&callback_func_name=callbackFnSlaveryFight
 	public static final String CATCH_SLAVY = "modules/slavery_fight.php?act=enemy_fight&is_reverse=0&callback_func_name=callbackFnSlaveryFight&rid=";
-	
+	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=slaves_list&boss_id=1401&rand=1280645233206&timeStamp=1280644598821&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list
+	public static final String SLAVYS_LIST="modules/role_slavery.php?act=slaves_list&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list&boss_id=";
 	/*
 	 * <span class="highlight">自由身</span>
 														</td>
@@ -33,6 +34,7 @@ public class CatchSlavy {
 	private Pattern slavyList = Pattern.compile("<span class=\"highlight\">(\\S+?)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
 	private Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
 	private Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
+	private Pattern masterSlavyList = Pattern.compile("");
 	
 	private boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
@@ -83,7 +85,7 @@ public class CatchSlavy {
 		//先抓自由身
 		while(it.hasNext()){
 			Slavy s = it.next();
-			if(s.level < Integer.parseInt(user.getLevel()) && s.status.equals("自由身")){
+			if(s.level <= Integer.parseInt(user.getLevel()) && s.status.equals("自由身")){
 				if(catchIt(s.id,s.slavyName,user)){
 					logger.info(user.getRoleName()+"对"+s.slavyName+"发起奴隶捕获");
 					catched = true;
@@ -96,6 +98,20 @@ public class CatchSlavy {
 		while(it.hasNext()){
 			Slavy s= it.next();
 			if(s.level<=Integer.parseInt(user.getLevel()) && s.status.equals("奴隶")){
+				if(catchIt(s.id, s.slavyName, user)){
+					catched = true;
+					return true;
+				}
+			}
+		}
+		//还没抓到，就抓奴隶主的奴隶
+		it = l.iterator();
+		while(it.hasNext()){
+			Slavy s= it.next();
+			if(s.level<=Integer.parseInt(user.getLevel()) && s.status.equals("奴隶主")){
+				String url = user.getUrl()+SLAVYS_LIST+s.id+Tools.getRandAndTime();
+				String page = PageService.getPageWithCookie(url, user);
+				
 				if(catchIt(s.id, s.slavyName, user)){
 					catched = true;
 					return true;

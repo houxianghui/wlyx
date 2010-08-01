@@ -1,12 +1,9 @@
 package com.blue.tools;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -49,16 +46,18 @@ public class PageService {
 			}
 			con.setRequestProperty("connection", "none");
 			HttpURLConnection.setFollowRedirects(false);
-			is = con.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "UTF-8"));
-			StringBuilder b = new StringBuilder();
-
-			while ((line = reader.readLine()) != null) {
-				b.append(line);
-				b.append("\r\n");
+			if(con != null){
+				is = con.getInputStream();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(
+						is, "UTF-8"));
+				StringBuilder b = new StringBuilder();
+	
+				while ((line = reader.readLine()) != null) {
+					b.append(line);
+					b.append("\r\n");
+				}
+				return b.toString();
 			}
-			return b.toString();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error(ex.getMessage());
