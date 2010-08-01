@@ -27,7 +27,7 @@ public class MonstorThread extends Thread {
 				}
 			}catch(Exception e){
 				e.printStackTrace();
-				logger.error(e.getMessage());
+				logger.error(user.getRoleName()+" "+e.getMessage());
 			}
 		}
 	}

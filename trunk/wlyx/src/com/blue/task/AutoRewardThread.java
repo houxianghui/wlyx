@@ -1,8 +1,11 @@
 package com.blue.task;
 
+import org.apache.log4j.Logger;
+
 import com.blue.common.User;
 
 public class AutoRewardThread extends Thread {
+	private Logger logger = Logger.getLogger(this.getClass());
 	private AutoTask at;
 	private User user;
 	public AutoRewardThread(AutoTask at,User user) {
@@ -19,7 +22,9 @@ public class AutoRewardThread extends Thread {
 				}else{
 					sleep(1000*60);
 				}
-			}catch(Exception e){}
+			}catch(Exception e){
+				logger.error(user.getRoleName()+" "+e.getMessage());
+			}
 		}
 	}
 }

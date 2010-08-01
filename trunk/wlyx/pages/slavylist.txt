@@ -1,0 +1,53 @@
+<div class="dlg_title">选择挑战模式</div>
+<div id="div_choice_slaves">
+	<div style="margin-bottom: 5px">
+	【<span class="highlight">北北</span>】现有 <span class="highlight">3</span> 名奴隶，如果您能战胜他，将可选择其中一名归为己有。<br />		请选择您想要俘获的奴隶。
+			</div>
+
+	<div class="body">
+	<table class="data_grid" style="width:480px; margin-bottom: 0;">
+		<thead>
+			<tr>	
+				<td width="120">奴隶名</td>
+				<td width="60">等级</td>
+				<td align="center" width="70" >职位</td>
+				<td align="center" width="70" >国家</td>
+				<td align="center" width="70" >派系</td>
+				<td width="60" align="center">操作</td>
+			</tr>
+		</thead>
+	</table>
+	<div style="width:500px; height: 160px; overflow: auto;">
+		<table id="team_list" class="data_grid" style="width:480px; margin-top: 0;">
+						<tr>
+				<td width="120"><a href="javascript:void(0);" onclick="view_role ( 12925 )" title="天道">天道</td>
+				<td width="60">Lv.80</td>
+				<td align="center" width="70">禁卫</td>
+				<td align="center" width="70">赵国</td>
+				<td align="center" width="70">破坏系</td>
+				<td width="60" align="center">
+								<span class="highlight" title='<span class="highlight"></span> 正在宣传武馆，约 <span class="highlight"> 16 分钟 </span> 后结束！'/>折磨中</span>				</td>
+			</tr>
+						<tr>
+				<td width="120"><a href="javascript:void(0);" onclick="view_role ( 20821 )" title="暗夜龙隐">暗夜龙隐</td>
+				<td width="60">Lv.73</td>
+				<td align="center" width="70">禁卫</td>
+				<td align="center" width="70">燕国</td>
+				<td align="center" width="70">破坏系</td>
+				<td width="60" align="center">
+								<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
+								</td>
+			</tr>
+						<tr>
+				<td width="120"><a href="javascript:void(0);" onclick="view_role ( 24729 )" title="都是夜归人">都是夜归人</td>
+				<td width="60">Lv.76</td>
+				<td align="center" width="70">禁卫</td>
+				<td align="center" width="70">齐国</td>
+				<td align="center" width="70">破坏系</td>
+				<td width="60" align="center">
+								<span class="highlight" title='<span class="highlight"></span> 正在小黑屋抄写宣传手册，约 <span class="highlight"> 1 小时  10 分钟 </span> 后结束！'/>折磨中</span>				</td>
+			</tr>
+					</table>
+	</div>
+	</div>
+</div>
