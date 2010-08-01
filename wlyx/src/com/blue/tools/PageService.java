@@ -101,7 +101,7 @@ public class PageService {
 		return b.toString();
 	}
 
-	public static String postPage(String page, String data) throws Exception {
+	private static String postPage(String page, String data) throws Exception {
 		return postPage(page, data, null);
 	}
 
