@@ -99,7 +99,7 @@ public class Monstor {
 			}
 		}
 		if(times <= 0){
-			logger.info("连续3次移动失败，停止移动");			
+			logger.info(user.getRoleName()+"连续3次移动失败，停止移动");			
 			user.setBeginTime(0);
 			user.setEndTime(0);
 			return false;
