@@ -1,0 +1,266 @@
+<div style="margin: 10px">
+	<!-- NPC 对话框 -->
+<div class="npc_dlg">
+	<div class="npc_dlg_top"><div class="npc_dlg_top_right"></div><div class="npc_dlg_top_left"></div></div>
+	<div class="npc_dlg_body">
+		<div class="npc_dlg_content container">
+			<b>盖天：</b>
+			<div>
+								<div style="float: left; width: 100%; display:">
+					想羞辱你的 <span  class="highlight">手下败将</span> 吗？想报复你的 <span class="highlight">夺仆之敌 </span> 吗？（等级20以下不会成为手下败将）战胜他们，就是你的奴隶，系统大仙还会白送你经验。如果大侠您不幸成了奴隶，还请先自救。<br />
+					
+						
+													
+							
+													
+						
+						
+															</div>
+							</div>
+		</div>
+	</div>
+	<div class="npc_dlg_bottom">
+		<div class="npc_dlg_bottom_right">
+			<div class="npc_dlg_arrow"></div>
+			<div class="npc_dlg_image"><img alt="" src="http://static.hero.9wee.com/npc/32.jpg" /></div>
+		</div>
+		<div class="npc_dlg_bottom_left"></div>
+	</div>
+</div><!-- npc_dlg -->
+
+
+	<div id="duel_slavery_box" style="width: 100%; margin: 10px 0 5px 0">
+				<div style="float:right;margin: 8px 4px 0 0;" >
+			今日已发起 <span class="highlight">0 / 10</span> 场
+											<span id="can_slavery_combat">( 下次发起俘获还需：<span id="slavery_combat_delay" class="highlight"></span> )</span>
+									</div>
+				<div>
+			<div class="container switch_tags">
+				<a href="javascript:void(0);" class="highlight" onclick="fnDuelSlaveryList ( 'table_duel_slavery', '1' ); highlight ( this ); this.blur ();">手下败将</a>
+				<a href="javascript:void(0);" onclick="fnDuelSlaveryList ( 'table_duel_slavery', '2' ); highlight ( this ); this.blur ();">夺仆之敌</a>
+				<a href="javascript:void(0);" onclick="fnDuelSlaveryList ( 'table_duel_slavery', '3' ); highlight ( this ); this.blur ();">我的旧主</a>
+				<a href="javascript:void(0);" onclick="load_panel ( 'sociality', 3 );">我的奴隶</a>
+			</div>
+		</div>
+
+		<div style="float: left; width: 422px;">		
+
+			<div class="body" style="width: 410px">
+				<div>
+					<table class="data_grid" style="width: 390px; margin-top: 0; margin-bottom: 0;">
+						<tr>
+							<th width="130" align="left">人物名称</th>
+							<th width="80" align="center">身份</th>
+							<th width="50" align="center">性别</th>
+							<th width="60" align="center">等级</th>
+							<th width="80" align="center">职位</th>
+							<th width="80" align="center">操作</th>
+						</tr>
+					</table>
+				</div>
+
+				<div style="width: 410px; height:209px; overflow-y: auto; overflow-x: hidden">
+					<table id="table_duel_slavery" class="data_grid" style="width:390px; margin-top: 0;">
+						<tr height="1">
+							<td width="130" style="border:none"></td><!-- 人物名称 -->
+							<td width="80" style="border:none"></td><!-- 身份 -->
+							<td width="50" style="border:none"></td><!-- 性别 -->
+							<td width="60" style="border:none"></td><!-- 等级 -->
+							<td width="80" style="border:none"></td><!-- 职位 -->
+							<td width="80" style="border:none"></td><!-- 操作 -->
+						</tr>
+												<tr c='2'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/6.gif" align="absmiddle" title="赵国"/>
+								<a href="javascript:void(0);" onclick="view_role( 14874 );" title="yeboo">yeboo</a>
+							</td>
+							<td width="80" align="center">
+														<span class="purple">奴隶主</span>
+														</td>
+							<td width="50" align="center">男</td>
+							<td width="60" align="center">Lv.76</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 14874, 'yeboo', 2, 1 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='2'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/2.gif" align="absmiddle" title="齐国"/>
+								<a href="javascript:void(0);" onclick="view_role( 22324 );" title="赤岛">赤岛</a>
+							</td>
+							<td width="80" align="center">
+														<span class="special">奴隶</span>
+														</td>
+							<td width="50" align="center">男</td>
+							<td width="60" align="center">Lv.76</td>
+							<td width="80" align="center">禁卫</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 22324, '赤岛', 0, 1 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='1'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/6.gif" align="absmiddle" title="赵国"/>
+								<a href="javascript:void(0);" onclick="view_role( 19917 );" title="audrey003">audrey...</a>
+							</td>
+							<td width="80" align="center">
+														<span class="special">奴隶</span>
+														</td>
+							<td width="50" align="center">女</td>
+							<td width="60" align="center">Lv.76</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 19917, 'audrey003', 0, 0 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='3'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/6.gif" align="absmiddle" title="赵国"/>
+								<a href="javascript:void(0);" onclick="view_role( 22730 );" title="无敌靓靓靓">无敌靓靓靓</a>
+							</td>
+							<td width="80" align="center">
+														<span class="special">奴隶</span>
+														</td>
+							<td width="50" align="center">女</td>
+							<td width="60" align="center">Lv.77</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 22730, '无敌靓靓靓', 0, 1 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='2'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/6.gif" align="absmiddle" title="赵国"/>
+								<a href="javascript:void(0);" onclick="view_role( 22904 );" title="audrey005">audrey...</a>
+							</td>
+							<td width="80" align="center">
+														<span class="purple">奴隶主</span>
+														</td>
+							<td width="50" align="center">女</td>
+							<td width="60" align="center">Lv.76</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 22904, 'audrey005', 2, 1 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='2'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/5.gif" align="absmiddle" title="燕国"/>
+								<a href="javascript:void(0);" onclick="view_role( 20266 );" title="应运">应运</a>
+							</td>
+							<td width="80" align="center">
+														<span class="purple">奴隶主</span>
+														</td>
+							<td width="50" align="center">男</td>
+							<td width="60" align="center">Lv.75</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 20266, '应运', 2, 1 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='1'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/5.gif" align="absmiddle" title="燕国"/>
+								<a href="javascript:void(0);" onclick="view_role( 27737 );" title="郑小小">郑小小</a>
+							</td>
+							<td width="80" align="center">
+														<span class="purple">奴隶主</span>
+														</td>
+							<td width="50" align="center">女</td>
+							<td width="60" align="center">Lv.75</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 27737, '郑小小', 2, 0 );">俘获奴隶</a>
+														</td>
+						</tr>
+												<tr c='1'>
+							<td width="130" align="left">
+								<img src="http://static.hero.9wee.com/countries/icon/2.gif" align="absmiddle" title="齐国"/>
+								<a href="javascript:void(0);" onclick="view_role( 23255 );" title="景光">景光</a>
+							</td>
+							<td width="80" align="center">
+														<span class="special">奴隶</span>
+														</td>
+							<td width="50" align="center">男</td>
+							<td width="60" align="center">Lv.76</td>
+							<td width="80" align="center">都卫统领</td>
+							<td width="80" align="center">
+														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 23255, '景光', 0, 0 );">俘获奴隶</a>
+														</td>
+						</tr>
+						
+					</table>
+					<div id="duel_slavery_list_msg" style="width: 420px; text-align: center;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div style="float: left; margin-left: 5px; width: 260px; height: 235px" class="field_box">
+
+			<div class="important">我的奴隶互动历史事件</div>
+			<div style="width: 256px; height: 211px; overflow-y: auto; padding-right: 3px">
+								<div><span class="date">08月02日 09:39</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20266)">应运</a>，没有抢到他的奴隶 <a href="javascript:void(0);" onclick="view_role(26823)">摇弋的思念</a>。【<a href="javascript:void(0);" onclick="view_combat ( 180211497626 )">查看</a>】</div>
+								<div><span class="date">08月02日 09:29</span><br /><a href='javascript:void(0);' title='' onclick='view_role(25621)' name='text_role_name'>Ps小古怪</a> 对着我一躬到地，景仰地说道： 主人以德服人，高风亮节，真乃当世奴隶主的典范也。</div>
+								<div><span class="date">08月02日 09:28</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(25621)' name='text_role_name'>Ps小古怪</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">15</span> 的名声。</div>
+								<div><span class="date">08月02日 09:27</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(25621)' name='text_role_name'>Ps小古怪</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(25621)' name='text_role_name'>Ps小古怪</a> 感动得哭了。</div>
+								<div><span class="date">08月02日 09:23</span><br />我将 <a href="javascript:void(0);" onclick="view_role(23100)">92豆腐</a> 成功击败，把他的奴隶 <a href="javascript:void(0);" onclick="view_role(25621)">Ps小古怪</a> 抢了过来。【<a href="javascript:void(0);" onclick="view_combat ( 180211497309 )">查看</a>】</div>
+								<div><span class="date">08月02日 09:18</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(23100)">92豆腐</a>，没有抢到他的奴隶 <a href="javascript:void(0);" onclick="view_role(25621)">Ps小古怪</a>。【<a href="javascript:void(0);" onclick="view_combat ( 180211497185 )">查看</a>】</div>
+								<div><span class="date">08月02日 08:57</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 感动得哭了。</div>
+								<div><span class="date">08月02日 08:57</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">15</span> 的名声。</div>
+								<div><span class="date">08月02日 08:57</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 感动得哭了。</div>
+								<div><span class="date">08月02日 08:57</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">14</span> 的名声。</div>
+								<div><span class="date">08月02日 00:43</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20266)">应运</a>，我的奴隶 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 被他抢走了！【<a href="javascript:void(0);" onclick="view_combat ( 180211488280 )">查看</a>】</div>
+								<div><span class="date">08月02日 00:13</span><br />我的奴隶 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 奋起反抗，被我狠狠地教训了一顿！【<a href="javascript:void(0);" onclick="view_combat ( 180211486591 )">查看</a>】</div>
+								<div><span class="date">08月02日 00:12</span><br /><a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 对着我一躬到地，景仰地说道： 主人以德服人，高风亮节，真乃当世奴隶主的典范也。</div>
+								<div><span class="date">08月02日 00:10</span><br /><a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 指着我赞颂道：主人的武功当世无人可比，就连放个屁也需大声呼吸，小人对主人的景仰有如滔滔江水延绵不绝！</div>
+								<div><span class="date">08月01日 22:50</span><br />我的奴隶 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 奋起反抗，被我狠狠地教训了一顿！【<a href="javascript:void(0);" onclick="view_combat ( 180111483329 )">查看</a>】</div>
+								<div><span class="date">08月01日 22:47</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">15</span> 的名声。</div>
+								<div><span class="date">08月01日 22:47</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 感动得哭了。</div>
+								<div><span class="date">08月01日 22:47</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(21830)' name='text_role_name'>臂力剑</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">14</span> 的名声。</div>
+								<div><span class="date">08月01日 22:47</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(22697)' name='text_role_name'>⑦⑦⑧⑧</a> 感动得哭了。</div>
+								<div><span class="date">08月01日 22:43</span><br />我将 <a href="javascript:void(0);" onclick="view_role(20266)">应运</a> 成功击败，把他的奴隶 <a href="javascript:void(0);" onclick="view_role(21830)">臂力剑</a> 抢了过来。【<a href="javascript:void(0);" onclick="view_combat ( 180111483039 )">查看</a>】</div>
+								<div><span class="date">08月01日 22:38</span><br />我将 <a href="javascript:void(0);" onclick="view_role(23701)">毕方</a> 成功击败，把他的奴隶 <a href="javascript:void(0);" onclick="view_role(22697)">⑦⑦⑧⑧</a> 抢了过来。【<a href="javascript:void(0);" onclick="view_combat ( 180111482872 )">查看</a>】</div>
+								<div><span class="date">08月01日 22:37</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">15</span> 的名声。</div>
+								<div><span class="date">08月01日 22:37</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 感动得哭了。</div>
+								<div><span class="date">08月01日 22:35</span><br /><a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 指着我赞颂道：主人的武功当世无人可比，就连放个屁也需大声呼吸，小人对主人的景仰有如滔滔江水延绵不绝！</div>
+								<div><span class="date">08月01日 22:32</span><br />我将 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 成功击败，把她抓来当了我的奴隶。【<a href="javascript:void(0);" onclick="view_combat ( 180111482695 )">查看</a>】</div>
+								<div><span class="date">08月01日 22:26</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a>，被那家伙逃过一劫，没能成为我的奴隶……【<a href="javascript:void(0);" onclick="view_combat ( 180111482464 )">查看</a>】</div>
+								<div><span class="date">08月01日 22:03</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(22904)">audrey005</a>，我的奴隶 <a href="javascript:void(0);" onclick="view_role(1292)">爱自由</a> 被她抢走了！【<a href="javascript:void(0);" onclick="view_combat ( 180111481505 )">查看</a>】</div>
+								<div><span class="date">08月01日 21:57</span><br /><a href='javascript:void(0);' title='' onclick='view_role(1292)' name='text_role_name'>爱自由</a> 指着我赞颂道：主人的武功当世无人可比，就连放个屁也需大声呼吸，小人对主人的景仰有如滔滔江水延绵不绝！</div>
+								<div><span class="date">08月01日 16:00</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20266)">应运</a>，没有抢到他的奴隶 <a href="javascript:void(0);" onclick="view_role(21830)">臂力剑</a>。【<a href="javascript:void(0);" onclick="view_combat ( 180111467141 )">查看</a>】</div>
+								<div><span class="date">08月01日 15:55</span><br />我低下头来，见 <a href='javascript:void(0);' title='' onclick='view_role(1292)' name='text_role_name'>爱自由</a> 娇羞之态，娇美不可方物，心中一荡，便凑过去啃咬了她一口。<a href='javascript:void(0);' title='' onclick='view_role(1292)' name='text_role_name'>爱自由</a> 的皮肤泛起了不健康的红晕...</div>
+								<div><span class="date">08月01日 15:55</span><br />你狠心的把奴隶【<a href='javascript:void(0);' title='' onclick='view_role(1292)' name='text_role_name'>爱自由</a>】关进你的武馆写宣传手册宣传武馆，他将在小黑屋里度过三个小时。</div>
+								<div><span class="date">08月01日 15:54</span><br />我将 <a href="javascript:void(0);" onclick="view_role(13337)">hchy94</a> 成功击败，把他的奴隶 <a href="javascript:void(0);" onclick="view_role(1292)">爱自由</a> 抢了过来。【<a href="javascript:void(0);" onclick="view_combat ( 180111466401 )">查看</a>】</div>
+								<div><span class="date">08月01日 15:37</span><br /><a href="javascript:void(0);" onclick="view_role(25989)">茜茜公主</a> 看不过我受欺凌的样子，把 <a href="javascript:void(0);" onclick="view_role(22730)">无敌靓靓靓</a> 教训了一顿，我恢复了自由身！【<a href="javascript:void(0);" onclick="view_combat ( 180111465601 )">查看</a>】</div>
+								<div><span class="date">08月01日 13:22</span><br />我对主人 <a href='javascript:void(0);' title='' onclick='view_role(22730)' name='text_role_name'>无敌靓靓靓</a> 一躬到地，景仰地说道： 主人以德服人，高风亮节，真乃当世奴隶主的典范也。事后我觉得自己很虚伪...</div>
+								<div><span class="date">08月01日 12:46</span><br />主人 <a href='javascript:void(0);' title='' onclick='view_role(22730)' name='text_role_name'>无敌靓靓靓</a> 拿出一件精美的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣让我穿上，我看上去显得别致极了。</div>
+								<div><span class="date">08月01日 12:46</span><br />我被主人 <a href='javascript:void(0);' title='' onclick='view_role(22730)' name='text_role_name'>无敌靓靓靓</a> 拉到荒山野岭四处吹嘘他的武馆，外面风好大，雨好冷，我好想回家……</div>
+								<div><span class="date">08月01日 12:46</span><br />我在奴隶市场被 <a href="javascript:void(0);" onclick="view_role(22730)">无敌靓靓靓</a> 打的落花流水，<a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 眼睁睁的看着我被 <a href="javascript:void(0);" onclick="view_role(22730)">无敌靓靓靓</a> 抢走了。【<a href="javascript:void(0);" onclick="view_combat ( 180111458446 )">查看</a>】</div>
+								<div><span class="date">08月01日 02:27</span><br /><a href="javascript:void(0);" onclick="view_role(22730)">无敌靓靓靓</a> 突然在奴隶市场对我发起挑战，但是被我轻松击败，真是自不量力！【<a href="javascript:void(0);" onclick="view_combat ( 180111448223 )">查看</a>】</div>
+								<div><span class="date">08月01日 00:21</span><br />主人 <a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 拿出一件精美的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣让我穿上，我看上去显得别致极了。</div>
+								<div><span class="date">08月01日 00:21</span><br />我被主人 <a href='javascript:void(0);' title='' onclick='view_role(20265)' name='text_role_name'>问世间</a> 拉到荒山野岭四处吹嘘他的武馆，外面风好大，雨好冷，我好想回家……</div>
+								<div><span class="date">08月01日 00:16</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a>，由于我没有奴隶可赔，无奈之下，我只得自己去充当奴隶。【<a href="javascript:void(0);" onclick="view_combat ( 180111442178 )">查看</a>】</div>
+								<div><span class="date">08月01日 00:11</span><br /><a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 突然在奴隶市场中挑战了我，要不是我打败了她，我现在就沦为奴隶了！【<a href="javascript:void(0);" onclick="view_combat ( 180111441880 )">查看</a>】</div>
+								<div><span class="date">07月31日 17:24</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(22730)">无敌靓靓靓</a>，我的奴隶 <a href="javascript:void(0);" onclick="view_role(6019)">灵魂小雪</a> 被她抢走了！【<a href="javascript:void(0);" onclick="view_combat ( 173111428536 )">查看</a>】</div>
+								<div><span class="date">07月31日 14:08</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a>，没有抢到她的奴隶 <a href="javascript:void(0);" onclick="view_role(23831)">亡秦必楚</a>。【<a href="javascript:void(0);" onclick="view_combat ( 173111420958 )">查看</a>】</div>
+								<div><span class="date">07月31日 14:04</span><br />我低下头来，见 <a href='javascript:void(0);' title='' onclick='view_role(6019)' name='text_role_name'>灵魂小雪</a> 娇羞之态，娇美不可方物，心中一荡，便凑过去啃咬了她一口。<a href='javascript:void(0);' title='' onclick='view_role(6019)' name='text_role_name'>灵魂小雪</a> 的皮肤泛起了不健康的红晕...</div>
+								<div><span class="date">07月31日 14:04</span><br />你狠心的把奴隶【<a href='javascript:void(0);' title='' onclick='view_role(6019)' name='text_role_name'>灵魂小雪</a>】关进你的武馆写宣传手册宣传武馆，他将在小黑屋里度过三个小时。</div>
+								<div><span class="date">07月31日 14:03</span><br />我将 <a href="javascript:void(0);" onclick="view_role(6019)">灵魂小雪</a> 成功击败，把她从 <a href="javascript:void(0);" onclick="view_role(20265)">问世间</a> 的手中抢了过来。【<a href="javascript:void(0);" onclick="view_combat ( 173111420810 )">查看</a>】</div>
+								<div><span class="date">07月31日 14:00</span><br />我拿出一件珍藏多年的 <a href="http://www.olomo.com/?u=2601" target="_blank">OLOMO</a> 毛衣给奴隶 <a href='javascript:void(0);' title='' onclick='view_role(21729)' name='text_role_name'>じ☆ve雪</a> 穿上，<a href='javascript:void(0);' title='' onclick='view_role(21729)' name='text_role_name'>じ☆ve雪</a> 感动得哭了。</div>
+								<div><span class="date">07月31日 14:00</span><br />我派出奴隶  <a href='javascript:void(0);' title='' onclick='view_role(21729)' name='text_role_name'>じ☆ve雪</a> 四处宣传我的武馆，我的武馆获得了 <span class="highlight">14</span> 的名声。</div>
+								<div><span class="date">07月30日 20:02</span><br />我在奴隶市场中输给了 <a href="javascript:void(0);" onclick="view_role(22324)">赤岛</a>，我的奴隶 <a href="javascript:void(0);" onclick="view_role(25621)">Ps小古怪</a> 被他抢走了！【<a href="javascript:void(0);" onclick="view_combat ( 173011395658 )">查看</a>】</div>
+							</div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+window.slaveryTimeDelay = null;
+fnCanSlaveryCombat ();
+
+fnDuelSlaveryList ( 'table_duel_slavery', '1' );
+</script><script type="text/javascript">
+removeClass ( 'city_menu_18', 'active' );
+</script>
