@@ -22,22 +22,14 @@ public class CatchSlavy {
 	public static final String CATCH_SLAVY = "modules/slavery_fight.php?act=enemy_fight&is_reverse=0&callback_func_name=callbackFnSlaveryFight&rid=";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=slaves_list&boss_id=1401&rand=1280645233206&timeStamp=1280644598821&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list
 	public static final String SLAVYS_LIST="modules/role_slavery.php?act=slaves_list&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list&boss_id=";
-	/*
-	 * <span class="highlight">自由身</span>
-														</td>
-							<td width="50" align="center">男</td>
-							<td width="60" align="center">Lv.41</td>
-							<td width="80" align="center">侍卫统领</td>
-							<td width="80" align="center">
-														<a href="javascript:void(0);" onclick="fnSlaveryFight( 2, 11154, 'bujingyun', 1, 0 );">俘获奴隶</a>
-	 */
+	
 	private Pattern slavyList = Pattern.compile("<span class=\"\\S+?\">(奴隶|奴隶主|自由身)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
 	private Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
 	private Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
 	//<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
-	private Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', 1 \\)\">俘获</a>");
+	private Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', (\\d+) \\)\">俘获</a>");
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=17798&capture_role_id=20821&is_reverse=1&timeStamp=1280647211817&callback_func_name=callbackFnSlaveryFight
-	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&is_reverse=1&callback_func_name=callbackFnSlaveryFight";
+	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&callback_func_name=callbackFnSlaveryFight";
 	private boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -113,7 +105,7 @@ public class CatchSlavy {
 				String page = PageService.getPageWithCookie(url, user);
 				Matcher m = masterSlavyList.matcher(page);
 				while(m.find()){
-					url = user.getUrl()+FIGHT_MASTER+getFightSlavyMaster(m.group(1), m.group(3));
+					url = user.getUrl()+FIGHT_MASTER+getFightSlavyMaster(m.group(1), m.group(3),m.group(5));
 					page = PageService.getPageWithCookie(url, user);
 					if(Tools.success(page)){
 						logger.info(user.getRoleName()+"抢夺"+m.group(2)+"的奴隶"+m.group(4));
@@ -124,8 +116,8 @@ public class CatchSlavy {
 		}
 		return false;
 	}
-	private String getFightSlavyMaster(String masterId,String slavyId){
-		return  "&rid="+masterId+"&capture_role_id="+slavyId;
+	private String getFightSlavyMaster(String masterId,String slavyId,String isReverse){
+		return  "&rid="+masterId+"&capture_role_id="+slavyId+"&is_reverse="+isReverse;
 	}
 	private boolean catchIt(String id,String name,User user){
 		String url = user.getUrl()+CATCH_SLAVY+id+Tools.getRandAndTime();
