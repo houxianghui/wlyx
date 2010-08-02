@@ -62,17 +62,18 @@ public class Portal {
 			if("死亡".equals(m.group(1))){
 				revive(user);
 			}
-			if(!"正常".equals(m.group(1)) && !"虚弱".equals(m.group(1)) && Monitor.inWuGuan(user)){
+			if((!"正常".equals(m.group(1)) && !"虚弱".equals(m.group(1))) || Monitor.inWuGuan(user)){
 				user.setCanMove(false);
 			}else{
 				user.setCanMove(true);
 			}
 		}
 		int now = getNow();
+		
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
 		}else{
-			if(Integer.parseInt(user.getPoint()) > user.getSavePoint()){
+			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user)){
 				user.setShouldKillMonstor(true);
 			}else{
 				user.setShouldKillMonstor(false);
