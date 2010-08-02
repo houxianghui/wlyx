@@ -38,6 +38,7 @@ public class Portal {
 				logger.error(user.getRoleName()+"µÇÂ½Ê§°Ü");
 			}
 		}
+		
 		Matcher m = p.matcher(page);
 		if(m.find()){
 			user.setLevel(m.group(1));
@@ -48,6 +49,12 @@ public class Portal {
 		}
 		if(user.getSavePoint() == 0){
 			user.setSavePoint(20);
+		}
+		m = name.matcher(page);
+		if(m.find()){
+			user.setRoleName(m.group(1));
+		}else{
+			user.setRoleName("------");
 		}
 		m = zhuangTai.matcher(page);
 		if(m.find()){
@@ -60,12 +67,6 @@ public class Portal {
 			}else{
 				user.setCanMove(true);
 			}
-		}
-		m = name.matcher(page);
-		if(m.find()){
-			user.setRoleName(m.group(1));
-		}else{
-			user.setRoleName("------");
 		}
 		int now = getNow();
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
@@ -92,7 +93,8 @@ public class Portal {
 	}
 	public static boolean goHome(User user){
 		String url = null;
-		if(getNow() > 12){
+		int now = getNow();
+		if(now > 15 || now < 8){
 			url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
 			if(Monitor.atMianChi(user)){
 				return true;

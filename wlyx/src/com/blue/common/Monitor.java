@@ -42,6 +42,11 @@ public class Monitor {
 	public static final String GLORY_TO_ZI_YU = "modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&timeStamp=1280649008972&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String GLORY_TREE = "modules/duel.php?act=glory&callback_func_name=callback_load_content&callback_obj_name=content";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&timeStamp=1280718623671&callback_func_name=callback_load_content&callback_obj_name=content
+	public static final String CUSTOM_ROOM="modules/warrior.php?act=guestroom&callback_func_name=callback_load_content&callback_obj_name=content";
+	public static final Pattern canRoomSleep = Pattern.compile("weal_guestroom_restore \\( '(\\d+)',");
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&op=restore&id=4&isfree=1&timeStamp=1280719522625&callback_func_name=warrior_common_callback
+	public static final String ROOM_WEAL = "modules/warrior.php?act=guestroom&op=restore&isfree=1&callback_func_name=warrior_common_callback&id=";
 	
 	public static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
@@ -49,11 +54,7 @@ public class Monitor {
 	public static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
 	public static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
-	public static boolean goHome(User user){
-		String page = PageService.getPageWithCookie(RETURN_HOME, user);
-		return Tools.success(page);
-			
-	}
+	
 	public static String getScenes(User user){
 		String url = user.getUrl()+POSITION+Tools.getTimeStamp(false);
 		return PageService.getPageWithCookie(url, user);
@@ -224,6 +225,21 @@ public class Monitor {
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"荣誉换"+type+"成功");
 			return true;
+		}
+		return false;
+	}
+	public static boolean roomWeal(User user){
+		String url = user.getUrl()+CUSTOM_ROOM+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = canRoomSleep.matcher(page);
+		if(m.find()){
+			String id = m.group(1);
+			url = user.getUrl()+ROOM_WEAL+id+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(url, user);
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"免费使用客房福利");
+				return true;
+			}
 		}
 		return false;
 	}

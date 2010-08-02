@@ -1,0 +1,120 @@
+﻿<div style="margin: 10px; width: 704px">
+	<!-- NPC 对话框 -->
+<div class="npc_dlg">
+	<div class="npc_dlg_top"><div class="npc_dlg_top_right"></div><div class="npc_dlg_top_left"></div></div>
+	<div class="npc_dlg_body">
+		<div class="npc_dlg_content container">
+			<b>韩非子：</b>
+			<div>
+								<div style="float: left; width: 100%; display:">
+					这里不是星级大酒店,没那么多娱乐设施,只能让你吃饱睡好。别问我为什么这么貴，现在物价涨的那么快你又不是不知道!<br />
+					
+						
+													
+							
+													
+						
+						
+															</div>
+							</div>
+		</div>
+	</div>
+	<div class="npc_dlg_bottom">
+		<div class="npc_dlg_bottom_right">
+			<div class="npc_dlg_arrow"></div>
+			<div class="npc_dlg_image"><img alt="" src="http://static.hero.9wee.com/npc/30.jpg" /></div>
+		</div>
+		<div class="npc_dlg_bottom_left"></div>
+	</div>
+</div><!-- npc_dlg -->
+
+
+	<table class="data_grid noborder" height="270">
+		<tr>
+			<!--<th align="left" colspan="2">&nbsp;</th>-->
+						
+			<th align="left" width="100"><a href="javascript:void(0);" class="long_button_active" onclick="weal_guestroom_restore ( '4', '确定要使用 <span class=highlight>免费客房安眠</span> 吗？' )">免费客房安眠</a></th>
+			<th align="left" width="300"><b><span class="text_scene">您有免费福利可使用：</span><span class="purple">免费在客房安眠 1 次</span>&nbsp;&nbsp;[0/1]<b/></th>
+						<th align="right" width="100">当前价格</th>
+			<th align="right" width="80">今日可用</th>
+		</tr>
+				<tr>
+			<td colspan="4"><div class="line" style="width:100%"></div></td>
+		</tr>
+		<tr>
+			<td width="100">
+								<a href="javascript:void(0);" class="short_button" onclick="guestroom_restore ( '1', '用膳', '2782', '铜币', '0' )">用膳</a>
+							</td>
+			<td>
+				一顿美味的大餐可以让你的气血与内息完全恢复
+			</td>
+			<td align="right">
+								<span class="highlight">2782</span> 铜币
+							</td>
+			<td align="right">无限</td>
+		</tr>
+				<tr>
+			<td colspan="4"><div class="line" style="width:100%"></div></td>
+		</tr>
+		<tr>
+			<td width="100">
+								<a href="javascript:void(0);" class="short_button" onclick="guestroom_restore ( '2', '小憩', '4', '黄金', '4' )">小憩</a>
+							</td>
+			<td>
+				小憩片刻可让你恢复 4 点精力
+			</td>
+			<td align="right">
+								<span class="highlight">4</span> 黄金
+							</td>
+			<td align="right"><span class="highlight">1</span> 次</td>
+		</tr>
+				<tr>
+			<td colspan="4"><div class="line" style="width:100%"></div></td>
+		</tr>
+		<tr>
+			<td width="100">
+								<a href="javascript:void(0);" class="short_button" onclick="guestroom_restore ( '3', '浅睡', '8', '黄金', '8' )">浅睡</a>
+							</td>
+			<td>
+				适当的浅睡可以让你恢复 8 点精力
+			</td>
+			<td align="right">
+								<span class="highlight">8</span> 黄金
+							</td>
+			<td align="right"><span class="highlight">1</span> 次</td>
+		</tr>
+				<tr>
+			<td colspan="4"><div class="line" style="width:100%"></div></td>
+		</tr>
+		<tr>
+			<td width="100">
+								<a href="javascript:void(0);" class="short_button" onclick="guestroom_restore ( '4', '安眠', '12', '黄金', '12' )">安眠</a>
+							</td>
+			<td>
+				舒舒服服的放松自己吧，安眠可以让你恢复 12 点精力
+			</td>
+			<td align="right">
+								<span class="highlight">12</span> 黄金
+							</td>
+			<td align="right"><span class="highlight">1</span> 次</td>
+		</tr>
+				<tr>
+			<td colspan="4"><div class="line" style="width:100%"></div></td>
+		</tr>
+		<tr>
+			<td width="100">
+								<a href="javascript:void(0);" class="short_button" onclick="guestroom_restore ( '5', '酣睡', '24', '黄金', '24' )">酣睡</a>
+							</td>
+			<td>
+				酣睡到自然醒是人间最大的享受，可以让你恢复 24 点精力
+			</td>
+			<td align="right">
+								<span class="highlight">24</span> 黄金
+							</td>
+			<td align="right"><span class="highlight">2</span> 次</td>
+		</tr>
+			</table>
+
+</div><script type="text/javascript">
+removeClass ( 'city_menu_3', 'active' );
+</script>
