@@ -142,7 +142,7 @@ public class Warrior {
 		int hour = c.get(Calendar.HOUR_OF_DAY);
 		int minute = c.get(Calendar.MINUTE);
 		if (day == Calendar.TUESDAY){
-			if(hour >= 11 && minute>=30){
+			if(hour >= 23 && minute>=30){
 				return true;
 			}
 		}else if(day == Calendar.WEDNESDAY){
