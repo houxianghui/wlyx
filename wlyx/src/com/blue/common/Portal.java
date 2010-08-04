@@ -95,7 +95,7 @@ public class Portal {
 	public static boolean goHome(User user){
 		String url = null;
 		int now = getNow();
-		if(now > 15 || now < 8){
+		if(now > 12 || now < 8){
 			url = user.getUrl()+MIAN_CHI+Tools.getTimeStamp(true);
 			if(Monitor.atMianChi(user)){
 				return true;
