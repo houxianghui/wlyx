@@ -37,6 +37,7 @@ public class Warrior {
 					return true;
 				}else if(hour == 15){
 					if(minute <= 30){
+						Portal.goHome(user);
 						return true;
 					}else{
 						return false;
