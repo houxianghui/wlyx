@@ -55,6 +55,7 @@ public class Monstor {
 	public static final String FREE_FINISH = "modules/auto_combats.php?act=complete&isfree=1&callback_func_name=callbackFnCancelAutoCombat";
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=repair_all_item&timeStamp=1280243508295&callback_func_name=itemClass.dragItemCallback
 	public static final String REPAIR = "modules/role_item.php?act=repair_all_item&callback_func_name=itemClass.dragItemCallback";
+	//http://s4.verycd.9wee.com/modules/scene_brick.php?act=down&rand=1281160957975&timeStamp=1281160945682&callback_func_name=callbackfnWarSceneBrick
 	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked

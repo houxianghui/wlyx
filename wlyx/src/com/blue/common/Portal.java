@@ -107,7 +107,10 @@ public class Portal {
 				return true;
 			}
 		}
-		
+		if(Monitor.atFuBen(user)){
+			logger.info(user.getRoleName()+"正在副本，停止移动");
+			return true;
+		}
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
 	}
