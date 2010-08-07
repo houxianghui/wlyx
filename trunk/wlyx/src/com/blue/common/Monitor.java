@@ -54,7 +54,7 @@ public class Monitor {
 	public static Pattern slavyMaster = Pattern.compile("我的主人：<a href=\"javascript:void\\(0\\);\" onclick=\"view_role \\( (\\d+) \\)\">");
 	public static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
-	
+	public static Pattern fuBen = Pattern.compile("map_name\":\"(\\S+?)\"");;
 	public static String getScenes(User user){
 		String url = user.getUrl()+POSITION+Tools.getTimeStamp(false);
 		return PageService.getPageWithCookie(url, user);
@@ -66,6 +66,17 @@ public class Monitor {
 			if("渑池".equals(m.group(1))){
 				return false;
 			}else{
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean atFuBen(User user){
+		String page = getScenes(user);
+		Matcher m = fuBen.matcher(page);
+		if(m.find()){
+			String map = Tools.hexToString(m.group(1));
+			if("函谷关".equals(map)){
 				return true;
 			}
 		}
