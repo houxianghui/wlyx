@@ -1,8 +1,5 @@
 package com.blue.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import com.blue.tools.PageService;
@@ -13,13 +10,20 @@ public class User {
 	private String password;
 	private String needWar;
 	private String gloryBuy;
-	private List<String> catchSlavyFailList = new ArrayList<String>();
-	
-	public List<String> getCatchSlavyFailList() {
-		return catchSlavyFailList;
+	private int buildDoor;	//2 ÐþÎä£¬3 ÖìÈ¸ 4 °×»¢ 5 ÇàÁú
+	public int getBuildDoor() {
+		return buildDoor;
 	}
-	public void setCatchSlavyFailList(List<String> catchSlavyFailList) {
-		this.catchSlavyFailList = catchSlavyFailList;
+	public void setBuildDoor(int buildDoor) {
+		this.buildDoor = buildDoor;
+	}
+	private String painType; //1 Ðû´« 2 ÐÞ½¨
+	
+	public String getPainType() {
+		return painType;
+	}
+	public void setPainType(String painType) {
+		this.painType = painType;
 	}
 	public String getGloryBuy() {
 		return gloryBuy;

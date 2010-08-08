@@ -1,8 +1,10 @@
 package com.blue.slavy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +32,8 @@ public class CatchSlavy {
 	private Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', (\\d+) \\)\">俘获</a>");
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=17798&capture_role_id=20821&is_reverse=1&timeStamp=1280647211817&callback_func_name=callbackFnSlaveryFight
 	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&callback_func_name=callbackFnSlaveryFight";
+	public Pattern fail = Pattern.compile("我在奴隶市场中输给了 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>");
+	
 	private boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -73,12 +77,15 @@ public class CatchSlavy {
 		if(!canCatchSlavy(user)){
 			return true;
 		}
+		
 		List<Slavy> l = getSlavyList(user);
 		Iterator<Slavy> it = l.iterator();
+		
 		//先抓自由身
 		while(it.hasNext()){
 			Slavy s = it.next();
 			if(s.level <= Integer.parseInt(user.getLevel()) && s.status.equals("自由身")){
+				
 				if(catchIt(s.id,s.slavyName,user)){
 					logger.info(user.getRoleName()+"对"+s.slavyName+"发起奴隶捕获");
 					return true;
@@ -105,6 +112,9 @@ public class CatchSlavy {
 				String page = PageService.getPageWithCookie(url, user);
 				Matcher m = masterSlavyList.matcher(page);
 				while(m.find()){
+					if(!failCheckSuccess(m.group(1), user)){
+						continue;
+					}
 					url = user.getUrl()+FIGHT_MASTER+getFightSlavyMaster(m.group(1), m.group(3),m.group(5));
 					page = PageService.getPageWithCookie(url, user);
 					if(Tools.success(page)){
@@ -120,9 +130,22 @@ public class CatchSlavy {
 		return  "&rid="+masterId+"&capture_role_id="+slavyId+"&is_reverse="+isReverse;
 	}
 	private boolean catchIt(String id,String name,User user){
+		if(!failCheckSuccess(id, user)){
+			return false;
+		}
 		String url = user.getUrl()+CATCH_SLAVY+id+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
+	}
+
+	private boolean failCheckSuccess(String id, User user) {
+		Map<String , CatchFail> map = getFailList(user);
+		CatchFail cf = map.get(id);
+		if(cf != null && cf.times>=2){
+			logger.info(user.getRoleName()+"输给"+cf.name+cf.times+"次了，抢别人去！");
+			return false;
+		}
+		return true;
 	}
 	private List<Slavy> getSlavyList(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
@@ -133,6 +156,34 @@ public class CatchSlavy {
 			l.add(new Slavy(m.group(4),m.group(1),Integer.parseInt(m.group(2)),m.group(3)));
 		}
 		return l;
+	}
+	private Map<String, CatchFail> getFailList(User user){
+		
+		Map<String,CatchFail> map = new HashMap<String, CatchFail>();
+		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = fail.matcher(page);
+		
+		while(m.find()){
+			String id = m.group(1);
+			CatchFail cf = map.get(id);
+			if(cf == null){
+				map.put(id, new CatchFail(id, m.group(2), 1));
+			}else{
+				map.put(id, new CatchFail(id, m.group(2), ++cf.times));
+			}
+		}
+		return map;
+	}
+	class CatchFail{
+		String id;
+		String name;
+		int times;
+		CatchFail(String id,String name,int times){
+			this.id = id;
+			this.name = name;
+			this.times = times;
+		}
 	}
 	class Slavy{
 		String slavyName;
