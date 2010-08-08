@@ -22,8 +22,9 @@ public class Monitor {
 	public static final String SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=comfort_submit&rand=1280199942890&timeStamp=1280199919046
 	public static final String COMFORT_SLAVY = "modules/role_slavery.php?act=comfort_submit";
+	//Ðû´«Îä¹Ý
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=pain_submit&rand=1280199951562&timeStamp=1280199943328
-	public static final String PAIN_SLAVY = "modules/role_slavery.php?act=pain_submit";
+	public static final String PAIN_SLAVY = "modules/role_slavery.php?act=pain_submit";	
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?timeStamp=1280242663691&callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality
 	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=1rand=1280246976709&timeStamp=1280246968613&callback_func_name=ajaxCallback
@@ -158,18 +159,53 @@ public class Monitor {
 				logger.info(user.getRoleName()+"¹ØÐ¡ºÚÎÝ"+name+"³É¹¦");
 				return true;
 			}else{
-				data = "scene_id=0&scene_type=0&pain_type=13&slavery_scene_id=2&slavery_scene_type=durable&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
-				page = PageService.postPage(url, data,user);
-				if(Tools.success(page)){
-					logger.info(user.getRoleName()+"ÕÛÄ¥Å«Á¥"+name+"Ðû´«Îä¹Ý³É¹¦");
-					return true;
+				final String XUAN_CHUAN = "1";
+				final String BUILD = "2";
+				
+				String painType = user.getPainType();
+				if(XUAN_CHUAN.equals(painType)){
+					//Ðû´«Îä¹Ý
+					data = "scene_id=0&scene_type=0&pain_type=13&slavery_scene_id=2&slavery_scene_type=durable&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
+					page = PageService.postPage(url, data,user);
+					if(Tools.success(page)){
+						logger.info(user.getRoleName()+"ÕÛÄ¥Å«Á¥"+name+"Ðû´«Îä¹Ý³É¹¦");
+						return true;
+					}else{
+						return false;
+					}
 				}else{
-					return false;
+					//ÐÞ½¨Îä¹Ý-ÐþÎäscene_id 2 ÐþÎä 3 ÖìÈ¸ 4 °×»¢ 5 ÇàÁú
+					//scene_id=0&scene_type=0&pain_type=14&slavery_scene_id=2&slavery_scene_type=durable&slave_id=29433&type=1&callback_func_name=callbackFnSlaveOptSubmit
+					
+					int door = 2;
+					if(user.getBuildDoor() > 5 || user.getBuildDoor() < 2){
+						door = 2;
+					}else{
+						door = user.getBuildDoor();
+					}
+					data = "scene_id=0&scene_type=0&pain_type=14&slavery_scene_id="+door+"&slavery_scene_type=durable&slave_id="+id+"&type=1&callback_func_name=callbackFnSlaveOptSubmit";
+					page = PageService.postPage(url, data, user);
+					if(Tools.success(page)){
+						logger.info(user.getRoleName()+"ÕÛÄ¥Å«Á¥"+name+"ÐÞ½¨"+getDoorName(door)+"³É¹¦");
+						return true;
+					}else{
+						return false;
+					}
+					
 				}
 			}
 		}catch(Exception e){
 			return false;
 		}
+	}
+	private static String getDoorName(int i){
+		switch(i){
+		case 2:return "ÐþÎäÃÅ";
+		case 3:return "ÖìÈ¸ÃÅ";
+		case 4:return "°×»¢ÃÅ";
+		case 5:return "ÇàÁúÃÅ";
+		}
+		return String.valueOf(i);
 	}
 	public static boolean dailyWeals(User user){
 		String url = user.getUrl()+DAILY_WEALS+Tools.getRandAndTime().substring(1);

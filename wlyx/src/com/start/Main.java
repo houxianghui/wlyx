@@ -93,6 +93,9 @@ public class Main {
 				user.setSavePoint(Integer.parseInt(i[10]));
 				user.setNeedWar(i[11]);
 				user.setGloryBuy(i[12]);
+				user.setPainType(i[13]);
+				user.setBuildDoor(Integer.parseInt(i[14]));
+				
 				l.add(user);
 			}
 		}
