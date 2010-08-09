@@ -33,6 +33,7 @@ public class CatchSlavy {
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=17798&capture_role_id=20821&is_reverse=1&timeStamp=1280647211817&callback_func_name=callbackFnSlaveryFight
 	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&callback_func_name=callbackFnSlaveryFight";
 	public Pattern fail = Pattern.compile("我在奴隶市场中输给了 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>");
+	public Pattern failToSlavy = Pattern.compile("我想从 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\(\\d+\\)\">\\S+?</a> 的手上抢夺 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>  作为自己的奴隶");
 	
 	private boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
@@ -173,6 +174,17 @@ public class CatchSlavy {
 				map.put(id, new CatchFail(id, m.group(2), ++cf.times));
 			}
 		}
+		m = failToSlavy.matcher(page);
+		while(m.find()){
+			String id = m.group(1);
+			CatchFail cf = map.get(id);
+			if(cf == null){
+				map.put(id, new CatchFail(id, m.group(2), 1));
+			}else{
+				map.put(id, new CatchFail(id, m.group(2), ++cf.times));
+			}
+		}
+		
 		return map;
 	}
 	class CatchFail{
