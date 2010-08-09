@@ -41,6 +41,7 @@ public class Monitor {
 	//»»×ÏÓñ
 	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1&timeStamp=1280560866420
 	public static final String GLORY_TO_ZI_YU = "modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1";
+	public static final String GLORY_TO_ZU_MU = "modules/duel.php?act=glory&op=buy&itemID=63&itemNum=1";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&timeStamp=1280649008972&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String GLORY_TREE = "modules/duel.php?act=glory&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&timeStamp=1280718623671&callback_func_name=callback_load_content&callback_obj_name=content
@@ -269,9 +270,11 @@ public class Monitor {
 		}else if("2".equals(s)){
 			url = user.getUrl()+GLORY_TO_ZI_YU+Tools.getTimeStamp(true);
 			type = "×ÏÓñ";
-		}else{
+		}else if("3".equals(s)){
+			url = user.getUrl()+GLORY_TO_ZU_MU+Tools.getTimeStamp(true);
+			type = "×æÄ¸ÂÌ";
+		}else
 			return false;
-		}
 		
 		page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
