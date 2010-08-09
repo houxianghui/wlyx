@@ -11,6 +11,21 @@ public class User {
 	private String needWar;
 	private String gloryBuy;
 	private int buildDoor;	//2 ÐþÎä£¬3 ÖìÈ¸ 4 °×»¢ 5 ÇàÁú
+	private int blackStartTime;
+	private int blackEndTime;
+	
+	public int getBlackStartTime() {
+		return blackStartTime;
+	}
+	public void setBlackStartTime(int blackStartTime) {
+		this.blackStartTime = blackStartTime;
+	}
+	public int getBlackEndTime() {
+		return blackEndTime;
+	}
+	public void setBlackEndTime(int blackEndTime) {
+		this.blackEndTime = blackEndTime;
+	}
 	public int getBuildDoor() {
 		return buildDoor;
 	}

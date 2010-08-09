@@ -95,7 +95,8 @@ public class Main {
 				user.setGloryBuy(i[12]);
 				user.setPainType(i[13]);
 				user.setBuildDoor(Integer.parseInt(i[14]));
-				
+				user.setBlackStartTime(Integer.parseInt(i[15]));
+				user.setBlackEndTime(Integer.parseInt(i[16]));
 				l.add(user);
 			}
 		}

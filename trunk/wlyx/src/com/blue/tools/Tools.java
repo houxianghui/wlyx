@@ -1,5 +1,7 @@
 package com.blue.tools;
 
+import java.util.Calendar;
+
 
 public class Tools {
 	public static String getTimeStamp(boolean hasAddFlag){
@@ -32,5 +34,9 @@ public class Tools {
 			
 		}
 		return sb.toString();
+	}
+	public static int getNowHour(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.HOUR_OF_DAY);
 	}
 }

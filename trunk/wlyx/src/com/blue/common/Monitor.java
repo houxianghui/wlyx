@@ -159,6 +159,11 @@ public class Monitor {
 				logger.info(user.getRoleName()+"关小黑屋"+name+"成功");
 				return true;
 			}else{
+				int nowHour = Tools.getNowHour();
+				if(nowHour >= user.getBlackStartTime() && nowHour < user.getBlackEndTime()){
+					logger.info(user.getRoleName()+"关小黑屋失败，等待");
+					return true;
+				}
 				final String XUAN_CHUAN = "1";
 				final String BUILD = "2";
 				
