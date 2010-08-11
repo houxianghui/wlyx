@@ -137,7 +137,7 @@ public class Warrior {
 		}
 		return false;
 	}
-	public boolean need10HoursTrain(){
+	public static boolean need10HoursTrain(){
 		Calendar c = Calendar.getInstance();
 		int day = c.get(Calendar.DAY_OF_WEEK);
 		int hour = c.get(Calendar.HOUR_OF_DAY);

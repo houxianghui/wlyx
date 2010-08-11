@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
+import com.blue.warrior.Warrior;
 
 public class Portal {
 	private static Logger logger = Logger.getLogger(Portal.class);
@@ -73,7 +74,7 @@ public class Portal {
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
 		}else{
-			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user)){
+			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user) && !Warrior.need10HoursTrain()){
 				user.setShouldKillMonstor(true);
 			}else{
 				user.setShouldKillMonstor(false);
