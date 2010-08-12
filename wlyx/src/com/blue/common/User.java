@@ -260,11 +260,12 @@ public class User {
 	public boolean login()throws Exception{
 		PageService.login(this);
 		Portal.setUserInfo(this);
-		if(getCookie() == null){
+		if(getCookie() == null || getCookie().trim().length() == 0){
 			return false;
 		}else{
 			logger.info(getRoleName()+"µÇÂ½³É¹¦");
 			return true;
 		}
 	}
+
 }
