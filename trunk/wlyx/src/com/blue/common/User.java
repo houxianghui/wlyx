@@ -259,6 +259,12 @@ public class User {
 	}
 	public boolean login()throws Exception{
 		PageService.login(this);
+		
+		while(getCookie() == null || getCookie().trim().length() == 0){
+			logger.info(getUserName()+"µ«¬º ß∞‹£¨5√Î÷”∫Û÷ÿ ‘");
+			Thread.sleep(5*1000);
+			PageService.login(this);
+		}
 		Portal.setUserInfo(this);
 		if(getCookie() == null || getCookie().trim().length() == 0){
 			return false;
