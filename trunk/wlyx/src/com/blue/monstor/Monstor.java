@@ -59,8 +59,8 @@ public class Monstor {
 	
 	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
-	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?sell_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
-	private Pattern temp = Pattern.compile("temp\":\\{\".*pack",Pattern.DOTALL);
+	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
 	private Pattern freeFinish = Pattern.compile("√‚∑—ÕÍ≥…–ﬁ¡∂");
 	public boolean killMonstor(User user,AutoTask at)throws Exception{
 		Portal.setUserInfo(user);
