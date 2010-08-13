@@ -75,10 +75,12 @@ public class AutoTask {
 		if(m.find()){
 			if(m.group(1).equals("铜币")){
 				if(Integer.parseInt(m.group(2))> user.getMiniMoney()){
+					logger.info(user.getRoleName()+"接受铜板为"+m.group(2)+"的收集任务"+taskId);
 					return true;
 				}
 			}
 			if(m.group(1).equals("经验")){
+				logger.info(user.getRoleName()+"接受战斗型任务"+taskId);
 				return true;
 			}
 			if(m.group(1).equals("物品")){
@@ -86,6 +88,7 @@ public class AutoTask {
 				if(t.find()){
 					int lv = Integer.parseInt(t.group(1));
 					if(lv >= 3){
+						logger.info(user.getRoleName()+"接受对话任务"+taskId);
 						return true;
 					}
 				}
