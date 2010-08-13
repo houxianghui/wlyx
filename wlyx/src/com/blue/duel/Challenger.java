@@ -4,10 +4,13 @@ public class Challenger {
 	private String id;
 	private String level;
 	private String duelNo;
-	public Challenger(String id,String duelNo,String level) {
+	private String name;
+	
+	public Challenger(String id,String duelNo,String level,String name) {
 		this.id = id;
 		this.level = level;
 		this.duelNo = duelNo;
+		this.name = name;
 	}
 	public String getId() {
 		return id;
@@ -17,6 +20,9 @@ public class Challenger {
 	}
 	public String getDuelNo(){
 		return duelNo;
+	}
+	public String getName(){
+		return name;
 	}
 
 }
