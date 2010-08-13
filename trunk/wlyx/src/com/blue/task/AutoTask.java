@@ -14,7 +14,7 @@ public class AutoTask {
 	private Logger logger = Logger.getLogger(this.getClass());
 	private Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
 	private Pattern finish = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成.*?进行中");
-	private Pattern reward = Pattern.compile("<li>(经验|铜币|物品).*?(\\d+)");
+	private Pattern reward = Pattern.compile("<li.*?(经验|铜币|物品).*?(\\d+)",Pattern.DOTALL);
 	private Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
 	private Pattern p2 = Pattern.compile("立即完成");
 	private Pattern free = Pattern.compile("免费完成任务.*?complete_auto_mission.*?(\\d+?),");
@@ -23,7 +23,7 @@ public class AutoTask {
 	private Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
 	private Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / 20");
 	//"quality":"3"
-	private Pattern dialog = Pattern.compile("quality\":\"(\\d+)\",");
+	private Pattern dialog = Pattern.compile("mission_id.*?quality\":\"(\\d+)\",");
 	
 	public static final String TASK_LIST_URL = "modules/task.php";
 	public static final String TASK_DETAIL_URL = "modules/role_mission.php?act=detail&function=day&id=";
