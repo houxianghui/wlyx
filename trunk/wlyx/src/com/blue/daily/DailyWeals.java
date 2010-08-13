@@ -22,7 +22,7 @@ public class DailyWeals {
 	public boolean getDailyWeals(User user){
 		String url = user.getUrl()+DAILY_WEALS+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("每日占卜开始");
+		logger.info(user.getRoleName()+"每日占卜开始");
 		return Tools.success(page);
 	}
 	public boolean alreadyHasWeals(User user){
