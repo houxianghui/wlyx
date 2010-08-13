@@ -274,7 +274,7 @@ public class Monstor {
 	private boolean checkIt(User user,String id,String name){
 		String url = user.getUrl()+CHECK_URL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		logger.info("鉴定"+name+"成功");
+		logger.info(user.getRoleName()+"鉴定"+name+"成功");
 		return Tools.success(page);
 	}
 	private boolean sellItem(User user,String id,String name){
