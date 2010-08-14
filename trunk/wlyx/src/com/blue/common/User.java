@@ -1,5 +1,8 @@
 package com.blue.common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import com.blue.tools.PageService;
@@ -13,7 +16,54 @@ public class User {
 	private int buildDoor;	//2 ÐþÎä£¬3 ÖìÈ¸ 4 °×»¢ 5 ÇàÁú
 	private int blackStartTime;
 	private int blackEndTime;
+	private int mingZhong;
+	private int duoShan;
+	private int baoJi;
+	private int poJi;
+	private int maxHP;
+	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
 	
+	public Map<String, Integer> getAttribMap() {
+		return attribMap;
+	}
+	public int getMaxHP() {
+		return maxHP;
+	}
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	public int getMaxMP() {
+		return maxMP;
+	}
+	public void setMaxMP(int maxMP) {
+		this.maxMP = maxMP;
+	}
+	private int maxMP;
+	
+	public int getMingZhong() {
+		return mingZhong;
+	}
+	public void setMingZhong(int mingZhong) {
+		this.mingZhong = mingZhong;
+	}
+	public int getDuoShan() {
+		return duoShan;
+	}
+	public void setDuoShan(int duoShan) {
+		this.duoShan = duoShan;
+	}
+	public int getBaoJi() {
+		return baoJi;
+	}
+	public void setBaoJi(int baoJi) {
+		this.baoJi = baoJi;
+	}
+	public int getPoJi() {
+		return poJi;
+	}
+	public void setPoJi(int poJi) {
+		this.poJi = poJi;
+	}
 	public int getBlackStartTime() {
 		return blackStartTime;
 	}
