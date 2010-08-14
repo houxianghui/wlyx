@@ -21,6 +21,21 @@ public class User {
 	private int baoJi;
 	private int poJi;
 	private int maxHP;
+	private int tianJiDoor=1;	// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
+	private int buildPoint;
+	
+	public int getBuildPoint() {
+		return buildPoint;
+	}
+	public void setBuildPoint(int buildPoint) {
+		this.buildPoint = buildPoint;
+	}
+	public int getTianJiDoor() {
+		return tianJiDoor;
+	}
+	public void setTianJiDoor(int tianJiDoor) {
+		this.tianJiDoor = tianJiDoor;
+	}
 	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
 	
 	public Map<String, Integer> getAttribMap() {

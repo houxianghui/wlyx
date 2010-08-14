@@ -20,13 +20,24 @@ public class TianJiTang {
 	public static final String FINISH_TASK = "modules/team_foster.php?act=mission&action=finish&callback_func_name=ajaxCallback&mission_id=";
 	//http://s4.verycd.9wee.com/modules/team_foster.php?act=mission&action=message&timeStamp=1281762976028
 	public static final String LIU_YAN = "modules/team_foster.php?act=mission&action=message";
+	//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=building&bui_id=1&submit=1&build_inter=1&timeStamp=1281775419408
+	public static final String BUILD = "modules/team_foster.php?act=build&action=building";
 	
-	public static Pattern jiXian = Pattern.compile("将自身 .*?(气血|内息|命中率|暴击率|破击率|躲闪率).*?提升到.*?(\\d+).*?missionInfo\\((\\d+)\\)",Pattern.DOTALL); 
-	public static Pattern renWu = Pattern.compile("当天完成日常任务 <span class=\"highlight\">(\\d+)</span> 个以上.*?missionInfo\\((\\d+)\\)",Pattern.DOTALL);
-	public static Pattern jingJi = Pattern.compile("当天在竞技场发起 <span class=\"highlight\">(\\d+)</span> 次挑战</td>.*?missionInfo\\((\\d+)\\)",Pattern.DOTALL);
+	public static Pattern jiXian = Pattern.compile("将自身 .*?(气血|内息|命中率|暴击率|破击率|躲闪率).*?提升到.*?(\\d+).*?missionInfo\\((\\d+)\\).*?(进行中|接受任务|已完成)",Pattern.DOTALL); 
+	public static Pattern renWu = Pattern.compile("当天完成日常任务 <span class=\"highlight\">(\\d+)</span> 个以上</td>\\s*"+
+			"<td align=\"right\" style=\"line-height: 20px;\">\\s*"+
+			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务</a>");
+	public static Pattern jingJi = Pattern.compile("当天在竞技场发起 <span class=\"highlight\">(\\d+)</span> 次挑战</td>\\s*" +
+			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
+			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	public static Pattern doing = Pattern.compile("<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\" class=\"highlight\">进行中</a>",Pattern.DOTALL);
-	public static Pattern dailyWeal = Pattern.compile("在福利中心领取每日福利.*?missionInfo\\((\\d+)\\)",Pattern.DOTALL);
-	public static Pattern liuYan = Pattern.compile("当天在武馆留言板发言 <span class=\"highlight\">1</span> 次.*?missionInfo\\((\\d+)\\)",Pattern.DOTALL);
+	public static Pattern dailyWeal = Pattern.compile("在福利中心领取每日福利.</td>\\s*" +
+			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
+			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
+	public static Pattern liuYan = Pattern.compile("当天在武馆留言板发言 <span class=\"highlight\">(\\d+)</span> 次</td>\\s*" +
+			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
+			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
+	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
 	public void autoTask(User user){
 		Portal.setUserAttribute(user);
 		
@@ -66,6 +77,10 @@ public class TianJiTang {
 				liuYan(user);
 			}
 		}
+		m = build.matcher(page);
+		if(m.find()){
+			user.setBuildPoint(Integer.parseInt(m.group(1)));
+		}
 	}
 	private boolean acceptTask(User user,String id){
 		String url = user.getUrl()+ACCEPT_WORK+id+Tools.getTimeStamp(true);
@@ -90,6 +105,14 @@ public class TianJiTang {
 		String page = PageService.postPage(url, data, user);
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"自动武馆留言");
+		}
+	}
+	public void build(User user){		
+		String url = user.getUrl()+BUILD+"&bui_id=1&submit="+user.getTianJiDoor()+"&build_inter="+user.getBuildPoint()+Tools.getTimeStamp(true);
+		String data = "callback_func_name=ajaxCallback";
+		String page = PageService.postPage(url, data, user);
+		if(Tools.success(page)){
+			logger.info(user.getRoleName()+"修建天机阁"+user.getTianJiDoor()+"成功");
 		}
 	}
 }
