@@ -26,6 +26,8 @@ import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTask;
 import com.blue.task.AutoTaskThread;
 import com.blue.team.WuGuanThread;
+import com.blue.tianjitang.TianJiTang;
+import com.blue.tianjitang.TianJiThread;
 import com.blue.warrior.Warrior;
 import com.blue.warrior.WarriorThread;
 
@@ -39,6 +41,8 @@ public class Main {
 		DailyWeals dw = new DailyWeals();
 		Monstor m = new Monstor();
 		CatchSlavy cs = new CatchSlavy();
+		TianJiTang tjt = new TianJiTang();
+		
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
@@ -52,6 +56,7 @@ public class Main {
 			new MonitorThread(user);			//图片等
 			new WuGuanThread(user);				//武馆
 			new CatchSlavyThread(user, cs);		//自动抓奴
+			new TianJiThread(user, tjt);		//自动天机堂任务
 		}
 	
 	}
