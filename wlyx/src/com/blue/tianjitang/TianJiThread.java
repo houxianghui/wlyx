@@ -19,6 +19,7 @@ public class TianJiThread extends Thread {
 			try{
 				tianJiTang.autoTask(user);
 				tianJiTang.autoFinish(user);
+				tianJiTang.build(user);
 				sleep(1000*60*5);
 			}catch(Exception e){
 				logger.error(user.getRoleName()+e.getMessage());
