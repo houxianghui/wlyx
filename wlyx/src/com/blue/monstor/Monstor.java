@@ -114,6 +114,7 @@ public class Monstor {
 		String mid = null;
 		int l = Integer.parseInt(level)+3;
 		String tmp = null;
+		String noChoice = null;
 		boolean find = false;
 		while(m.find()){
 			int i = Integer.parseInt(m.group(2));
@@ -123,12 +124,18 @@ public class Monstor {
 				break;
 			}
 			if(l-i == 1){
-				tmp = m.group(1);
+				tmp = m.group(1);				
+			}
+			if(l-i == 2){
+				noChoice = m.group(1);
 			}
 			
 		}
 		if(!find){
-			mid = tmp;
+			if(tmp != null)
+				mid = tmp;
+			else
+				mid = noChoice;
 		}
 		return killIt(mid, user);
 	}
