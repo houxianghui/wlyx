@@ -102,6 +102,7 @@ public class Main {
 				user.setBuildDoor(Integer.parseInt(i[14]));
 				user.setBlackStartTime(Integer.parseInt(i[15]));
 				user.setBlackEndTime(Integer.parseInt(i[16]));
+				user.setTianJiDoor(Integer.parseInt(i[17]));
 				l.add(user);
 			}
 		}

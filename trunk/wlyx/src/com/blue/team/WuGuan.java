@@ -21,6 +21,15 @@ public class WuGuan {
 	public static final String MIAN_CHI_DESTROY = "modules/scene_brick.php?act=down&callback_func_name=callbackfnWarSceneBrick";
 	//http://s4.verycd.9wee.com/modules/scene_brick.php?act=add&rand=1281162338117&timeStamp=1281162312191&callback_func_name=callbackfnWarSceneBrick
 	public static final String MIAN_CHI_REPAIR = "modules/scene_brick.php?act=add&callback_func_name=callbackfnWarSceneBrick";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&timeStamp=1281678437515
+	public static final String TEAM_LIST="modules/warrior.php?act=team";
+	
+	public static String getTeamList(User user){
+		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
+		String data = "country=0&type=credits&search_var=&chk_open_team=1&callback_func_name=ajaxCallback&callback_obj_name=content";
+		String page = PageService.postPage(url, data, user);
+		return page;
+	}
 	
 	public static boolean tiGuan(User user){
 		String url = user.getUrl()+TI_GUAN+Tools.getRandAndTime();
