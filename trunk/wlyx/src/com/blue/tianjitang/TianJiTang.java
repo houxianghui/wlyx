@@ -109,7 +109,7 @@ public class TianJiTang {
 	}
 	public void build(User user){		
 		if(user.getTianJiDoor() == 0){
-			logger.info(user.getRoleName()+"不修建天机阁");
+//			logger.info(user.getRoleName()+"不修建天机阁");
 			return;
 		}
 		String url = user.getUrl()+BUILD+"&bui_id=1&submit="+user.getTianJiDoor()+"&build_inter="+user.getBuildPoint()+Tools.getTimeStamp(true);
