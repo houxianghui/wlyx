@@ -18,7 +18,7 @@ public class Tools {
 		return "&g_time="+System.currentTimeMillis()/1000+"&timeStamp"+System.currentTimeMillis();
 	}
 	public static boolean success(String page){
-		return !page.contains("{\"error\":true");
+		return !page.contains("{\"error\":true") && page.trim().length() > 0;
 	}
 	/*
 	 *\\uhhhh

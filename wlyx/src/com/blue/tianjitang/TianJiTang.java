@@ -85,7 +85,7 @@ public class TianJiTang {
 	private boolean acceptTask(User user,String id){
 		String url = user.getUrl()+ACCEPT_WORK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		return Tools.success(page);
+		return page != null && page.trim().length() == 0;
 	}
 	public void autoFinish(User user){
 		String url = user.getUrl()+TASK_LIST+Tools.getTimeStamp(true);
