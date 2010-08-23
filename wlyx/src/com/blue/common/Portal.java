@@ -54,7 +54,7 @@ public class Portal {
 		user.setKillMonstorOnce("24");
 		String url = user.getUrl();
 		String page = PageService.getPageWithCookie(url, user);
-		if(!Tools.success(page)){
+		while(!Tools.success(page)){
 			try{
 				user.login();
 				page = PageService.getPageWithCookie(url, user);
@@ -107,7 +107,7 @@ public class Portal {
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
 		}else{
-			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user) && !Warrior.need10HoursTrain()){
+			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user) && !Warrior.need10HoursTrain() && !Monitor.atFuBen(user)){
 				user.setShouldKillMonstor(true);
 			}else{
 				user.setShouldKillMonstor(false);
