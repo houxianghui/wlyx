@@ -147,7 +147,7 @@ public class Warrior {
 				return true;
 			}
 		}else if(day == Calendar.WEDNESDAY){
-			if(hour >0 && hour < 8){
+			if(hour >=0 && hour < 8){
 				return true;
 			}
 		}
