@@ -31,12 +31,15 @@ public class TianJiTang {
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	public static Pattern doing = Pattern.compile("<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\" class=\"highlight\">进行中</a>",Pattern.DOTALL);
-	public static Pattern dailyWeal = Pattern.compile("在福利中心领取每日福利.</td>\\s*" +
+	public static Pattern dailyWeal = Pattern.compile("在福利中心领取每日福利</td>\\s*" +
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	public static Pattern liuYan = Pattern.compile("当天在武馆留言板发言 <span class=\"highlight\">(\\d+)</span> 次</td>\\s*" +
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
+	public static Pattern tiHuGuan = Pattern.compile("missionInfo\\((\\d+)\\).*?积分\\s*" +
+			"</td>\\s*<td align=\"right\" style=\"line-height: 20px;\">\\s*<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
+	
 	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
 	public void autoTask(User user){
 		Portal.setUserAttribute(user);
@@ -75,6 +78,12 @@ public class TianJiTang {
 			if(acceptTask(user, m.group(1))){
 				logger.info(user.getRoleName()+"接受留言任务");
 				liuYan(user);
+			}
+		}
+		m = tiHuGuan.matcher(page);
+		while(m.find()){
+			if(acceptTask(user, m.group(1))){
+				logger.info(user.getRoleName()+"接受天机堂踢护馆任务");
 			}
 		}
 		m = build.matcher(page);
