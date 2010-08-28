@@ -49,6 +49,9 @@ public class Monitor {
 	public static final Pattern canRoomSleep = Pattern.compile("weal_guestroom_restore \\( '(\\d+)',");
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&op=restore&id=4&isfree=1&timeStamp=1280719522625&callback_func_name=warrior_common_callback
 	public static final String ROOM_WEAL = "modules/warrior.php?act=guestroom&op=restore&isfree=1&callback_func_name=warrior_common_callback&id=";
+	//免费气血包
+	//http://s4.verycd.9wee.com/modules/buy_pool.php?act=weal&rand=1282913768192&timeStamp=1282913719064&callback_func_name=callback_weal_buy_pool
+	public static final String QI_XUE_BAO = "modules/buy_pool.php?act=weal&callback_func_name=callback_weal_buy_pool";
 	
 	public static Pattern p = Pattern.compile("<div class=\"city_scene_name\">(\\S+?国|渑池)\\s*?</div>");
 	private static Pattern wuGuan = Pattern.compile("武馆战打斗极其混乱");
@@ -57,6 +60,7 @@ public class Monitor {
 	public static Pattern mianChiWeal = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"arena_get_prise \\( '(\\S+?)', '(\\d+)' \\)\">领取</a>");
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
 	public static Pattern fuBen = Pattern.compile("map_name\":\"(\\S+?)\"");;
+	public static Pattern buyPool = Pattern.compile("免费\\S+?包");
 	public static String getScenes(User user){
 		String url = user.getUrl()+POSITION+Tools.getTimeStamp(false);
 		return PageService.getPageWithCookie(url, user);
@@ -222,6 +226,20 @@ public class Monitor {
 		}else{
 			return false;
 		}
+	}
+	public static boolean buyPool(User user){
+		String url = user.getUrl()+DAILY_WEALS+Tools.getRandAndTime().substring(1);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = buyPool.matcher(page);
+		if(m.find()){
+			url = user.getUrl()+QI_XUE_BAO+Tools.getRandAndTime();
+			page = PageService.getPageWithCookie(url, user);
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"使用"+m.group());
+				return true;
+			}
+		}
+		return false;
 	}
 	public static boolean mianChiWeals(User user){	
 		Calendar c = Calendar.getInstance();
