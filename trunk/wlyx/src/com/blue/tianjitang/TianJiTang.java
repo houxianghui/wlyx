@@ -37,8 +37,9 @@ public class TianJiTang {
 	public static Pattern liuYan = Pattern.compile("当天在武馆留言板发言 <span class=\"highlight\">(\\d+)</span> 次</td>\\s*" +
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
-	public static Pattern tiHuGuan = Pattern.compile("missionInfo\\((\\d+)\\).*?积分\\s*" +
-			"</td>\\s*<td align=\"right\" style=\"line-height: 20px;\">\\s*<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
+	public static Pattern tiHuGuan = Pattern.compile("积分</td>\\s*" +
+			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
+			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	
 	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
 	public void autoTask(User user){
