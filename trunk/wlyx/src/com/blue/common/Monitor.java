@@ -61,6 +61,28 @@ public class Monitor {
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
 	public static Pattern fuBen = Pattern.compile("map_name\":\"(\\S+?)\"");;
 	public static Pattern buyPool = Pattern.compile("免费\\S+?包");
+	
+	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
+	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
+	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">全民福利礼包.*?([立即领取|已领取])",Pattern.DOTALL);
+	//http://s4.verycd.9wee.com/modules/awards.php?act=fetch&award_id=119709&timeStamp=1282995924182&callback_func_name=awards_fetch_callback
+	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
+	public static void getAwards(User user){
+		String url = user.getUrl()+AWARD+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = awards.matcher(page);
+		while(m.find()){
+			if(m.group(2).equals("已领取")){
+				return;
+			}
+			url = user.getUrl()+GET_AWARD+m.group(1)+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(url, user);
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"领取全民福利成功");
+			}
+		}
+	}
+	
 	public static String getScenes(User user){
 		String url = user.getUrl()+POSITION+Tools.getTimeStamp(false);
 		return PageService.getPageWithCookie(url, user);
