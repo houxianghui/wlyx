@@ -1,6 +1,8 @@
 package com.blue.tools;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class Tools {
@@ -19,6 +21,15 @@ public class Tools {
 	}
 	public static boolean success(String page){
 		return !page.contains("{\"error\":true") && page.trim().length() > 0;
+	}
+	//&timeMark=1282959774&time=10&timeStamp=1282959775563
+	public static String getMarkAndTime(){
+		Random r = new Random();
+		int i = r.nextInt(1);
+		if(i == 0){
+			i = 4;
+		}
+		return "&timeMark="+System.currentTimeMillis()/1000+"&time="+i+"0&timeStamp="+System.currentTimeMillis();
 	}
 	/*
 	 *\\uhhhh
@@ -39,4 +50,16 @@ public class Tools {
 		Calendar c = Calendar.getInstance();
 		return c.get(Calendar.HOUR_OF_DAY);
 	}
+	/**
+	 * 将231,231,311格式的字符串转换为double
+	 * @param s
+	 * @return
+	 * @throws Exception
+	 */
+	public static double getValue(String s)throws Exception{
+		DecimalFormat df = new DecimalFormat("#,#0");
+		double t = df.parse(s).doubleValue();
+		return t;
+	}
+
 }

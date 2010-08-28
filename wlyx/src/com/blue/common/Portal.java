@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.team.WuGuan;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 import com.blue.warrior.Warrior;
@@ -21,7 +22,6 @@ public class Portal {
 	public static final String REVIVE = "modules/revival.php?revival_type=2&callback_func_name=revival_callback";
 	private static Pattern scene = Pattern.compile("var now_scene_id = (\\d+)"); 
 	private static Pattern zhuangTai = Pattern.compile("状态：.*?>(正常|死亡|训练中|战斗中|修炼中|虚弱|运输中|授艺中)",Pattern.DOTALL);
-	
 	private static Pattern p = Pattern.compile("等级：<span class=highlight>Lv.(\\d+)");
 	private static Pattern point = Pattern.compile("点精力\">(\\d+)</span> / ");
 	private static Pattern name = Pattern.compile("<span class=\"highlight\" title=\"查看改名记录\"><a onclick=\"dialog.open\\('/modules/role_name.php', 'dlg_change_name' \\);\">(\\S+?)</a></span>");
@@ -113,7 +113,16 @@ public class Portal {
 				user.setShouldKillMonstor(false);
 			}
 		}
+//		setTeamId(user);
 		return Tools.success(page);
+	}
+	public static void setTeamId(User user){
+		String url = user.getUrl()+WuGuan.MY_TEAM+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = WuGuan.myTeamId.matcher(page);
+		if(m.find()){
+			user.setTeamId(m.group(1));
+		}
 	}
 	public static void revive(User user){
 		String url = user.getUrl()+REVIVE+Tools.getTimeStamp(true);

@@ -23,7 +23,17 @@ public class User {
 	private int maxHP;
 	private int tianJiDoor=1;	// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
 	private int buildPoint;
-	
+	private String teamId;
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+	private Map<String, String> unionTeam = new HashMap<String,String>();
+	public Map<String, String> getUnionTeam() {
+		return unionTeam;
+	}
 	public int getBuildPoint() {
 		return buildPoint;
 	}
