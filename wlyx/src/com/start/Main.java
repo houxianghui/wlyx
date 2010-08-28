@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import com.blue.common.MonitorThread;
 import com.blue.common.User;
+import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWeals;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.Duel;
@@ -57,6 +58,7 @@ public class Main {
 			new WuGuanThread(user);				//武馆
 			new CatchSlavyThread(user, cs);		//自动抓奴
 			new TianJiThread(user, tjt);		//自动天机堂任务
+			new DailyAward(user);				//自动领取全民福利
 		}
 	
 	}
