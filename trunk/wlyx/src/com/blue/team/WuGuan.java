@@ -1,8 +1,10 @@
 package com.blue.team;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +24,7 @@ public class WuGuan {
 	//http://s4.verycd.9wee.com/modules/team.php?act=add_durable&rand=1280047786584&timeStamp=1280047781563&callback_func_name=callbackFnTeamSceneAddDurable
 	public static final String HU_GUAN = "modules/team.php?act=add_durable&callback_func_name=callbackFnTeamSceneAddDurable";
 	//http://s4.verycd.9wee.com/modules/team.php?act=team_scene_move&tid=61&sid=3&timeStamp=1280050633201&callback_func_name=callbackFnTeamSceneWalk
+	//http://s4.verycd.9wee.com/modules/team.php?act=team_scene_move&tid=30&sid=2&timeStamp=1282985514400&callback_func_name=callbackFnTeamSceneWalk
 	public static final String MOVE="modules/team.php?act=team_scene_move&sid=2&callback_func_name=callbackFnTeamSceneWalk&tid=";
 	//s_now_team_scene_id":"2","s_open_time":"10","s_close_time":"18"
 	private static Pattern p = Pattern.compile("s_now_team_scene_id\":\"(\\d+)\",\"s_open_time\":\"(\\d+)\",\"s_close_time\":\"(\\d+)\"");
@@ -41,6 +44,7 @@ public class WuGuan {
 	public static final String VIEW_TEAM = "modules/team.php?act=view_team&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_team&team_id=";
 	public static Pattern union = Pattern.compile("onclick=\"view_team \\( '(\\d+)' \\)\">(\\S+?)</a>"); 
 	public static Pattern xuanWuMen = Pattern.compile("	<tr><td><span class=\"purple\">玄武门</span></td><td class=\"highlight small_font\" align=\"right\">(\\S+?) / (\\S+?)</td></tr>");
+	
 	public static Pattern myXuanWu = Pattern.compile("玄武门.*?修建</a></td><td class=\"highlight small_font\" align=\"right\">(\\S+?) / (\\S+?)</td>");
 	//fnEnterTeamScene( 56 , 1 , 0)
 	public static Pattern myTeamId = Pattern.compile("fnEnterTeamScene\\( (\\d+) , (\\d+) , ()\\d+\\)");
@@ -53,8 +57,11 @@ public class WuGuan {
 	//http://s4.verycd.9wee.com/modules/team.php?act=leave_team_scene&timeStamp=1282963263594&callback_func_name=callbackFnLeaveTeamScene
 	public static final String LEAVE_TEAM = "modules/team.php?act=leave_team_scene&callback_func_name=callbackFnLeaveTeamScene";
 	//http://s4.verycd.9wee.com/modules/team.php?act=go_into_team_scene&team_id=15&scene_id=1&stand_point=2&timeStamp=1282964761504&callback_func_name=callbackFnEnterTeamScene
+	//http://s4.verycd.9wee.com/modules/team.php?act=go_into_team_scene&team_id=30&scene_id=1&stand_point=2&timeStamp=1282985448456&callback_func_name=callbackFnEnterTeamScene
 	public static final String DESDROY_TEAM = "modules/team.php?act=go_into_team_scene&scene_id=1&stand_point=2&timeStamp=1282964761504&callback_func_name=callbackFnEnterTeamScene&team_id=";
 	public static Pattern teams = Pattern.compile("view_team \\( (\\d+) \\)\" title=\"(\\S+?)\">.*?Lv.(\\d+).*?Lv.(\\d+)</td>",Pattern.DOTALL);
+	
+	
 	public static String getTeamList(User user){
 		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
 		String data = "country=0&type=credits&search_var=&chk_open_team=1&callback_func_name=ajaxCallback&callback_obj_name=content";
@@ -116,7 +123,13 @@ public class WuGuan {
 				}
 			}
 			
-			List l = Arrays.asList(user.getUnionTeam().keySet());
+			List<String> l = new ArrayList<String>();
+			Set<String> set = user.getUnionTeam().keySet();
+		
+			Iterator<String> it = set.iterator();
+			while(it.hasNext()){
+				l.add(it.next());
+			}
 			String mid = selectTeam(user, l);
 			if(mid != null){
 				return protectTeam(user, mid);
@@ -211,6 +224,7 @@ public class WuGuan {
 		}
 		if(min >= 0.8){
 			logger.info(user.getRoleName()+"盟馆很安全，还是去踢馆吧");
+			return null;
 		}
 		return minId;
 	}
@@ -220,10 +234,16 @@ public class WuGuan {
 		String page = getTeamList(user);
 		Matcher m = teams.matcher(page);
 		while(m.find()){
+			if(user.getUnionTeam().get(m.group(1))!=null){
+				continue;
+			}
+			if(user.getLevel().compareTo(m.group(4)) > 0){
+				continue;
+			}
 			String url = user.getUrl()+VIEW_TEAM+m.group(1)+Tools.getTimeStamp(true);
 			String s = PageService.getPageWithCookie(url, user);
 			Matcher xw = xuanWuMen.matcher(s);
-			if(m.find()){
+			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
 					if(d >= max){

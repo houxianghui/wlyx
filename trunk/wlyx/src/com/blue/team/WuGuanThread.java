@@ -13,6 +13,7 @@ public class WuGuanThread extends Thread {
 	public void run() {
 		while(true){
 			try{
+				WuGuan.gotoWuGuan(user);
 				if(Monitor.inWuGuan(user)){
 					WuGuan.tiGuan(user);
 					WuGuan.huGuan(user);
