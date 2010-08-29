@@ -116,9 +116,17 @@ public class WuGuan {
 				Matcher m = currXuanWu.matcher(page);
 				if(m.find()){
 					if(m.group(1).equals(m.group(2)) && inUnion){
+						logger.info(user.getRoleName()+"修满了，换个地方");
 						leaveTeam(user);
 					}else{
-						return true;
+						try{
+							if(!inUnion && Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= 0.2){
+								logger.info(user.getRoleName()+"要砸坏人家门了，撤退");
+								leaveTeam(user);
+							}else{
+								return true;
+							}
+						}catch(Exception e){}
 					}
 				}
 			}
@@ -254,6 +262,9 @@ public class WuGuan {
 					logger.error(e.getMessage());
 				}
 			}
+		}
+		if(max <= 0.2){
+			return null;
 		}
 		return mid;
 	}
