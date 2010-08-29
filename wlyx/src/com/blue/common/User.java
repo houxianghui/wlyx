@@ -37,6 +37,14 @@ public class User {
 	private int tianJiDoor=1;	// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
 	private int buildPoint;
 	private String teamId;
+	private boolean needRestart = false;
+	
+	public boolean isNeedRestart() {
+		return needRestart;
+	}
+	public void setNeedRestart(boolean needRestart) {
+		this.needRestart = needRestart;
+	}
 	public String getTeamId() {
 		return teamId;
 	}
@@ -360,16 +368,17 @@ public class User {
 		return true;
 		
 	}
-	private List<Thread> work = new ArrayList<Thread>();
-	public List<Thread> getWork() {
+	private List<BaseThread> work = new ArrayList<BaseThread>();
+	public List<BaseThread> getWork() {
 		return work;
 	}
 	private void startWork(){
-		Iterator<Thread> it = work.iterator();
+		Iterator<BaseThread> it = work.iterator();
 		while(it.hasNext()){
-			Thread t = it.next();
-			t.interrupt();					//停止原来的线程
+			BaseThread t = it.next();
+			t.setNeedStop(true);
 		}
+		work = new ArrayList<BaseThread>();
 		work.add(new WarriorThread(this));	//大厅
 		work.add(new DuelThread(this));			//竞技
 		work.add(new AutoTaskThread(this));		//任务

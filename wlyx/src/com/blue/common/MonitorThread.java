@@ -2,7 +2,7 @@ package com.blue.common;
 
 import com.blue.beauty.Beauty;
 
-public class MonitorThread extends Thread{
+public class MonitorThread extends BaseThread{
 	private User user;
 	public MonitorThread(User user) {
 		this.user = user;
@@ -12,6 +12,9 @@ public class MonitorThread extends Thread{
 	public void run() {
 		while(true){
 			try{
+				if(needStop){
+					return;
+				}
 				Beauty.rongYu(user);
 				Beauty.gongXian(user);
 				Monitor.activeSlavys(user);
