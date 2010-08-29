@@ -12,19 +12,8 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.blue.common.MonitorThread;
 import com.blue.common.User;
-import com.blue.daily.DailyAward;
-import com.blue.daily.DailyWealsThread;
-import com.blue.duel.DuelThread;
-import com.blue.monstor.MonstorThread;
 import com.blue.monstor.UserMonitor;
-import com.blue.slavy.CatchSlavyThread;
-import com.blue.task.AutoRewardThread;
-import com.blue.task.AutoTaskThread;
-import com.blue.team.WuGuanThread;
-import com.blue.tianjitang.TianJiThread;
-import com.blue.warrior.WarriorThread;
 
 public class Main {
 	public static void main(String[] args)throws Exception {
@@ -34,7 +23,6 @@ public class Main {
 		while(it.hasNext()){
 			User user = it.next();
 			user.login();
-			
 		}
 		new UserMonitor(l);
 	
