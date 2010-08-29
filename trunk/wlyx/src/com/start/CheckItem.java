@@ -12,12 +12,11 @@ public class CheckItem {
 	public static void main(String[] args)throws Exception {
 		List<User> l = Main.getUserInfo();
 		
-		Monstor m = new Monstor();
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
 			user.login();
-			m.displayTempPack(user);
+			Monstor.displayTempPack(user);
 		}
 	}
 
