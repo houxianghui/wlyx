@@ -27,8 +27,11 @@ public class UserMonitor extends Thread {
 					while(thread.hasNext()){
 						Thread t = thread.next();
 						if(!t.isAlive()){
+							work.remove(t);
 							logger.info(u.getRoleName()+"重新启动线程"+t.getClass().getName());
-							t.getClass().newInstance().start();							
+							t = t.getClass().newInstance();		
+							t.start();
+							work.add((BaseThread)t);
 						}
 					}
 				}
