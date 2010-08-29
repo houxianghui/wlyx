@@ -15,51 +15,28 @@ import java.util.regex.Pattern;
 import com.blue.common.MonitorThread;
 import com.blue.common.User;
 import com.blue.daily.DailyAward;
-import com.blue.daily.DailyWeals;
 import com.blue.daily.DailyWealsThread;
-import com.blue.duel.Duel;
 import com.blue.duel.DuelThread;
-import com.blue.monstor.Monstor;
 import com.blue.monstor.MonstorThread;
-import com.blue.slavy.CatchSlavy;
+import com.blue.monstor.UserMonitor;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
-import com.blue.task.AutoTask;
 import com.blue.task.AutoTaskThread;
 import com.blue.team.WuGuanThread;
-import com.blue.tianjitang.TianJiTang;
 import com.blue.tianjitang.TianJiThread;
-import com.blue.warrior.Warrior;
 import com.blue.warrior.WarriorThread;
 
 public class Main {
 	public static void main(String[] args)throws Exception {
 		List<User> l = getUserInfo();
-		
-		Duel d = new Duel();
-		AutoTask at = new AutoTask();
-		Warrior warrior = new Warrior();
-		DailyWeals dw = new DailyWeals();
-		Monstor m = new Monstor();
-		CatchSlavy cs = new CatchSlavy();
-		TianJiTang tjt = new TianJiTang();
-		
+	
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
 			user.login();
-			new WarriorThread(user, warrior);	//大厅
-			new DuelThread(d, user);			//竞技
-			new AutoTaskThread(at, user);		//任务
-			new AutoRewardThread(at, user);		//任务奖励
-			new DailyWealsThread(user, dw);		//每日福利
-			new MonstorThread(user, m,at);			//野训
-			new MonitorThread(user);			//图片等
-			new WuGuanThread(user);				//武馆
-			new CatchSlavyThread(user, cs);		//自动抓奴
-			new TianJiThread(user, tjt);		//自动天机堂任务
-			new DailyAward(user);				//自动领取全民福利
+			
 		}
+		new UserMonitor(l);
 	
 	}
 	public static List<User> getUserInfo() throws Exception, IOException {

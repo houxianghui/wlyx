@@ -14,15 +14,17 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class Duel{
-	private Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(Duel.class);
 	public static final String FREE_FIGHT="modules/duel_fight.php?action=fight&isfree=1&callback_func_name=callbackFnDuelRoleFight&rid=";
 	public static final String DUEL_LIST_URL = "modules/duel.php?act=hall";
 	public static final String FIGHT_URL = "modules/duel_fight.php?action=fight&rid=";
-	private Pattern p = Pattern.compile("<td.*?view_role\\s\\(\\s(\\d+) \\)\" title=\"(\\S+?)\">.*?No.(\\d+).*?Lv.(\\d+)",Pattern.DOTALL);
-	private Pattern times = Pattern.compile("今日你已经发起了.*?(\\d+)",Pattern.MULTILINE);
+	
+	private static Pattern p = Pattern.compile("<td.*?view_role\\s\\(\\s(\\d+) \\)\" title=\"(\\S+?)\">.*?No.(\\d+).*?Lv.(\\d+)",Pattern.DOTALL);
+	private static Pattern times = Pattern.compile("今日你已经发起了.*?(\\d+)",Pattern.MULTILINE);
 	//免费竞技
-	private Pattern free = Pattern.compile("免费",Pattern.DOTALL);
-	public boolean challenge(User user){
+	private static Pattern free = Pattern.compile("免费",Pattern.DOTALL);
+	
+	public static boolean challenge(User user){
 		String url = user.getUrl()+DUEL_LIST_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = p.matcher(page);

@@ -6,10 +6,10 @@ import com.blue.common.*;
 
 public class DailyWealsThread extends Thread {
 	private User user;
-	private DailyWeals dw;
-	public DailyWealsThread(User user,DailyWeals dw) {
+
+	public DailyWealsThread(User user) {
 		this.user = user;
-		this.dw = dw;
+
 		start();
 	}
 	@Override
@@ -21,11 +21,11 @@ public class DailyWealsThread extends Thread {
 				int hour = c.get(Calendar.HOUR_OF_DAY);
 				int minu = c.get(Calendar.MINUTE);
 				if(hour >= 0 ){
-					if(dw.alreadyHasWeals(user)){
+					if(DailyWeals.alreadyHasWeals(user)){
 						long time = ((24-hour)*60-minu+1)*60*1000;
 						sleep(time);
 					}else{
-						if(!dw.getDailyWeals(user)){
+						if(!DailyWeals.getDailyWeals(user)){
 							continue;
 						}
 					}

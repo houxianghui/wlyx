@@ -11,7 +11,7 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class TianJiTang {
-	private Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(TianJiTang.class);
 	//http://s4.verycd.9wee.com/modules/team_foster.php?act=mission&timeStamp=1281755338821&callback_func_name=ajaxCallback&callback_obj_name=team_fostor_mission
 	public static final String TASK_LIST = "modules/team_foster.php?act=mission&callback_func_name=ajaxCallback&callback_obj_name=team_fostor_mission";
 	//http://s4.verycd.9wee.com/modules/team_foster.php?act=mission&action=accept&mission_id=161&timeStamp=1281757220636&callback_func_name=refreshMissoin
@@ -42,7 +42,7 @@ public class TianJiTang {
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	
 	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
-	public void autoTask(User user){
+	public static void autoTask(User user){
 		Portal.setUserAttribute(user);
 		
 		String url = user.getUrl()+TASK_LIST+Tools.getTimeStamp(true);
@@ -92,12 +92,12 @@ public class TianJiTang {
 			user.setBuildPoint(Integer.parseInt(m.group(1)));
 		}
 	}
-	private boolean acceptTask(User user,String id){
+	private static boolean acceptTask(User user,String id){
 		String url = user.getUrl()+ACCEPT_WORK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		return page != null && page.trim().length() == 0;
 	}
-	public void autoFinish(User user){
+	public static void autoFinish(User user){
 		String url = user.getUrl()+TASK_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = doing.matcher(page);
@@ -109,7 +109,7 @@ public class TianJiTang {
 			}
 		}
 	}
-	private void liuYan(User user){
+	private static void liuYan(User user){
 		String url = user.getUrl()+LIU_YAN+Tools.getTimeStamp(true);
 		String data = "team_foster_message=%E4%BB%BB%E5%8A%A1&callback_func_name=refreshMissoin";
 		String page = PageService.postPage(url, data, user);
@@ -117,7 +117,7 @@ public class TianJiTang {
 			logger.info(user.getRoleName()+"自动武馆留言");
 		}
 	}
-	public void build(User user){		
+	public static void build(User user){		
 		if(user.getTianJiDoor() == 0){
 //			logger.info(user.getRoleName()+"不修建天机阁");
 			return;

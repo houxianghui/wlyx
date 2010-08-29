@@ -17,25 +17,25 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class CatchSlavy {
-	private Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(CatchSlavy.class);
 	//http://s4.verycd.9wee.com/modules/duel.php?act=slavery&timeStamp=1280449399109&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String SLAVY_LIST = "modules/duel.php?act=slavery&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=11154&is_reverse=0&rand=1280454988125&timeStamp=1280452728828&callback_func_name=callbackFnSlaveryFight
 	public static final String CATCH_SLAVY = "modules/slavery_fight.php?act=enemy_fight&is_reverse=0&callback_func_name=callbackFnSlaveryFight&rid=";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=slaves_list&boss_id=1401&rand=1280645233206&timeStamp=1280644598821&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list
 	public static final String SLAVYS_LIST="modules/role_slavery.php?act=slaves_list&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_slaves_list&boss_id=";
-	
-	private Pattern slavyList = Pattern.compile("<span class=\"\\S+?\">(奴隶|奴隶主|自由身)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
-	private Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
-	private Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
-	//<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
-	private Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', (\\d+) \\)\">俘获</a>");
 	//http://s4.verycd.9wee.com/modules/slavery_fight.php?act=enemy_fight&rid=17798&capture_role_id=20821&is_reverse=1&timeStamp=1280647211817&callback_func_name=callbackFnSlaveryFight
 	public static final String FIGHT_MASTER = "modules/slavery_fight.php?act=enemy_fight&callback_func_name=callbackFnSlaveryFight";
-	public Pattern fail = Pattern.compile("我在奴隶市场中输给了 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>");
-	public Pattern failToSlavy = Pattern.compile("我想从 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\(\\d+\\)\">\\S+?</a> 的手上抢夺 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>  作为自己的奴隶");
 	
-	private boolean canCatchSlavy(User user){
+	private static Pattern slavyList = Pattern.compile("<span class=\"\\S+?\">(奴隶|奴隶主|自由身)</span>.*?Lv.(\\d+).*?fnSlaveryFight\\(.*?,\\s*(\\d+), '(\\S+?)'",Pattern.DOTALL);
+	private static Pattern catchCount = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span> 场");
+	private static Pattern isSlavyMaster = Pattern.compile("下次发起俘获还需");
+	//<a href="javascript:void(0);" onclick="fnChoiceSlaveToFight( 17798, '北北', 20821, '暗夜龙隐', 1 )">俘获</a>
+	private static Pattern masterSlavyList = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"fnChoiceSlaveToFight\\( (\\d+), '(\\S+?)', (\\d+), '(\\S+?)', (\\d+) \\)\">俘获</a>");
+	public static Pattern fail = Pattern.compile("我在奴隶市场中输给了 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>");
+	public static Pattern failToSlavy = Pattern.compile("我想从 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\(\\d+\\)\">\\S+?</a> 的手上抢夺 <a href=\"javascript:void\\(0\\);\" onclick=\"view_role\\((\\d+)\\)\">(\\S+?)</a>  作为自己的奴隶");
+	
+	private static boolean canCatchSlavy(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = isSlavyMaster.matcher(page);
@@ -57,7 +57,7 @@ public class CatchSlavy {
 		return false;
 	}
 	
-	private boolean needCatchSlavy(User user){
+	private static boolean needCatchSlavy(User user){
 		String url = user.getUrl()+Monitor.SLAVY_MASTER+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = Monitor.slavy.matcher(page);
@@ -71,7 +71,7 @@ public class CatchSlavy {
 		}
 		return true;
 	}
-	public boolean catchSlavy(User user){
+	public static boolean catchSlavy(User user){
 		if(!needCatchSlavy(user)){
 			return true;
 		}
@@ -127,10 +127,10 @@ public class CatchSlavy {
 		}
 		return false;
 	}
-	private String getFightSlavyMaster(String masterId,String slavyId,String isReverse){
+	private static String getFightSlavyMaster(String masterId,String slavyId,String isReverse){
 		return  "&rid="+masterId+"&capture_role_id="+slavyId+"&is_reverse="+isReverse;
 	}
-	private boolean catchIt(String id,String name,User user){
+	private static boolean catchIt(String id,String name,User user){
 		if(!failCheckSuccess(id, user)){
 			return false;
 		}
@@ -139,7 +139,7 @@ public class CatchSlavy {
 		return Tools.success(page);
 	}
 
-	private boolean failCheckSuccess(String id, User user) {
+	private static boolean failCheckSuccess(String id, User user) {
 		Map<String , CatchFail> map = getFailList(user);
 		CatchFail cf = map.get(id);
 		if(cf != null && cf.times>=2){
@@ -148,7 +148,7 @@ public class CatchSlavy {
 		}
 		return true;
 	}
-	private List<Slavy> getSlavyList(User user){
+	private static List<Slavy> getSlavyList(User user){
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = slavyList.matcher(page);
@@ -158,7 +158,7 @@ public class CatchSlavy {
 		}
 		return l;
 	}
-	private Map<String, CatchFail> getFailList(User user){
+	private static Map<String, CatchFail> getFailList(User user){
 		
 		Map<String,CatchFail> map = new HashMap<String, CatchFail>();
 		String url = user.getUrl()+SLAVY_LIST+Tools.getTimeStamp(true);
@@ -187,7 +187,7 @@ public class CatchSlavy {
 		
 		return map;
 	}
-	class CatchFail{
+	static class CatchFail{
 		String id;
 		String name;
 		int times;
@@ -197,7 +197,7 @@ public class CatchSlavy {
 			this.times = times;
 		}
 	}
-	class Slavy{
+	static class Slavy{
 		String slavyName;
 		String status;
 		String id;

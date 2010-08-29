@@ -41,7 +41,7 @@ import com.blue.tools.Tools;
 
 
 public class Monstor {
-	private Logger logger = Logger.getLogger(Monstor.class);
+	private static Logger logger = Logger.getLogger(Monstor.class);
 	
 	private static final String KILL_URL="modules/auto_combats.php?act=start";
 	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
@@ -57,12 +57,12 @@ public class Monstor {
 	public static final String REPAIR = "modules/role_item.php?act=repair_all_item&callback_func_name=itemClass.dragItemCallback";
 	//http://s4.verycd.9wee.com/modules/scene_brick.php?act=down&rand=1281160957975&timeStamp=1281160945682&callback_func_name=callbackfnWarSceneBrick
 	
-	private Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
+	private static Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
-	private Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
-	private Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
-	private Pattern freeFinish = Pattern.compile("免费完成修炼");
-	public boolean killMonstor(User user,AutoTask at)throws Exception{
+	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
+	private static Pattern freeFinish = Pattern.compile("免费完成修炼");
+	public static boolean killMonstor(User user)throws Exception{
 		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
@@ -73,15 +73,15 @@ public class Monstor {
 		if(!user.getStatus().equals("修炼中") && !user.getStatus().equals("战斗中")){
 			checkItem(user);
 		}
-		return moveToMonstor(user,at);	
+		return moveToMonstor(user);	
 	}
-	public boolean canFreeFinish(User user){
+	public static boolean canFreeFinish(User user){
 		String url = user.getUrl()+VIEW_COMBAT+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = freeFinish.matcher(page);
 		return m.find();
 	}
-	private  boolean moveToMonstor(User user,AutoTask at)throws Exception{
+	private static boolean moveToMonstor(User user)throws Exception{
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		if(!user.isCanMove()){
@@ -91,7 +91,7 @@ public class Monstor {
 		String page = null;
 		int times = 3;
 		while(times > 0){
-			page = Move.worldMove(user, monstor[0],at);
+			page = Move.worldMove(user, monstor[0]);
 			if(!Tools.success(page)){
 				times--;
 				continue;
@@ -139,7 +139,7 @@ public class Monstor {
 		}
 		return killIt(mid, user);
 	}
-	private boolean repairAll(User user){
+	private static boolean repairAll(User user){
 		String url = user.getUrl()+REPAIR+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		
@@ -149,7 +149,7 @@ public class Monstor {
 		}
 		return false;
 	}
-	private boolean killIt(String monstor,User user)throws Exception{
+	private static boolean killIt(String monstor,User user)throws Exception{
 		Beauty.jingYan(user);
 		repairAll(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
@@ -168,7 +168,7 @@ public class Monstor {
 		return Tools.success(page);
 	}
 	
-	private String getData(String monstor,User user){
+	private static String getData(String monstor,User user){
 		int point = Integer.parseInt(user.getPoint());
 		int killOnce = Integer.parseInt(user.getKillMonstorOnce());
 		if(point - killOnce <= user.getSavePoint()){
@@ -184,7 +184,7 @@ public class Monstor {
 	 * group(4) check
 	 * 
 	 */
-	private void checkItem(User user){
+	private static void checkItem(User user){
 		logger.info(user.getRoleName()+"开始鉴定物品");
 		List<Item> l = getTempPack(user);
 		if(l == null){
@@ -227,7 +227,7 @@ public class Monstor {
 		
 	}
 	
-	private List<Item> getTempPack(User user){
+	private static List<Item> getTempPack(User user){
 		String url = user.getUrl()+Portal.USER_INFO+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m1 = temp.matcher(page);
@@ -244,7 +244,7 @@ public class Monstor {
 		}
 		return l;
 	}
-	public void displayTempPack(User user){
+	public static void displayTempPack(User user){
 		List<Item> l = getTempPack(user);
 		if(l == null){
 			logger.info(user.getRoleName()+"包裹是空的");
@@ -259,10 +259,10 @@ public class Monstor {
 		}
 		logger.info(user.getRoleName()+"的物品检查完毕");
 	}
-	public void checkAndSell(User user){
+	public static void checkAndSell(User user){
 		checkItem(user);
 	}
-	private String getQualityName(String qualityId){
+	private static String getQualityName(String qualityId){
 		int i = Integer.parseInt(qualityId);
 		switch(i){
 		case 1:return "普通装备";
@@ -272,25 +272,25 @@ public class Monstor {
 		}
 		return qualityId;
 	}
-	private boolean putToPack(User user,String id,String name){
+	private static boolean putToPack(User user,String id,String name){
 		String url = user.getUrl()+PUT_TO_PACK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"放"+name+"到包裹");
 		return Tools.success(page);
 	}
-	private boolean checkIt(User user,String id,String name){
+	private static boolean checkIt(User user,String id,String name){
 		String url = user.getUrl()+CHECK_URL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"鉴定"+name+"成功");
 		return Tools.success(page);
 	}
-	private boolean sellItem(User user,String id,String name){
+	private static boolean sellItem(User user,String id,String name){
 		String url = user.getUrl()+SELL+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"售出"+name);
 		return Tools.success(page);
 	}
-	private boolean giveUp(User user,String id,String name){
+	private static boolean giveUp(User user,String id,String name){
 		String url = user.getUrl()+GIVE_UP+id+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"扔掉"+name);

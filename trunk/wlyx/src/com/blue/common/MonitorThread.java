@@ -22,7 +22,6 @@ public class MonitorThread extends Thread{
 				Monitor.buyPool(user);
 				sleep(10*60*1000);
 			}catch(Exception e){
-				e.printStackTrace();
 			}
 		}
 	}

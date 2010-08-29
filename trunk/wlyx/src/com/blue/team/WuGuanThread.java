@@ -20,7 +20,6 @@ public class WuGuanThread extends Thread {
 				}
 				sleep(10*60*1000);
 			}catch(Exception e){
-				e.printStackTrace();
 			}
 		}
 	}

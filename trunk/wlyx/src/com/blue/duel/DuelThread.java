@@ -3,10 +3,9 @@ package com.blue.duel;
 import com.blue.common.User;
 
 public class DuelThread extends Thread {
-	private Duel d;
+
 	private User user;
-	public DuelThread(Duel d,User user) {
-		this.d = d;
+	public DuelThread(User user) {
 		this.user = user;
 		start();
 	}
@@ -14,7 +13,7 @@ public class DuelThread extends Thread {
 	public void run() {
 		while(true){
 			try{
-				if(d.challenge(user)){
+				if(Duel.challenge(user)){
 					if(!user.isFastChallenge()){
 						sleep(1000*60*(user.getDueSleepInteval()+10));
 					}else{
