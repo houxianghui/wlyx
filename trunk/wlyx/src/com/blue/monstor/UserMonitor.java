@@ -3,6 +3,7 @@ package com.blue.monstor;
 import java.util.Iterator;
 import java.util.List;
 
+import com.blue.common.BaseThread;
 import com.blue.common.User;
 
 public class UserMonitor extends Thread {
@@ -18,8 +19,8 @@ public class UserMonitor extends Thread {
 				Iterator<User> it = l.iterator();
 				while(it.hasNext()){
 					User u = it.next();
-					List<Thread> work = u.getWork();
-					Iterator<Thread> thread = work.iterator();
+					List<BaseThread> work = u.getWork();
+					Iterator<BaseThread> thread = work.iterator();
 					while(thread.hasNext()){
 						Thread t = thread.next();
 						if(!t.isAlive()){

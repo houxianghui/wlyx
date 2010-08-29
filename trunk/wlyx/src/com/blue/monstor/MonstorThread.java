@@ -1,8 +1,9 @@
 package com.blue.monstor;
 
+import com.blue.common.BaseThread;
 import com.blue.common.User;
 
-public class MonstorThread extends Thread {
+public class MonstorThread extends BaseThread {
 	private User user;
 	public MonstorThread(User user) {
 		this.user = user;
@@ -12,6 +13,9 @@ public class MonstorThread extends Thread {
 	public void run() {
 		while(true){
 			try{
+				if(needStop){
+					return;
+				}
 				if(Monstor.killMonstor(user)){
 					sleep(3*60*1000);
 				}else{

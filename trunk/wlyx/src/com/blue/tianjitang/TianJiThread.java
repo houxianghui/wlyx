@@ -1,11 +1,9 @@
 package com.blue.tianjitang;
 
-import org.apache.log4j.Logger;
-
+import com.blue.common.BaseThread;
 import com.blue.common.User;
 
-public class TianJiThread extends Thread {
-	private Logger logger = Logger.getLogger(this.getClass());
+public class TianJiThread extends BaseThread {
 	private User user;
 	public TianJiThread(User user) {
 		this.user = user;
@@ -14,6 +12,9 @@ public class TianJiThread extends Thread {
 	@Override
 	public void run() {
 		while(true){
+			if(needStop){
+				return;
+			}
 			try{
 				TianJiTang.autoTask(user);
 				TianJiTang.autoFinish(user);

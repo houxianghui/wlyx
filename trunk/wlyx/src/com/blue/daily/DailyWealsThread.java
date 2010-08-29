@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import com.blue.common.*;
 
-public class DailyWealsThread extends Thread {
+public class DailyWealsThread extends BaseThread {
 	private User user;
 
 	public DailyWealsThread(User user) {
@@ -17,6 +17,9 @@ public class DailyWealsThread extends Thread {
 		while(true){
 			//每天00:01后执行
 			try{
+				if(needStop){
+					return;
+				}
 				Calendar c = Calendar.getInstance();
 				int hour = c.get(Calendar.HOUR_OF_DAY);
 				int minu = c.get(Calendar.MINUTE);

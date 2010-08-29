@@ -2,10 +2,10 @@ package com.blue.task;
 
 import org.apache.log4j.Logger;
 
+import com.blue.common.BaseThread;
 import com.blue.common.User;
 
-public class AutoRewardThread extends Thread {
-	private Logger logger = Logger.getLogger(this.getClass());
+public class AutoRewardThread extends BaseThread {
 	private User user;
 	public AutoRewardThread(User user) {
 		this.user = user;
@@ -15,6 +15,9 @@ public class AutoRewardThread extends Thread {
 	public void run() {
 		while(true){
 			try{
+				if(needStop){
+					return;
+				}
 				if(AutoTask.getReward(user)){
 					sleep(5*1000*60);
 				}else{

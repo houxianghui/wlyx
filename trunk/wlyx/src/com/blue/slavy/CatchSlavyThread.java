@@ -1,9 +1,10 @@
 package com.blue.slavy;
 
 
+import com.blue.common.BaseThread;
 import com.blue.common.User;
 
-public class CatchSlavyThread extends Thread {
+public class CatchSlavyThread extends BaseThread {
 	private User user;
 	
 	public CatchSlavyThread(User user){
@@ -14,6 +15,9 @@ public class CatchSlavyThread extends Thread {
 	public void run() {
 		while(true){
 			try{
+				if(needStop){
+					return;
+				}
 				if(user.getNeedCatchSlavy() == 0){
 					return;
 				}
