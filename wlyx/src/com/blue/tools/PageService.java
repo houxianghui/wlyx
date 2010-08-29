@@ -60,7 +60,6 @@ public class PageService {
 				return b.toString();
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			logger.error(user.getRoleName()+" "+ex.getMessage());
 		} finally {
 			try {
@@ -105,7 +104,6 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
-			e.printStackTrace();
 		}
 		return "";
 	}
@@ -134,7 +132,6 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(user.getRoleName()+e.getMessage());
-			e.printStackTrace();
 		}
 		return "";
 	}
@@ -196,7 +193,6 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.info(user.getUserName()+e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	private static String getLogin(String pageUrl, String cookie){
