@@ -12,7 +12,7 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class Warrior {
-	Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(Warrior.class);
 	public static final String WARRIOR_URL="modules/warrior.php?act=hall&op=train&hours=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=work&hours=1&timeStamp=1280372681656
 	//真有穷鬼，挂铜板吧
@@ -22,8 +22,8 @@ public class Warrior {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=war&minters=60&timeStamp=1280557849142
 	public static final String WAR_START = "modules/warrior.php?act=hall&op=war&minters=";
 	
-	private Pattern p = Pattern.compile("<option value=\"(\\d+)\">\\d+\\ 分钟</option>\\s+</select>",Pattern.DOTALL);
-	private boolean canWar(User user){
+	private static Pattern p = Pattern.compile("<option value=\"(\\d+)\">\\d+\\ 分钟</option>\\s+</select>",Pattern.DOTALL);
+	private static boolean canWar(User user){
 		if(user.getNeedWar().equals("0")){
 			return false;
 		}
@@ -47,7 +47,7 @@ public class Warrior {
 		}
 		return false;
 	}
-	private boolean canTrain(User user){
+	private static boolean canTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
 			logger.info(user.getRoleName()+"需要挂野，暂不进行大厅");
@@ -58,7 +58,7 @@ public class Warrior {
 		}
 		return true;
 	}
-	public boolean startWar(User user)throws Exception{
+	public static boolean startWar(User user)throws Exception{
 //		if(!canTrain(user)){
 //			return true;
 //		}
@@ -80,7 +80,7 @@ public class Warrior {
 		return false;
 		
 	}
-	public boolean startTrain(User user)throws Exception{
+	public static boolean startTrain(User user)throws Exception{
 		if(!canTrain(user)){
 			return true;
 		}
@@ -104,7 +104,7 @@ public class Warrior {
 		logger.info(user.getRoleName()+"挂大厅失败");
 		return false;
 	}
-	public boolean startWork(User user)throws Exception{
+	public static boolean startWork(User user)throws Exception{
 		if(!canTrain(user)){
 			return true;
 		}

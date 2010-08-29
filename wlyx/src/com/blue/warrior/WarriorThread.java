@@ -1,16 +1,11 @@
 package com.blue.warrior;
 
-import org.apache.log4j.Logger;
-
 import com.blue.common.User;
 
 public class WarriorThread extends Thread{
-	private Logger logger = Logger.getLogger(this.getClass());
 	private User user;
-	private Warrior warrior;
-	public WarriorThread(User user,Warrior warrior) {
+	public WarriorThread(User user) {
 		this.user = user;
-		this.warrior = warrior;
 		start();
 	}
 	@Override
@@ -21,16 +16,14 @@ public class WarriorThread extends Thread{
 					return;
 				}else{
 					if(user.getWarriorChoice() == 1){
-						warrior.startTrain(user);
+						Warrior.startTrain(user);
 						
 					}else if(user.getWarriorChoice() == 2){
-						warrior.startWork(user);
+						Warrior.startWork(user);
 					}
 				}
 				sleep(5*1000*60);
 			}catch(Exception e){
-				e.printStackTrace();
-				logger.error(e.getMessage());
 			}
 		}
 	}

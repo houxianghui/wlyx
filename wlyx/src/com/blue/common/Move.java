@@ -29,9 +29,9 @@ public class Move {
 	public static final String THIRD = "modules/scene_walk.php?action=enterThirdScene&pk_status=0&hide_tips=0&isfree=0&callback_func_name=callbackfnEnterThirdScene&sid=";
 	
 	
-	public static String worldMove(User user,String key,AutoTask at){
+	public static String worldMove(User user,String key){
 		goToMianChi(user);
-		at.autoAcceptTask(user);
+		AutoTask.autoAcceptTask(user);
 		String id = Map.getId(1, key);
 		String url = user.getUrl()+WORLD_MOVE+id+Tools.getRandAndTime();
 		if(!key.equals("°²Æ½¿¤") && Monitor.atMianChi(user)){

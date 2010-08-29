@@ -1,17 +1,13 @@
 package com.blue.slavy;
 
-import org.apache.log4j.Logger;
 
 import com.blue.common.User;
 
 public class CatchSlavyThread extends Thread {
-	private Logger logger = Logger.getLogger(this.getClass());
 	private User user;
-	private CatchSlavy cs;
 	
-	public CatchSlavyThread(User user,CatchSlavy cs){
+	public CatchSlavyThread(User user){
 		this.user = user;
-		this.cs = cs;
 		start();
 	}
 	@Override
@@ -21,11 +17,10 @@ public class CatchSlavyThread extends Thread {
 				if(user.getNeedCatchSlavy() == 0){
 					return;
 				}
-				cs.catchSlavy(user);
+				CatchSlavy.catchSlavy(user);
 				sleep(5*60*1000);
 			}catch(Exception e){
-				e.printStackTrace();
-				logger.error(user.getRoleName()+" "+e.getMessage());
+			
 			}
 		}
 	}

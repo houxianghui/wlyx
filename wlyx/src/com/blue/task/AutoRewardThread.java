@@ -6,10 +6,8 @@ import com.blue.common.User;
 
 public class AutoRewardThread extends Thread {
 	private Logger logger = Logger.getLogger(this.getClass());
-	private AutoTask at;
 	private User user;
-	public AutoRewardThread(AutoTask at,User user) {
-		this.at = at;
+	public AutoRewardThread(User user) {
 		this.user = user;
 		start();
 	}
@@ -17,13 +15,12 @@ public class AutoRewardThread extends Thread {
 	public void run() {
 		while(true){
 			try{
-				if(at.getReward(user)){
+				if(AutoTask.getReward(user)){
 					sleep(5*1000*60);
 				}else{
 					sleep(1000*60);
 				}
 			}catch(Exception e){
-				logger.error(user.getRoleName()+" "+e.getMessage());
 			}
 		}
 	}

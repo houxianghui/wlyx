@@ -15,7 +15,6 @@ public class MianChiThread extends Thread {
 				WuGuan.destroy(user);
 				sleep(1000*30);
 			}catch(Exception e){
-				e.printStackTrace();
 			}
 		}
 	}

@@ -1,11 +1,24 @@
 package com.blue.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.blue.daily.DailyAward;
+import com.blue.daily.DailyWealsThread;
+import com.blue.duel.DuelThread;
+import com.blue.monstor.MonstorThread;
+import com.blue.slavy.CatchSlavyThread;
+import com.blue.task.AutoRewardThread;
+import com.blue.task.AutoTaskThread;
+import com.blue.team.WuGuanThread;
+import com.blue.tianjitang.TianJiThread;
 import com.blue.tools.PageService;
+import com.blue.warrior.WarriorThread;
 
 public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
@@ -341,12 +354,32 @@ public class User {
 			PageService.login(this);
 		}
 		Portal.setUserInfo(this);
-		if(getCookie() == null || getCookie().trim().length() == 0){
-			return false;
-		}else{
-			logger.info(getRoleName()+"登陆成功");
-			return true;
-		}
+		
+		logger.info(getRoleName()+"登陆成功");
+		startWork();
+		return true;
+		
 	}
-
+	private List<Thread> work = new ArrayList<Thread>();
+	public List<Thread> getWork() {
+		return work;
+	}
+	private void startWork(){
+		Iterator<Thread> it = work.iterator();
+		while(it.hasNext()){
+			Thread t = it.next();
+			t.interrupt();					//停止原来的线程
+		}
+		work.add(new WarriorThread(this));	//大厅
+		work.add(new DuelThread(this));			//竞技
+		work.add(new AutoTaskThread(this));		//任务
+		work.add(new AutoRewardThread(this));		//任务奖励
+		work.add(new DailyWealsThread(this));		//每日福利
+		work.add(new MonstorThread(this));		//野训
+		work.add(new MonitorThread(this));		//图片等
+		work.add(new WuGuanThread(this));			//武馆
+		work.add(new CatchSlavyThread(this));		//自动抓奴
+		work.add(new TianJiThread(this));			//自动天机堂任务
+		work.add(new DailyAward(this));			//自动领取全民福利
+	}
 }
