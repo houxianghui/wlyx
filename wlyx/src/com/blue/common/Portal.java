@@ -56,7 +56,7 @@ public class Portal {
 		String page = PageService.getPageWithCookie(url, user);
 		while(!Tools.success(page)){
 			try{
-				user.login();
+				user.login(true);
 				page = PageService.getPageWithCookie(url, user);
 			}catch(Exception e){
 				logger.error(user.getRoleName()+"µÇÂ½Ê§°Ü");

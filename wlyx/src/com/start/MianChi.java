@@ -14,7 +14,7 @@ public class MianChi {
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
-			user.login();
+			user.login(false);
 //			new WuGuanThread(user);
 			new MianChiThread(user);
 		}

@@ -375,7 +375,7 @@ public class User {
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
 	}
-	public boolean login()throws Exception{
+	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);
 		
 		while(getCookie() == null || getCookie().trim().length() == 0){
@@ -386,7 +386,9 @@ public class User {
 		Portal.setUserInfo(this);
 		
 		logger.info(getRoleName()+"µÇÂ½³É¹¦");
-		startWork();
+		if(startWork){
+			startWork();
+		}
 		return true;
 		
 	}

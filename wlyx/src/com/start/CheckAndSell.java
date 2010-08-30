@@ -14,7 +14,7 @@ public class CheckAndSell {
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
-			user.login();
+			user.login(false);
 			Monstor.checkAndSell(user);
 		}
 	}
