@@ -70,6 +70,17 @@ public class Main {
 				user.setBlackStartTime(Integer.parseInt(i[15]));
 				user.setBlackEndTime(Integer.parseInt(i[16]));
 				user.setTianJiDoor(Integer.parseInt(i[17]));
+				if(i.length>18){
+					int needGetAward = Integer.parseInt(i[18]);
+					user.setNeedGetAward(needGetAward == 1);
+				}
+				if(i.length>19){
+					int needGuoDu = Integer.parseInt(i[19]);
+					user.setNeedGuoDu(needGuoDu == 1);
+				}
+				if(i.length > 20){
+					user.setBeatTeam(i[20]);
+				}
 				l.add(user);
 			}
 		}

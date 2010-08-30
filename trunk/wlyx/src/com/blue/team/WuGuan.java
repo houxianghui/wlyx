@@ -2,8 +2,11 @@ package com.blue.team;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +36,8 @@ public class WuGuan {
 	public static final String MIAN_CHI_REPAIR = "modules/scene_brick.php?act=add&callback_func_name=callbackfnWarSceneBrick";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&timeStamp=1281678437515
 	public static final String TEAM_LIST="modules/warrior.php?act=team";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&type=credits&page=10&country=0&chk_open_team=0&timeStamp=1283164565356&callback_func_name=ajaxCallback&callback_obj_name=content
+	public static final String GET_ALL_TEAM = "modules/warrior.php?act=team&type=credits&country=0&chk_open_team=0&callback_func_name=ajaxCallback&callback_obj_name=content&page=";
 	//查看我的武馆
 	//http://s4.verycd.9wee.com/modules/team.php?act=my_team&timeStamp=1282922453022&callback_func_name=ajaxCallback&callback_obj_name=dlg_team
 	public static final String MY_TEAM = "modules/team.php?act=my_team&callback_func_name=ajaxCallback&callback_obj_name=dlg_team";
@@ -60,7 +65,8 @@ public class WuGuan {
 	//http://s4.verycd.9wee.com/modules/team.php?act=go_into_team_scene&team_id=30&scene_id=1&stand_point=2&timeStamp=1282985448456&callback_func_name=callbackFnEnterTeamScene
 	public static final String DESDROY_TEAM = "modules/team.php?act=go_into_team_scene&scene_id=1&stand_point=2&timeStamp=1282964761504&callback_func_name=callbackFnEnterTeamScene&team_id=";
 	public static Pattern teams = Pattern.compile("view_team \\( (\\d+) \\)\" title=\"(\\S+?)\">.*?Lv.(\\d+).*?Lv.(\\d+)</td>",Pattern.DOTALL);
-	
+	public static Pattern openTime = Pattern.compile("s_now_team_scene_id\":\"(\\d+)\",\"s_open_time\":\"(\\d+)\",\"s_close_time\":\"(\\d+)\"");
+	public static Map<String, String> teamMap = new HashMap<String, String>();
 	
 	public static String getTeamList(User user){
 		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
@@ -70,6 +76,20 @@ public class WuGuan {
 	}
 	
 	public static boolean tiGuan(User user){
+		if(user.getBeatTeam() != null){
+			String url = user.getUrl()+GET_SCENE+Tools.getTimeStamp(true);
+			String page = PageService.getPageWithCookie(url, user);
+			Matcher m = openTime.matcher(page);
+			if(m.find()){
+				int close = Integer.parseInt(m.group(3));
+				Calendar c = Calendar.getInstance();
+				if(c.get(Calendar.HOUR_OF_DAY) == close-1 && c.get(Calendar.MINUTE) >= 40){
+					Beauty.tiGuan(user);
+				}else {
+					return true;
+				}
+			}
+		}
 		String url = user.getUrl()+TI_GUAN+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
@@ -94,7 +114,28 @@ public class WuGuan {
 		}
 		return true;
 	}
+	private static String getCurrTeam(User user){
+		String url = user.getUrl()+GET_SCENE+Tools.getMarkAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher ct = currTeam.matcher(page);
+		if(ct.find()){
+			return ct.group(1);
+		}
+		return null;
+	}
 	public static boolean gotoWuGuan(User user){
+		getAllTeam(user);
+		if(user.getBeatTeam() != null){
+			String teamId = teamMap.get(user.getBeatTeam().trim());
+			if(teamId != null){
+				if(Monitor.inWuGuan(user) && teamId.equals(getCurrTeam(user))){
+					return true;
+				}else{
+					desdroyTeam(user, teamId);
+					return true;
+				}
+			}
+		}
 		Portal.setTeamId(user);
 		setUnionTeam(user);
 		boolean inUnion = false;
@@ -168,7 +209,9 @@ public class WuGuan {
 		String page = PageService.getPageWithCookie(enterMyTeam, user);
 		String url = user.getUrl()+MOVE+mid+Tools.getTimeStamp(true);
 		String result = PageService.getPageWithCookie(url, user);
-		Beauty.tiGuan(user);
+		if(user.getBeatTeam() == null){
+			Beauty.tiGuan(user);
+		}
 		return Tools.success(result);
 	}
 	public static boolean inMyteam(User user){
@@ -279,5 +322,14 @@ public class WuGuan {
 		}
 		
 	}
-	
+	private static void getAllTeam(User user){
+		for(int i = 1;i < 12;i++){
+			String url = user.getUrl()+GET_ALL_TEAM+i+Tools.getTimeStamp(true);
+			String page = PageService.getPageWithCookie(url, user);
+			Matcher m = teams.matcher(page);
+			while(m.find()){
+				teamMap.put(m.group(2), m.group(1));
+			}
+		}
+	}
 }
