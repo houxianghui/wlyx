@@ -22,7 +22,7 @@ public class Main {
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
-			user.login();
+			user.login(true);
 		}
 		new UserMonitor(l);
 	
