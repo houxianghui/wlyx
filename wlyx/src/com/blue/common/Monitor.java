@@ -67,7 +67,23 @@ public class Monitor {
 	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">全民福利礼包.*?([立即领取|已领取])",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/awards.php?act=fetch&award_id=119709&timeStamp=1282995924182&callback_func_name=awards_fetch_callback
 	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
+	public static final String GUO_DU = "modules/warrior.php?act=arena&op=join&part=1";
+	
+	public static void guoDu(User user){
+		if(!user.isNeedGuoDu()){
+			return;
+		}
+		String url = user.getUrl()+GUO_DU+Tools.getTimeStamp(true);
+		String data = "callback_func_name=warrior_common_callback";
+		PageService.postPage(url, data, user);
+		logger.info(user.getRoleName()+"报名国都演武厅");
+	}
+	
 	public static void getAwards(User user){
+		if(!user.isNeedGetAward()){
+			return ;
+		}
 		String url = user.getUrl()+AWARD+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = awards.matcher(page);

@@ -122,7 +122,9 @@ public class TianJiTang {
 //			logger.info(user.getRoleName()+"不修建天机阁");
 			return;
 		}
-		String url = user.getUrl()+BUILD+"&bui_id=1&submit="+user.getTianJiDoor()+"&build_inter="+user.getBuildPoint()+Tools.getTimeStamp(true);
+		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=building&bui_id=3&submit=1&build_inter=1&timeStamp=1283164009827
+		
+		String url = user.getUrl()+BUILD+"&bui_id="+user.getTianJiDoor()+"&submit=1&build_inter="+user.getBuildPoint()+Tools.getTimeStamp(true);
 		String data = "callback_func_name=ajaxCallback";
 		String page = PageService.postPage(url, data, user);
 		if(Tools.success(page)){

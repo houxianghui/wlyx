@@ -38,7 +38,29 @@ public class User {
 	private int buildPoint;
 	private String teamId;
 	private boolean needRestart = false;
+	private boolean needGetAward;
+	private boolean needGuoDu;	//是否报名国都演武
 	
+	public boolean isNeedGuoDu() {
+		return needGuoDu;
+	}
+	public void setNeedGuoDu(boolean needGuoDu) {
+		this.needGuoDu = needGuoDu;
+	}
+	public boolean isNeedGetAward() {
+		return needGetAward;
+	}
+	public void setNeedGetAward(boolean needGetAward) {
+		this.needGetAward = needGetAward;
+	}
+	private String beatTeam;
+	
+	public String getBeatTeam() {
+		return beatTeam;
+	}
+	public void setBeatTeam(String beatTeam) {
+		this.beatTeam = beatTeam;
+	}
 	public boolean isNeedRestart() {
 		return needRestart;
 	}
