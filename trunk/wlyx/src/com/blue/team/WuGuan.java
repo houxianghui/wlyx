@@ -17,6 +17,7 @@ import com.blue.beauty.Beauty;
 import com.blue.common.Monitor;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.monstor.Monstor;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -124,7 +125,13 @@ public class WuGuan {
 		return null;
 	}
 	public static boolean gotoWuGuan(User user){
+		if(user.isShouldKillMonstor()){
+			leaveTeam(user);
+			Monstor.killMonstor(user);
+			return false;
+		}
 		getAllTeam(user);
+		
 		if(user.getBeatTeam() != null){
 			String teamId = teamMap.get(user.getBeatTeam().trim());
 			if(teamId != null){

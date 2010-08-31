@@ -1,13 +1,17 @@
 package com.blue.warrior;
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.common.BaseThread;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.monstor.MonstorThread;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -50,6 +54,7 @@ public class Warrior {
 	private static boolean canTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
+			
 			logger.info(user.getRoleName()+"需要挂野，暂不进行大厅");
 			return false;
 		}
@@ -59,12 +64,7 @@ public class Warrior {
 		return true;
 	}
 	public static boolean startWar(User user)throws Exception{
-//		if(!canTrain(user)){
-//			return true;
-//		}
-//		if(!canWar(user)){
-//			return true;
-//		}
+
 		String url = user.getUrl()+WAR+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = p.matcher(page);

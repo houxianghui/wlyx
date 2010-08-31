@@ -62,7 +62,7 @@ public class Monstor {
 	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
 	private static Pattern freeFinish = Pattern.compile("√‚∑—ÕÍ≥…–ﬁ¡∂");
-	public static boolean killMonstor(User user)throws Exception{
+	public static boolean killMonstor(User user){
 		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
@@ -81,7 +81,7 @@ public class Monstor {
 		Matcher m = freeFinish.matcher(page);
 		return m.find();
 	}
-	private static boolean moveToMonstor(User user)throws Exception{
+	private static boolean moveToMonstor(User user){
 		String level = user.getLevel();
 		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
 		if(!user.isCanMove()){
@@ -149,7 +149,7 @@ public class Monstor {
 		}
 		return false;
 	}
-	private static boolean killIt(String monstor,User user)throws Exception{
+	private static boolean killIt(String monstor,User user){
 		Beauty.jingYan(user);
 		repairAll(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
