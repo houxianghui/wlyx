@@ -69,7 +69,11 @@ public class Monitor {
 	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
 	public static final String GUO_DU = "modules/warrior.php?act=arena&op=join&part=1";
-	
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=5_1_1283184000&team_mode=0&timeStamp=1283260822448
+	public static final String GET_GUO_DU_AWARD = "modules/warrior.php?act=arena&op=get_prise&arena_key=5_1_1283184000&team_mode=0";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&timeStamp=1283261017202&callback_func_name=callback_load_content&callback_obj_name=content
+	public static final String GOTO_GUO_DU_YAN_WU = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
+	public static Pattern guoDuYanWu = Pattern.compile("");
 	public static void guoDu(User user){
 		if(!user.isNeedGuoDu()){
 			return;
@@ -79,7 +83,12 @@ public class Monitor {
 		PageService.postPage(url, data, user);
 		logger.info(user.getRoleName()+"报名国都演武厅");
 	}
-	
+	public static void getGuoDuAward(User user){
+		String data = "callback_func_name=warrior_common_callback";
+		String url = user.getUrl()+GOTO_GUO_DU_YAN_WU+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		
+	}
 	public static void getAwards(User user){
 		if(!user.isNeedGetAward()){
 			return ;
