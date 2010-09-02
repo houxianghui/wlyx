@@ -23,6 +23,7 @@ public class Main {
 		while(it.hasNext()){
 			User user = it.next();
 			user.login(true);
+			Thread.sleep(3*1000);
 		}
 		new UserMonitor(l);
 	

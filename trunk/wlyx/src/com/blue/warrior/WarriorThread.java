@@ -26,7 +26,7 @@ public class WarriorThread extends BaseThread{
 						Warrior.startWork(user);
 					}
 				}
-				sleep(5*1000*60);
+				sleep(10*1000*60);
 			}catch(Exception e){
 			}
 		}
