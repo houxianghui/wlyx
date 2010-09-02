@@ -17,14 +17,14 @@ public class MonitorThread extends BaseThread{
 				}
 				Beauty.rongYu(user);
 				Beauty.gongXian(user);
-				Monitor.activeSlavys(user);
+				
 				Monitor.dailyWeals(user);				
 				Monitor.mianChiWeals(user);
 				Monitor.buyGlory(user);
 				Monitor.roomWeal(user);
 				Monitor.buyPool(user);
 				Monitor.guoDu(user);
-				sleep(10*60*1000);
+				sleep(60*60*1000);
 			}catch(Exception e){
 			}
 		}

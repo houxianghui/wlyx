@@ -19,7 +19,7 @@ public class TianJiThread extends BaseThread {
 				TianJiTang.autoTask(user);
 				TianJiTang.autoFinish(user);
 				TianJiTang.build(user);
-				sleep(1000*60*5);
+				sleep(1000*60*10);
 			}catch(Exception e){
 			}
 		}

@@ -2,6 +2,7 @@ package com.blue.slavy;
 
 
 import com.blue.common.BaseThread;
+import com.blue.common.Monitor;
 import com.blue.common.User;
 
 public class CatchSlavyThread extends BaseThread {
@@ -18,11 +19,12 @@ public class CatchSlavyThread extends BaseThread {
 				if(needStop){
 					return;
 				}
+				Monitor.activeSlavys(user);
 				if(user.getNeedCatchSlavy() == 0){
 					return;
 				}
 				CatchSlavy.catchSlavy(user);
-				sleep(5*60*1000);
+				sleep(10*60*1000);
 			}catch(Exception e){
 			
 			}

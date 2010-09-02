@@ -22,7 +22,7 @@ public class WuGuanThread extends BaseThread {
 					WuGuan.tiGuan(user);
 					WuGuan.huGuan(user);
 				}
-				sleep(5*60*1000);
+				sleep(8*60*1000);
 			}catch(Exception e){
 			}
 		}

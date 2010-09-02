@@ -17,7 +17,7 @@ public class MonstorThread extends BaseThread {
 					return;
 				}
 				if(Monstor.killMonstor(user)){
-					sleep(3*60*1000);
+					sleep(9*60*1000);
 				}else{
 					sleep(5*10*1000);
 				}
