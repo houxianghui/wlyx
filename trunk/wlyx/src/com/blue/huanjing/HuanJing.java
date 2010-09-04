@@ -45,10 +45,10 @@ public class HuanJing {
 		bw.close();
 	}
 	public static void listSpecail(User user,int start)throws Exception{
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("»Ã¾³Ëþ-"+user.getUserName()+":"+start+".txt")));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("»Ã¾³Ëþ-"+user.getUserName()+"-"+start+".txt")));
 		for(int i = start;i < start+101;i++){
 			if(i % 10 == 0){
-				System.out.println("checking "+i+" finished");
+				System.out.println(i+"% finished...");
 			}
 			String url = user.getUrl()+DETAIL_LIST+i+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);
