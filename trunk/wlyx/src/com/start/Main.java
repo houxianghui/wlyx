@@ -17,6 +17,9 @@ import com.blue.monstor.UserMonitor;
 
 public class Main {
 	public static void main(String[] args)throws Exception {
+		
+		System.setProperty("sun.net.client.defaultConnectTimeout", "60000");
+		System.setProperty("sun.net.client.defaultReadTimeout","60000");
 		List<User> l = getUserInfo();
 	
 		Iterator<User> it = l.iterator();

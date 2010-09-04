@@ -24,7 +24,7 @@ public class CatchSlavyThread extends BaseThread {
 					return;
 				}
 				CatchSlavy.catchSlavy(user);
-				sleep(10*60*1000);
+				sleep(8*60*1000);
 			}catch(Exception e){
 			
 			}

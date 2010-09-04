@@ -75,9 +75,10 @@ public class PageService {
 	public static String postPage(String page, String data, User user)
 			 {
 		String line;
+		HttpURLConnection con = null;
 		try{
 			URL url = new URL(page);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
 				con.setDoOutput(true);
 				con.setRequestMethod("POST");
@@ -104,16 +105,21 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
 		}
 		return "";
 	}
 
 
 	public static String getPage(String pageUrl, User user)  {
+		HttpURLConnection con = null;
 		try{
 			String line;
 			URL url = new URL(pageUrl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
 				con.addRequestProperty("Host", "s4.verycd.9wee.com");
 				if (user != null) {
@@ -132,6 +138,10 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(user.getRoleName()+e.getMessage());
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
 		}
 		return "";
 	}
@@ -145,9 +155,10 @@ public class PageService {
 	}
 
 	public static void login( User user){
+		HttpURLConnection con = null;
 		try{
 			URL url = new URL("http://secure.verycd.com/signin?f=out");
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +
 					"username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
 					"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+
@@ -193,12 +204,17 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.info(user.getUserName()+e.getMessage());
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
 		}
 	}
 	private static String getLogin(String pageUrl, String cookie){
+		HttpURLConnection con = null;
 		try{
 			URL url = new URL(pageUrl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
 				con.addRequestProperty("Host", "secure.verycd.com");
 				con.addRequestProperty("Cookie", cookie);
@@ -223,13 +239,18 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
 		}
 		return "";
 	}
 	private static String getCookie(String pageUrl){
+		HttpURLConnection con = null;
 		try{
 			URL url = new URL(pageUrl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
 				con.addRequestProperty("Host", "s4.verycd.9wee.com");
 				con.addRequestProperty("Content-Type",
@@ -263,6 +284,10 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
 		}
 		
 		return "";
