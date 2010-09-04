@@ -16,6 +16,7 @@ public class GetAllHuanJing {
 		user.setUserName(name);
 		user.setPassword(pwd);
 		user.login(false);
+		
 		HuanJing.listAll(user);
 		
 	}
