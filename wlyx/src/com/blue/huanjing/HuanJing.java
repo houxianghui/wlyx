@@ -15,7 +15,9 @@ public class HuanJing {
 	public static final String ATTACK = "modules/duel.php?act=pvehall&action=fn&callback_func_name=callbackfnPveHallFight&pve_id=";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&timeStamp=1283594503115&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String ENEMY_LIST = "modules/duel.php?act=pvehall&callback_func_name=callback_load_content&callback_obj_name=content";
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&action=view_pve&id=29&s=0&timeStamp=1283612516610&callback_func_name=ajaxCallback&callback_obj_name=vie_pve
 	public static final String DETAIL_LIST = "modules/duel.php?act=pvehall&action=view_pve&s=0&callback_func_name=ajaxCallback&callback_obj_name=vie_pve&id=";
+	
 	private static Pattern p = Pattern.compile("<span class=\"important\">(\\S+?)</span>.*?<span class=\"special\">(.+?)</span>.*?text_monster\">(.+?)</span>.*?\"skill\">(.+?)</span>.*(获胜奖励) <span class=\"highlight\">(\\d+)</span> (积分).*?fnPveHallAction\\( (\\d+) \\)",Pattern.DOTALL);
 	
 	public static void attack(User user,String id){
@@ -42,9 +44,9 @@ public class HuanJing {
 		}
 		bw.close();
 	}
-	public static void listSpecail(User user)throws Exception{
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境.txt")));
-		for(int i = 536;i < 610;i++){
+	public static void listSpecail(User user,int start)throws Exception{
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境塔-"+user.getUserName()+":"+start+".txt")));
+		for(int i = start;i < start+101;i++){
 			if(i % 10 == 0){
 				System.out.println("checking "+i+" finished");
 			}
@@ -59,14 +61,5 @@ public class HuanJing {
 			}
 		}
 		bw.close();
-	}
-	public static void main(String[] args)throws Exception {
-		User user = new User();
-		user.setUserName("sp_lulu");
-		user.setPassword("abc123");
-		user.login(false);
-//		listAll(user);
-//		attack(user,"569");
-		listSpecail(user);
 	}
 }
