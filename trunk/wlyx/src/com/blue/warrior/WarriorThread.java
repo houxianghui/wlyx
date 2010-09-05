@@ -16,17 +16,15 @@ public class WarriorThread extends BaseThread{
 				return;
 			}
 			try{
-				if(user.getWarriorChoice() == 0){
-					return;
-				}else{
-					if(user.getWarriorChoice() == 1){
-						Warrior.startTrain(user);
-						
-					}else if(user.getWarriorChoice() == 2){
-						Warrior.startWork(user);
-					}
+				
+				if(user.getWarriorChoice() == 1){
+					Warrior.startTrain(user);
+					
+				}else if(user.getWarriorChoice() == 2){
+					Warrior.startWork(user);
 				}
-				sleep(10*1000*60);
+				
+				sleep(6*1000*60);
 			}catch(Exception e){
 			}
 		}
