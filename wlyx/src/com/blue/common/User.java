@@ -408,7 +408,7 @@ public class User {
 		work.add(new AutoTaskThread(this));		//任务
 		work.add(new AutoRewardThread(this));		//任务奖励
 		work.add(new DailyWealsThread(this));		//每日福利
-		work.add(new MonstorThread(this));		//野训
+//		work.add(new MonstorThread(this));		//野训
 		work.add(new MonitorThread(this));		//图片等
 		work.add(new WuGuanThread(this));			//武馆
 		work.add(new CatchSlavyThread(this));		//自动抓奴

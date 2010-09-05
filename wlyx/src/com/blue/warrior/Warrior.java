@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.blue.common.BaseThread;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.monstor.Monstor;
 import com.blue.monstor.MonstorThread;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
@@ -56,9 +57,13 @@ public class Warrior {
 		if(user.isShouldKillMonstor()){
 			
 			logger.info(user.getRoleName()+"需要挂野，暂不进行大厅");
+			Monstor.killMonstor(user);
 			return false;
 		}
 		if(user.getStatus().equals("训练中")||user.getStatus().equals("授艺中")||user.getStatus().equals("运输中")){
+			return false;
+		}
+		if(user.getWarriorChoice() == 0){
 			return false;
 		}
 		return true;
@@ -95,6 +100,7 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 10;
 		}
+		Portal.goHome(user);
 		String url = user.getUrl()+WARRIOR_URL+hourOnce+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){

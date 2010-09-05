@@ -63,7 +63,7 @@ public class Monstor {
 	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
 	private static Pattern freeFinish = Pattern.compile("√‚∑—ÕÍ≥…–ﬁ¡∂");
 	public static boolean killMonstor(User user){
-		Portal.setUserInfo(user);
+//		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
 			return Portal.goHome(user);
 		}
