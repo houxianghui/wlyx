@@ -55,7 +55,6 @@ public class Warrior {
 	private static boolean canTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
-			
 			logger.info(user.getRoleName()+"需要挂野，暂不进行大厅");
 			Monstor.killMonstor(user);
 			return false;
