@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.blue.beauty.Beauty;
+import com.blue.common.DropWeapon;
 import com.blue.common.User;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
@@ -24,7 +25,22 @@ public class Duel{
 	//출롤씌세
 	private static Pattern free = Pattern.compile("출롤",Pattern.DOTALL);
 	
-	public static boolean challenge(User user){
+	public static boolean duel(User user){
+		int time = Tools.getNowHour();
+		if(time < user.getDuelStartTime() ){
+			return true;
+		}
+		if(user.isDuelDropWeapon()){
+			DropWeapon.dropWeapon(user);
+		}
+		boolean flag = challenge(user);
+		if(user.isDuelDropWeapon()){
+			DropWeapon.mountWeapon(user);
+		}
+		return flag;
+	}
+	private static boolean challenge(User user){
+		
 		String url = user.getUrl()+DUEL_LIST_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = p.matcher(page);

@@ -40,7 +40,29 @@ public class User {
 	private boolean needRestart = false;
 	private boolean needGetAward;
 	private boolean needGuoDu;	//是否报名国都演武
+	private int duelStartTime;
 	
+	public int getDuelStartTime() {
+		return duelStartTime;
+	}
+	public void setDuelStartTime(int duelStartTime) {
+		this.duelStartTime = duelStartTime;
+	}
+	private String weapon = null;	//卸武编号
+	private boolean duelDropWeapon = false;
+	
+	public boolean isDuelDropWeapon() {
+		return duelDropWeapon;
+	}
+	public void setDuelDropWeapon(boolean duelDropWeapon) {
+		this.duelDropWeapon = duelDropWeapon;
+	}
+	public String getWeapon() {
+		return weapon;
+	}
+	public void setWeapon(String weapon) {
+		this.weapon = weapon;
+	}
 	public boolean isNeedGuoDu() {
 		return needGuoDu;
 	}

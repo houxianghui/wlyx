@@ -85,6 +85,13 @@ public class Main {
 				if(i.length > 20){
 					user.setBeatTeam(i[20]);
 				}
+				if(i.length>21){
+					user.setDuelStartTime(Integer.parseInt(i[21]));
+				}
+				if(i.length>22){
+					String flag = i[22];
+					user.setDuelDropWeapon("1".equals(flag));
+				}
 				l.add(user);
 			}
 		}
