@@ -1,15 +1,16 @@
 package com.blue.tools;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
 
@@ -36,37 +37,28 @@ public class PageService {
 	}
 
 	private static String _getPageWithCookie(String page, User user) {
-		InputStream is = null;
+		HttpURLConnection con = null;
 		try {
-			String line;
+	
 			URL url = new URL(page);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			
 			if(con != null){
 				if (user.getCookie() != null) {
 					con.addRequestProperty("Cookie", user.getCookie());
 				}
 				con.setRequestProperty("connection", "none");
+				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
-				is = con.getInputStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(
-						is, "UTF-8"));
-				StringBuilder b = new StringBuilder();
-	
-				while ((line = reader.readLine()) != null) {
-					b.append(line);
-					b.append("\r\n");
-				}
+
+				StringBuilder b = readBackInfo(con);
 				return b.toString();
 			}
 		} catch (Exception ex) {
 			logger.error(user.getRoleName()+" "+ex.getMessage());
 		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (Exception e) {
-				logger.error(user.getRoleName()+" "+e.getMessage());
+			if(con != null){
+				con.disconnect();
 			}
 		}
 		return "";
@@ -74,7 +66,6 @@ public class PageService {
 
 	public static String postPage(String page, String data, User user)
 			 {
-		String line;
 		HttpURLConnection con = null;
 		try{
 			URL url = new URL(page);
@@ -85,22 +76,16 @@ public class PageService {
 				con.addRequestProperty("Host", "s4.verycd.9wee.com");
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
+				setGZipOn(con);
 				if (user != null) {
 					con.addRequestProperty("Cookie", user.getCookie());
 				}
+				
 				OutputStream os = con.getOutputStream();
 				os.write(data.getBytes("UTF-8"));
 				os.flush();
 				os.close();
-		
-				BufferedReader reader = new BufferedReader(new InputStreamReader(
-						con.getInputStream(), "UTF-8"));
-		
-				StringBuilder b = new StringBuilder();
-				while ((line = reader.readLine()) != null) {
-					b.append(line);
-				}
-				reader.close();
+				StringBuilder b = readBackInfo(con);
 				return b.toString();
 			}
 		}catch(Exception e){
@@ -113,11 +98,24 @@ public class PageService {
 		return "";
 	}
 
+	private static StringBuilder readBackInfo(HttpURLConnection con)
+			throws IOException, UnsupportedEncodingException {
+		GZIPInputStream gis = new GZIPInputStream(con.getInputStream());
+
+		StringBuilder b = new StringBuilder();
+		byte[] by = new byte[1024];
+		int len = 0;
+		while((len = gis.read(by))!=-1){
+			b.append(new String(by,0,len,"UTF-8"));
+		}
+		gis.close();
+		return b;
+	}
+
 
 	public static String getPage(String pageUrl, User user)  {
 		HttpURLConnection con = null;
 		try{
-			String line;
 			URL url = new URL(pageUrl);
 			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
@@ -127,13 +125,9 @@ public class PageService {
 				}
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
-				BufferedReader reader = new BufferedReader(new InputStreamReader(
-						con.getInputStream(), "UTF-8"));
-				StringBuilder b = new StringBuilder();
-				while ((line = reader.readLine()) != null) {
-					b.append(line);
-				}
-				reader.close();
+				setGZipOn(con);
+				
+				StringBuilder b = readBackInfo(con);
 				return b.toString();
 			}
 		}catch(Exception e){
@@ -144,6 +138,11 @@ public class PageService {
 			}
 		}
 		return "";
+	}
+
+	private static void setGZipOn(HttpURLConnection con) {
+		con.addRequestProperty("Accept-Encoding", "gzip,deflate");
+		con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3");
 	}
 
 	public static void displayMap(Map m) {
@@ -171,10 +170,12 @@ public class PageService {
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
 				con.addRequestProperty("Referer", "http://secure.verycd.com/3rdServices/50hero");
+				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
 				con.setInstanceFollowRedirects(false);
 				
-				OutputStream os = con.getOutputStream();
+				OutputStream os =con.getOutputStream();
+//				GZIPOutputStream gis = new GZIPOutputStream(os);
 				if(os != null){
 					os.write(data.getBytes("UTF-8"));
 					os.flush();
@@ -220,16 +221,11 @@ public class PageService {
 				con.addRequestProperty("Cookie", cookie);
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
+//				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
 				con.setInstanceFollowRedirects(false);
-				String line = null;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(
-						con.getInputStream(), "UTF-8"));
-				StringBuilder b = new StringBuilder();
-				while ((line = reader.readLine()) != null) {
-					b.append(line);
-				}
-				reader.close();
+				
+//				StringBuilder b = readBackInfo(con);
 				String key = null;
 				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
 					if(key.startsWith("location")){
@@ -255,16 +251,10 @@ public class PageService {
 				con.addRequestProperty("Host", "s4.verycd.9wee.com");
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
+//				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
 				con.setInstanceFollowRedirects(false);
-				String line = null;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(
-						con.getInputStream(), "UTF-8"));
-				StringBuilder b = new StringBuilder();
-				while ((line = reader.readLine()) != null) {
-					b.append(line);
-				}
-				reader.close();
+				
 				StringBuffer sb = new StringBuffer();
 				String key = null;
 				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
