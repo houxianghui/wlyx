@@ -209,6 +209,7 @@ public class WuGuan {
 		String url = user.getUrl()+MOVE+mid+Tools.getTimeStamp(true);
 		String result = PageService.getPageWithCookie(url, user);
 		Beauty.huGuan(user);
+		Beauty.redHuGuan(user);
 		return Tools.success(result);
 	}
 	public static boolean desdroyTeam(User user,String mid){
@@ -218,6 +219,7 @@ public class WuGuan {
 		String result = PageService.getPageWithCookie(url, user);
 		if(user.getBeatTeam() == null){
 			Beauty.tiGuan(user);
+			Beauty.redTiGuan(user);
 		}
 		return Tools.success(result);
 	}

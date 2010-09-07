@@ -21,16 +21,20 @@ public class Beauty {
 	public static final String GONG_XIAN = "1";
 	public static final String JING_JI = "7";
 	public static final String NU_LI = "10";
+	public static final String RED_TI_GUAN = "14";
+	public static final String RED_HU_GUAN = "15";
 	private static Map<String, String> beautyMap = new HashMap<String, String>();
 	static{
-		beautyMap.put("1", "贡献");
-		beautyMap.put("2", "踢馆");
-		beautyMap.put("3", "护馆");
-		beautyMap.put("4", "经验");
-		beautyMap.put("6", "荣誉");
-		beautyMap.put("7", "竞技");
-		beautyMap.put("8", "日常任务");
-		beautyMap.put("10", "奴隶");
+		beautyMap.put(GONG_XIAN, "贡献");
+		beautyMap.put(TI_GUAN, "踢馆");
+		beautyMap.put(HU_GUAN, "护馆");
+		beautyMap.put(JING_YAN, "经验");
+		beautyMap.put(RONG_YU, "荣誉");
+		beautyMap.put(JING_JI, "竞技");
+		beautyMap.put(RI_CHANG, "日常任务");
+		beautyMap.put(NU_LI, "奴隶");
+		beautyMap.put(RED_TI_GUAN, "踢馆红图");
+		beautyMap.put(RED_HU_GUAN, "护馆红图");
 	}
 	
 	public static boolean activeBeauty(User user,String id){
@@ -65,5 +69,11 @@ public class Beauty {
 	}
 	public static boolean nuLi(User user){
 		return activeBeauty(user, NU_LI);
+	}
+	public static boolean redTiGuan(User user){
+		return activeBeauty(user, RED_TI_GUAN);
+	}
+	public static boolean redHuGuan(User user){
+		return activeBeauty(user, RED_HU_GUAN);
 	}
 }
