@@ -77,7 +77,7 @@ public class WuGuan {
 	}
 	
 	public static boolean tiGuan(User user){
-		if(user.getBeatTeam() != null){
+		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
 			String url = user.getUrl()+GET_SCENE+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);
 			Matcher m = openTime.matcher(page);
@@ -132,7 +132,7 @@ public class WuGuan {
 		}
 		getAllTeam(user);
 		
-		if(user.getBeatTeam() != null){
+		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
 			String teamId = teamMap.get(user.getBeatTeam().trim());
 			if(teamId != null){
 				if(Monitor.inWuGuan(user) && teamId.equals(getCurrTeam(user))){
