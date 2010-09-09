@@ -121,6 +121,7 @@ public class UserRead {
 		String build = e.elementText("build");
 		String start = e.elementText("blackStart");
 		String end  = e.elementText("blackEnd");
+		String minSlavy = e.elementText("minSlavy");
 		if(!Tools.isEmpty(catchSlavy)){
 			user.setNeedCatchSlavy(Integer.parseInt(catchSlavy.trim()));
 		}
@@ -135,6 +136,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(end)){
 			user.setBlackEndTime(Integer.parseInt(end.trim()));
+		}
+		if(!Tools.isEmpty(minSlavy)){
+			user.setSlavyMin(Integer.parseInt(minSlavy.trim()));
 		}
 	}
 	private void setDaily(Element element,User user){
