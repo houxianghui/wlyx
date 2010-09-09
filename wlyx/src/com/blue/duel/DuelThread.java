@@ -18,11 +18,7 @@ public class DuelThread extends BaseThread {
 					return;
 				}
 				if(Duel.duel(user)){
-					if(!user.isFastChallenge()){
-						sleep(1000*60*(user.getDueSleepInteval()+10));
-					}else{
-						sleep(1000*60*10);
-					}
+					sleep(1000*60*(user.getDueSleepInteval()+10));
 				}else{
 					sleep(60*1000);
 				}

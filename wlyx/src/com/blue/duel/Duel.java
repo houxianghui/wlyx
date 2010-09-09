@@ -31,7 +31,10 @@ public class Duel{
 			return true;
 		}
 		if(user.isDuelDropWeapon()){
-			DropWeapon.dropWeapon(user);
+			if(!DropWeapon.dropWeapon(user)){
+				logger.info(user.getRoleName()+"–∂Œ‰ ß∞‹£¨‘›≤ªæ∫ºº");
+				return true;
+			}
 		}
 		boolean flag = challenge(user);
 		if(user.isDuelDropWeapon()){
