@@ -61,5 +61,8 @@ public class Tools {
 		double t = df.parse(s).doubleValue();
 		return t;
 	}
+	public static boolean isEmpty(String s){
+		return s == null || s.trim().length() == 0;
+	}
 
 }

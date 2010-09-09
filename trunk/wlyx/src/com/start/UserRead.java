@@ -33,8 +33,24 @@ public class UserRead {
 		
 		for(Iterator<Element> it = root.element("users").elementIterator("user");it.hasNext();){
 			Element e = it.next();
+			setUserInfo(e, l);
+		}
+		return l;
+	}
+	private void setUserInfo(Element e,List<User> l) {
+		String userName = e.attributeValue("username");
+		if(Tools.isEmpty(userName)){
+			return;
+		}
+		String pwd = e.attributeValue("password");
+		String url = e.attributeValue("host");
+		String[] users = userName.split(",");
+		String[] pwds = pwd.split(",");
+		for(int i = 0;i < users.length;i++){
 			User user = new User();
-			setUserInfo(e, user);
+			user.setUserName(users[i]);
+			user.setPassword(pwds[i]);
+			user.setUrl(e.attributeValue("host"));
 			setMonstor(e,user);
 			setWarrior(e, user);
 			setDuel(e,user);
@@ -44,22 +60,8 @@ public class UserRead {
 			setTeam(e,user);
 			l.add(user);
 		}
-		return l;
 	}
-	private void setUserInfo(Element e, User user) {
-		String userName = e.attributeValue("username");
-		String pwd = e.attributeValue("password");
-		String url = e.attributeValue("host");
-		if(!Tools.isEmpty(userName)){
-			user.setUserName(userName.trim());
-		}
-		if(!Tools.isEmpty(pwd)){
-			user.setPassword(pwd.trim());
-		}
-		if(!Tools.isEmpty(url)){
-			user.setUrl(url);
-		}
-	}
+	
 	private void setMonstor(Element e,User user){
 		Element monstor = e.element("monstor");
 		String startTime = monstor.elementText("startTime");
