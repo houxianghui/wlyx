@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
 
@@ -73,7 +72,7 @@ public class PageService {
 			if(con != null){
 				con.setDoOutput(true);
 				con.setRequestMethod("POST");
-				con.addRequestProperty("Host", "s4.verycd.9wee.com");
+				con.addRequestProperty("Host", user.getHost());
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
 				setGZipOn(con);
@@ -119,7 +118,7 @@ public class PageService {
 			URL url = new URL(pageUrl);
 			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
-				con.addRequestProperty("Host", "s4.verycd.9wee.com");
+				con.addRequestProperty("Host", user.getHost());
 				if (user != null) {
 					con.addRequestProperty("Cookie", user.getCookie());
 				}
@@ -199,8 +198,8 @@ public class PageService {
 					}
 				}
 				
-				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid=s4.verycd.9wee.com", sb.toString());
-				String cookie = getCookie(nextUrl);
+				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), sb.toString());
+				String cookie = getCookie(nextUrl,user);
 				user.setCookie(cookie);
 			}
 		}catch(Exception e){
@@ -242,13 +241,13 @@ public class PageService {
 		}
 		return "";
 	}
-	private static String getCookie(String pageUrl){
+	private static String getCookie(String pageUrl,User user){
 		HttpURLConnection con = null;
 		try{
 			URL url = new URL(pageUrl);
 			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
-				con.addRequestProperty("Host", "s4.verycd.9wee.com");
+				con.addRequestProperty("Host", user.getHost());
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
 //				setGZipOn(con);

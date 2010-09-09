@@ -342,10 +342,13 @@ public class User {
 		this.password = password;
 	}
 	public String getUrl() {
-		return "http://s4.verycd.9wee.com/";
+		return "http://"+url+"/";
+	}
+	public String getHost(){
+		return url;
 	}
 	public void setUrl(String url) {
-		this.url = "http://"+url+"/";
+		this.url =url;
 	}
 	public int getBeginTime() {
 		return beginTime;

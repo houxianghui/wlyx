@@ -20,7 +20,8 @@ public class Main {
 		
 		System.setProperty("sun.net.client.defaultConnectTimeout", "60000");
 		System.setProperty("sun.net.client.defaultReadTimeout","60000");
-		List<User> l = getUserInfo();
+		UserRead ur = new UserRead();
+		List<User> l = ur.readUser();
 	
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
