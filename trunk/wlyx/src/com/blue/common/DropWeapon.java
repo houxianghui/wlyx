@@ -16,7 +16,7 @@ public class DropWeapon {
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=1552750&from=pack&to=equip&timeStamp=1283862123915&callback_func_name=itemClass.dragItemCallback
 	public static final String mountWeapon = "modules/role_item.php?act=drag_item&from=pack&to=equip&callback_func_name=itemClass.dragItemCallback&id=";
 	
-	public static void dropWeapon(User user){
+	public static boolean dropWeapon(User user){
 		String url = user.getUrl()+dropWeapon+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
@@ -25,8 +25,10 @@ public class DropWeapon {
 				logger.info(user.getRoleName()+"–∂Œ‰≥…π¶");
 				user.setWeapon(m.group(1));
 			}
+			return true;
 		}else{
 			logger.info(user.getRoleName()+"–∂Œ‰ ß∞‹");
+			return false;
 		}
 	}
 	public static void mountWeapon(User user){
