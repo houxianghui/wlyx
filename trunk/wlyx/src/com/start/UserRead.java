@@ -159,8 +159,12 @@ public class UserRead {
 	private void setTeam(Element element,User user){
 		Element e = element.element("team");
 		String name = e.elementText("teamName");
+		String friendly= e.elementText("friendly");
 		if(!Tools.isEmpty(name)){
 			user.setBeatTeam(name);
+		}
+		if(!Tools.isEmpty(friendly)){
+			user.setFriendly("1".equals(friendly.trim()));
 		}
 	}
 }
