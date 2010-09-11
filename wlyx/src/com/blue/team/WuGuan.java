@@ -168,7 +168,7 @@ public class WuGuan {
 						leaveTeam(user);
 					}else{
 						try{
-							if(!inUnion && Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= 0.2){
+							if(!inUnion && (Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= 0.2 || Tools.getValue(m.group(1)) < 10000)){
 								logger.info(user.getRoleName()+"要砸坏人家门了，撤退");
 								leaveTeam(user);
 							}else{
@@ -291,6 +291,7 @@ public class WuGuan {
 	public static String selectEnemyTeam(User user){
 		double max = 0.2;
 		String mid = null;
+		
 		String page = getTeamList(user);
 		Matcher m = teams.matcher(page);
 		while(m.find()){
@@ -306,6 +307,9 @@ public class WuGuan {
 			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
+					if(Tools.getValue(xw.group(2)) < 10000){
+						continue;
+					}
 					if(d >= max){
 						max = d;
 						mid = m.group(1);
