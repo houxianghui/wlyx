@@ -41,7 +41,14 @@ public class User {
 	private boolean needGetAward;
 	private boolean needGuoDu;	//是否报名国都演武
 	private int duelStartTime;
+	private boolean friendly;
 	
+	public boolean isFriendly() {
+		return friendly;
+	}
+	public void setFriendly(boolean friendly) {
+		this.friendly = friendly;
+	}
 	public int getDuelStartTime() {
 		return duelStartTime;
 	}

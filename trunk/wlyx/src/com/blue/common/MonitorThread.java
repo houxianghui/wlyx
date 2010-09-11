@@ -24,6 +24,7 @@ public class MonitorThread extends BaseThread{
 				Monitor.roomWeal(user);
 				Monitor.buyPool(user);
 				Monitor.guoDu(user);
+				
 				sleep(60*60*1000);
 			}catch(Exception e){
 			}
