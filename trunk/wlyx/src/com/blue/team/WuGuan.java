@@ -77,7 +77,7 @@ public class WuGuan {
 	}
 	
 	public static boolean tiGuan(User user){
-		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
+		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0 && !user.isFriendly()){
 			String url = user.getUrl()+GET_SCENE+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);
 			Matcher m = openTime.matcher(page);
