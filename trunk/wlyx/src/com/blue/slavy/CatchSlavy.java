@@ -142,7 +142,7 @@ public class CatchSlavy {
 	private static boolean failCheckSuccess(String id, User user) {
 		Map<String , CatchFail> map = getFailList(user);
 		CatchFail cf = map.get(id);
-		if(cf != null && cf.times>=2){
+		if(cf != null && cf.times>=1){
 			logger.info(user.getRoleName()+"输给"+cf.name+cf.times+"次了，抢别人去！");
 			return false;
 		}
