@@ -1,6 +1,7 @@
 package com.blue.slavy;
 
 
+import com.blue.beauty.Beauty;
 import com.blue.common.BaseThread;
 import com.blue.common.Monitor;
 import com.blue.common.User;
@@ -19,6 +20,7 @@ public class CatchSlavyThread extends BaseThread {
 				if(needStop){
 					return;
 				}
+				Beauty.genGuTu(user);
 				Monitor.activeSlavys(user);
 				if(user.getNeedCatchSlavy() == 0){
 					return;

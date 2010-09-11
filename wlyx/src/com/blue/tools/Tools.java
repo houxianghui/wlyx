@@ -35,6 +35,9 @@ public class Tools {
 	 *\\uhhhh
 	 */
 	public static String hexToString(String hex){
+		if(hex.indexOf("\\u")==-1){
+			return hex;
+		}
 		StringBuilder sb = new StringBuilder();
 		String[] t = hex.split("\\\\u");
 		for(int i = 0;i < t.length;i++){
