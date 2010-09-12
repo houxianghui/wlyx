@@ -29,6 +29,8 @@ public class Monitor {
 	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=1rand=1280246976709&timeStamp=1280246968613&callback_func_name=ajaxCallback
 	public static final String DAILY_WEALS = "modules/day_weals_activity.php?act=weal&callback_func_name=ajaxCallback&id=1";
+	//http://s4.verycd.9wee.com/modules/day_weals.php?act=show&rand=1284254922646&timeStamp=1284254912950&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_weals
+	public static final String SHOW_DAILY_WEALS = "modules/day_weals.php?act=show&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_weals";
 	//渑池演武厅奖励
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&timeStamp=1280322179334&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String MIAN_CHI = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
@@ -50,6 +52,7 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&op=restore&id=4&isfree=1&timeStamp=1280719522625&callback_func_name=warrior_common_callback
 	public static final String ROOM_WEAL = "modules/warrior.php?act=guestroom&op=restore&isfree=1&callback_func_name=warrior_common_callback&id=";
 	//免费气血包
+	//http://s4.verycd.9wee.com/modules/buy_pool.php?act=weal&rand=1284254944330&timeStamp=1284254912950&callback_func_name=callback_weal_buy_pool
 	//http://s4.verycd.9wee.com/modules/buy_pool.php?act=weal&rand=1282913768192&timeStamp=1282913719064&callback_func_name=callback_weal_buy_pool
 	public static final String QI_XUE_BAO = "modules/buy_pool.php?act=weal&callback_func_name=callback_weal_buy_pool";
 	
@@ -80,8 +83,10 @@ public class Monitor {
 		}
 		String url = user.getUrl()+GUO_DU+Tools.getTimeStamp(true);
 		String data = "callback_func_name=warrior_common_callback";
-		PageService.postPage(url, data, user);
-		logger.info(user.getRoleName()+"报名国都演武厅");
+		String page = PageService.postPage(url, data, user);
+		if(Tools.success(page)){
+			logger.info(user.getRoleName()+"报名国都演武厅");
+		}
 	}
 	public static void getGuoDuAward(User user){
 		String data = "callback_func_name=warrior_common_callback";
@@ -275,7 +280,7 @@ public class Monitor {
 		}
 	}
 	public static boolean buyPool(User user){
-		String url = user.getUrl()+DAILY_WEALS+Tools.getRandAndTime().substring(1);
+		String url = user.getUrl()+SHOW_DAILY_WEALS+Tools.getRandAndTime().substring(1);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = buyPool.matcher(page);
 		if(m.find()){
