@@ -130,6 +130,9 @@ public class WuGuan {
 			Monstor.killMonstor(user);
 			return false;
 		}
+		if(needProtectMyTeam(user)){
+			return true;
+		}
 		getAllTeam(user);
 		
 		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
@@ -146,10 +149,7 @@ public class WuGuan {
 		Portal.setTeamId(user);
 		setUnionTeam(user);
 		boolean inUnion = false;
-		if(!user.isShouldKillMonstor()){
-			if(needProtectMyTeam(user)){
-				return true;
-			}
+		if(!user.isShouldKillMonstor()){		
 			
 			if(Monitor.inWuGuan(user)){
 				String url = user.getUrl()+GET_SCENE+Tools.getMarkAndTime();
@@ -245,7 +245,7 @@ public class WuGuan {
 		if(m.find()){
 			try{
 				double d = Tools.getValue(m.group(1))/Tools.getValue(m.group(2));
-				if(d<=0.8){
+				if(d<=user.getTeamProtectedPercent()){
 					if(inMyteam(user)){
 						return true;
 					}

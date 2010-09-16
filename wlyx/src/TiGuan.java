@@ -55,7 +55,7 @@ public class TiGuan {
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			user = it.next();
-			user.login();
+			user.login(true);
 			Beauty.tiGuan(user);
 //			new MonstorThread(user, m);
 		}
