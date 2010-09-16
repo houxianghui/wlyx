@@ -43,7 +43,6 @@ public class UserRead {
 			return;
 		}
 		String pwd = e.attributeValue("password");
-		String url = e.attributeValue("host");
 		String[] users = userName.split(",");
 		String[] pwds = pwd.split(",");
 		for(int i = 0;i < users.length;i++){
@@ -161,7 +160,8 @@ public class UserRead {
 		String name = e.elementText("teamName");
 		String friendly= e.elementText("friendly");
 		String percent = e.elementText("protectMyTeam");
-		
+		String needTiGuan = e.elementText("needDesdroy");
+		String needHuGuan = e.elementText("needProtect");
 		if(!Tools.isEmpty(name)){
 			user.setBeatTeam(name);
 		}
@@ -170,6 +170,12 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(percent)){
 			user.setTeamProtectedPercent(Double.parseDouble(percent));
+		}
+		if(!Tools.isEmpty(needHuGuan)){
+			user.setNeedHuGuan(needHuGuan.trim().equals("1"));
+		}
+		if(!Tools.isEmpty(needTiGuan)){
+			user.setNeedTiGuan("1".equals(needTiGuan.trim()));
 		}
 	}
 }

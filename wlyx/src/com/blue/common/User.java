@@ -42,6 +42,20 @@ public class User {
 	private int duelStartTime;
 	private boolean friendly;
 	private double teamProtectedPercent=0.8;
+	private boolean needTiGuan;
+	public boolean isNeedTiGuan() {
+		return needTiGuan;
+	}
+	public void setNeedTiGuan(boolean needTiGuan) {
+		this.needTiGuan = needTiGuan;
+	}
+	public boolean isNeedHuGuan() {
+		return needHuGuan;
+	}
+	public void setNeedHuGuan(boolean needHuGuan) {
+		this.needHuGuan = needHuGuan;
+	}
+	private boolean needHuGuan;
 	
 	public double getTeamProtectedPercent() {
 		return teamProtectedPercent;
