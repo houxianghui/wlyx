@@ -8,35 +8,34 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.common.DropWeapon;
 import com.blue.common.Monitor;
 import com.blue.common.MonitorThread;
 import com.blue.common.User;
+import com.blue.duel.Duel;
 import com.blue.monstor.Monstor;
+import com.blue.slavy.CatchSlavy;
+import com.blue.team.WuGuan;
+import com.blue.tianjitang.TianJiTang;
+import com.blue.tianjitang.TianJiThread;
 import com.blue.tools.Tools;
+import com.blue.warrior.Warrior;
 
 
 public class Test {
 	public static void main(String[] args)throws Exception {
-		//item_id":"20376","role_id":"25337","shop_id":"10","name":"\u795e\u5973\u8170\u5e26","equip_type":"4","w
-		Properties p = System.getProperties();
-		p.setProperty("https.proxyHost", "172.16.17.88");
-        p.setProperty("https.proxyPort", "8080");
-        p.setProperty("http.proxyHost", "172.16.17.88");
-        p.setProperty("http.proxyPort", "8080");
 		User user = new User();
-		user.setUrl("s4.verycd.9wee.com");
 		user.setUserName("blue_ranger");
 		user.setPassword("abc123");
-		user.login();
-		Monstor m = new Monstor();
-//		new MonitorThread(user);
-		boolean l = m.canFreeFinish(user);
-//		m.free
-//		System.out.println(l);
-//		Monitor.activeSlavys(user);
-//		Monitor.comfortSlavy(user, id, name)
-//		writeText("slavys.txt", s);
-//		System.out.println(s);
+		user.login(false);
+//		user.setDuelStartTime(20);
+//		Duel.duel(user);
+		Monitor.buyPool(user);
+//		DropWeapon.dropWeapon(user);
+//		TianJiTang tj = new TianJiTang();
+//		tj.autoTask(user);
+//		WuGuan.gotoWuGuan(user);
+		
 	}
 	
 	public static void getBigMap()throws Exception{

@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.DuelThread;
-import com.blue.monstor.MonstorThread;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTaskThread;
@@ -42,7 +41,14 @@ public class User {
 	private boolean needGuoDu;	//是否报名国都演武
 	private int duelStartTime;
 	private boolean friendly;
+	private double teamProtectedPercent=0.8;
 	
+	public double getTeamProtectedPercent() {
+		return teamProtectedPercent;
+	}
+	public void setTeamProtectedPercent(double teamProtectedPercent) {
+		this.teamProtectedPercent = teamProtectedPercent;
+	}
 	public boolean isFriendly() {
 		return friendly;
 	}
