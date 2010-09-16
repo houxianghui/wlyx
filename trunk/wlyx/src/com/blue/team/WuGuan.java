@@ -1,7 +1,6 @@
 package com.blue.team;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +21,7 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class WuGuan {
+	public static double MIN_PERCENT = 0.4;
 	private static Logger logger = Logger.getLogger(WuGuan.class);
 	//http://s4.verycd.9wee.com/modules/team.php?act=reduce_durable&rand=1280043809090&timeStamp=1280043576233&callback_func_name=callbackFnTeamSceneReduceDurable
 	public static final String TI_GUAN = "modules/team.php?act=reduce_durable&callback_func_name=callbackFnTeamSceneReduceDurable";
@@ -168,7 +168,7 @@ public class WuGuan {
 						leaveTeam(user);
 					}else{
 						try{
-							if(!inUnion && (Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= 0.2 || Tools.getValue(m.group(1)) < 10000)){
+							if(!inUnion && (Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= MIN_PERCENT || Tools.getValue(m.group(1)) < 10000)){
 								logger.info(user.getRoleName()+"要砸坏人家门了，撤退");
 								leaveTeam(user);
 							}else{
@@ -261,7 +261,6 @@ public class WuGuan {
 		return false;
 	}
 	public static String selectTeam(User user,List l){
-		
 		double min = 1;
 		String minId = null;
 		Iterator<String> it = l.iterator();
@@ -319,7 +318,7 @@ public class WuGuan {
 				}
 			}
 		}
-		if(max <= 0.2){
+		if(max <= MIN_PERCENT){
 			return null;
 		}
 		return mid;
