@@ -187,12 +187,12 @@ public class WuGuan {
 				l.add(it.next());
 			}
 			String mid = selectTeam(user, l);
-			if(mid != null){
+			if(mid != null && user.isNeedHuGuan()){
 				return protectTeam(user, mid);
 			}
 			
 			mid = selectEnemyTeam(user);
-			if(mid != null){
+			if(mid != null && user.isNeedTiGuan()){
 				return desdroyTeam(user, mid);
 				
 			}
