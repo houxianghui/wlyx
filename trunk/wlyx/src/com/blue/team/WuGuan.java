@@ -69,6 +69,13 @@ public class WuGuan {
 	public static Pattern openTime = Pattern.compile("s_now_team_scene_id\":\"(\\d+)\",\"s_open_time\":\"(\\d+)\",\"s_close_time\":\"(\\d+)\"");
 	public static Map<String, String> teamMap = new HashMap<String, String>();
 	
+	public static Map<String,String> protectTeam = new HashMap<String,String>();
+	private static String[] VIP_TEAM = {"58","65","60"};
+	static{
+		protectTeam.put("ºÚÄ¾ÑÂ", "58");
+		protectTeam.put("²×ÀËÒìÔ·", "65");
+		protectTeam.put("²×ÀËÜø¸ó", "60");
+	}
 	public static String getTeamList(User user){
 		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
 		String data = "country=0&type=credits&search_var=&chk_open_team=1&callback_func_name=ajaxCallback&callback_obj_name=content";
@@ -125,6 +132,11 @@ public class WuGuan {
 		return null;
 	}
 	public static boolean gotoWuGuan(User user){
+		setUnionTeam(user);
+		if(protectTeam.get(user.getBeatTeam()) != null && !user.isFriendly()){
+			logger.info(user.getRoleName()+"¶ñÒâÌßÎÒÃË¹Ø£¬ÍË³öÀ²");
+			System.exit(0);
+		}
 		if(user.isShouldKillMonstor()){
 			leaveTeam(user);
 			Monstor.killMonstor(user);
@@ -147,7 +159,7 @@ public class WuGuan {
 			}
 		}
 		Portal.setTeamId(user);
-		setUnionTeam(user);
+		
 		boolean inUnion = false;
 		if(!user.isShouldKillMonstor()){		
 			
@@ -217,9 +229,14 @@ public class WuGuan {
 		String page = PageService.getPageWithCookie(enterMyTeam, user);
 		String url = user.getUrl()+MOVE+mid+Tools.getTimeStamp(true);
 		String result = PageService.getPageWithCookie(url, user);
-		if(user.getBeatTeam() == null){
-			Beauty.tiGuan(user);
-			Beauty.redTiGuan(user);
+		if(user.getBeatTeam() == null || user.getBeatTeam().trim().length() == 0){
+			for(int i = 0;i < VIP_TEAM.length;i++){
+				if(VIP_TEAM[i].equals(user.getTeamId())){
+					Beauty.tiGuan(user);
+					Beauty.redTiGuan(user);
+					break;
+				}
+			}
 		}
 		return Tools.success(result);
 	}
