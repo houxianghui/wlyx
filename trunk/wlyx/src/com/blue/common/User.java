@@ -43,6 +43,14 @@ public class User {
 	private boolean friendly;
 	private double teamProtectedPercent=0.8;
 	private boolean needTiGuan;
+	private boolean mianChiDropWeapon;
+	
+	public boolean isMianChiDropWeapon() {
+		return mianChiDropWeapon;
+	}
+	public void setMianChiDropWeapon(boolean mianChiDropWeapon) {
+		this.mianChiDropWeapon = mianChiDropWeapon;
+	}
 	public boolean isNeedTiGuan() {
 		return needTiGuan;
 	}
@@ -466,5 +474,8 @@ public class User {
 		work.add(new CatchSlavyThread(this));		//自动抓奴
 		work.add(new TianJiThread(this));			//自动天机堂任务
 		work.add(new DailyAward(this));			//自动领取全民福利
+		if(isMianChiDropWeapon()){
+			work.add(new DropWeaponThread(this));	//渑池卸武
+		}
 	}
 }

@@ -145,6 +145,7 @@ public class UserRead {
 		String buy = e.elementText("buyGlory");
 		String dailyWeal = e.elementText("dailyWeal");
 		String guodu = e.elementText("guoDuYanWu");
+		String dropWeapon = e.elementText("mianChi");
 		if(!Tools.isEmpty(buy)){
 			user.setGloryBuy(buy.trim());
 		}
@@ -153,6 +154,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(guodu)){
 			user.setNeedGuoDu("1".equals(guodu.trim()));
+		}
+		if(!Tools.isEmpty(dropWeapon)){
+			user.setMianChiDropWeapon("1".equals(dropWeapon.trim()));
 		}
 	}
 	private void setTeam(Element element,User user){
