@@ -3,6 +3,7 @@ package com.blue.monstor;
 import com.blue.tools.Tools;
 
 public class Item {
+	public static String HORSE = "11";
 	private String id;
 	private String name;
 	private String quality;
@@ -43,12 +44,13 @@ public class Item {
 	}
 	private String positonX;
 	private String positionY;
-	public Item(String id,String name,String quality,String checked,int sellPrice) {
+	public Item(String id,String name,String type,String quality,String checked,int sellPrice) {
 		this.id = id;
 		this.name = name;
 		this.quality = quality;
 		this.checked = checked;
 		this.sellPrice = sellPrice;
+		this.equipType = type;
 	}
 	public Item(String id,String name,String equipType,String x,String y,String count,String maxCount) {
 		this.id = id;
