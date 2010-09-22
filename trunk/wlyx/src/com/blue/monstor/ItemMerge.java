@@ -18,6 +18,7 @@ import com.blue.tools.Tools;
 public class ItemMerge {
 	private static Logger logger = Logger.getLogger(ItemMerge.class);
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=1597716&from=pack&to=pack&pos_x=6&pos_y=2&timeStamp=1285146745061&callback_func_name=itemClass.dragItemCallback
+	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=1597712&from=pack&to=pack&pos_x=6&pos_y=2&quantity=4&timeStamp=1285151539353&callback_func_name=itemClass.dragItemCallback
 	private static String MERGE = "modules/role_item.php?act=drag_item&from=pack&to=pack&callback_func_name=itemClass.dragItemCallback";
 	private static Pattern p = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?\"position_x\":\"(\\d+)\",\"position_y\":\"(\\d+)\",\"item_type\":\"(\\d+)\".*?quality\":\"\\d+.*?buy_price\":\"\\d+\".*?is_checkup\":\"\\d+\".*?max_superpose\":\"(\\d+)\",\"superpose\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	public static void merge(User user){
@@ -26,10 +27,13 @@ public class ItemMerge {
 		Map<String, Item> m = new HashMap<String, Item>();
 		while(it.hasNext()){
 			Item i = it.next();
+			if(i.getCount().equals(i.getMaxCount()) || !i.getEquipType().equals("0")){
+				continue;
+			}
 //			System.out.println(i);
 			Item to = null;
 			if((to = m.get(i.getName())) != null && !to.getCount().equals(to.getMaxCount())){
-				String data = "&id="+i.getId()+"&pos_x="+to.getPositonX()+"&pos_y="+to.getPositionY();
+				String data = "&id="+i.getId()+"&pos_x="+to.getPositonX()+"&pos_y="+to.getPositionY()+"&quantity="+i.getCount();
 				String url = user.getUrl()+MERGE+data+Tools.getTimeStamp(true);
 				String page = PageService.getPageWithCookie(url, user);
 				if(Tools.success(page)){
