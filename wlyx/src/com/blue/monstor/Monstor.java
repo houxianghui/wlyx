@@ -58,7 +58,7 @@ public class Monstor {
 	
 	private static Pattern p = Pattern.compile("monster_id\":\"(\\d+)\",\"level_range\":\"Lv.(\\d+)-(\\d+)");
 	//id+name+quality+checked
-	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",.*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
 	private static Pattern freeFinish = Pattern.compile("Ãâ·ÑÍê³ÉÐÞÁ¶");
 	public static boolean killMonstor(User user){
@@ -196,7 +196,7 @@ public class Monstor {
 			if(i.getChecked().equals("0") && i.getQuality().compareTo("3")>=0){
 				checkIt(user, i.getId(),i.getName());
 			}
-			if(i.getQuality().compareTo("3")<0){
+			if(i.getQuality().compareTo("3")<0 && !i.getEquipType().equals(Item.HORSE)){
 				sellItem(user, i.getId(),i.getName());
 			}
 		}
@@ -211,7 +211,7 @@ public class Monstor {
 			Item i = it.next();
 			int quality = Integer.parseInt(i.getQuality());
 			if(quality < user.getQualitySave()){
-				if(i.getSellPrice()>0){
+				if(i.getSellPrice()>0 && !i.getEquipType().equals(Item.HORSE)){
 					sellItem(user, i.getId(),i.getName());
 				}else{
 //					if(i.getQuality().compareTo("3")>0){
@@ -238,7 +238,7 @@ public class Monstor {
 		Matcher m = item.matcher(page);
 		List<Item> l = new ArrayList<Item>();
 		while(m.find()){
-			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(5),Integer.parseInt(m.group(4))));
+			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(4),m.group(56),Integer.parseInt(m.group(5))));
 			
 		}
 		return l;
