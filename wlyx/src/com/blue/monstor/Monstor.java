@@ -238,7 +238,7 @@ public class Monstor {
 		Matcher m = item.matcher(page);
 		List<Item> l = new ArrayList<Item>();
 		while(m.find()){
-			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(4),m.group(56),Integer.parseInt(m.group(5))));
+			l.add(new Item(m.group(1),Tools.hexToString(m.group(2)),m.group(3),m.group(4),m.group(6),Integer.parseInt(m.group(5))));
 			
 		}
 		return l;

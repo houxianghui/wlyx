@@ -140,12 +140,19 @@ public class Monitor {
 		}
 		return false;
 	}
+	
 	public static boolean atFuBen(User user){
 		String page = getScenes(user);
 		Matcher m = fuBen.matcher(page);
 		if(m.find()){
 			String map = Tools.hexToString(m.group(1));
-			if("∫Øπ»πÿ".equals(map)){
+			if("∫Øπ»πÿ".equals(map) || "«ÿ ºª ¡Í".equals(map)){
+				return true;
+			}
+		}
+		m = p.matcher(page);
+		if(m.find()){
+			if("‰≈≥ÿ’Ω≥°".equals(m.group(1))){
 				return true;
 			}
 		}
