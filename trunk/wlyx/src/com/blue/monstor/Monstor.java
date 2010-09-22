@@ -12,7 +12,6 @@ import com.blue.beauty.Beauty;
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
-import com.blue.task.AutoTask;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -224,7 +223,7 @@ public class Monstor {
 				}
 			}
 		}		
-		
+		ItemMerge.merge(user);
 	}
 	
 	private static List<Item> getTempPack(User user){
