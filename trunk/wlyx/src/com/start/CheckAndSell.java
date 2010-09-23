@@ -3,6 +3,7 @@ package com.start;
 import java.util.Iterator;
 import java.util.List;
 import com.blue.common.User;
+import com.blue.monstor.ItemMerge;
 import com.blue.monstor.Monstor;
 
 
@@ -18,6 +19,7 @@ public class CheckAndSell {
 			new Thread(){
 				public void run() {
 					Monstor.checkAndSell(user);
+					ItemMerge.merge(user);
 				};
 			}.start();
 //			Monstor.checkAndSell(user);

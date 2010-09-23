@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.blue.common.User;
+import com.blue.monstor.ItemMerge;
 import com.blue.monstor.Monstor;
 
 public class CheckUser {
@@ -24,6 +25,7 @@ public class CheckUser {
 						new Thread(){
 							public void run() {
 								Monstor.checkAndSell(u);
+								ItemMerge.merge(u);
 							};
 						}.start();
 //						Monstor.checkAndSell(u);
