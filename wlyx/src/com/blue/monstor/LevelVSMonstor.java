@@ -76,6 +76,7 @@ public class LevelVSMonstor {
 		monstors.put("80", new String[]{"¹í¹È","µØµ×ÀÎÓü","¹í¹È¹Ê¾Ó"});
 		monstors.put("81", new String[]{"¹í¹È","µØµ×ÀÎÓü","¹í¹È¹Ê¾Ó"});
 		monstors.put("82", new String[]{"¹í¹È","µØµ×ÀÎÓü","ĞşÌúÀÎÁı"});
+		monstors.put("83", new String[]{"¹í¹È","µØµ×ÀÎÓü","ĞşÌúÀÎÁı"});
 		monstors.put("84", new String[]{"ÖĞÄ²","ÔÆÃÎÉ½","Ã«Ëì¶´"});
 		monstors.put("85", new String[]{"ÖĞÄ²","ÔÆÃÎÉ½","Ã«Ëì¶´"});
 		monstors.put("86", new String[]{"ÖĞÄ²","ÔÆÃÎÉ½","Ã«Ëì¶´"});
