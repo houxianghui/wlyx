@@ -17,11 +17,16 @@ public class CheckUser {
 			String[] users = s.split(",");
 			Iterator<User> it = l.iterator();
 			while(it.hasNext()){
-				User u = it.next();
+				final User u = it.next();
 				for(int i = 0;i < users.length;i++){
 					if(u.getUserName().equals(users[i])){
 						u.login(false);
-						Monstor.checkAndSell(u);
+						new Thread(){
+							public void run() {
+								Monstor.checkAndSell(u);
+							};
+						}.start();
+//						Monstor.checkAndSell(u);
 					}
 				}
 			}
