@@ -31,10 +31,10 @@ public class Item {
 		this.equipType = equipType;
 	}
 	public String getPositonX() {
-		return positonX;
+		return positionX;
 	}
 	public void setPositonX(String positonX) {
-		this.positonX = positonX;
+		this.positionX = positonX;
 	}
 	public String getPositionY() {
 		return positionY;
@@ -42,7 +42,7 @@ public class Item {
 	public void setPositionY(String positionY) {
 		this.positionY = positionY;
 	}
-	private String positonX;
+	private String positionX;
 	private String positionY;
 	public Item(String id,String name,String type,String quality,String checked,int sellPrice) {
 		this.id = id;
@@ -56,7 +56,7 @@ public class Item {
 		this.id = id;
 		this.name = name;
 		this.equipType = equipType;
-		this.positonX = x;
+		this.positionX = x;
 		this.positionY = y;
 		this.count = count;
 		this.maxCount = maxCount;
@@ -93,6 +93,6 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "[id="+id+"\tname="+Tools.hexToString(name)+"\tequipType="+equipType+"\tpositionX="+positonX+"\tPositionY="+positionY+"\tcount="+count+"\tmaxcount="+maxCount+"]";
+		return "[id="+id+"\tname="+Tools.hexToString(name)+"\tequipType="+equipType+"\tpositionX="+positionX+"\tPositionY="+positionY+"\tcount="+count+"\tmaxcount="+maxCount+"]";
 	}
 }
