@@ -99,18 +99,16 @@ public class AutoTask {
 	public static void autoFinishTask(User user){
 		String url = getTaskListUrl(user);
 		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = p2.matcher(page);
-		if(m.find()){
-		}else{
-			Matcher m2 = finish.matcher(page);
-			if(m2.find()){
-				url = user.getUrl()+AUTO_TASK_URL+m2.group(1)+Tools.getTimeStamp(true);
-				page = PageService.getPageWithCookie(url, user);			
-				if(Tools.success(page)){
-					logger.info(user.getRoleName()+"委托任务"+m2.group(1)+"成功 ");
-				}
+		
+		Matcher m2 = finish.matcher(page);
+		if(m2.find()){
+			url = user.getUrl()+AUTO_TASK_URL+m2.group(1)+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(url, user);			
+			if(Tools.success(page)){
+				logger.info(user.getRoleName()+"委托任务"+m2.group(1)+"成功 ");
 			}
 		}
+		
 		if(freeFinish(user)){
 			autoFinishTask(user);
 		}
