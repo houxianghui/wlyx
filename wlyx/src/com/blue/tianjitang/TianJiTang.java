@@ -69,7 +69,6 @@ public class TianJiTang {
 						"我是白领：今天领了薪水，交了房租水电，买了油米泡面，摸了口袋，感叹一声，这个月工资又白领了… ",
 						"琴棋书画不会，洗衣做饭嫌累。",
 						"我们的目标：向钱看，向厚赚。 ",
-						"小姑娘们梦中都想找一匹白马，睁开眼发现满世界都是灰不溜秋的驴，悲痛欲绝后，只能从驴群中挑个身强力壮的，这样的驴就被命名为：经济适用男 ",
 						"你有什么不开心的事？说出来让大家开心一下。 ",
 						"人不犯我，我不犯人；人若犯我，礼让三分；人再犯我，我还一针；人还犯我，斩草除根"};
 	public static void autoTask(User user){
@@ -139,7 +138,7 @@ public class TianJiTang {
 			}
 		}
 	}
-	public static void liuYan(User user){
+	public static boolean liuYan(User user){
 		String url = user.getUrl()+LIU_YAN+Tools.getTimeStamp(true);
 		Random r = new Random();
 		int t = r.nextInt(speak.length-1);
@@ -147,7 +146,9 @@ public class TianJiTang {
 		String page = PageService.postPage(url, data, user);
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"自动武馆留言");
+			return true;
 		}
+		return false;
 	}
 	public static void build(User user){		
 		if(user.getTianJiDoor() == 0){

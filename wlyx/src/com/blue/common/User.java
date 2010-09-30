@@ -44,7 +44,14 @@ public class User {
 	private double teamProtectedPercent=0.8;
 	private boolean needTiGuan;
 	private boolean mianChiDropWeapon;
+	private String painShiKeType="1";
 	
+	public String getPainShiKeType() {
+		return painShiKeType;
+	}
+	public void setPainShiKeType(String painShiKeType) {
+		this.painShiKeType = painShiKeType;
+	}
 	public boolean isMianChiDropWeapon() {
 		return mianChiDropWeapon;
 	}
