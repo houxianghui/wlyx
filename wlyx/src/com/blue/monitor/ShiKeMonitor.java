@@ -24,12 +24,15 @@ public class ShiKeMonitor {
 		Matcher m = pain.matcher(page);
 		while(m.find()){
 			url = user.getUrl()+PAI_QIAN+Tools.getRandAndTime();
-			String data = "pain_type="+user.getPainShiKeType().trim()+"&pve_id="+m.group(1)+"&role_name=&callback_func_name=ajaxCallback";
-			page = PageService.postPage(url, data, user);
-			Matcher r = result.matcher(page);
-			if(r.find()){
-				if(Tools.hexToString(r.group(1)).equals("派遣成功")){
-					logger.info(user.getRoleName()+"派遣"+m.group(1)+"成功");
+			for(int i = 1;i < 6 ;i++){
+				String data = "pain_type="+i+"&pve_id="+m.group(1)+"&role_name=&callback_func_name=ajaxCallback";
+				page = PageService.postPage(url, data, user);
+				Matcher r = result.matcher(page);
+				if(r.find()){
+					if(Tools.hexToString(r.group(1)).equals("派遣成功")){
+						logger.info(user.getRoleName()+"派遣"+m.group(1)+"成功");
+						break;
+					}
 				}
 			}
 		}
