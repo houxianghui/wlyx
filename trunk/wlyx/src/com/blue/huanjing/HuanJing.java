@@ -16,6 +16,8 @@ public class HuanJing {
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&timeStamp=1283594503115&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String ENEMY_LIST = "modules/duel.php?act=pvehall&callback_func_name=callback_load_content&callback_obj_name=content";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&action=view_pve&id=29&s=0&timeStamp=1283612516610&callback_func_name=ajaxCallback&callback_obj_name=vie_pve
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1285764490443&timeStamp=1285764490165&callback_func_name=ajaxCallback&callback_obj_name=content
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&action=view_pve&id=1&s=0&timeStamp=1285764827991&callback_func_name=ajaxCallback&callback_obj_name=vie_pve
 	public static final String DETAIL_LIST = "modules/duel.php?act=pvehall&action=view_pve&s=0&callback_func_name=ajaxCallback&callback_obj_name=vie_pve&id=";
 	
 	private static Pattern p = Pattern.compile("<span class=\"important\">(\\S+?)</span>.*?<span class=\"special\">(.+?)</span>.*?text_monster\">(.+?)</span>.*?\"skill\">(.+?)</span>.*(获胜奖励) <span class=\"highlight\">(\\d+)</span> (积分).*?fnPveHallAction\\( (\\d+) \\)",Pattern.DOTALL);
@@ -28,7 +30,7 @@ public class HuanJing {
 	public static void listAll(User user)throws Exception{
 		
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境-"+user.getRoleName()+".txt")));
-		for(int i = 1;i < 1000;i++){
+		for(int i = 1;i < 100;i++){
 			if(i % 10 == 0){
 				System.out.println("checking "+i+" finished");
 			}
@@ -47,8 +49,8 @@ public class HuanJing {
 	public static void listSpecail(User user,int start)throws Exception{
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境塔-"+user.getUserName()+"-"+start+".txt")));
 		for(int i = start;i < start+101;i++){
-			if(i % 10 == 0){
-				System.out.println(i+"% finished...");
+			if((i-start) % 10 == 0){
+				System.out.println((i-start)+"% finished...");
 			}
 			String url = user.getUrl()+DETAIL_LIST+i+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);

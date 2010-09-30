@@ -30,6 +30,9 @@ public class Duel{
 		if(time < user.getDuelStartTime() ){
 			return true;
 		}
+		if(!needChallenge(user)){
+			return true;
+		}
 		if(user.isDuelDropWeapon()){
 			if(!DropWeapon.dropWeapon(user)){
 				logger.info(user.getRoleName()+"Ð¶ÎäÊ§°Ü£¬ÔÝ²»¾º¼¼");
@@ -41,6 +44,23 @@ public class Duel{
 			DropWeapon.mountWeapon(user);
 		}
 		return flag;
+	}
+	private static boolean needChallenge(User user){
+		String url = user.getUrl()+DUEL_LIST_URL+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m2 = times.matcher(page);
+		if(m2.find()){
+			user.setChallengeTimes(Integer.parseInt(m2.group(1)));
+		}
+		if(user.getChallengeTimes()>=15){
+			Matcher f = free.matcher(page);
+			if(f.find()){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		return true;
 	}
 	private static boolean challenge(User user){
 		
