@@ -1,6 +1,7 @@
 package com.blue.common;
 
 import com.blue.beauty.Beauty;
+import com.blue.monitor.ShiKeMonitor;
 
 public class MonitorThread extends BaseThread{
 	private User user;
@@ -25,6 +26,7 @@ public class MonitorThread extends BaseThread{
 				Monitor.buyPool(user);
 				Monitor.guoDu(user);
 				Monitor.getGuoDuAward(user);
+				ShiKeMonitor.painShiKe(user);
 				sleep(20*60*1000);
 			}catch(Exception e){
 			}
