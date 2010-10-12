@@ -45,7 +45,14 @@ public class User {
 	private boolean needTiGuan;
 	private boolean mianChiDropWeapon;
 	private String painShiKeType="1";
+	private int dialog = 4;
 	
+	public int getDialog() {
+		return dialog;
+	}
+	public void setDialog(int dialog) {
+		this.dialog = dialog;
+	}
 	public String getPainShiKeType() {
 		return painShiKeType;
 	}

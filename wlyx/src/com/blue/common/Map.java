@@ -73,7 +73,7 @@ public class Map {
 		thirdMap.put("ÂäÇ¹ÁÖ", "434");
 		thirdMap.put("¸¡Ì¨»ú¹Ø", "470");
 		thirdMap.put("¸¡ÔÆÃØÊÒ", "471");
-		thirdMap.put("Ç¹»êÃØÊÒ", "453");
+		thirdMap.put("Ç¹»êÃØÊÒ", "435");
 		thirdMap.put("ÈÕÔÂÆº", "501");
 		thirdMap.put("Í­Ê¬¹×", "482");
 		thirdMap.put("Ëïë÷¶´", "513");

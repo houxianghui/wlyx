@@ -106,11 +106,16 @@ public class UserRead {
 		Element e = element.element("task");
 		String min = e.elementText("minMoney");
 		String door = e.elementText("tianJiDoor");
+		String dialog = e.elementText("dialog");
+		
 		if(!Tools.isEmpty(min)){
 			user.setMiniMoney(Integer.parseInt(min.trim()));
 		}
 		if(!Tools.isEmpty(door)){
 			user.setTianJiDoor(Integer.parseInt(door.trim()));
+		}
+		if(!Tools.isEmpty(dialog)){
+			user.setDialog(Integer.parseInt(dialog.trim()));
 		}
 	}
 	private void setSlavy(Element element,User user){
