@@ -87,7 +87,7 @@ public class AutoTask {
 				Matcher t = dialog.matcher(page);
 				if(t.find()){
 					int lv = Integer.parseInt(t.group(1));
-					if(lv >= 3){
+					if(lv >= user.getDialog()){
 						logger.info(user.getRoleName()+"接受对话任务"+taskId);
 						return true;
 					}
