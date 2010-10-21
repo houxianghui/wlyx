@@ -46,7 +46,21 @@ public class User {
 	private boolean mianChiDropWeapon;
 	private String painShiKeType="1";
 	private int dialog = 4;
+	private String duelType="1";	//1 Öð¼¶ 2 ³å¼¶
+	private boolean needBeatTail = true;
 	
+	public boolean isNeedBeatTail() {
+		return needBeatTail;
+	}
+	public void setNeedBeatTail(boolean needBeatTail) {
+		this.needBeatTail = needBeatTail;
+	}
+	public String getDuelType() {
+		return duelType;
+	}
+	public void setDuelType(String duelType) {
+		this.duelType = duelType;
+	}
 	public int getDialog() {
 		return dialog;
 	}
