@@ -87,7 +87,10 @@ public class Duel{
 			return false;
 		}
 		Challenger c = l.get(l.size()-2);
-		if(Integer.parseInt(me.getDuelNo()) < 10){
+		if(user.getDuelType().equals("2")){
+			c = l.get(0);
+		}
+		if(Integer.parseInt(me.getDuelNo()) < 10 && user.isNeedBeatTail()){
 			logger.info(user.getRoleName()+"¿ªÊ¼Ë¢Î²°Í");
 			Iterator<Challenger> it = l.iterator();
 			while(it.hasNext()){

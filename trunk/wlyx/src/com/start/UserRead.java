@@ -92,6 +92,14 @@ public class UserRead {
 		String start = e.elementText("duelStart");
 		String drop = e.elementText("dropWeapon");
 		String due = e.elementText("duelDue");
+		String duelType=e.elementText("duelType");
+		String needTail = e.elementText("needBeatTail");
+		if(!Tools.isEmpty(duelType)){
+			user.setDuelType(duelType.trim());
+		}
+		if(!Tools.isEmpty(needTail)){
+			user.setNeedBeatTail("1".equals(needTail.trim()));
+		}
 		if(!Tools.isEmpty(start)){
 			user.setDuelStartTime(Integer.parseInt(start.trim()));
 		}
