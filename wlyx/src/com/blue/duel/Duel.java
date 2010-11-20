@@ -87,8 +87,20 @@ public class Duel{
 			return false;
 		}
 		Challenger c = l.get(l.size()-2);
+		boolean find = false;
 		if(user.getDuelType().equals("2")){
-			c = l.get(0);
+			for(int i = l.size()-2;i>=0;i--){
+				int clevel = Integer.parseInt(l.get(i).getLevel());
+				int melevel = Integer.parseInt(me.getLevel());
+				if(melevel-5 <= clevel && clevel <= melevel+5){
+					c = l.get(i);
+					find = true;
+					break;
+				}
+			}
+			if(!find){
+				c = l.get(0);
+			}
 		}
 		if(Integer.parseInt(me.getDuelNo()) < 10 && user.isNeedBeatTail()){
 			logger.info(user.getRoleName()+"¿ªÊ¼Ë¢Î²°Í");
