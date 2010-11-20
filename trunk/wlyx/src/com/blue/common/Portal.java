@@ -154,6 +154,10 @@ public class Portal {
 			logger.info(user.getRoleName()+"正在副本，停止移动");
 			return true;
 		}
+		if(Monitor.isDefeatingMianChi(user)){
+			logger.info(user.getRoleName()+"正在渑池防守战，停止移动");
+			return true;
+		}
 		String page = PageService.getPageWithCookie(url, user);
 		return Tools.success(page);
 	}

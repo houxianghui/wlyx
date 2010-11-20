@@ -38,6 +38,7 @@ public class WuGuan {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&timeStamp=1281678437515
 	public static final String TEAM_LIST="modules/warrior.php?act=team";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&type=credits&page=10&country=0&chk_open_team=0&timeStamp=1283164565356&callback_func_name=ajaxCallback&callback_obj_name=content
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=team&timeStamp=1289218876446
 	public static final String GET_ALL_TEAM = "modules/warrior.php?act=team&type=credits&country=0&chk_open_team=0&callback_func_name=ajaxCallback&callback_obj_name=content&page=";
 	//查看我的武馆
 	//http://s4.verycd.9wee.com/modules/team.php?act=my_team&timeStamp=1282922453022&callback_func_name=ajaxCallback&callback_obj_name=dlg_team
@@ -353,6 +354,7 @@ public class WuGuan {
 	}
 	private static void getAllTeam(User user){
 		for(int i = 1;i < 12;i++){
+//			String url = user.getUrl()+TEAM_LIST+
 			String url = user.getUrl()+GET_ALL_TEAM+i+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);
 			Matcher m = teams.matcher(page);

@@ -64,7 +64,7 @@ public class Monitor {
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
 	public static Pattern fuBen = Pattern.compile("map_name\":\"(\\S+?)\"");;
 	public static Pattern buyPool = Pattern.compile("免费\\S+?包");
-	
+	public static Pattern defeatMianChi = Pattern.compile("渑池战场",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
 	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
 	//awards_view ( 110573 )">辎重营荣誉礼包</a>
@@ -383,6 +383,14 @@ public class Monitor {
 				logger.info(user.getRoleName()+"免费使用客房福利");
 				return true;
 			}
+		}
+		return false;
+	}
+	public static boolean isDefeatingMianChi(User user){
+		String page = getScenes(user);
+		Matcher m = defeatMianChi.matcher(page);
+		if(m.find()){
+			return true;
 		}
 		return false;
 	}
