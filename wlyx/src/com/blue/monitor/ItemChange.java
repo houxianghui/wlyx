@@ -23,6 +23,13 @@ public class ItemChange {
 				logger.info(user.getRoleName()+"兑换成绩单成功");
 			}while(successChange(page));
 		}
+		for(int i = 6;i < 11;i++){
+			do{
+				String url = user.getUrl()+CHENG_JI+i+Tools.getTimeStamp(true);
+				page = PageService.getPageWithCookie(url, user);
+				logger.info(user.getRoleName()+"兑换月饼成功");
+			}while(successChange(page));
+		}
 	}
 	private static boolean successChange(String s){
 		Matcher m = success.matcher(s);
