@@ -68,7 +68,7 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
 	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
 	//awards_view ( 110573 )">辎重营荣誉礼包</a>
-	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">[全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包].*?([立即领取|已领取])",Pattern.DOTALL);
+	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">(全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包|.{2}成绩单|.{2}月饼|竞技礼包).*?(立即领取|已领取)",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/awards.php?act=fetch&award_id=119709&timeStamp=1282995924182&callback_func_name=awards_fetch_callback
 	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
@@ -113,13 +113,14 @@ public class Monitor {
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = awards.matcher(page);
 		while(m.find()){
-			if(m.group(2).equals("已领取")){
-				return;
+			if(m.group(3).equals("已领取")){
+				continue;
 			}
+			
 			url = user.getUrl()+GET_AWARD+m.group(1)+Tools.getTimeStamp(true);
-			page = PageService.getPageWithCookie(url, user);
-			if(Tools.success(page)){
-				logger.info(user.getRoleName()+"领取全民福利成功");
+			String p = PageService.getPageWithCookie(url, user);
+			if(Tools.success(p)){
+				logger.info(user.getRoleName()+"领取"+m.group(2)+"成功");
 			}
 		}
 	}
