@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.monitor.ItemChange;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -123,6 +124,7 @@ public class Monitor {
 				logger.info(user.getRoleName()+"领取"+m.group(2)+"成功");
 			}
 		}
+		ItemChange.changeChengJiDan(user);
 	}
 	
 	public static String getScenes(User user){
