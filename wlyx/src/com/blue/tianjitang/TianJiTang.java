@@ -72,6 +72,9 @@ public class TianJiTang {
 						"你有什么不开心的事？说出来让大家开心一下。 ",
 						"人不犯我，我不犯人；人若犯我，礼让三分；人再犯我，我还一针；人还犯我，斩草除根"};
 	public static void autoTask(User user){
+		if(!user.isAutoTianJi()){
+			return;
+		}
 		Portal.setUserAttribute(user);
 		
 		String url = user.getUrl()+TASK_LIST+Tools.getTimeStamp(true);
@@ -143,7 +146,12 @@ public class TianJiTang {
 		Random r = new Random();
 		int t = r.nextInt(speak.length-1);
 		String data = "team_foster_message="+speak[t]+"&callback_func_name=refreshMissoin";
-		String page = PageService.postPage(url, data, user);
+		String page = null;
+		int count = 3;
+		do{
+			page = PageService.postPage(url, data, user);
+		}while(!Tools.success(page) && count-- >= 0);
+		
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"自动武馆留言");
 			return true;
