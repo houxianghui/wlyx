@@ -46,6 +46,8 @@ public class Beauty {
 	public static final String RED_TI_GUAN = "14";
 	public static final String RED_HU_GUAN = "15";
 	public static final String GEN_GU_10 = "13";
+	public static final String GEN_GU_6 = "12";
+	
 	private static Map<String, String> beautyMap = new HashMap<String, String>();
 	static{
 		beautyMap.put(GONG_XIAN, "¹±Ï×");
@@ -59,6 +61,7 @@ public class Beauty {
 		beautyMap.put(RED_TI_GUAN, "Ìß¹ÝºìÍ¼");
 		beautyMap.put(RED_HU_GUAN, "»¤¹ÝºìÍ¼");
 		beautyMap.put(GEN_GU_10, "¸ù¹Ç10");
+		beautyMap.put(GEN_GU_6, "¸ù¹Ç6");
 	}
 	
 	public static boolean activeBeauty(User user,String id){
@@ -103,6 +106,9 @@ public class Beauty {
 	public static boolean genGuTu(User user){
 		if(Tools.getNowHour() >= 21){
 			return activeBeauty(user, GEN_GU_10);
+		}
+		if(Tools.getNowHour()>=18){
+			return activeBeauty(user, GEN_GU_6);
 		}
 		return false;
 	}

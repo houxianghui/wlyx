@@ -222,7 +222,9 @@ public class WuGuan {
 		String url = user.getUrl()+MOVE+mid+Tools.getTimeStamp(true);
 		String result = PageService.getPageWithCookie(url, user);
 		Beauty.huGuan(user);
-		Beauty.redHuGuan(user);
+		if(user.isOpenRedProtect()){
+			Beauty.redHuGuan(user);
+		}
 		return Tools.success(result);
 	}
 	public static boolean desdroyTeam(User user,String mid){
@@ -234,7 +236,9 @@ public class WuGuan {
 			for(int i = 0;i < VIP_TEAM.length;i++){
 				if(VIP_TEAM[i].equals(user.getTeamId())){
 					Beauty.tiGuan(user);
-					Beauty.redTiGuan(user);
+					if(user.isOpenRedBeat()){
+						Beauty.redTiGuan(user);
+					}
 					break;
 				}
 			}

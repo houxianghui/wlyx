@@ -23,32 +23,65 @@ public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
 	private String userName;
 	private String password;
-	private String needWar;
-	private String gloryBuy;
+	private String needWar;				//是否自动挂辎重
+	private String gloryBuy;			//荣誉换
 	private int buildDoor;	//2 玄武，3 朱雀 4 白虎 5 青龙
-	private int blackStartTime;
+	private int blackStartTime;			//小黑屋
 	private int blackEndTime;
-	private int mingZhong;
-	private int duoShan;
-	private int baoJi;
-	private int poJi;
-	private int maxHP;
+	private int mingZhong;				//命中
+	private int duoShan;				//闪避
+	private int baoJi;					//暴击
+	private int poJi;					//破击
+	private int maxHP;					//最大HP
 	private int tianJiDoor=1;	// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
-	private int buildPoint;
-	private String teamId;
-	private boolean needRestart = false;
-	private boolean needGetAward;
+	private int buildPoint;				//建筑点数
+	private String teamId;				//武馆编号
+	private boolean needRestart = false;	//重启用户
+	private boolean needGetAward;			//领取奖励
 	private boolean needGuoDu;	//是否报名国都演武
-	private int duelStartTime;
-	private boolean friendly;
-	private double teamProtectedPercent=0.8;
-	private boolean needTiGuan;
-	private boolean mianChiDropWeapon;
-	private String painShiKeType="1";
-	private int dialog = 4;
-	private String duelType="1";	//1 逐级 2 冲级
-	private boolean needBeatTail = true;
+	private int duelStartTime;				//竞技开始时间
+	private boolean friendly;				//友好踢馆
+	private double teamProtectedPercent=0.8;	//护馆比例
+	private boolean needTiGuan;					//是否踢馆
+	private boolean mianChiDropWeapon;			//渑池卸武
+	private String painShiKeType="1";			//折磨食客
+	private int dialog = 4;						//对话任务
+	private String duelType="1";				//1 逐级 2 冲级
+	private boolean needBeatTail = true;		//是否刷尾巴
 	
+	private boolean autoTianJi = true;			//是否自动完成天机堂任务
+	private boolean needHuGuan;
+	private boolean duelDropWeapon = false;
+	private String dailyWeal = "1";				//全民福利类型
+	
+	private boolean openRedBeat;				//踢馆红图
+	private boolean openRedProtect;				//护馆红图
+	public boolean isOpenRedBeat() {
+		return openRedBeat;
+	}
+	public void setOpenRedBeat(boolean openRedBeat) {
+		this.openRedBeat = openRedBeat;
+	}
+	public boolean isOpenRedProtect() {
+		return openRedProtect;
+	}
+	public void setOpenRedProtect(boolean openRedProtect) {
+		this.openRedProtect = openRedProtect;
+	}
+	
+	
+	public String getDailyWeal() {
+		return dailyWeal;
+	}
+	public void setDailyWeal(String dailyWeal) {
+		this.dailyWeal = dailyWeal;
+	}
+	public boolean isAutoTianJi() {
+		return autoTianJi;
+	}
+	public void setAutoTianJi(boolean autoTianJi) {
+		this.autoTianJi = autoTianJi;
+	}
 	public boolean isNeedBeatTail() {
 		return needBeatTail;
 	}
@@ -91,8 +124,7 @@ public class User {
 	public void setNeedHuGuan(boolean needHuGuan) {
 		this.needHuGuan = needHuGuan;
 	}
-	private boolean needHuGuan;
-	
+
 	public double getTeamProtectedPercent() {
 		return teamProtectedPercent;
 	}
@@ -112,7 +144,7 @@ public class User {
 		this.duelStartTime = duelStartTime;
 	}
 	private String weapon = null;	//卸武编号
-	private boolean duelDropWeapon = false;
+	
 	
 	public boolean isDuelDropWeapon() {
 		return duelDropWeapon;

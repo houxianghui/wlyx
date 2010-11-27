@@ -34,7 +34,7 @@ public class Duel{
 			return true;
 		}
 		if(user.isDuelDropWeapon()){
-			if(!DropWeapon.dropWeapon(user)){
+			if(!DropWeapon.dropWeapon(user) && Tools.getNowHour()< 20){
 				logger.info(user.getRoleName()+"Ð¶ÎäÊ§°Ü£¬ÔÝ²»¾º¼¼");
 				return true;
 			}
@@ -102,7 +102,7 @@ public class Duel{
 				c = l.get(0);
 			}
 		}
-		if(Integer.parseInt(me.getDuelNo()) < 10 && user.isNeedBeatTail()){
+		if((Integer.parseInt(me.getDuelNo()) < 10 && user.isNeedBeatTail()) || Integer.parseInt(me.getDuelNo())==1 ){
 			logger.info(user.getRoleName()+"¿ªÊ¼Ë¢Î²°Í");
 			Iterator<Challenger> it = l.iterator();
 			while(it.hasNext()){

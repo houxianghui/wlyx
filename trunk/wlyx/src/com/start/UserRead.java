@@ -115,7 +115,11 @@ public class UserRead {
 		String min = e.elementText("minMoney");
 		String door = e.elementText("tianJiDoor");
 		String dialog = e.elementText("dialog");
+		String autoTianJi = e.elementText("autoTianJi");
 		
+		if(!Tools.isEmpty(autoTianJi)){
+			user.setAutoTianJi("1".equals(autoTianJi.trim()));
+		}
 		if(!Tools.isEmpty(min)){
 			user.setMiniMoney(Integer.parseInt(min.trim()));
 		}
@@ -163,7 +167,8 @@ public class UserRead {
 			user.setGloryBuy(buy.trim());
 		}
 		if(!Tools.isEmpty(dailyWeal)){
-			user.setNeedGetAward("1".equals(dailyWeal.trim()));
+//			user.setNeedGetAward("1".equals(dailyWeal.trim()));
+			user.setDailyWeal(dailyWeal);
 		}
 		if(!Tools.isEmpty(guodu)){
 			user.setNeedGuoDu("1".equals(guodu.trim()));
@@ -179,6 +184,8 @@ public class UserRead {
 		String percent = e.elementText("protectMyTeam");
 		String needTiGuan = e.elementText("needDesdroy");
 		String needHuGuan = e.elementText("needProtect");
+		String openRedBeat = e.elementText("openRedBeat");
+		String openRedProtect = e.elementText("openRedProtect");
 		if(!Tools.isEmpty(name)){
 			user.setBeatTeam(name);
 		}
@@ -193,6 +200,12 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(needTiGuan)){
 			user.setNeedTiGuan("1".equals(needTiGuan.trim()));
+		}
+		if(!Tools.isEmpty(openRedBeat)){
+			user.setOpenRedBeat("1".equals(openRedBeat.trim()));
+		}
+		if(!Tools.isEmpty(openRedProtect)){
+			user.setOpenRedProtect("1".equals(openRedProtect.trim()));
 		}
 	}
 }
