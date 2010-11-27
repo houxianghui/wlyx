@@ -5,7 +5,7 @@
 		<proxyPort></proxyPort>
 	</system>
 	<users>
-		<user username="sp_lulu,blue_ranger,xianghui_hou" password="abc123,abc123,abc123" host="s4.verycd.9wee.com" >
+		<user username="" password="" host="s4.verycd.9wee.com" >
 			<monstor caption="野训设置">
 				<startTime caption="开始时间">0</startTime>
 				<endTime caption="结束时间">8</endTime>
@@ -26,10 +26,18 @@
 				<duelDue>0</duelDue>
 				<!--竞技卸武 1 卸武 0 不卸武-->
 				<dropWeapon>0</dropWeapon>
+				<!-- 竞技模式  1 逐级 2 冲级 默认逐级-->
+				<dueltype>2</dueltype>
+				<!-- 是否需要刷尾巴  0 不需要 1 需要 默认需要-->
+				<needBeatTail>1</needBeatTail>
 			</duel>
 			<task caption="日常任务设置">
 				<!--收集类任务最小金额-->
 				<minMoney>10000</minMoney>
+				<!-- 对话任务 1 全接 3 蓝装 4 紫装 5 不接 -->
+				<dialog></dialog>
+				<!-- 是否自动完成天机堂任务 0 否 1 是 -->
+				<autoTianJi>1</autoTianJi>
 				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
 				<tianJiDoor>3</tianJiDoor>
 			</task>
@@ -40,7 +48,7 @@
 				<minSlavy>3</minSlavy>
 				<!-- 折磨方式 1 宣传 2 修门 -->
 				<painType>1</painType>
-				<!-- 修门选项 2 玄武 3 朱雀 3 白虎 4 青龙-->
+				<!-- 修门选项 2 玄武 3 朱雀 4 白虎 5 青龙-->
 				<build>2</build>
 				<!-- 黑屋开始时间 -->
 				<blackStart>0</blackStart>
@@ -50,129 +58,28 @@
 			<daily caption="日常设置">
 				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿-->
 				<buyGlory>1</buyGlory>
-				<!-- 是否需要领取每日福利礼包 1 领取 0不领 -->
-				<dailyWeal>1</dailyWeal>
+				<!-- 是否需要领取全民福利礼包  0 不領 1 礼券 2 精力 3 石头-->
+				<dailyWeal>1</dailyWeal>				
 				<!-- 是否报名国都演武 1 报名 0 不报 -->
 				<guoDuYanWu>0</guoDuYanWu>
+				<!-- 渑池演武厅是否卸武 1 卸武 2 不卸武 -->
+				<mianChi>0</mianChi>
 			</daily>
 			<team caption="踢馆设置">
+				<!-- 是否需要护联盟馆 -->
+				<needProtect>1</needProtect>
+				<!-- 是否自动开护馆红图  0=否 1=是-->
+				<openRedProtect>1</openRedProtect>
+				<!-- 是否需要踢馆 -->
+				<needDesdroy>1</needDesdroy>
+				<!-- 踢馆是否自动开红图  0=否 1=是-->
+				<openRedBeat>1</openRedBeat>
 				<!-- 护馆选项：低于多少强制护馆  -->
 				<protectMyTeam>0.8</protectMyTeam>
 				<!-- 踢馆名称  设置了就不随时扔砖了哦,设置友好踢馆会随时扔砖-->
 				<teamName></teamName>
 				<!-- 友好踢馆 1 是 0 否 -->
 				<friendly>1</friendly>
-			</team>
-		</user>
-		
-		<user username="八面金锁,定军枪,weiwei_mi" password="abc123,abc123,abc123" host="s4.verycd.9wee.com" >
-			<monstor caption="野训设置">
-				<startTime>0</startTime>
-				<endTime>24</endTime>
-				<savePoint>20</savePoint>
-				<!--  3 蓝装以上 4 紫装以上 5 全卖 -->
-				<quality>4</quality>
-			</monstor>
-			<warrior caption="大厅设置">
-				<!-- 大厅方式选择 0 不挂 1 训练 2 授艺 -->
-				<warriorType>1</warriorType>
-				<!-- 是否需要辎重 0 不需要 1 需要 -->
-				<needZiZhong>1</needZiZhong>
-			</warrior>
-			<duel caption="竞技场设置">
-				<!--竞技开始时间-->
-				<duelStart>0</duelStart>
-				<!--竞技间隔 单位为分钟-->
-				<duelDue>0</duelDue>
-				<!--竞技卸武 1 卸武 0 不卸武-->
-				<dropWeapon>0</dropWeapon>
-			</duel>
-			<task caption="日常任务设置">
-				<!--收集类任务最小金额-->
-				<minMoney>4000</minMoney>
-				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
-				<tianJiDoor>3</tianJiDoor>
-			</task>
-			<slavy caption="奴隶设置">
-				<!-- 是否抓奴 0 不需要 1需要 -->
-				<catchSlavy>1</catchSlavy>
-				<!-- 最少奴隶个数 -->
-				<minSlavy>3</minSlavy>
-				<!-- 折磨方式 1 宣传 2 修门 -->
-				<painType>1</painType>
-				<!-- 修门选项 2 玄武 3 朱雀 3 白虎 4 青龙-->
-				<build>2</build>
-				<!-- 黑屋开始时间 -->
-				<blackStart>0</blackStart>
-				<!-- 黑屋结束时间 -->
-				<blackEnd>0</blackEnd>
-			</slavy>
-			<daily caption="日常设置">
-				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿-->
-				<buyGlory>1</buyGlory>
-				<!-- 是否需要领取每日福利礼包 1 领取 0不领 -->
-				<dailyWeal>1</dailyWeal>
-				<!-- 是否报名国都演武 1 报名 0 不报 -->
-				<guoDuYanWu>0</guoDuYanWu>
-			</daily>
-			<team caption="踢馆设置">
-				<!-- 踢馆名称  设置了就不随时扔砖了哦-->
-				<teamName></teamName>
-			</team>
-		</user>
-		<user username="sieera,sieera2,sieera3,sieera4,liyanzhang9990,sieera6,dxy8858,dxy520,xuxudddd" password="sieera,sieera,sieera,sieera,gigibjnba1984,gigibjnba1984,gigibjnba1984,gigibjnba1984,gigibjnba1984" host="s4.verycd.9wee.com" >
-			<monstor caption="野训设置">
-				<startTime>0</startTime>
-				<endTime>24</endTime>
-				<savePoint>20</savePoint>
-				<!--  3 蓝装以上 4 紫装以上 5 全卖 -->
-				<quality>4</quality>
-			</monstor>
-			<warrior caption="大厅设置">
-				<!-- 大厅方式选择 0 不挂 1 训练 2 授艺 -->
-				<warriorType>1</warriorType>
-				<!-- 是否需要辎重 0 不需要 1 需要 -->
-				<needZiZhong>1</needZiZhong>
-			</warrior>
-			<duel caption="竞技场设置">
-				<!--竞技开始时间-->
-				<duelStart>0</duelStart>
-				<!--竞技间隔 单位为分钟-->
-				<duelDue>0</duelDue>
-				<!--竞技卸武 1 卸武 0 不卸武-->
-				<dropWeapon>0</dropWeapon>
-			</duel>
-			<task caption="日常任务设置">
-				<!--收集类任务最小金额-->
-				<minMoney>4000</minMoney>
-				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
-				<tianJiDoor>3</tianJiDoor>
-			</task>
-			<slavy caption="奴隶设置">
-				<!-- 是否抓奴 0 不需要 1需要 -->
-				<catchSlavy>1</catchSlavy>
-				<!-- 最少奴隶个数 -->
-				<minSlavy>5</minSlavy>
-				<!-- 折磨方式 1 宣传 2 修门 -->
-				<painType>1</painType>
-				<!-- 修门选项 2 玄武 3 朱雀 3 白虎 4 青龙-->
-				<build>2</build>
-				<!-- 黑屋开始时间 -->
-				<blackStart>0</blackStart>
-				<!-- 黑屋结束时间 -->
-				<blackEnd>0</blackEnd>
-			</slavy>
-			<daily caption="日常设置">
-				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿-->
-				<buyGlory>2</buyGlory>
-				<!-- 是否需要领取每日福利礼包 1 领取 0不领 -->
-				<dailyWeal>1</dailyWeal>
-				<!-- 是否报名国都演武 1 报名 0 不报 -->
-				<guoDuYanWu>0</guoDuYanWu>
-			</daily>
-			<team caption="踢馆设置">
-				<!-- 踢馆名称  设置了就不随时扔砖了哦-->
-				<teamName></teamName>
 			</team>
 		</user>
 	</users>
