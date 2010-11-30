@@ -54,8 +54,8 @@ public class User {
 	private boolean duelDropWeapon = false;
 	private String dailyWeal = "1";				//全民福利类型
 	
-	private boolean openRedBeat;				//踢馆红图
-	private boolean openRedProtect;				//护馆红图
+	private boolean openRedBeat = true;				//踢馆红图
+	private boolean openRedProtect = true;				//护馆红图
 	public boolean isOpenRedBeat() {
 		return openRedBeat;
 	}
