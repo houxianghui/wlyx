@@ -108,9 +108,7 @@ public class Monitor {
 		}
 	}
 	public static void getAwards(User user){
-		if(!user.isNeedGetAward()){
-			return ;
-		}
+		
 		String url = user.getUrl()+AWARD+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = awards.matcher(page);
