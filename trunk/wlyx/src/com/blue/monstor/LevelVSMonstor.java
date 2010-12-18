@@ -81,6 +81,20 @@ public class LevelVSMonstor {
 		monstors.put("85", new String[]{"中牟","云梦山","毛遂洞"});
 		monstors.put("86", new String[]{"中牟","云梦山","毛遂洞"});
 		monstors.put("87", new String[]{"中牟","云梦山","水帘洞"});
+		monstors.put("88", new String[]{"中牟","云梦山","水帘洞"});
+		monstors.put("89", new String[]{"中牟","淇园","鸡冠山"});
+		monstors.put("90", new String[]{"中牟","淇园","鸡冠山"});
+		monstors.put("91", new String[]{"中牟","淇园","鸡冠山"});
+		monstors.put("92", new String[]{"中牟","淇园","淇水关"});
+		monstors.put("93", new String[]{"中牟","淇园","淇水关"});
+		monstors.put("94", new String[]{"中牟","卫国城墙","卫国密室"});
+		monstors.put("95", new String[]{"中牟","卫国城墙","卫国密室"});
+		monstors.put("96", new String[]{"中牟","卫国城墙","卫国密室"});
+		monstors.put("97", new String[]{"中牟","卫国城墙","黄龙碑"});
+		monstors.put("98", new String[]{"中牟","卫国城墙","黄龙碑"});
+		monstors.put("99", new String[]{"中牟","舍身崖","纣王亩"});
+		monstors.put("100", new String[]{"中牟","舍身崖","纣王亩"});
+		monstors.put("101", new String[]{"中牟","舍身崖","纣王亩"});
 	}
 	public static String[] getMonstorInfo(String level){
 		return monstors.get(level);

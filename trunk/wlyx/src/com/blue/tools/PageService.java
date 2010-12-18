@@ -1,6 +1,8 @@
 package com.blue.tools;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -16,6 +18,7 @@ import org.apache.log4j.Logger;
 import com.blue.common.User;
 
 public class PageService {
+	
 	private static Logger logger = Logger.getLogger(PageService.class);
 	public static String getPageWithCookie(String page, User user) {
 		String str = null;
@@ -50,7 +53,7 @@ public class PageService {
 				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
 
-				StringBuilder b = readBackInfo(con);
+				StringBuffer b = readBackInfo(con);
 				return b.toString();
 			}
 		} catch (Exception ex) {
@@ -84,7 +87,7 @@ public class PageService {
 				os.write(data.getBytes("UTF-8"));
 				os.flush();
 				os.close();
-				StringBuilder b = readBackInfo(con);
+				StringBuffer b = readBackInfo(con);
 				return b.toString();
 			}
 		}catch(Exception e){
@@ -97,18 +100,34 @@ public class PageService {
 		return "";
 	}
 
-	private static StringBuilder readBackInfo(HttpURLConnection con)
+	private static StringBuffer readBackInfo(HttpURLConnection con)
 			throws IOException, UnsupportedEncodingException {
-		GZIPInputStream gis = new GZIPInputStream(con.getInputStream());
-
-		StringBuilder b = new StringBuilder();
-		byte[] by = new byte[1024];
-		int len = 0;
-		while((len = gis.read(by))!=-1){
-			b.append(new String(by,0,len,"UTF-8"));
+		String gzip = System.getProperty("GZIP");
+		boolean isGzipOn = false;
+		if(gzip != null){
+			isGzipOn = true;
 		}
-		gis.close();
-		return b;
+		if(isGzipOn){
+			GZIPInputStream gis = new GZIPInputStream(con.getInputStream());
+	
+			StringBuffer b = new StringBuffer();
+			byte[] by = new byte[1024];
+			int len = 0;
+			while((len = gis.read(by))!=-1){
+				b.append(new String(by,0,len,"UTF-8"));
+			}
+			gis.close();
+			return b;
+		}else{
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			String s = null;
+			while((s=br.readLine())!=null){
+				sb.append(s+"\n");
+			}
+			return sb;
+		}
+		
 	}
 
 
@@ -126,7 +145,7 @@ public class PageService {
 						"application/x-www-form-urlencoded");
 				setGZipOn(con);
 				
-				StringBuilder b = readBackInfo(con);
+				StringBuffer b = readBackInfo(con);
 				return b.toString();
 			}
 		}catch(Exception e){
