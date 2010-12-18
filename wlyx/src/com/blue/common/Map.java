@@ -50,6 +50,7 @@ public class Map {
 		secMap.put("ÉáÉíÑÂ", "163");
 		secMap.put("¾Å¹¬¸ó", "152");
 		secMap.put("µØµ×ÀÎÓü", "153");
+		secMap.put("ä¿Ô°", "161");		
 	}
 	private static void initThird(){
 		thirdMap.put("ÂåºÓµÀ", "180");
@@ -86,6 +87,11 @@ public class Map {
 		thirdMap.put("ĞşÌúÀÎÁı", "491");
 		thirdMap.put("Ã«Ëì¶´", "514");
 		thirdMap.put("Ë®Á±¶´", "515");
+		thirdMap.put("¼¦¹ÚÉ½", "518");
+		thirdMap.put("ä¿Ë®¹Ø", "519");
+		thirdMap.put("ÎÀ¹úÃÜÊÒ", "522");
+		thirdMap.put("»ÆÁú±®", "523");
+		thirdMap.put("æûÍõÄ¶", "526");
 	}
 	private static void initBigMap() {
 		bigMap.put("¼»¾©", "8");

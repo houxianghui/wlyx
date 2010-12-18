@@ -17,10 +17,18 @@ public class Main {
 		System.setProperty("sun.net.client.defaultReadTimeout","60000");
 		UserRead ur = new UserRead();
 		List<User> l = ur.readUser();
-	
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
+//			new Thread(){
+//				public void run() {
+//					try{
+//						user.login(true);
+//					}catch(Exception e){
+//						
+//					}
+//				};
+//			}.start();
 			user.login(true);
 			Thread.sleep(3*1000);
 		}

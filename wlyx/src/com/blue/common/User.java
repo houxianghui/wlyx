@@ -499,8 +499,8 @@ public class User {
 		PageService.login(this);
 		
 		while(getCookie() == null || getCookie().trim().length() == 0){
-			logger.info(getUserName()+"µ«¬º ß∞‹£¨5√Î÷”∫Û÷ÿ ‘");
-			Thread.sleep(5*1000);
+			logger.info(getUserName()+"µ«¬º ß∞‹£¨3√Î÷”∫Û÷ÿ ‘");
+			Thread.sleep(3*1000);
 			PageService.login(this);
 		}
 		Portal.setUserInfo(this);
