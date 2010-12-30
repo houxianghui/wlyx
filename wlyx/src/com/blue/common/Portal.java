@@ -1,5 +1,6 @@
 package com.blue.common;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +36,62 @@ public class Portal {
 	
 	private static Pattern HP = Pattern.compile("<div class=\"point_bar_bg\" title=\"当前气血：<span class=highlight>(\\d+) / (\\d+)</span>");
 	private static Pattern MP = Pattern.compile("<div class=\"point_bar_bg\" title=\"当前内息：<span class=highlight>(\\d+) / (\\d+)</span>");
+	/*
+	 * <div>你对 <span class="highlight">元兽</span> 发动了攻击！【<a href="javascript:void(0);" onclick="view_combat ( '223019181188' )">查看</a>】</div>
+
+	<span class="date" style="float:right">12月30日 01:09</span>
+	 */
+	private static Pattern beating = Pattern.compile("你对.*?发动了攻击.*?月\\d+日 (\\d+):(\\d+)</span>",Pattern.DOTALL);
+	//http://s4.verycd.9wee.com/modules/message.php?timeStamp=1293642534287&act=events&callback_func_name=ajaxCallback&callback_obj_name=message_list
+	private static String BEAT_INFO = "modules/message.php?&act=events&callback_func_name=ajaxCallback&callback_obj_name=message_list";
+	public static int getIntValue(String s){
+		int i = 0;
+		while(i < s.length()){
+			if(s.charAt(i) != '0'){
+				return Integer.parseInt(s.substring(i));
+			}
+			i++;
+		}
+		return -1;
+	}
+	public static boolean isBeating(User user){
+		String url = user.getUrl()+BEAT_INFO+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = beating.matcher(page);
+		
+		if(m.find()){			
+			
+			int hour = getIntValue(m.group(1));
+			int min = getIntValue(m.group(2));
+			int nowHour = Tools.getNowHour();
+			int nowMin = Tools.getNowMinute();
+			if(nowHour==0){
+				if(hour==0){
+					if(nowMin-min < 3){
+						return true;
+					}
+				}else{
+					if(nowHour+24-hour==1){
+						if(nowMin+60-min < 3){
+							return true;
+						}
+					}
+				}
+				
+			}else{
+				if(nowHour-hour == 0){
+					if(nowMin-min < 3){
+						return true;
+					}
+				}else if(nowHour-hour == 1){
+					if(nowMin+60-min < 3){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	public static void setUserAttribute(User user){
 		String url = user.getUrl()+USER_INFO+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -91,6 +148,9 @@ public class Portal {
 			}else{
 				user.setCanMove(true);
 			}
+		}
+		if(isBeating(user)){
+			user.setCanMove(false);
 		}
 		m = HP.matcher(page);
 		if(m.find()){
@@ -156,6 +216,10 @@ public class Portal {
 		}
 		if(Monitor.isDefeatingMianChi(user)){
 			logger.info(user.getRoleName()+"正在渑池防守战，停止移动");
+			return true;
+		}
+		if(isBeating(user)){
+			logger.info(user.getRoleName()+"正在连续打怪，停止移动");
 			return true;
 		}
 		String page = PageService.getPageWithCookie(url, user);

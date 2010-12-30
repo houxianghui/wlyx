@@ -53,6 +53,10 @@ public class Tools {
 		Calendar c = Calendar.getInstance();
 		return c.get(Calendar.HOUR_OF_DAY);
 	}
+	public static int getNowMinute(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.MINUTE);
+	}
 	/**
 	 * 将231,231,311格式的字符串转换为double
 	 * @param s
