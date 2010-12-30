@@ -44,6 +44,7 @@ public class Monstor {
 	
 	private static final String KILL_URL="modules/auto_combats.php?act=start";
 	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
+	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=4048839&from=temp&to=pack&timeStamp=1293058008242&callback_func_name=itemClass.dragItemCallback
 	private static final String PUT_TO_PACK = "modules/role_item.php?act=drag_item&from=temp&to=pack&callback_func_name=itemClass.dragItemCallback&id=";
 	private static final String SELL = "modules/role_item.php?act=drag_item&from=temp&to=shop&shop_id=0&callback_func_name=itemClass.dragItemCallback&id=";
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=2972659&from=temp&to=none&&timeStamp=1280459658953&callback_func_name=itemClass.dragItemCallback
@@ -213,16 +214,12 @@ public class Monstor {
 			if(quality < user.getQualitySave()){
 				if(i.getSellPrice()>0 && !i.getEquipType().equals(Item.HORSE)){
 					sellItem(user, i.getId(),i.getName());
-				}else{
-//					if(i.getQuality().compareTo("3")>0){
-//						putToPack(user, i.getId(),i.getName());
-//					}else{
-//						giveUp(user,i.getId(),i.getName());
-//					}
-					putToPack(user, i.getId(), i.getName());
 				}
+			}else{
+				putToPack(user, i.getId(), i.getName());
 			}
 		}		
+		
 		ItemMerge.merge(user);
 	}
 	

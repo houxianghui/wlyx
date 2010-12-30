@@ -30,6 +30,7 @@ public class Monitor {
 	public static final String GET_SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=1rand=1280246976709&timeStamp=1280246968613&callback_func_name=ajaxCallback
 	//全民福利领取 1 礼券 2精力 3 石头 0 不领取
+	//http://s4.verycd.9wee.com/modules/day_weals_activity.php?act=weal&id=2rand=1292775331662&timeStamp=1292775318303&callback_func_name=ajaxCallback
 	public static final String DAILY_WEALS = "modules/day_weals_activity.php?act=weal&callback_func_name=ajaxCallback&id=";
 	//http://s4.verycd.9wee.com/modules/day_weals.php?act=show&rand=1284254922646&timeStamp=1284254912950&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_weals
 	public static final String SHOW_DAILY_WEALS = "modules/day_weals.php?act=show&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_weals";
