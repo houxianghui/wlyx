@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.blue.common.BaseThread;
+import com.blue.common.Monitor;
 import com.blue.common.Portal;
 import com.blue.common.User;
 import com.blue.monstor.Monstor;
@@ -63,6 +64,10 @@ public class Warrior {
 			return false;
 		}
 		if(user.getWarriorChoice() == 0){
+			return false;
+		}
+		if(Monitor.isHuanJing(user)){
+			logger.info(user.getRoleName()+"正在幻境塔，暂不挂大厅");
 			return false;
 		}
 		return true;
