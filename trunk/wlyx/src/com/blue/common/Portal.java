@@ -41,9 +41,13 @@ public class Portal {
 
 	<span class="date" style="float:right">12月30日 01:09</span>
 	 */
-	private static Pattern beating = Pattern.compile("你对.*?发动了攻击.*?月\\d+日 (\\d+):(\\d+)</span>",Pattern.DOTALL);
+	private static Pattern beating = Pattern.compile("你对.*?发动了攻击.*?(\\d+)月(\\d+)日 (\\d+):(\\d+)</span>",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/message.php?timeStamp=1293642534287&act=events&callback_func_name=ajaxCallback&callback_obj_name=message_list
 	private static String BEAT_INFO = "modules/message.php?&act=events&callback_func_name=ajaxCallback&callback_obj_name=message_list";
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1293891706483&timeStamp=1293891706483&callback_func_name=ajaxCallback&callback_obj_name=content
+	private static String huanJing = "modules/duel.php?act=pvehall&callback_func_name=ajaxCallback&callback_obj_name=content";
+	
+	
 	public static int getIntValue(String s){
 		int i = 0;
 		while(i < s.length()){
@@ -59,10 +63,32 @@ public class Portal {
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = beating.matcher(page);
 		
+		return isBeating(m);
+	}
+	/**
+	 * 根据传入的matcher判断，是否刚刚结束战斗，用于野怪和幻境塔判断，matcher的4个属性顺序为月、日、时、分，判断间隔3分钟
+	 * @param m
+	 * @return
+	 */
+	public static boolean isBeating(Matcher m) {
 		if(m.find()){			
-			
-			int hour = getIntValue(m.group(1));
-			int min = getIntValue(m.group(2));
+			int month = getIntValue(m.group(1));
+			int day = getIntValue(m.group(2));
+			int nowMonth = Tools.getMonth();
+			int nowDay = Tools.getDay();	//天尾
+			if((nowMonth - month == 1) || (nowMonth==1 && month==12)){	//月末 年底
+				if(nowDay != 1){
+					return false;
+				}
+			}else if(nowMonth == month){
+				if(nowDay - day>1){
+					return false;
+				}
+			}else{
+				return false;
+			}
+			int hour = getIntValue(m.group(3));
+			int min = getIntValue(m.group(4));
 			int nowHour = Tools.getNowHour();
 			int nowMin = Tools.getNowMinute();
 			if(nowHour==0){
@@ -152,6 +178,9 @@ public class Portal {
 		if(isBeating(user)){
 			user.setCanMove(false);
 		}
+		if(Monitor.isHuanJing(user)){
+			user.setCanMove(false);
+		}
 		m = HP.matcher(page);
 		if(m.find()){
 			user.setMaxHP(Integer.parseInt(m.group(2)));
@@ -220,6 +249,10 @@ public class Portal {
 		}
 		if(isBeating(user)){
 			logger.info(user.getRoleName()+"正在连续打怪，停止移动");
+			return true;
+		}
+		if(Monitor.isHuanJing(user)){
+			logger.info(user.getRoleName()+"正在幻境塔，停止移动");
 			return true;
 		}
 		String page = PageService.getPageWithCookie(url, user);

@@ -67,7 +67,7 @@ public class Monitor {
 	public static Pattern jingYan = Pattern.compile("fnBusGloryReward\\( (\\d+), 'function', '灵台清明', (\\d+), (\\d+) \\);\">购买</a>");
 	public static Pattern fuBen = Pattern.compile("map_name\":\"(\\S+?)\"");;
 	public static Pattern buyPool = Pattern.compile("免费\\S+?包");
-	public static Pattern defeatMianChi = Pattern.compile("渑池战场",Pattern.DOTALL);
+	public static Pattern defeatMianChi = Pattern.compile("战场动态",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
 	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
 	//awards_view ( 110573 )">辎重营荣誉礼包</a>
@@ -81,7 +81,10 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&timeStamp=1283261017202&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String GOTO_GUO_DU_YAN_WU = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
 	public static Pattern guoDuPrise = Pattern.compile("arena_get_prise \\( '(\\S+?)', '0' \\)\">领取");
-
+	public static Pattern huanJing = Pattern.compile("<li><span class=\"date\">(\\d+)月(\\d+)日 (\\d+):(\\d+)</span>");
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1293930089295&timeStamp=1293930089295&callback_func_name=ajaxCallback&callback_obj_name=content
+	private static final String HUAN_JING_BEAT = "modules/duel.php?act=pvehall&callback_func_name=ajaxCallback&callback_obj_name=content";
+	
 	public static void guoDu(User user){
 		if(!user.isNeedGuoDu()){
 			return;
@@ -400,5 +403,11 @@ public class Monitor {
 			return true;
 		}
 		return false;
+	}
+	public static boolean isHuanJing(User user){
+		String url = user.getUrl()+HUAN_JING_BEAT+Tools.getRandAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = huanJing.matcher(page);
+		return Portal.isBeating(m);
 	}
 }

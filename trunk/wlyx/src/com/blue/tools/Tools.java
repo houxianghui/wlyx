@@ -57,6 +57,14 @@ public class Tools {
 		Calendar c = Calendar.getInstance();
 		return c.get(Calendar.MINUTE);
 	}
+	public static int getMonth(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.MONTH)+1;
+	}
+	public static int getDay(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.DATE);
+	}
 	/**
 	 * 将231,231,311格式的字符串转换为double
 	 * @param s

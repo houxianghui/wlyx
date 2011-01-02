@@ -125,6 +125,7 @@ public class PageService {
 			while((s=br.readLine())!=null){
 				sb.append(s+"\n");
 			}
+			br.close();
 			return sb;
 		}
 		
