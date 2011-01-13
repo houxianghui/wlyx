@@ -120,5 +120,7 @@ public class Map {
 		bigMap.put("³þº«¹ÙµÀ", "65");
 		bigMap.put("º«Îº¹ÙµÀ", "72");
 		bigMap.put("ÎºÕÔ¹ÙµÀ", "79");
+		//http://s4.verycd.9wee.com/modules/scene_walk.php?action=world_move&scene_id=9000&rand=1294314557369&timeStamp=1294314549966&callback_func_name=callbackFnWorldTransport
+		bigMap.put("9000", "äÅ³ØÕ½³¡");
 	}
 }

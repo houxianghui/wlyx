@@ -10,5 +10,7 @@ public class ToolsTest extends TestCase {
 	public void testGetDay(){
 		assertEquals(2, Tools.getDay());
 	}
-
+	public void testNeedGetLingPai(){
+		assertTrue(Tools.needGetLingPai());
+	}
 }

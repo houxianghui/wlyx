@@ -12,6 +12,7 @@ import com.blue.common.BaseThread;
 import com.blue.common.Monitor;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.daily.MianChiLingPai;
 import com.blue.monstor.Monstor;
 import com.blue.monstor.MonstorThread;
 import com.blue.tools.PageService;
@@ -53,6 +54,33 @@ public class Warrior {
 		}
 		return false;
 	}
+	private static boolean needWar(User user){
+		if(user.getNeedWar().equals("0")){
+			return false;
+		}
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		if(day == Calendar.WEDNESDAY || day == Calendar.SATURDAY){
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
+			if(hour >= 13){
+				if(minute >= 10 && hour <14){
+					return true;
+				}
+				if(hour < 15){
+					return true;
+				}else if(hour == 15){
+					if(minute <= 30){
+						Portal.goHome(user);
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	private static boolean canTrain(User user){
 		Portal.setUserInfo(user);
 		if(user.isShouldKillMonstor()){
@@ -70,6 +98,11 @@ public class Warrior {
 			logger.info(user.getRoleName()+"正在幻境塔，暂不挂大厅");
 			return false;
 		}
+		if(Portal.isBeating(user)){
+			logger.info(user.getRoleName()+"正在连续打怪，暂不挂大厅");
+			return false;
+		}
+		
 		return true;
 	}
 	public static boolean startWar(User user)throws Exception{
@@ -93,12 +126,17 @@ public class Warrior {
 		if(!canTrain(user)){
 			return true;
 		}
+		
 		if(canWar(user)){
 			if(!startWar(user)){
 				logger.info(user.getRoleName()+"辎重失败，选择其它大厅方式");
 			}else{
 				return true;
 			}
+		}
+		if(needWar(user)){
+			logger.info(user.getRoleName()+"即将开始辎重，暂不挂大厅训练");
+			return false;
 		}
 		int hourOnce = 1;
 		if(need10HoursTrain()){
@@ -131,6 +169,8 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 10;
 		}
+		Portal.goHome(user);
+//		MianChiLingPai.getLingPai(user);
 		String url = user.getUrl()+WORK+hourOnce+Tools.getTimeStamp(true);
 		
 		try{

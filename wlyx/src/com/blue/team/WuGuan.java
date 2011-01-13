@@ -133,6 +133,10 @@ public class WuGuan {
 		return null;
 	}
 	public static boolean gotoWuGuan(User user){
+		if(Monitor.isHuanJing(user)){
+			logger.info(user.getRoleName()+"正在幻境塔，暂不进入武馆");
+			return false;
+		}
 		setUnionTeam(user);
 		if(protectTeam.get(user.getBeatTeam()) != null && !user.isFriendly()){
 			logger.info(user.getRoleName()+"恶意踢我盟关，退出啦");
