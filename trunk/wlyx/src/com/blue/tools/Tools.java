@@ -79,5 +79,9 @@ public class Tools {
 	public static boolean isEmpty(String s){
 		return s == null || s.trim().length() == 0;
 	}
-
+	public static boolean needGetLingPai(){
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		return day%2 != 0;
+	}
 }

@@ -12,6 +12,7 @@ import com.blue.beauty.Beauty;
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.daily.MianChiLingPai;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -88,6 +89,7 @@ public class Monstor {
 			logger.info(user.getRoleName()+user.getStatus()+",Í£Ö¹ÒÆ¶¯");
 			return true;
 		}
+//		MianChiLingPai.getLingPai(user);
 		String page = null;
 		int times = 3;
 		while(times > 0){
