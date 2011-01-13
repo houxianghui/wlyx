@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The contents of this file will be loaded for each web application --><Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+	
+    <Resource name="djkwg/jdbc/djkwgds" type="javax.sql.DataSource"
+						password="djkwgdbo" driverClassName="com.mysql.jdbc.Driver"
+						maxIdle="5" maxWait="10" username="djkwgdbo"
+						url="jdbc:mysql://localhost:3306/djkwgdb?characterEncoding=gbk" maxActive="10" />
+
+</Context>

@@ -1,0 +1,46 @@
+
+<!--公司美工作品：用于登录页面和修改密码页面-->
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-family:"宋体";
+	font-size:12px;
+}
+
+td{
+  font-size:12px;
+  font-family: "宋体";
+  color:"#000000"
+}
+
+th{
+  font-size:12px;
+  font-family: "宋体";
+}
+
+
+.PWDInputBoxSmall
+{
+    border: 1px solid #7f858c;
+    font-family: "宋体";
+    font-size: 12px;
+    width: 150px;
+    color: #000000;
+}
+
+.PWDText{
+	font-family: "宋体";
+	color: #7f858c;
+	font-size: 12px;
+}
+
+
+.CopyrightText{
+	font-family: Verdana;
+	color: #4b4b4b;
+	font-size: 10px;
+}
+
+
