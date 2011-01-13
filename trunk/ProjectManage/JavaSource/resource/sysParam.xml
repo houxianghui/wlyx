@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!--系统参数配置 -->
+
+<data-sources>		
+	<data-source dsName="djk" dsType="POOL" jndi="htdev" user="djk" password="djkdjk"/>
+	<data-source dsName="djk" dsType="XA" jndi="htdev" user="djk" password="djkdjk" />
+</data-sources>
