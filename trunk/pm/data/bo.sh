@@ -1,0 +1,15 @@
+bcp ep_user             out ep_user        -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_role             out ep_role        -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_user_role        out ep_user_role   -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_menu             out ep_menu        -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_role_menu        out ep_role_menu   -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_op_def           out ep_op_def      -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_error_code       out ep_error_code  -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_sdic             out ep_sdic        -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_redef_sdic       out ep_redef_sdic  -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_redef_mdic       out ep_redef_mdic  -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_dic_type         out ep_dic_type    -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_mdic             out ep_mdic        -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_role_auth        out ep_role_auth   -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_user_login       out ep_user_login  -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
+bcp ep_pmkey            out ep_pmkey       -c -t',' -U$DBUSER -P$DBPWD -S$DBSERVER
