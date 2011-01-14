@@ -20,7 +20,7 @@ public class TrayIconAdvanced extends JFrame {
     private TrayIcon ti;  
     public static void main(String[] args) {  
         TrayIconAdvanced frame = new TrayIconAdvanced();  
-        frame.setTitle("TrayIconAdvanced");  
+        frame.setTitle("°µÓ°´Ì¿Í");  
         frame.setVisible(true);  
         frame.setSize(200, 65);  
         frame.setLocation(300, 200);  
