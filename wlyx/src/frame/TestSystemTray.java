@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.PrintStream;
 //import java.net.URLClassLoader;  
 
 import javax.imageio.ImageIO;
@@ -28,6 +29,7 @@ import com.start.Main;
 
 public class TestSystemTray {
 	public static void startWithFrame() throws Exception {
+		
 		TrayIcon trayIcon = null;
 		if (SystemTray.isSupported()) // 判断系统是否支持系统托盘
 		{
@@ -55,6 +57,10 @@ public class TestSystemTray {
 			final JTextArea jta = new JTextArea();
 			jta.setAutoscrolls(true);
 			jta.setLineWrap(true);
+			PrintStream ps = new PrintStream(new MyOutputStream(jta));
+			System.setOut(ps);
+			System.setErr(ps);
+			
 			jb.addActionListener(new ActionListener() {
 
 				@Override
@@ -69,48 +75,7 @@ public class TestSystemTray {
 								}
 							};
 						}.start();
-						// Main.start();
-						new Thread() {
-							@Override
-							public void run() {
-								BufferedReader br = null;
-								try {
-									while (true) {
-										while(br == null){
-											File f = new File("runtime.log");
-											if(f.exists()){
-												br =  new BufferedReader(new FileReader(f));
-											}else
-											sleep(1*1000);
-										}
-										String s = null;
-										while ((s = br.readLine()) != null) {											
-											StringBuffer sb = new StringBuffer(
-													jta.getText() + s + "\n");
-											int idx = 0;
-											if (sb.length() > 500) {
-												idx = sb.length() - 500;
-											}
-											jta.setText(sb.substring(idx));											
-										}
-										sleep(5 * 1000);
-									}
-
-								} catch (Exception e) {
-									jta.setText(e.getStackTrace().toString());
-								} finally {
-									try {
-										if (br != null) {
-											br.close();
-										}
-									} catch (Exception e) {
-										jta.setText(e.getStackTrace()
-												.toString());
-									}
-								}
-							}
-						}.start();
-
+					
 					} catch (Exception e) {
 						jta.setText(e.getStackTrace().toString());
 					}
