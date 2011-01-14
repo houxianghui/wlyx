@@ -10,30 +10,30 @@ import java.util.List;
 import com.blue.common.User;
 import com.blue.monstor.UserMonitor;
 
+import frame.TestSystemTray;
+
 public class Main {
 	public static void main(String[] args)throws Exception {
-		
+		if(System.getProperty("window") != null){
+			TestSystemTray.startWithFrame();
+		}else{
+			start();
+		}
+	}
+	public static void start()throws Exception{
 		System.setProperty("sun.net.client.defaultConnectTimeout", "60000");
 		System.setProperty("sun.net.client.defaultReadTimeout","60000");
+		System.setProperty("GZIP","");
+		
 		UserRead ur = new UserRead();
 		List<User> l = ur.readUser();
 		Iterator<User> it = l.iterator();
 		while(it.hasNext()){
 			User user = it.next();
-//			new Thread(){
-//				public void run() {
-//					try{
-//						user.login(true);
-//					}catch(Exception e){
-//						
-//					}
-//				};
-//			}.start();
 			user.login(true);
 			Thread.sleep(3*1000);
 		}
 		new UserMonitor(l);
-	
 	}
 	public static List<User> getUserInfo() throws Exception, IOException {
 		UserRead ur = new UserRead();
