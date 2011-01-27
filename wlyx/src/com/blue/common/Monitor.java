@@ -45,7 +45,8 @@ public class Monitor {
 	public static final String GLORY_TO_JING_YAN = "modules/duel.php?act=glory&op=buy&callback_func_name=callbackFnBusGloryReward&itemID=";
 	//»»×ÏÓñ
 	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1&timeStamp=1280560866420
-	public static final String GLORY_TO_ZI_YU = "modules/duel.php?act=glory&op=buy&itemID=62&itemNum=1";
+	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&op=buy&itemID=73&itemNum=1&timeStamp=1296126295128
+	public static final String GLORY_TO_ZI_YU = "modules/duel.php?act=glory&op=buy&itemID=73&itemNum=1";
 	public static final String GLORY_TO_ZU_MU = "modules/duel.php?act=glory&op=buy&itemID=63&itemNum=1";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=glory&timeStamp=1280649008972&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String GLORY_TREE = "modules/duel.php?act=glory&callback_func_name=callback_load_content&callback_obj_name=content";
@@ -348,38 +349,8 @@ public class Monitor {
 		return page;
 	}
 	public static boolean buyGlory(User user){
-		String s = user.getGloryBuy();
-		if(s == null || s.trim().length() == 0 || "0".equals(s)){
-			return false;
-		}
-		String url = user.getUrl()+GLORY_TREE+Tools.getTimeStamp(true);
-		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = jingYan.matcher(page);
-		String itemId = null;
-		if(m.find()){
-			itemId = m.group(1);
-		}else{
-			return false;
-		}		
-		String type = null;
-		if("1".equals(s)){
-			url = user.getUrl()+GLORY_TO_JING_YAN+itemId+Tools.getTimeStamp(true);
-			type = "¾­Ñé";
-		}else if("2".equals(s)){
-			url = user.getUrl()+GLORY_TO_ZI_YU+Tools.getTimeStamp(true);
-			type = "×ÏÓñ";
-		}else if("3".equals(s)){
-			url = user.getUrl()+GLORY_TO_ZU_MU+Tools.getTimeStamp(true);
-			type = "×æÄ¸ÂÌ";
-		}else
-			return false;
-		
-		page = PageService.getPageWithCookie(url, user);
-		if(Tools.success(page)){
-			logger.info(user.getRoleName()+"ÈÙÓþ»»"+type+"³É¹¦");
-			return true;
-		}
-		return false;
+		DailyChange.gloryChange(user);
+		return true;
 	}
 	public static boolean roomWeal(User user){
 		String url = user.getUrl()+CUSTOM_ROOM+Tools.getTimeStamp(true);

@@ -1,6 +1,9 @@
 package com.blue.tools;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -171,8 +174,45 @@ public class PageService {
 			System.out.println(it.next());
 		}
 	}
-
+	
+	private static boolean readCookie(User user){
+		BufferedReader br = null;
+		try{
+			br = new BufferedReader(new FileReader(user.getUserName()+".txt"));
+			String s = null;
+			while((s=br.readLine()) != null){
+				user.setCookie(user.getCookie()+s);
+			}
+			return true;
+		}catch(Exception e){
+			logger.info("没找到"+user.getUserName()+"的cookie文件，开始以普通方式登录");
+		}finally{
+			if(br != null)
+				try{
+					br.close();
+				}catch(Exception e){}
+		}
+		return false;
+	}
+	private static void setCookie(User user){
+		BufferedWriter bw = null;
+		try{
+			bw = new BufferedWriter(new FileWriter(user.getUserName()+".txt"));
+			bw.write(user.getCookie());
+		}catch(Exception e){
+			logger.info(user.getUserName()+"write cookie fail");
+		}finally{
+			if(bw != null){
+				try{
+					bw.close();
+				}catch(Exception e){}
+			}
+		}
+	}
 	public static void login( User user){
+		if(readCookie(user)){
+			return;
+		}
 		HttpURLConnection con = null;
 		try{
 			URL url = new URL("http://secure.verycd.com/signin?f=out");
@@ -221,6 +261,7 @@ public class PageService {
 				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), sb.toString());
 				String cookie = getCookie(nextUrl,user);
 				user.setCookie(cookie);
+				setCookie(user);
 			}
 		}catch(Exception e){
 			logger.info(user.getUserName()+e.getMessage());

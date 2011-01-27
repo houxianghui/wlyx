@@ -490,7 +490,7 @@ public class User {
 		this.challengeTimes = challengeTimes;
 	}
 	public String getCookie() {
-		return cookie;
+		return cookie==null?"":cookie;
 	}
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
