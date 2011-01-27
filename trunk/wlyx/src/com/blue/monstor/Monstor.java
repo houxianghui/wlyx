@@ -89,7 +89,7 @@ public class Monstor {
 			logger.info(user.getRoleName()+user.getStatus()+",Í£Ö¹ÒÆ¶¯");
 			return true;
 		}
-//		MianChiLingPai.getLingPai(user);
+		MianChiLingPai.getLingPai(user);
 		String page = null;
 		int times = 3;
 		while(times > 0){

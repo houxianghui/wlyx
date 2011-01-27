@@ -142,6 +142,7 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 10;
 		}
+		MianChiLingPai.getLingPai(user);
 		Portal.goHome(user);
 		String url = user.getUrl()+WARRIOR_URL+hourOnce+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -170,7 +171,7 @@ public class Warrior {
 			hourOnce = 10;
 		}
 		Portal.goHome(user);
-//		MianChiLingPai.getLingPai(user);
+		MianChiLingPai.getLingPai(user);
 		String url = user.getUrl()+WORK+hourOnce+Tools.getTimeStamp(true);
 		
 		try{

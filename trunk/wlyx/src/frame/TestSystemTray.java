@@ -12,14 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintStream;
-//import java.net.URLClassLoader;  
+import java.io.PrintStream; //import java.net.URLClassLoader;  
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -29,13 +23,12 @@ import com.start.Main;
 
 public class TestSystemTray {
 	public static void startWithFrame() throws Exception {
-		
+
 		TrayIcon trayIcon = null;
 		if (SystemTray.isSupported()) // 判断系统是否支持系统托盘
 		{
 			SystemTray tray = SystemTray.getSystemTray(); // 获取系统托盘
-			Image image = Toolkit.getDefaultToolkit().getImage(
-					"TrayIcon.png");// 载入图片
+			Image image = Toolkit.getDefaultToolkit().getImage("TrayIcon.png");// 载入图片
 			// 创建一个窗体
 			final JFrame frame = new JFrame();
 			frame.setIconImage(image);
@@ -45,42 +38,42 @@ public class TestSystemTray {
 			frame.setLayout(new BorderLayout());
 			frame.setBounds(800, 800, 400, 400);
 			frame.setLocationRelativeTo(null);
-			
+
 			frame.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowIconified(WindowEvent e) {
 					frame.setVisible(false);
 				}
 			});
-			
+
 			JButton jb = new JButton("开始挂机");
 			final JTextArea jta = new JTextArea();
 			jta.setAutoscrolls(true);
 			jta.setLineWrap(true);
+			jta.setDocument(new LimitDocument(jta));
 			PrintStream ps = new PrintStream(new MyOutputStream(jta));
 			System.setOut(ps);
 			System.setErr(ps);
-			
+
 			jb.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					try {
-						new Thread() {
-							public void run() {
-								try {
-									Main.start();
-								} catch (Exception e) {
-									System.exit(-1);
-								}
-							};
-						}.start();
-					
-					} catch (Exception e) {
-						jta.setText(e.getStackTrace().toString());
-					}
+
+					new Thread() {
+						@Override
+						public void run() {
+							try {
+								Main.start();
+							} catch (Exception e) {
+								jta.setText(e.getMessage());
+							}
+						}
+					}.start();
+
 				}
 			});
+
 			JButton exit = new JButton("退出");
 			exit.addActionListener(new ActionListener() {
 

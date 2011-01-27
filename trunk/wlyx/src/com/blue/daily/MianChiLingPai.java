@@ -55,6 +55,9 @@ public class MianChiLingPai {
 				taskId = m.group(1);
 			}
 			//accept task
+			//http://s4.verycd.9wee.com/modules/npc.php?npc_id=3001&rand=1295970709382&timeStamp=1295970701024&callback_func_name=ajaxCallbackNoClose&callback_obj_name=dlg_view_npc
+			//http://s4.verycd.9wee.com/modules/npc.php?npc_id=3001&rand=1295970709753&mission_id=100024&city_scene=&timeStamp=1295970701024&callback_func_name=ajaxCallbackNoClose&callback_obj_name=dlg_view_npc
+			
 			url = user.getUrl()+ACCEPT+taskId+Tools.getTimeStamp(true);
 			PageService.getPageWithCookie(url, user);
 			logger.info(user.getRoleName()+"领取任务"+i+"成功");
@@ -69,7 +72,7 @@ public class MianChiLingPai {
 	public static void getLingPai(User user){
 		if(Tools.needGetLingPai() && user.isCanMove()){
 			int now = Tools.getNowHour();
-			if(now >= 5 && now <=6){
+			if(now >= 5 && now <=7){
 				MianChiLingPai.moveToLianZongXiYing(user);
 			}
 		}
