@@ -1,5 +1,9 @@
 package com.blue.tianjitang;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,34 +47,36 @@ public class TianJiTang {
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	
 	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
-	private static String[] speak = {"大爷，美国怎么走啊？问村长去",
-						"你无耻的样子很有我当年的神韵",
-						"外面下小雨，屋里下中雨，外面下中雨，屋里下大雨，实在雨太大了，全家人就上院子里避避雨",
-						".这事儿离现在不远，家里有老人的可以回去问问……在春秋战国时期啊...... ",
-						"我和超人唯一的区别就是我把内裤穿里边了",
-						"您大点声不费电！",
-						"待会儿散场都别走，吃饭去——谁去谁掏钱",
-						"从今儿起，我吃龙虾再也不就饼了",
-						"这天我跟偏见来在了火车站，车票都卖没了，偏见到一警察面前问：“你知道票贩子在哪儿吗？”警察一听乐了：“我还找呐！”",
-						"你见过哪个黑社会的还纹着蜡笔小新呢？ ",
-						"有困难要帮，没有困难制造困难也要帮",
-						"谁要不认识您，谁就没吃过猪肉",
-						"我是黑社会的，你们可怜可怜我吧",
-						"哪里跌倒就在哪里躺下",
-						"我昨晚梦到你了：我们漫步在小河边，相互依偎着。你抬头凝视着我的眼睛，深情地吐出三个字……汪汪汪",
-						"读出下面的字，你将获得月薪2000000的工作，试题如下：簟璁醭歙艽绱癀穑魍旃偬彘硪钚鲥硐。",
-						"一只猪和一只企鹅被关在-20℃的冷库里,第二天企鹅死了,猪没事。为什么？你不知道？对了，猪也不知道！",
-						"请大声朗读:：卧梅又闻花，卧枝伤恨低。邀闻卧石碎，卧湿达春绿。",
-						"打破老婆终身制，实行小姨股份制。引入小姐竞争制，推广情人合同制。",
-						"执子之手，方知子丑，泪流满面，子不走我走。",
-						"一觉醒来，天都黑了",
-						"人又不聪明，还学别人秃顶",
-						"曾经和朋友一起仰望星空，随之我们内牛满面，他是因为失恋，我则是因为扭伤了脖子",
-						"我是白领：今天领了薪水，交了房租水电，买了油米泡面，摸了口袋，感叹一声，这个月工资又白领了… ",
-						"琴棋书画不会，洗衣做饭嫌累。",
-						"我们的目标：向钱看，向厚赚。 ",
-						"你有什么不开心的事？说出来让大家开心一下。 ",
-						"人不犯我，我不犯人；人若犯我，礼让三分；人再犯我，我还一针；人还犯我，斩草除根"};
+	private static java.util.List<String> speak;
+	static{
+		initSpeak();
+	}
+	private static void initSpeak(){
+		speak = new ArrayList<String>();
+		File f = new File("speak.txt");
+		if(!f.exists()){
+			speak.add("我很懒，一个字都不写");			
+			return;
+		}
+		BufferedReader br = null;
+		try{
+			br = new BufferedReader(new FileReader(f));
+			String s = null;
+			while((s=br.readLine()) != null){
+				speak.add(s);
+			}
+		}catch(Exception e){
+			logger.error("武馆留言语句初始化失败",e);
+		}finally{
+			if(br != null)
+				try{
+				br.close();
+				}catch(Exception e){
+					logger.error("关闭说话文件失败",e);
+				}
+		}
+	}
+	
 	public static void autoTask(User user){
 		if(!user.isAutoTianJi()){
 			return;
@@ -144,13 +150,10 @@ public class TianJiTang {
 	public static boolean liuYan(User user){
 		String url = user.getUrl()+LIU_YAN+Tools.getTimeStamp(true);
 		Random r = new Random();
-		int t = r.nextInt(speak.length-1);
-		String data = "team_foster_message="+speak[t]+"&callback_func_name=refreshMissoin";
+		int t = r.nextInt(speak.size());
+		String data = "team_foster_message="+speak.get(t)+"&callback_func_name=refreshMissoin";
 		String page = null;
-		int count = 3;
-		do{
-			page = PageService.postPage(url, data, user);
-		}while(!Tools.success(page) && count-- >= 0);
+		page = PageService.postPage(url, data, user);
 		
 		if(Tools.success(page)){
 			logger.info(user.getRoleName()+"自动武馆留言");

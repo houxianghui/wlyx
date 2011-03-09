@@ -140,14 +140,17 @@ public class Warrior {
 		}
 		int hourOnce = 1;
 		if(need10HoursTrain()){
-			hourOnce = 10;
+			hourOnce = 12;
 		}
 		MianChiLingPai.getLingPai(user);
 		Portal.goHome(user);
 		String url = user.getUrl()+WARRIOR_URL+hourOnce+Tools.getTimeStamp(true);
+		if(user.getWarriorChoice() == 2){
+			url = user.getUrl()+WORK+hourOnce+Tools.getTimeStamp(true);
+		}
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
-			logger.info(user.getRoleName()+"开始"+hourOnce+"小时训练成功");
+			logger.info(user.getRoleName()+"开始"+hourOnce+"小时大厅成功");
 			return true;
 		}
 		logger.info(user.getRoleName()+"挂大厅失败");

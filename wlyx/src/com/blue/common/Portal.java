@@ -183,12 +183,12 @@ public class Portal {
 		}
 		m = HP.matcher(page);
 		if(m.find()){
-			user.setMaxHP(Integer.parseInt(m.group(2)));
+			user.setMaxHP(Integer.parseInt(m.group(2)==null?"0":m.group(2)));
 			user.getAttribMap().put("ÆøÑª", user.getMaxHP());
 		}
 		m = MP.matcher(page);
 		if(m.find()){
-			user.setMaxMP(Integer.parseInt(m.group(2)));
+			user.setMaxMP(Integer.parseInt(m.group(2)==null?"0":m.group(2)));
 			user.getAttribMap().put("ÄÚÏ¢", user.getMaxMP());
 		}
 		int now = getNow();
