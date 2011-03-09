@@ -56,6 +56,15 @@ public class User {
 	
 	private boolean openRedBeat = true;				//Ìß¹ÝºìÍ¼
 	private boolean openRedProtect = true;				//»¤¹ÝºìÍ¼
+	
+	private Map<String, String> gloryMap = new HashMap<String, String>();	//ÈÙÓþ»»¡£¡£
+	
+	public Map<String, String> getGloryMap() {
+		return gloryMap;
+	}
+	public void setGloryMap(Map<String, String> gloryMap) {
+		this.gloryMap = gloryMap;
+	}
 	public boolean isOpenRedBeat() {
 		return openRedBeat;
 	}

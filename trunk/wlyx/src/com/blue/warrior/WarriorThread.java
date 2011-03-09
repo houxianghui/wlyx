@@ -17,11 +17,8 @@ public class WarriorThread extends BaseThread{
 			}
 			try{
 				
-				if(user.getWarriorChoice() == 1){
+				if(user.getWarriorChoice() == 1 || user.getWarriorChoice() == 2){
 					Warrior.startTrain(user);
-					
-				}else if(user.getWarriorChoice() == 2){
-					Warrior.startWork(user);
 				}
 				
 				sleep(6*1000*60);
