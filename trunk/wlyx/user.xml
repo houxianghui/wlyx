@@ -30,6 +30,8 @@
 				<dueltype>2</dueltype>
 				<!-- 是否需要刷尾巴  0 不需要 1 需要 默认需要-->
 				<needBeatTail>1</needBeatTail>
+				<!--挑战角色名称 -->
+				<fightPerson></fightPerson>
 			</duel>
 			<task caption="日常任务设置">
 				<!--收集类任务最小金额-->

@@ -21,6 +21,14 @@ import com.blue.warrior.WarriorThread;
 
 public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
+	private String fightPersion;
+	
+	public String getFightPersion() {
+		return fightPersion;
+	}
+	public void setFightPersion(String fightPersion) {
+		this.fightPersion = fightPersion;
+	}
 	private String userName;
 	private String password;
 	private String needWar;				//是否自动挂辎重

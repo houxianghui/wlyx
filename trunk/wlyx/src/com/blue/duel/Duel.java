@@ -113,7 +113,15 @@ public class Duel{
 				}
 			}
 		}
-		
+		if(user.getFightPersion() != null && user.getFightPersion().trim().length()>0){
+			for(Challenger g:l){
+				if(g.getName().equals(user.getFightPersion())){
+					c = g;
+					logger.info(user.getRoleName()+"挑战指定角色"+g.getName());
+					break;
+				}
+			}
+		}
 		if(user.getChallengeTimes()<15){
 			page= PageService.getPageWithCookie(user.getUrl()+FIGHT_URL+c.getId()+Tools.getTimeStamp(true), user);
 			logger.info(user.getRoleName()+"尝试挑战"+c.getName());

@@ -94,6 +94,7 @@ public class UserRead {
 		String due = e.elementText("duelDue");
 		String duelType=e.elementText("duelType");
 		String needTail = e.elementText("needBeatTail");
+		String givenUser = e.elementText("fightPerson");
 		if(!Tools.isEmpty(duelType)){
 			user.setDuelType(duelType.trim());
 		}
@@ -108,6 +109,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(due)){
 			user.setDueSleepInteval(Integer.parseInt(due.trim()));
+		}
+		if(!Tools.isEmpty(givenUser)){
+			user.setFightPersion(givenUser);
 		}
 	}
 	private void setTask(Element element,User user){
