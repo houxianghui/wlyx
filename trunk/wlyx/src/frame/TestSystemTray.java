@@ -57,7 +57,6 @@ public class TestSystemTray {
 
 			jb.addActionListener(new ActionListener() {
 
-				@Override
 				public void actionPerformed(ActionEvent arg0) {
 
 					new Thread() {
@@ -77,7 +76,6 @@ public class TestSystemTray {
 			JButton exit = new JButton("ÍË³ö");
 			exit.addActionListener(new ActionListener() {
 
-				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					System.exit(0);
 				}
