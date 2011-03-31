@@ -47,6 +47,7 @@ public class Beauty {
 	public static final String RED_HU_GUAN = "15";
 	public static final String GEN_GU_10 = "13";
 	public static final String GEN_GU_6 = "12";
+	public static final String JING_LI = "9";
 	
 	private static Map<String, String> beautyMap = new HashMap<String, String>();
 	static{
@@ -62,6 +63,8 @@ public class Beauty {
 		beautyMap.put(RED_HU_GUAN, "护馆红图");
 		beautyMap.put(GEN_GU_10, "根骨10");
 		beautyMap.put(GEN_GU_6, "根骨6");
+		
+		beautyMap.put(JING_LI, "精力图");
 	}
 	
 	public static boolean activeBeauty(User user,String id){
@@ -111,5 +114,16 @@ public class Beauty {
 			return activeBeauty(user, GEN_GU_6);
 		}
 		return false;
+	}
+	public static void jingLi(User user){
+		if(Tools.getNowHour() >= user.getBeginTime()){
+			int point = Integer.parseInt(user.getPoint());
+			if(point <= 188){
+				activeBeauty(user, JING_LI);
+			}
+			if(point > 200 && point<= 288){
+				activeBeauty(user, JING_LI);
+			}
+		}
 	}
 }
