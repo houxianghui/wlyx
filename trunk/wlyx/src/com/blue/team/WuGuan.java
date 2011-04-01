@@ -156,6 +156,7 @@ public class WuGuan {
 			String teamId = teamMap.get(user.getBeatTeam().trim());
 			if(teamId != null){
 				if(Monitor.inWuGuan(user) && teamId.equals(getCurrTeam(user))){
+					desdroyTeam(user, teamId);
 					return true;
 				}else{
 					desdroyTeam(user, teamId);
