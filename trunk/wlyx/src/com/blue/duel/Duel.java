@@ -24,6 +24,7 @@ public class Duel{
 	private static Pattern times = Pattern.compile("今日你已经发起了.*?(\\d+)",Pattern.MULTILINE);
 	//免费竞技
 	private static Pattern free = Pattern.compile("免费",Pattern.DOTALL);
+	private static final int MAX_FIGHT = 15;
 	
 	public static boolean duel(User user){
 		int time = Tools.getNowHour();
@@ -52,7 +53,7 @@ public class Duel{
 		if(m2.find()){
 			user.setChallengeTimes(Integer.parseInt(m2.group(1)));
 		}
-		if(user.getChallengeTimes()>=15){
+		if(user.getChallengeTimes()>=MAX_FIGHT){
 			Matcher f = free.matcher(page);
 			if(f.find()){
 				return true;
@@ -107,7 +108,7 @@ public class Duel{
 			Iterator<Challenger> it = l.iterator();
 			while(it.hasNext()){
 				Challenger t = it.next();
-				if(Integer.parseInt(t.getDuelNo()) >10 && t.getLevel().compareTo(me.getLevel())<0){
+				if(t.getLevel().compareTo(me.getLevel())<0){
 					c = t;
 					break;
 				}
@@ -122,7 +123,7 @@ public class Duel{
 				}
 			}
 		}
-		if(user.getChallengeTimes()<15){
+		if(user.getChallengeTimes()<MAX_FIGHT){
 			page= PageService.getPageWithCookie(user.getUrl()+FIGHT_URL+c.getId()+Tools.getTimeStamp(true), user);
 			logger.info(user.getRoleName()+"尝试挑战"+c.getName());
 			if(Tools.success(page)){
@@ -130,7 +131,7 @@ public class Duel{
 				return true;
 			}
 		}
-		if(user.getChallengeTimes()>=15){
+		if(user.getChallengeTimes()>=MAX_FIGHT){
 			Matcher f = free.matcher(page);
 			if(f.find()){
 				String u = user.getUrl()+FREE_FIGHT+c.getId()+Tools.getTimeStamp(true);
