@@ -27,7 +27,7 @@ public class MonitorThread extends BaseThread{
 				Monitor.guoDu(user);
 				Monitor.getGuoDuAward(user);
 				ShiKeMonitor.painShiKe(user);
-				sleep(20*60*1000);
+				sleep(10*60*1000);
 			}catch(Exception e){
 			}
 		}
