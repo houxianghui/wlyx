@@ -152,18 +152,6 @@ public class WuGuan {
 		}
 		getAllTeam(user);
 		
-		if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
-			String teamId = teamMap.get(user.getBeatTeam().trim());
-			if(teamId != null){
-				if(Monitor.inWuGuan(user) && teamId.equals(getCurrTeam(user))){
-					desdroyTeam(user, teamId);
-					return true;
-				}else{
-					desdroyTeam(user, teamId);
-					return true;
-				}
-			}
-		}
 		Portal.setTeamId(user);
 		
 		boolean inUnion = false;
@@ -196,7 +184,19 @@ public class WuGuan {
 					}
 				}
 			}
-			
+			if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
+				String teamId = teamMap.get(user.getBeatTeam().trim());
+				if(teamId != null){
+					if(Monitor.inWuGuan(user) && teamId.equals(getCurrTeam(user))){
+//						desdroyTeam(user, teamId);
+						tiGuan(user);
+						return true;
+					}else{
+						desdroyTeam(user, teamId);
+						return true;
+					}
+				}
+			}
 			List<String> l = new ArrayList<String>();
 			Set<String> set = user.getUnionTeam().keySet();
 		
@@ -237,7 +237,7 @@ public class WuGuan {
 		String page = PageService.getPageWithCookie(enterMyTeam, user);
 		String url = user.getUrl()+MOVE+mid+Tools.getTimeStamp(true);
 		String result = PageService.getPageWithCookie(url, user);
-		if(user.getBeatTeam() == null || user.getBeatTeam().trim().length() == 0){
+		if(user.getBeatTeam() == null || user.getBeatTeam().trim().length() == 0 || user.isFriendly()){
 			for(int i = 0;i < VIP_TEAM.length;i++){
 				if(VIP_TEAM[i].equals(user.getTeamId())){
 					Beauty.tiGuan(user);
