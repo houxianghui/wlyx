@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.blue.common.DailyChange;
 import com.blue.common.DropWeapon;
 import com.blue.common.Monitor;
 import com.blue.common.MonitorThread;
@@ -24,10 +25,17 @@ import com.blue.warrior.Warrior;
 
 public class Test {
 	public static void main(String[] args)throws Exception {
+		System.setProperty("GZIP","");
 		User user = new User();
-		user.setUserName("blue_ranger");
+		user.setUserName("sp_lulu");
 		user.setPassword("abc123");
+		user.setGloryBuy("1");
 		user.login(false);
+		for(int i = 0;i<10;i++)
+		DailyChange.gloryChange(user);
+//		user.setFightPersion("7777");
+//		user.setNeedBeatTail(true);
+//		Duel.duel(user);
 //		user.setDuelStartTime(20);
 //		Duel.duel(user);
 		Monitor.buyPool(user);
