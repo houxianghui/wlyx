@@ -167,6 +167,7 @@ public class UserRead {
 		String dailyWeal = e.elementText("dailyWeal");
 		String guodu = e.elementText("guoDuYanWu");
 		String dropWeapon = e.elementText("mianChi");
+		String needChangeItem = e.elementText("needChangeItem");
 		if(!Tools.isEmpty(buy)){
 			user.setGloryBuy(buy.trim());
 		}
@@ -179,6 +180,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(dropWeapon)){
 			user.setMianChiDropWeapon("1".equals(dropWeapon.trim()));
+		}
+		if(!Tools.isEmpty(needChangeItem)){
+			user.setNeedDuiHuan("1".equals(needChangeItem));
 		}
 	}
 	private void setTeam(Element element,User user){

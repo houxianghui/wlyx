@@ -66,6 +66,8 @@
 				<guoDuYanWu>0</guoDuYanWu>
 				<!-- 渑池演武厅是否卸武 1 卸武 2 不卸武 -->
 				<mianChi>0</mianChi>
+				<!-- 是否需要自动兑换道具 0 否 1 是 -->
+				<needChangeItem>0</needChangeItem>
 			</daily>
 			<team caption="踢馆设置">
 				<!-- 是否需要护联盟馆 -->
