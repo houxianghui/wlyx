@@ -64,6 +64,29 @@ public class User {
 	
 	private boolean openRedBeat = true;				//Ãﬂπ›∫ÏÕº
 	private boolean openRedProtect = true;				//ª§π›∫ÏÕº
+	private boolean needDuiHuan = false;			// «∑Ò–Ë“™∂“ªªŒÔ∆∑
+	
+	
+	public boolean isNeedDuiHuan() {
+		return needDuiHuan;
+	}
+	public void setNeedDuiHuan(boolean needDuiHuan) {
+		this.needDuiHuan = needDuiHuan;
+	}
+	private String xiYingName;
+	public String getXiYingName() {
+		return xiYingName;
+	}
+	public void setXiYingName(String xiYingName) {
+		this.xiYingName = xiYingName;
+	}
+	public String getXiYingLevel() {
+		return xiYingLevel;
+	}
+	public void setXiYingLevel(String xiYingLevel) {
+		this.xiYingLevel = xiYingLevel;
+	}
+	private String xiYingLevel;
 	
 	private Map<String, String> gloryMap = new HashMap<String, String>();	//»Ÿ”˛ªª°£°£
 	

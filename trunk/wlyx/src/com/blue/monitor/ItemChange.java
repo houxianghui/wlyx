@@ -15,6 +15,9 @@ public class ItemChange {
 	private static final String CHENG_JI = "modules/ore.php?submit=1&num=1&callback_func_name=ajaxCallback&id=";
 	private static Pattern success = Pattern.compile("result\":\"(.*)\"");
 	public static void changeChengJiDan(User user){
+		if(!user.isNeedDuiHuan()){
+			return;
+		}
 		String page = null;
 		boolean flag = false;
 		for(int i = 1;i < 5;i++){
@@ -32,6 +35,15 @@ public class ItemChange {
 				page = PageService.getPageWithCookie(url, user);
 				if((flag=successChange(page)) == true){
 					logger.info(user.getRoleName()+"兑换月饼成功");
+				}
+			}while(flag);
+		}
+		for(int i = 112;i<121;i++){
+			do{
+				String url = user.getUrl()+CHENG_JI+i+Tools.getTimeStamp(true);
+				page = PageService.getPageWithCookie(url, user);
+				if((flag=successChange(page)) == true){
+					logger.info(user.getRoleName()+"兑换队徽成功");
 				}
 			}while(flag);
 		}

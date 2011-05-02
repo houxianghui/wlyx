@@ -25,8 +25,8 @@ public class DailyWealsThread extends BaseThread {
 				int minu = c.get(Calendar.MINUTE);
 				if(hour >= 0 ){
 					if(DailyWeals.alreadyHasWeals(user)){
-						long time = ((24-hour)*60-minu+1)*60*1000;
-						sleep(time);
+//						long time = ((24-hour)*60-minu+1)*60*1000;
+						sleep(3*60*60*1000);
 					}else{
 						if(!DailyWeals.getDailyWeals(user)){
 							continue;

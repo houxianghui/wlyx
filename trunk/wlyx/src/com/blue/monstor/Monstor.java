@@ -141,7 +141,7 @@ public class Monstor {
 		}
 		return killIt(mid, user);
 	}
-	private static boolean repairAll(User user){
+	public static boolean repairAll(User user){
 		String url = user.getUrl()+REPAIR+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		
