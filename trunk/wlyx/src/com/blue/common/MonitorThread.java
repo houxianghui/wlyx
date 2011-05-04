@@ -18,7 +18,7 @@ public class MonitorThread extends BaseThread{
 				}
 				Beauty.rongYu(user);
 				Beauty.gongXian(user);
-				
+				Beauty.jingLi(user);
 				Monitor.dailyWeals(user);				
 				Monitor.mianChiWeals(user);
 				Monitor.buyGlory(user);
@@ -27,6 +27,7 @@ public class MonitorThread extends BaseThread{
 				Monitor.guoDu(user);
 				Monitor.getGuoDuAward(user);
 				ShiKeMonitor.painShiKe(user);
+				
 				sleep(10*60*1000);
 			}catch(Exception e){
 			}
