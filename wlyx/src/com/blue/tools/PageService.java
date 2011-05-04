@@ -31,7 +31,7 @@ public class PageService {
 		do {
 			str = _getPageWithCookie(page, user);
 			if ((str != null) && (str.length() != 0))
-				continue;
+				break;
 			try {
 				Thread.sleep(5000L);
 			} catch (InterruptedException e) {
