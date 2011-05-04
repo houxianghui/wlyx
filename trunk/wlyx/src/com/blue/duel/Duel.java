@@ -108,7 +108,7 @@ public class Duel{
 			Iterator<Challenger> it = l.iterator();
 			while(it.hasNext()){
 				Challenger t = it.next();
-				if(t.getLevel().compareTo(me.getLevel())<0){
+				if(Integer.parseInt(t.getLevel())<Integer.parseInt(me.getLevel())){
 					c = t;
 					break;
 				}
