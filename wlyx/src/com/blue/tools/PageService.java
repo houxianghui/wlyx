@@ -80,8 +80,6 @@ public class PageService {
 		try{
 			URL url = new URL(page);
 			con = (HttpURLConnection) url.openConnection();
-			con.setReadTimeout(30*1000);
-			con.setConnectTimeout(30*1000);
 			if(con != null){
 				con.setDoOutput(true);
 				con.setRequestMethod("POST");
@@ -113,46 +111,35 @@ public class PageService {
 		return "";
 	}
 
-	private static StringBuffer readBackInfo(HttpURLConnection con)throws Exception
-			 {
+	private static StringBuffer readBackInfo(HttpURLConnection con)
+			throws IOException, UnsupportedEncodingException {
 		String gzip = System.getProperty("GZIP");
 		boolean isGzipOn = false;
 		if(gzip != null){
 			isGzipOn = true;
 		}
 		if(isGzipOn){
-			GZIPInputStream gis = null;
-			try{
-				gis = new GZIPInputStream(con.getInputStream());
-				StringBuffer b = new StringBuffer();
-				byte[] by = new byte[1024];
-				int len = 0;
-				while((len = gis.read(by))!=-1){
-					b.append(new String(by,0,len,"UTF-8"));
-					return b;
-				}
-			}finally{
-				if(gis != null)
-				gis.close();
+			GZIPInputStream gis = new GZIPInputStream(con.getInputStream());
+	
+			StringBuffer b = new StringBuffer();
+			byte[] by = new byte[1024];
+			int len = 0;
+			while((len = gis.read(by))!=-1){
+				b.append(new String(by,0,len,"UTF-8"));
 			}
-			
-			
+			gis.close();
+			return b;
 		}else{
-			BufferedReader br = null;
-			try{
-				br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
-				StringBuffer sb = new StringBuffer();
-				String s = null;
-				while((s=br.readLine())!=null){
-					sb.append(s+"\n");
-				}
-				return sb;
-			}finally{
-				if(br != null)
-				br.close();
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			String s = null;
+			while((s=br.readLine())!=null){
+				sb.append(s+"\n");
 			}
+			br.close();
+			return sb;
 		}
-		return null;
+		
 	}
 
 

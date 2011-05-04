@@ -21,8 +21,8 @@ public class Main {
 		}
 	}
 	public static void start()throws Exception{
-		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
-		System.setProperty("sun.net.client.defaultReadTimeout","15000");
+		System.setProperty("sun.net.client.defaultConnectTimeout", "60000");
+		System.setProperty("sun.net.client.defaultReadTimeout","60000");
 		System.setProperty("GZIP","");
 		
 		UserRead ur = new UserRead();
