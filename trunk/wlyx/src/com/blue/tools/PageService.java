@@ -63,9 +63,6 @@ public class PageService {
 			}
 		} catch (Exception ex) {
 			logger.error(user.getRoleName()+" "+ex.getMessage());
-			try{
-				Thread.sleep(5000);
-			}catch(Exception e){}
 		} finally {
 			if(con != null){
 				con.disconnect();
@@ -100,9 +97,6 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
-			try{
-				Thread.sleep(5000);
-			}catch(Exception ex){}
 		}finally{
 			if(con != null){
 				con.disconnect();
@@ -162,9 +156,6 @@ public class PageService {
 			}
 		}catch(Exception e){
 			logger.error(user.getRoleName()+e.getMessage());
-			try{
-				Thread.sleep(5000);
-			}catch(Exception ex){}
 		}finally{
 			if(con != null){
 				con.disconnect();
