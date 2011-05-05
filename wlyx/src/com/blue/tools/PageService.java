@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,8 +37,11 @@ public class PageService {
 			try {
 				Thread.sleep(5000L);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				
 				logger.error(user.getRoleName()+" "+e.getMessage());
+				if(logger.isDebugEnabled()){
+					logger.error(e);
+				}
 			}
 		} while ((str == null) && (count-- > 0));
 		return str;
@@ -45,6 +50,7 @@ public class PageService {
 
 	private static String _getPageWithCookie(String page, User user) {
 		HttpURLConnection con = null;
+		InputStream inputStream = null;
 		try {
 	
 			URL url = new URL(page);
@@ -57,13 +63,27 @@ public class PageService {
 				con.setRequestProperty("connection", "none");
 				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
-
-				StringBuffer b = readBackInfo(con);
+				inputStream = con.getInputStream();
+				StringBuffer b = readBackInfo(inputStream);
 				return b.toString();
 			}
-		} catch (Exception ex) {
+		}catch(SocketTimeoutException e){ 
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
+		}catch (Exception ex) {
 			logger.error(user.getRoleName()+" "+ex.getMessage());
+			if(logger.isDebugEnabled()){
+				logger.error(ex);
+			}
 		} finally {
+			if(inputStream != null){
+				try{
+					inputStream.close();
+				}catch(Exception e){
+					logger.error(e.getMessage());
+				}
+			}
 			if(con != null){
 				con.disconnect();
 			}
@@ -74,6 +94,7 @@ public class PageService {
 	public static String postPage(String page, String data, User user)
 			 {
 		HttpURLConnection con = null;
+		InputStream inputStream = null;
 		try{
 			URL url = new URL(page);
 			con = (HttpURLConnection) url.openConnection();
@@ -92,12 +113,27 @@ public class PageService {
 				os.write(data.getBytes("UTF-8"));
 				os.flush();
 				os.close();
-				StringBuffer b = readBackInfo(con);
+				inputStream = con.getInputStream();
+				StringBuffer b = readBackInfo(inputStream);
 				return b.toString();
 			}
+		}catch(SocketTimeoutException e){ 
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		}catch(Exception e){
-			logger.error(e.getMessage());
+			logger.error(user.getRoleName()+" "+e.getMessage());
+			if(logger.isDebugEnabled()){
+				logger.error(e);
+			}
 		}finally{
+			if(inputStream != null){
+				try{
+				inputStream.close();
+				}catch(Exception e){
+					logger.error(e.getMessage());
+				}
+			}
 			if(con != null){
 				con.disconnect();
 			}
@@ -105,7 +141,7 @@ public class PageService {
 		return "";
 	}
 
-	private static StringBuffer readBackInfo(HttpURLConnection con)
+	private static StringBuffer readBackInfo(InputStream inputStream)
 			throws IOException, UnsupportedEncodingException {
 		String gzip = System.getProperty("GZIP");
 		boolean isGzipOn = false;
@@ -113,7 +149,7 @@ public class PageService {
 			isGzipOn = true;
 		}
 		if(isGzipOn){
-			GZIPInputStream gis = new GZIPInputStream(con.getInputStream());
+			GZIPInputStream gis = new GZIPInputStream(inputStream);
 	
 			StringBuffer b = new StringBuffer();
 			byte[] by = new byte[1024];
@@ -124,7 +160,7 @@ public class PageService {
 			gis.close();
 			return b;
 		}else{
-			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
 			StringBuffer sb = new StringBuffer();
 			String s = null;
 			while((s=br.readLine())!=null){
@@ -139,6 +175,7 @@ public class PageService {
 
 	public static String getPage(String pageUrl, User user)  {
 		HttpURLConnection con = null;
+		InputStream inputStream = null;
 		try{
 			URL url = new URL(pageUrl);
 			con = (HttpURLConnection) url.openConnection();
@@ -150,13 +187,24 @@ public class PageService {
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
 				setGZipOn(con);
-				
-				StringBuffer b = readBackInfo(con);
+				inputStream = con.getInputStream();
+				StringBuffer b = readBackInfo(inputStream);
 				return b.toString();
 			}
+		}catch(SocketTimeoutException e){ 
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		}catch(Exception e){
-			logger.error(user.getRoleName()+e.getMessage());
+			logger.error(user.getRoleName()+" "+e.getMessage());
 		}finally{
+			if(inputStream != null){
+				try{
+					inputStream.close();
+				}catch(Exception e){
+					logger.error(e.getMessage());
+				}
+			}
 			if(con != null){
 				con.disconnect();
 			}
@@ -167,6 +215,7 @@ public class PageService {
 	public static void setGZipOn(HttpURLConnection con) {
 		con.addRequestProperty("Accept-Encoding", "gzip,deflate");
 		con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3");
+		
 	}
 
 	public static void displayMap(Map m) {
