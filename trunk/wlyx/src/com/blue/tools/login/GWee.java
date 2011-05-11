@@ -70,6 +70,9 @@ public class GWee {
 			}
 		}catch(Exception e){
 			logger.info(user.getUserName()+e.getMessage());
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		}finally{
 			if(con != null){
 				con.disconnect();
@@ -112,6 +115,9 @@ public class GWee {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		}finally{
 			if(con != null){
 				con.disconnect();
@@ -155,6 +161,9 @@ public class GWee {
 			}
 		}catch(Exception e){
 			logger.error(e.getMessage());
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		}finally{
 			if(con != null){
 				con.disconnect();

@@ -76,6 +76,9 @@ public class PageService {
 			if(logger.isDebugEnabled()){
 				logger.error(ex);
 			}
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
 		} finally {
 			if(inputStream != null){
 				try{
@@ -125,6 +128,9 @@ public class PageService {
 			logger.error(user.getRoleName()+" "+e.getMessage());
 			if(logger.isDebugEnabled()){
 				logger.error(e);
+			}
+			if(con != null){
+				con.setConnectTimeout(1);
 			}
 		}finally{
 			if(inputStream != null){
