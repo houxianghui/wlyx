@@ -94,10 +94,10 @@ public class Warrior {
 		if(user.getWarriorChoice() == 0){
 			return false;
 		}
-		if(Monitor.isHuanJing(user)){
-			logger.info(user.getRoleName()+"正在幻境塔，暂不挂大厅");
-			return false;
-		}
+//		if(Monitor.isHuanJing(user)){
+//			logger.info(user.getRoleName()+"正在幻境塔，暂不挂大厅");
+//			return false;
+//		}
 		if(Portal.isBeating(user)){
 			logger.info(user.getRoleName()+"正在连续打怪，暂不挂大厅");
 			return false;
