@@ -6,11 +6,14 @@ import java.io.FileWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import com.blue.common.User;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class HuanJing {
+	private static Logger logger = Logger.getLogger(HuanJing.class);
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&action=fn&pve_id=243&timeStamp=1283594320917&callback_func_name=callbackfnPveHallFight
 	public static final String ATTACK = "modules/duel.php?act=pvehall&action=fn&callback_func_name=callbackfnPveHallFight&pve_id=";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&timeStamp=1283594503115&callback_func_name=callback_load_content&callback_obj_name=content
@@ -21,7 +24,8 @@ public class HuanJing {
 	public static final String DETAIL_LIST = "modules/duel.php?act=pvehall&action=view_pve&s=0&callback_func_name=ajaxCallback&callback_obj_name=vie_pve&id=";
 	
 	private static Pattern p = Pattern.compile("<span class=\"important\">(\\S+?)</span>.*?<span class=\"special\">(.+?)</span>.*?text_monster\">(.+?)</span>.*?\"skill\">(.+?)</span>.*(获胜奖励) <span class=\"highlight\">(\\d+)</span> (积分).*?fnPveHallAction\\( (\\d+) \\)",Pattern.DOTALL);
-	
+	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&action=read_save_info&op=pay&timeStamp=1305868506663&callback_func_name=ajaxCallback
+	private static final String READ_SAVE = "modules/duel.php?act=pvehall&action=read_save_info&op=pay";
 	public static void attack(User user,String id){
 		String url = user.getUrl()+ATTACK+id+Tools.getTimeStamp(true);
 		String page = PageService.getPage(url, user);
@@ -47,7 +51,7 @@ public class HuanJing {
 		bw.close();
 	}
 	public static void listSpecail(User user,int start)throws Exception{
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境塔-"+user.getUserName()+"-"+start+".txt")));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("幻境塔-"+user.getUserName()+".txt"),true));
 		for(int i = start;i < start+101;i++){
 			if((i-start) % 10 == 0){
 				System.out.println((i-start)+"% finished...");
@@ -63,5 +67,19 @@ public class HuanJing {
 			}
 		}
 		bw.close();
+	}
+	public static void readSave(User user){
+		if(!user.isNeedReadSave()){
+			return;
+		}
+		String url = user.getUrl()+READ_SAVE+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Pattern p = Pattern.compile("result\":\"(\\s+?)\"");
+		Matcher m = p.matcher(page);
+		if(m.find()){
+			if("读盘成功".equals(m.group(1))){
+				logger.info(user.getRoleName()+"读取幻境塔进度成功");
+			}
+		}
 	}
 }
