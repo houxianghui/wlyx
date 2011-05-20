@@ -25,20 +25,26 @@ import com.blue.warrior.Warrior;
 
 public class Test {
 	public static void main(String[] args)throws Exception {
+		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
+		System.setProperty("sun.net.client.defaultReadTimeout","15000");
 		System.setProperty("GZIP","");
 		User user = new User();
-		user.setUserName("sp_lulu");
+//		user.setUrl("s95.hero.9wee.com");
+		user.setUserName("abc123");
 		user.setPassword("abc123");
 		user.setGloryBuy("1");
 		user.login(false);
-		for(int i = 0;i<10;i++)
-		DailyChange.gloryChange(user);
+		for(int i = 0;i<10;i++){
+			DailyChange.gloryChange(user);
+		}
+//		for(int i = 0;i<10;i++)
+//		DailyChange.gloryChange(user);
 //		user.setFightPersion("7777");
 //		user.setNeedBeatTail(true);
 //		Duel.duel(user);
 //		user.setDuelStartTime(20);
 //		Duel.duel(user);
-		Monitor.buyPool(user);
+//		Monitor.buyPool(user);
 //		DropWeapon.dropWeapon(user);
 //		TianJiTang tj = new TianJiTang();
 //		tj.autoTask(user);
