@@ -217,9 +217,8 @@ public class Monstor {
 				if(i.getSellPrice()>0 && !i.getEquipType().equals(Item.HORSE)){
 					sellItem(user, i.getId(),i.getName());
 				}
-			}else{
-				putToPack(user, i.getId(), i.getName());
 			}
+			putToPack(user, i.getId(), i.getName());
 		}		
 		
 		ItemMerge.merge(user);
