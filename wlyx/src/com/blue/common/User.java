@@ -65,7 +65,7 @@ public class User {
 	private boolean openRedBeat = true;				//踢馆红图
 	private boolean openRedProtect = true;				//护馆红图
 	private boolean needDuiHuan = false;			//是否需要兑换物品
-	
+	private boolean needReadSave = false;		//是否自动读取幻境塔进度
 	
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
@@ -534,6 +534,12 @@ public class User {
 	}
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
+	}
+	public boolean isNeedReadSave() {
+		return needReadSave;
+	}
+	public void setNeedReadSave(boolean needReadSave) {
+		this.needReadSave = needReadSave;
 	}
 	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);
