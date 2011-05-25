@@ -199,7 +199,11 @@ public class Portal {
 			user.setShouldKillMonstor(false);
 		}else{
 			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user) && !Warrior.need10HoursTrain() && !Monitor.atFuBen(user)){
-				user.setShouldKillMonstor(true);
+				if(Warrior.canWar(user)){
+					user.setShouldKillMonstor(false);
+				}else{
+					user.setShouldKillMonstor(true);
+				}
 			}else{
 				user.setShouldKillMonstor(false);
 			}

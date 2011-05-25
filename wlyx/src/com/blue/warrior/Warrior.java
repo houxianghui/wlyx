@@ -30,7 +30,7 @@ public class Warrior {
 	public static final String WAR_START = "modules/warrior.php?act=hall&op=war&minters=";
 	
 	private static Pattern p = Pattern.compile("<option value=\"(\\d+)\">\\d+\\ ∑÷÷”</option>\\s+</select>",Pattern.DOTALL);
-	private static boolean canWar(User user){
+	public static boolean canWar(User user){
 		if(user.getNeedWar().equals("0")){
 			return false;
 		}
