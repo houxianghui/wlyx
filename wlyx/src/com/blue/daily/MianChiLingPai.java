@@ -19,6 +19,8 @@ public class MianChiLingPai {
 	//http://s4.verycd.9wee.com/modules/role_mission.php?act=detail&function=branch&id=100027&op=accept&timeStamp=1294315226739&callback_func_name=mission_common_callback
 	//http://s4.verycd.9wee.com/modules/role_mission.php?act=detail&function=branch&id=100024&op=accept&timeStamp=1294319361713&callback_func_name=mission_common_callback
 	private static String ACCEPT = "modules/role_mission.php?act=detail&function=branch&op=accept&callback_func_name=mission_common_callback&id=";
+	//http://s4.verycd.9wee.com/modules/npc.php?npc_id=3002&rand=1300971641455&mission_id=100033&city_scene=&timeStamp=1300971640886&callback_func_name=ajaxCallbackNoClose&callback_obj_name=dlg_view_npc
+	//http://s4.verycd.9wee.com/modules/role_mission.php?act=rewards&function=branch&id=100033&timeStamp=1300972541195&callback_func_name=mission_common_callback
 	private static String REWARD = "modules/role_mission.php?act=rewards&function=branch&callback_func_name=mission_common_callback&id=";
 	//http://s4.verycd.9wee.com/modules/role_mission.php?act=rewards&function=branch&id=100027&timeStamp=1294315257502&callback_func_name=mission_common_callback
 	//http://s4.verycd.9wee.com/modules/scenes_role.php?sid=9000&timeStamp=1294315275776&callback_func_name=switch_scene_callback
@@ -27,7 +29,15 @@ public class MianChiLingPai {
 	//http://s4.verycd.9wee.com/modules/scenes_role.php?sid=9000&timeStamp=1294323155578&callback_func_name=switch_scene_callback
 	private static String BACK = "modules/scenes_role.php?sid=9000&callback_func_name=switch_scene_callback";
 	private static Pattern mission = Pattern.compile("view_mission \\( 'branch', (\\d+) \\)",Pattern.DOTALL);
-	
+	public static void getTongTian(User user){
+		StringBuffer url = new StringBuffer();
+		url.append(user.getUrl()+"modules/role_mission.php?act=rewards&function=branch&id=100033"+Tools.getTimeStamp(true));
+		PageService.getPageWithCookie(url.toString(), user);
+		url = new StringBuffer(user.getUrl()+"modules/role_mission.php?act=detail&function=branch&id=100024"+Tools.getTimeStamp(true));
+		PageService.getPageWithCookie(url.toString(), user);
+		url = new StringBuffer(user.getUrl()+"modules/role_mission.php?act=rewards&function=branch&id=100024"+Tools.getTimeStamp(true));
+		PageService.getPageWithCookie(url.toString(), user);
+	}
 	public static void moveToLianZongXiYing(User user){
 		String ids[] = {"9003","9007","9012"};
 		String npc[] = {"3000","3001","3002"};
@@ -61,14 +71,19 @@ public class MianChiLingPai {
 			url = user.getUrl()+ACCEPT+taskId+Tools.getTimeStamp(true);
 			PageService.getPageWithCookie(url, user);
 			logger.info(user.getRoleName()+"领取任务"+i+"成功");
+			url = user.getUrl()+"modules/npc.php?city_scene=&callback_func_name=ajaxCallbackNoClose&callback_obj_name=dlg_view_npc";
+			url+="&npc_id="+npc[i]+"&mission_id="+taskId+Tools.getRandAndTime();
+			PageService.getPageWithCookie(url, user);
 			url = user.getUrl()+REWARD+taskId+Tools.getTimeStamp(true);
 			PageService.getPageWithCookie(url, user);
 			logger.info(user.getRoleName()+"领取令牌"+i+"成功");
 			url = user.getUrl()+BACK+Tools.getTimeStamp(true);
 			PageService.getPageWithCookie(url, user);
+			getTongTian(user);
 		}
-		Portal.goHome(user);
+//		Portal.goHome(user);
 	}
+
 	public static void getLingPai(User user){
 		if(Tools.needGetLingPai() && user.isCanMove()){
 			int now = Tools.getNowHour();

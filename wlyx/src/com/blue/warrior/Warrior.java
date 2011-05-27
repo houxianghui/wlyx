@@ -39,7 +39,7 @@ public class Warrior {
 		if(day == Calendar.WEDNESDAY || day == Calendar.SATURDAY){
 			int hour = c.get(Calendar.HOUR_OF_DAY);
 			int minute = c.get(Calendar.MINUTE);
-			if(hour >= 14){
+			if(hour >= 13){
 				if(hour < 15){
 					return true;
 				}else if(hour == 15){
@@ -135,7 +135,8 @@ public class Warrior {
 			}
 		}
 		if(needWar(user)){
-			logger.info(user.getRoleName()+"即将开始辎重，暂不挂大厅训练");
+//			logger.info(user.getRoleName()+"即将开始辎重，暂不挂大厅训练");
+			startWar(user);
 			return false;
 		}
 		int hourOnce = 1;
@@ -160,6 +161,7 @@ public class Warrior {
 		if(!canTrain(user)){
 			return true;
 		}
+		Portal.goHome(user);
 		if(canWar(user)){
 			if(!startWar(user)){
 				logger.info(user.getRoleName()+"辎重失败，选择其它大厅方式");
@@ -173,7 +175,7 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 10;
 		}
-		Portal.goHome(user);
+		
 		MianChiLingPai.getLingPai(user);
 		String url = user.getUrl()+WORK+hourOnce+Tools.getTimeStamp(true);
 		
