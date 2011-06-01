@@ -45,8 +45,7 @@ public class TianJiTang {
 	public static Pattern tiHuGuan = Pattern.compile("积分</td>\\s*" +
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
-	
-	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\d+)</span> &nbsp;&nbsp;贡献积分");
+	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\S+?)</span> &nbsp;&nbsp;贡献积分");
 	private static java.util.List<String> speak;
 	static{
 		initSpeak();
@@ -127,7 +126,14 @@ public class TianJiTang {
 		}
 		m = build.matcher(page);
 		if(m.find()){
-			user.setBuildPoint(Integer.parseInt(m.group(1)));
+			java.text.DecimalFormat df = new java.text.DecimalFormat("#0,000");
+			int point = 0;
+			try{
+				point = df.parse(m.group(1)).intValue();
+			}catch(Exception e){
+				logger.error(user.getRoleName()+e);
+			}
+			user.setBuildPoint(point);
 		}
 	}
 	private static boolean acceptTask(User user,String id){
@@ -167,7 +173,6 @@ public class TianJiTang {
 			return;
 		}
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=building&bui_id=3&submit=1&build_inter=1&timeStamp=1283164009827
-		
 		String url = user.getUrl()+BUILD+"&bui_id="+user.getTianJiDoor()+"&submit=1&build_inter="+user.getBuildPoint()+Tools.getTimeStamp(true);
 		String data = "callback_func_name=ajaxCallback";
 		String page = PageService.postPage(url, data, user);
