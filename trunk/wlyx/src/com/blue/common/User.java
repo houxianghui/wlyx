@@ -51,7 +51,7 @@ public class User {
 	private String status;				//角色状态
 	private int endTime=8;				//修炼结束时间
 	private int qualitySave = 4;		//保留装备品质
-	private boolean needBeauty = false;	//是否需要开经验图
+	private boolean needBeauty = true;	//是否需要开经验图
 	/*---------------------------------------------------------------*/
 	
 	//竞技场设置
