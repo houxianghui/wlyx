@@ -10,6 +10,8 @@
 				<startTime caption="开始时间">0</startTime>
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
+				<!--是否需要开经验图 0否 1 是-->
+				<beauty>1</beauty>
 				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
 			</monstor>

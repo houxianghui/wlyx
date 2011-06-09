@@ -66,6 +66,7 @@ public class UserRead {
 		String startTime = monstor.elementText("startTime");
 		String endTime = monstor.elementText("endTime");
 		String savePoint = monstor.elementText("savePoint");
+		String picture = monstor.elementText("beauty");
 		if(!Tools.isEmpty(startTime)){
 			user.setBeginTime(Integer.parseInt(startTime.trim()));
 		}
@@ -74,6 +75,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(savePoint)){
 			user.setSavePoint(Integer.parseInt(savePoint.trim()));
+		}
+		if(!Tools.isEmpty(picture)){
+			user.setNeedBeauty("1".equals(picture.trim()));
 		}
 	}
 	private void setWarrior(Element e,User user){

@@ -152,7 +152,9 @@ public class Monstor {
 		return false;
 	}
 	private static boolean killIt(String monstor,User user){
-		Beauty.jingYan(user);
+		if(user.isNeedBeauty()){
+			Beauty.jingYan(user);
+		}
 		repairAll(user);
 		String url = user.getUrl()+KILL_URL+Tools.getTimeStamp(true);
 		String page = PageService.postPage(url, getData(monstor,user), user);

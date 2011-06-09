@@ -21,59 +21,114 @@ import com.blue.warrior.WarriorThread;
 
 public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
-	private String fightPersion;
+	
 	
 	public String getFightPersion() {
 		return fightPersion;
 	}
 	public void setFightPersion(String fightPersion) {
 		this.fightPersion = fightPersion;
-	}
-	private String userName;
-	private String password;
+	}	
+	//武馆设置
+	private boolean friendly;						//友好踢馆
+	private double teamProtectedPercent=0.8;		//护馆比例
+	private boolean needTiGuan;						//是否踢馆
+	private boolean needHuGuan;
+	private boolean openRedBeat = true;				//踢馆红图
+	private boolean openRedProtect = true;			//护馆红图
+	private String beatTeam;						//踢馆名称
+	private int buildPoint;							//建筑点数
+	private String teamId;							//武馆编号
+	private Map<String, String> unionTeam = new HashMap<String,String>();
+	/*---------------------------------------------------------------*/
+	//挂野设置
+	private String killMonstorOnce;		//每次击杀怪物个数
+	private String level;				//等级
+	private String point;				//精力点数
+	private int savePoint;				//保留精力点数
+	private int beginTime=0;			//修炼开始时间
+	private boolean canMove;			//是否可移动状态
+	private String status;				//角色状态
+	private int endTime=8;				//修炼结束时间
+	private int qualitySave = 4;		//保留装备品质
+	private boolean needBeauty = false;	//是否需要开经验图
+	/*---------------------------------------------------------------*/
+	
+	//竞技场设置
+	private String fightPersion;				//指定对手
+	private int duelStartTime;					//竞技开始时间
+	private String duelType="1";				//1 逐级 2 冲级
+	private boolean needBeatTail = true;		//是否刷尾巴
+	private boolean duelDropWeapon = false;		//是否卸武竞技
+	private int dueSleepInteval = 60;			//竞技等待时间
+	private int challengeTimes;					//需要自动竞技次数
+	private int duelNo;							//竞技场排名
+	private boolean fastChallenge = true;		//是否快速竞技
+	private boolean needJingJi;					//是否需要竞技
+	/*---------------------------------------------------------------*/
+	
+	//日常任务设置
+	private int dialog = 4;						//对话任务
+	private boolean autoTianJi = true;			//是否自动完成天机堂任务
+	private int miniMoney = 10000;				//最低金额
+	private int miniJingYan;					//最小经验
+	private int workType;						//日常任务类型
+	/*---------------------------------------------------------------*/
+	
+	//大厅设置
+	private boolean needXunLian;		//是否需要大厅
 	private String needWar;				//是否自动挂辎重
-	private String gloryBuy;			//荣誉换
-	private int buildDoor;	//2 玄武，3 朱雀 4 白虎 5 青龙
-	private int blackStartTime;			//小黑屋
-	private int blackEndTime;
+	private int warriorChoice = 1;		//1 训练 2 授艺 0不挂
+	/*---------------------------------------------------------------*/
+	
+	//个人属性
+	private String userName;			//登陆用户名
+	private String password;
 	private int mingZhong;				//命中
 	private int duoShan;				//闪避
 	private int baoJi;					//暴击
 	private int poJi;					//破击
 	private int maxHP;					//最大HP
-	private int tianJiDoor=1;	// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
-	private int buildPoint;				//建筑点数
-	private String teamId;				//武馆编号
-	private boolean needRestart = false;	//重启用户
-	private boolean needGetAward;			//领取奖励
-	private boolean needGuoDu;	//是否报名国都演武
-	private int duelStartTime;				//竞技开始时间
-	private boolean friendly;				//友好踢馆
-	private double teamProtectedPercent=0.8;	//护馆比例
-	private boolean needTiGuan;					//是否踢馆
+	private int maxMP;
+	private String roleName;			//游戏角色名
+	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
+	/*---------------------------------------------------------------*/
+	//奴隶设置
+	private int needCatchSlavy = 0;
+	private int slavyMin = 2;					//最小奴隶数
+	private int blackStartTime;					//小黑屋
+	private int blackEndTime;
+	private int buildDoor;						//2 玄武，3 朱雀 4 白虎 5 青龙
+	private int tianJiDoor=1;					// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
+	private String painType; 					//1 宣传 2 修建
+	/*---------------------------------------------------------------*/
+	//其它日常设置
+	
+	private String gloryBuy;					//荣誉换
+	private boolean needGetAward;				//领取奖励
+	private boolean needGuoDu;					//是否报名国都演武
 	private boolean mianChiDropWeapon;			//渑池卸武
 	private String painShiKeType="1";			//折磨食客
-	private int dialog = 4;						//对话任务
-	private String duelType="1";				//1 逐级 2 冲级
-	private boolean needBeatTail = true;		//是否刷尾巴
-	
-	private boolean autoTianJi = true;			//是否自动完成天机堂任务
-	private boolean needHuGuan;
-	private boolean duelDropWeapon = false;
 	private String dailyWeal = "1";				//全民福利类型
-	
-	private boolean openRedBeat = true;				//踢馆红图
-	private boolean openRedProtect = true;				//护馆红图
-	private boolean needDuiHuan = false;			//是否需要兑换物品
+	private boolean needDuiHuan = false;		//是否需要兑换物品
 	private boolean needReadSave = false;		//是否自动读取幻境塔进度
+	private Map<String, String> gloryMap = new HashMap<String, String>();	//荣誉换。。
 	
+	//----------------------------------------------------------------
+	
+	private boolean needRestart = false;	//重启用户
+	private String xiYingName;
+	private String xiYingLevel;
+	private String wealDate;	//上次占卜时间
+	private String url = "s4.verycd.9wee.com";			//所在服务器	
+	private String cookie;			
+
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
 	}
 	public void setNeedDuiHuan(boolean needDuiHuan) {
 		this.needDuiHuan = needDuiHuan;
 	}
-	private String xiYingName;
 	public String getXiYingName() {
 		return xiYingName;
 	}
@@ -86,10 +141,6 @@ public class User {
 	public void setXiYingLevel(String xiYingLevel) {
 		this.xiYingLevel = xiYingLevel;
 	}
-	private String xiYingLevel;
-	
-	private Map<String, String> gloryMap = new HashMap<String, String>();	//荣誉换。。
-	
 	public Map<String, String> getGloryMap() {
 		return gloryMap;
 	}
@@ -108,8 +159,6 @@ public class User {
 	public void setOpenRedProtect(boolean openRedProtect) {
 		this.openRedProtect = openRedProtect;
 	}
-	
-	
 	public String getDailyWeal() {
 		return dailyWeal;
 	}
@@ -164,7 +213,6 @@ public class User {
 	public void setNeedHuGuan(boolean needHuGuan) {
 		this.needHuGuan = needHuGuan;
 	}
-
 	public double getTeamProtectedPercent() {
 		return teamProtectedPercent;
 	}
@@ -184,7 +232,6 @@ public class User {
 		this.duelStartTime = duelStartTime;
 	}
 	private String weapon = null;	//卸武编号
-	
 	
 	public boolean isDuelDropWeapon() {
 		return duelDropWeapon;
@@ -210,8 +257,6 @@ public class User {
 	public void setNeedGetAward(boolean needGetAward) {
 		this.needGetAward = needGetAward;
 	}
-	private String beatTeam;
-	
 	public String getBeatTeam() {
 		return beatTeam;
 	}
@@ -230,7 +275,6 @@ public class User {
 	public void setTeamId(String teamId) {
 		this.teamId = teamId;
 	}
-	private Map<String, String> unionTeam = new HashMap<String,String>();
 	public Map<String, String> getUnionTeam() {
 		return unionTeam;
 	}
@@ -246,8 +290,6 @@ public class User {
 	public void setTianJiDoor(int tianJiDoor) {
 		this.tianJiDoor = tianJiDoor;
 	}
-	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
-	
 	public Map<String, Integer> getAttribMap() {
 		return attribMap;
 	}
@@ -263,8 +305,6 @@ public class User {
 	public void setMaxMP(int maxMP) {
 		this.maxMP = maxMP;
 	}
-	private int maxMP;
-	
 	public int getMingZhong() {
 		return mingZhong;
 	}
@@ -307,7 +347,6 @@ public class User {
 	public void setBuildDoor(int buildDoor) {
 		this.buildDoor = buildDoor;
 	}
-	private String painType; //1 宣传 2 修建
 	
 	public String getPainType() {
 		return painType;
@@ -333,8 +372,6 @@ public class User {
 	public void setQualitySave(int qualitySave) {
 		this.qualitySave = qualitySave;
 	}
-	private String roleName;
-	private int qualitySave = 4;
 	
 	public int getNeedCatchSlavy() {
 		return needCatchSlavy;
@@ -342,8 +379,6 @@ public class User {
 	public void setNeedCatchSlavy(int needCatchSlavy) {
 		this.needCatchSlavy = needCatchSlavy;
 	}
-	private int slavyMin = 2;
-	private int needCatchSlavy = 0;
 	
 	public int getSlavyMin() {
 		return slavyMin;
@@ -357,8 +392,7 @@ public class User {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	private String wealDate;	//上次占卜时间
-	private int warriorChoice = 1;	//1 训练 2 授艺 0不挂
+	
 	
 	public int getWarriorChoice() {
 		return warriorChoice;
@@ -366,28 +400,7 @@ public class User {
 	public void setWarriorChoice(int warriorChoice) {
 		this.warriorChoice = warriorChoice;
 	}
-	private String level;		//等级
-	private String point;		//精力点数
-	private int savePoint;		//保留精力点数
-	private int beginTime=0;		//修炼开始时间
-	private boolean canMove;	//是否可移动状态
-	private String status;		//角色状态
-	private int miniMoney = 10000;		//最低金额
-	private int miniJingYan;	//最小经验
-	private int endTime=8;		//修炼结束时间
 	
-	private String url = "s4.verycd.9wee.com";			//所在服务器	
-	private int workType;		//日常任务类型
-	
-	private boolean needXunLian;	//是否需要大厅
-	private boolean needJingJi;		//是否需要竞技
-	
-	private String cookie;			
-	private int challengeTimes;		//需要自动竞技次数
-	private int duelNo;				//竞技场排名
-	private boolean fastChallenge = true;	//是否快速竞技
-	private String killMonstorOnce;	//每次击杀怪物个数
-	private int dueSleepInteval = 60;	//竞技等待时间
 	
 	public int getDueSleepInteval() {
 		return dueSleepInteval;
@@ -433,7 +446,6 @@ public class User {
 	public void setSavePoint(int savePoint) {
 		this.savePoint = savePoint;
 	}
-	
 	public String getKillMonstorOnce() {
 		return killMonstorOnce;
 	}
@@ -515,14 +527,12 @@ public class User {
 	public void setNeedJingJi(boolean needJingJi) {
 		this.needJingJi = needJingJi;
 	}
-	
 	public int getDuelNo() {
 		return duelNo;
 	}
 	public void setDuelNo(int duelNo) {
 		this.duelNo = duelNo;
 	}
-
 	public int getChallengeTimes() {
 		return challengeTimes;
 	}
@@ -540,6 +550,12 @@ public class User {
 	}
 	public void setNeedReadSave(boolean needReadSave) {
 		this.needReadSave = needReadSave;
+	}
+	public boolean isNeedBeauty() {
+		return needBeauty;
+	}
+	public void setNeedBeauty(boolean needBeauty) {
+		this.needBeauty = needBeauty;
 	}
 	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);
