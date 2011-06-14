@@ -173,6 +173,10 @@ public class UserRead {
 		String dropWeapon = e.elementText("mianChi");
 		String needChangeItem = e.elementText("needChangeItem");
 		String needReadSave = e.elementText("needReadSave");
+		String needGetLiBao = e.elementText("needGetLiBao");
+		if(!Tools.isEmpty(needGetLiBao)){
+			user.setNeedGetLiBao("1".equals(needGetLiBao.trim()));
+		}
 		if(!Tools.isEmpty(buy)){
 			user.setGloryBuy(buy.trim());
 		}

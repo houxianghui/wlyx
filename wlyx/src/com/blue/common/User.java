@@ -113,6 +113,7 @@ public class User {
 	private boolean needDuiHuan = false;		//是否需要兑换物品
 	private boolean needReadSave = false;		//是否自动读取幻境塔进度
 	private Map<String, String> gloryMap = new HashMap<String, String>();	//荣誉换。。
+	private boolean needGetLiBao = true;		//是否自动领取礼包
 	
 	//----------------------------------------------------------------
 	
@@ -556,6 +557,12 @@ public class User {
 	}
 	public void setNeedBeauty(boolean needBeauty) {
 		this.needBeauty = needBeauty;
+	}
+	public boolean isNeedGetLiBao() {
+		return needGetLiBao;
+	}
+	public void setNeedGetLiBao(boolean needGetLiBao) {
+		this.needGetLiBao = needGetLiBao;
 	}
 	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);

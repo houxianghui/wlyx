@@ -11,7 +11,7 @@
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
 				<!--是否需要开经验图 0否 1 是-->
-				<beauty>1</beauty>
+				
 				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
 			</monstor>
@@ -23,7 +23,7 @@
 			</warrior>
 			<duel caption="竞技场设置">
 				<!--竞技开始时间-->
-				<duelStart>0</duelStart>
+				<duelStart>8</duelStart>
 				<!--竞技间隔 单位为分钟-->
 				<duelDue>0</duelDue>
 				<!--竞技卸武 1 卸武 0 不卸武-->
@@ -37,9 +37,9 @@
 			</duel>
 			<task caption="日常任务设置">
 				<!--收集类任务最小金额-->
-				<minMoney>10000</minMoney>
+				<minMoney>20000</minMoney>
 				<!-- 对话任务 1 全接 3 蓝装 4 紫装 5 不接 -->
-				<dialog></dialog>
+				<dialog>4</dialog>
 				<!-- 是否自动完成天机堂任务 0 否 1 是 -->
 				<autoTianJi>1</autoTianJi>
 				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
@@ -72,6 +72,8 @@
 				<needChangeItem>0</needChangeItem>
 				<!-- 是否需要自动读取幻境塔进度 1 是 0 否-->
 				<needReadSave>0</needReadSave>
+				<!-- 是否自动领取礼包 1 是 0 否 -->
+				<needGetLiBao>1</needGetLiBao>
 			</daily>
 			<team caption="踢馆设置">
 				<!-- 是否需要护联盟馆 -->
