@@ -46,7 +46,7 @@ public class Portal {
 	private static String BEAT_INFO = "modules/message.php?&act=events&callback_func_name=ajaxCallback&callback_obj_name=message_list";
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1293891706483&timeStamp=1293891706483&callback_func_name=ajaxCallback&callback_obj_name=content
 	private static String huanJing = "modules/duel.php?act=pvehall&callback_func_name=ajaxCallback&callback_obj_name=content";
-	
+	private static String ROOM_RECOVER="modules/warrior.php?act=guestroom&op=restore&id=1";
 	
 	public static int getIntValue(String s){
 		int i = 0;
@@ -185,11 +185,13 @@ public class Portal {
 		}
 		m = HP.matcher(page);
 		if(m.find()){
+			user.setCurrHP(Integer.parseInt(m.group(1)==null?"0":m.group(1)));
 			user.setMaxHP(Integer.parseInt(m.group(2)==null?"0":m.group(2)));
 			user.getAttribMap().put("气血", user.getMaxHP());
 		}
 		m = MP.matcher(page);
 		if(m.find()){
+			user.setCurrMP(Integer.parseInt(m.group(1)==null?"0":m.group(1)));
 			user.setMaxMP(Integer.parseInt(m.group(2)==null?"0":m.group(2)));
 			user.getAttribMap().put("内息", user.getMaxMP());
 		}
@@ -219,12 +221,31 @@ public class Portal {
 			user.setTeamId(m.group(1));
 		}
 	}
+	/**
+	 * 回城复活
+	 * @param user
+	 */
 	public static void revive(User user){
 		String url = user.getUrl()+REVIVE+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		if(Tools.success(page)){
+			custRoom(user);
 			logger.info(user.getRoleName()+"免费回城复活成功");
 		}
+	}
+	/**
+	 * 客房回血
+	 * @param user
+	 */
+	public static boolean custRoom(User user){
+		//http://s4.verycd.9wee.com/modules/warrior.php?act=guestroom&op=restore&id=1&timeStamp=1308725110871&callback_func_name=warrior_common_callback
+		String url = user.getUrl()+ROOM_RECOVER+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		if(Tools.success(page)){
+			logger.info(user.getRoleName()+"客房回血完成");
+			return true;
+		}
+		return false;
 	}
 	private static int getNow(){
 		Calendar c = Calendar.getInstance();
