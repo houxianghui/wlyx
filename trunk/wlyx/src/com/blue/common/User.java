@@ -91,6 +91,8 @@ public class User {
 	private int maxHP;					//最大HP
 	private int maxMP;
 	private String roleName;			//游戏角色名
+	private int currHP;					//当前HP
+	private int currMP;					//当前MP
 	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
 	/*---------------------------------------------------------------*/
 	//奴隶设置
@@ -402,7 +404,18 @@ public class User {
 		this.warriorChoice = warriorChoice;
 	}
 	
-	
+	public int getCurrMP() {
+		return currMP;
+	}
+	public void setCurrMP(int currMP) {
+		this.currMP = currMP;
+	}
+	public int getCurrHP() {
+		return currHP;
+	}
+	public void setCurrHP(int currHP) {
+		this.currHP = currHP;
+	}
 	public int getDueSleepInteval() {
 		return dueSleepInteval;
 	}

@@ -25,8 +25,6 @@ public class GetSpecial {
 						System.out.println("ÊäÈë¿ªÊ¼±àºÅ");
 						String start = in.next();
 						HuanJing.listSpecail(u, Integer.parseInt(start));
-						
-//						Monstor.checkAndSell(u);
 					}
 				}
 			}
