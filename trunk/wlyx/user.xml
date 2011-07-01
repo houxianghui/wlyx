@@ -10,7 +10,7 @@
 				<startTime caption="开始时间">0</startTime>
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
-				<!--是否需要开经验图 0否 1 是-->
+				<!-- 是否需要开经验图 0否 1 是 -->
 				
 				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
@@ -58,6 +58,8 @@
 				<blackStart>0</blackStart>
 				<!-- 黑屋结束时间 -->
 				<blackEnd>0</blackEnd>
+				<!-- 门客折磨顺序1=习文伴武  2=财源广进  5=网络奇珍  3=精忠报国  4=兴修土木  -->
+				<menKeStep>1,5,3,4,2</menKeStep>
 			</slavy>
 			<daily caption="日常设置">
 				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿-->
