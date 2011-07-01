@@ -103,7 +103,9 @@ public class User {
 	private int buildDoor;						//2 玄武，3 朱雀 4 白虎 5 青龙
 	private int tianJiDoor=1;					// 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆
 	private String painType; 					//1 宣传 2 修建
+	private String menKeStep = "1,5,3,4,2";				//门客折磨顺序
 	/*---------------------------------------------------------------*/
+		
 	//其它日常设置
 	
 	private String gloryBuy;					//荣誉换
@@ -576,6 +578,12 @@ public class User {
 	}
 	public void setNeedGetLiBao(boolean needGetLiBao) {
 		this.needGetLiBao = needGetLiBao;
+	}
+	public String getMenKeStep() {
+		return menKeStep;
+	}
+	public void setMenKeStep(String menKeStep) {
+		this.menKeStep = menKeStep;
 	}
 	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);
