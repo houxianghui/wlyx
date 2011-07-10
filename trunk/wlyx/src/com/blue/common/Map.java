@@ -92,6 +92,7 @@ public class Map {
 		thirdMap.put("ÎÀ¹úÃÜÊÒ", "522");
 		thirdMap.put("»ÆÁú±®", "523");
 		thirdMap.put("æûÍõÄ¶", "526");
+		thirdMap.put("·âÉñÌ¨", "527");
 	}
 	private static void initBigMap() {
 		bigMap.put("¼»¾©", "8");
