@@ -143,7 +143,7 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 12;
 		}
-		MianChiLingPai.getLingPai(user);
+//		MianChiLingPai.getLingPai(user);
 		Portal.goHome(user);
 		String url = user.getUrl()+WARRIOR_URL+hourOnce+Tools.getTimeStamp(true);
 		if(user.getWarriorChoice() == 2){
