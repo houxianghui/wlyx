@@ -315,7 +315,7 @@ public class WuGuan {
 		return minId;
 	}
 	public static String selectEnemyTeam(User user){
-		double max = 0.2;
+		double max = 0.4;
 		String mid = null;
 		
 		String page = getTeamList(user);
@@ -333,7 +333,7 @@ public class WuGuan {
 			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
-					if(Tools.getValue(xw.group(2)) < 10000){
+					if(Tools.getValue(xw.group(2)) < 300000){
 						continue;
 					}
 					if(d >= max){
