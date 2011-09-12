@@ -1,6 +1,8 @@
 package com.blue.daily;
 
+import com.blue.common.Monitor;
 import com.blue.common.User;
+import com.blue.monstor.Monstor;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -9,5 +11,13 @@ public class CountryChange {
 	public static void change(User user){
 		String url = user.getUrl()+change+Tools.getTimeStamp(true);
 		PageService.getPageWithCookie(url, user);
+	}
+	public static void batchChange(User user){
+		Monstor.checkAndSell(user);
+		for(int i = 0;i<10;i++){
+			CountryChange.change(user);
+		}
+		Monitor.getAwards(user);
+		Monstor.checkAndSell(user);
 	}
 }

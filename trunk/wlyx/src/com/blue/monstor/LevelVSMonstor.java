@@ -96,6 +96,8 @@ public class LevelVSMonstor {
 		monstors.put("100", new String[]{"中牟","舍身崖","纣王亩"});
 		monstors.put("101", new String[]{"中牟","舍身崖","纣王亩"});
 		monstors.put("102", new String[]{"中牟","舍身崖","封神台"});
+		monstors.put("103", new String[]{"中牟","断天坡","太乙池"});
+		monstors.put("104", new String[]{"中牟","孤山道","黄沙岭"});
 	}
 	public static String[] getMonstorInfo(String level){
 		return monstors.get(level);

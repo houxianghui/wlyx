@@ -12,36 +12,59 @@ import com.blue.common.DailyChange;
 import com.blue.common.DropWeapon;
 import com.blue.common.Monitor;
 import com.blue.common.MonitorThread;
+import com.blue.common.Move;
+import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.daily.CountryChange;
+import com.blue.daily.MianChiLingPai;
 import com.blue.duel.Duel;
+import com.blue.huanjing.HuanJing;
+import com.blue.monitor.ItemChange;
+import com.blue.monstor.Item;
+import com.blue.monstor.ItemMerge;
 import com.blue.monstor.Monstor;
 import com.blue.slavy.CatchSlavy;
+import com.blue.task.AutoTask;
+import com.blue.task.Task;
 import com.blue.team.WuGuan;
 import com.blue.tianjitang.TianJiTang;
 import com.blue.tianjitang.TianJiThread;
+import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 import com.blue.warrior.Warrior;
 
 
 public class Test {
 	public static void main(String[] args)throws Exception {
+//		int i = Portal.getIntValue("32");
+//		System.out.println(i);
 		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
 		System.setProperty("sun.net.client.defaultReadTimeout","15000");
 		System.setProperty("GZIP","");
 		User user = new User();
-//		user.setUrl("s95.hero.9wee.com");
-		user.setUserName("abc123");
+		user.setUrl("s4.verycd.9wee.com");
+		user.setUserName("xianghui_hou");
 		user.setPassword("abc123");
-		user.setGloryBuy("1");
 		user.login(false);
-		for(int i = 0;i<10;i++){
-			DailyChange.gloryChange(user);
-		}
-//		for(int i = 0;i<10;i++)
-//		DailyChange.gloryChange(user);
-//		user.setFightPersion("7777");
-//		user.setNeedBeatTail(true);
-//		Duel.duel(user);
+		
+		CountryChange.batchChange(user);
+//		HuanJing.readSave(user);
+//		MianChiLingPai.getLingPai(user);
+//		MianChiLingPai.moveToLianZongXiYing(user);
+//		Monitor.buyGlory(user);
+//		for(int i =1;i < 10;i++)
+//		acceptTask(user, "4100"+i);
+//		boolean flag = Portal.isBeating(user);
+//		System.out.println(flag);
+//		user.setNeedGetAward(true);
+//		ItemChange.changeChengJiDan(user);
+//		Monitor.getAwards(user);
+//		List<Item> l = ItemMerge.getPack(user);
+//		Iterator<Item> it = l.iterator();
+//		while(it.hasNext()){
+//			System.out.println(it.next());
+//		}
+//		Monitor.getGuoDuAward(user);
 //		user.setDuelStartTime(20);
 //		Duel.duel(user);
 //		Monitor.buyPool(user);
@@ -51,7 +74,16 @@ public class Test {
 //		WuGuan.gotoWuGuan(user);
 		
 	}
-	
+	private static void acceptTask(User user,String taskId){
+//		if(getTask(user, taskId)){
+			String url = user.getUrl()+AutoTask.ACCEPT_TASK_URL+taskId+Tools.getTimeStamp(true);
+			String page = PageService.getPageWithCookie(url, user);
+			System.out.println(Tools.hexToString(page));
+//			return Tools.success(page);
+//		}
+//		return false;
+		
+	}
 	public static void getBigMap()throws Exception{
 		Pattern p = Pattern.compile("id\":\"(\\d+?)\",\"rank\":\"\\d+?\",\"name\":\"(\\S+)\",\"country_id\":\"(\\d+?)\",");
 		Matcher m = p.matcher(readText("bigMap.txt"));
