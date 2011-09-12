@@ -50,7 +50,9 @@ public class Map {
 		secMap.put("ÉáÉíÑÂ", "163");
 		secMap.put("¾Å¹¬¸ó", "152");
 		secMap.put("µØµ×ÀÎÓü", "153");
-		secMap.put("ä¿Ô°", "161");		
+		secMap.put("ä¿Ô°", "161");	
+		secMap.put("¶ÏÌìÆÂ", "159");	
+		secMap.put("¹ÂÉ½µÀ", "156");
 	}
 	private static void initThird(){
 		thirdMap.put("ÂåºÓµÀ", "180");
@@ -85,6 +87,9 @@ public class Map {
 		thirdMap.put("ÉúËÀ¸ó", "487");
 		thirdMap.put("¹í¹È¹Ê¾Ó", "490");
 		thirdMap.put("ĞşÌúÀÎÁı", "491");
+		thirdMap.put("É½Ò°ÔôÎÑ", "497");
+		thirdMap.put("»ÆÉ³Áë", "498");
+		thirdMap.put("·ï»Ë³²", "499");
 		thirdMap.put("Ã«Ëì¶´", "514");
 		thirdMap.put("Ë®Á±¶´", "515");
 		thirdMap.put("¼¦¹ÚÉ½", "518");
@@ -93,6 +98,8 @@ public class Map {
 		thirdMap.put("»ÆÁú±®", "523");
 		thirdMap.put("æûÍõÄ¶", "526");
 		thirdMap.put("·âÉñÌ¨", "527");
+		thirdMap.put("Ì«ÒÒ³Ø", "509");
+		
 	}
 	private static void initBigMap() {
 		bigMap.put("¼»¾©", "8");

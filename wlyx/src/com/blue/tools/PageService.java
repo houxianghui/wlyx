@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.blue.common.User;
 import com.blue.tools.login.GWee;
+import com.blue.tools.login.TaiWan;
 import com.blue.tools.login.VeryCD;
 
 public class PageService {
@@ -275,6 +276,10 @@ public class PageService {
 		String host = user.getHost();
 		if(host.indexOf("verycd") != -1){
 			VeryCD.login(user);
+			return;
+		}
+		if(host.indexOf("tw") != -1){
+			TaiWan.login(user);
 			return;
 		}
 		GWee.login(user);

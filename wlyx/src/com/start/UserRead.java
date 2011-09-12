@@ -124,7 +124,10 @@ public class UserRead {
 		String door = e.elementText("tianJiDoor");
 		String dialog = e.elementText("dialog");
 		String autoTianJi = e.elementText("autoTianJi");
-		
+		String minJingYan = e.elementText("minJingYan");
+		if(!Tools.isEmpty(minJingYan)){
+			user.setMiniJingYan(Integer.parseInt(minJingYan));
+		}
 		if(!Tools.isEmpty(autoTianJi)){
 			user.setAutoTianJi("1".equals(autoTianJi.trim()));
 		}

@@ -14,6 +14,7 @@ public class AutoTask {
 	private static Logger logger = Logger.getLogger(AutoTask.class);
 	private static Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
 	private static Pattern finish = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成.*?进行中");
+	//<li>经验：<span class="highlight">+13546</span></span></li>
 	private static Pattern reward = Pattern.compile("<li.*?(经验|铜币|物品).*?(\\d+)",Pattern.DOTALL);
 	private static Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
 	private static Pattern p2 = Pattern.compile("立即完成");
@@ -74,14 +75,16 @@ public class AutoTask {
 		Matcher m = reward.matcher(page);
 		if(m.find()){
 			if(m.group(1).equals("铜币")){
-				if(Integer.parseInt(m.group(2))> user.getMiniMoney()){
+				if(Integer.parseInt(m.group(2))>= user.getMiniMoney()){
 					logger.info(user.getRoleName()+"接受铜板为"+m.group(2)+"的收集任务"+taskId);
 					return true;
 				}
 			}
 			if(m.group(1).equals("经验")){
-				logger.info(user.getRoleName()+"接受战斗型任务"+taskId);
-				return true;
+				if(Integer.parseInt(m.group(2))>=user.getMiniJingYan()){
+					logger.info(user.getRoleName()+"接受战斗型任务"+taskId);
+					return true;
+				}
 			}
 			if(m.group(1).equals("物品")){
 				Matcher t = dialog.matcher(page);

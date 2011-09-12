@@ -38,6 +38,8 @@
 			<task caption="日常任务设置">
 				<!--收集类任务最小金额-->
 				<minMoney>20000</minMoney>
+				<!-- 战斗任务最小经验值 -->
+				<minJingYan>9000</minJingYan>
 				<!-- 对话任务 1 全接 3 蓝装 4 紫装 5 不接 -->
 				<dialog>4</dialog>
 				<!-- 是否自动完成天机堂任务 0 否 1 是 -->
