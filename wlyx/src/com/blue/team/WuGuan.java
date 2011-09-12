@@ -68,6 +68,8 @@ public class WuGuan {
 	public static final String DESDROY_TEAM = "modules/team.php?act=go_into_team_scene&scene_id=1&stand_point=2&timeStamp=1282964761504&callback_func_name=callbackFnEnterTeamScene&team_id=";
 	public static Pattern teams = Pattern.compile("view_team \\( (\\d+) \\)\" title=\"(\\S+?)\">.*?Lv.(\\d+).*?Lv.(\\d+)</td>",Pattern.DOTALL);
 	public static Pattern openTime = Pattern.compile("s_now_team_scene_id\":\"(\\d+)\",\"s_open_time\":\"(\\d+)\",\"s_close_time\":\"(\\d+)\"");
+	private static Pattern times = Pattern.compile("今日进入他方武馆次数：<span class=\"highlight\">(\\d+) / (\\d+)</span>");
+	
 	public static Map<String, String> teamMap = new HashMap<String, String>();
 	
 	public static Map<String,String> protectTeam = new HashMap<String,String>();
@@ -132,6 +134,22 @@ public class WuGuan {
 		}
 		return null;
 	}
+	/**
+	 * 是否用完踢馆护馆次数
+	 * @param user
+	 * @return
+	 */
+	private static boolean noTimes(User user){
+		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
+		String page = PageService.getPage(url, user);
+		Matcher m = times.matcher(page);
+		if(m.find()){
+			if(m.group(1).equals(m.group(2))){
+				return true;
+			}
+		}
+		return false;
+	}
 	public static boolean gotoWuGuan(User user){
 		if(Monitor.isHuanJing(user)){
 			logger.info(user.getRoleName()+"正在幻境塔，暂不进入武馆");
@@ -153,7 +171,7 @@ public class WuGuan {
 		getAllTeam(user);
 		
 		Portal.setTeamId(user);
-		
+	
 		boolean inUnion = false;
 		if(!user.isShouldKillMonstor()){		
 			
@@ -182,6 +200,10 @@ public class WuGuan {
 							}
 						}catch(Exception e){}
 					}
+				}
+			}else{
+				if(noTimes(user)){
+					return needProtectMyTeam(user);
 				}
 			}
 			if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
