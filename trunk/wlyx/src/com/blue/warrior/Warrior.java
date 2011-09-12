@@ -28,8 +28,25 @@ public class Warrior {
 	public static final String WAR = "modules/warrior.php?act=hall&op=war&callback_func_name=ajaxCallback&callback_obj_name=dlg_train_work";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=war&minters=60&timeStamp=1280557849142
 	public static final String WAR_START = "modules/warrior.php?act=hall&op=war&minters=";
+	//http://s4.verycd.9wee.com/modules/upgrade_help.php?act=action&timeStamp=1315828757634&callback_func_name=ajaxCallback&callback_obj_name=dlg_upgrade_help
+	private static final String ACTION = "modules/upgrade_help.php?act=action";
+	private static Pattern action = Pattern.compile("¥ÛÃ¸—µ¡∑æ≠—ÈΩ±¿¯∑≠±∂.*?<span class=\"text_scene\">(.*?)</span>",Pattern.DOTALL);
 	
 	private static Pattern p = Pattern.compile("<option value=\"(\\d+)\">\\d+\\ ∑÷÷”</option>\\s+</select>",Pattern.DOTALL);
+	public static boolean isDoubed(User user){
+		String url = user.getUrl()+ACTION+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = action.matcher(page);
+		if(m.find()){
+			String date = m.group(1).substring(0,10);
+			String now = Tools.getNow();
+			if(now.equals(date)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static boolean canWar(User user){
 		if(user.getNeedWar().equals("0")){
 			return false;
@@ -142,6 +159,14 @@ public class Warrior {
 		int hourOnce = 1;
 		if(need10HoursTrain()){
 			hourOnce = 12;
+		}
+		if(isDoubed(user)){
+			int day = Tools.getDayOfWeek();
+			if(day == Calendar.FRIDAY || day == Calendar.TUESDAY){
+				hourOnce = 14;
+			}else{
+				hourOnce = 21;
+			}
 		}
 //		MianChiLingPai.getLingPai(user);
 		Portal.goHome(user);
