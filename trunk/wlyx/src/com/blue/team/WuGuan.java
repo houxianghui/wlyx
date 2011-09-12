@@ -212,7 +212,8 @@ public class WuGuan {
 			mid = selectEnemyTeam(user);
 			if(mid != null && user.isNeedTiGuan()){
 				return desdroyTeam(user, mid);
-				
+			}else{
+				return needProtectMyTeam(user);
 			}
 		}
 		return false;
@@ -333,7 +334,7 @@ public class WuGuan {
 			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
-					if(Tools.getValue(xw.group(2)) < 300000){
+					if(Tools.getValue(xw.group(1)) < 300000){
 						continue;
 					}
 					if(d >= max){
