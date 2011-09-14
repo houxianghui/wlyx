@@ -203,7 +203,7 @@ public class WuGuan {
 				}
 			}else{
 				if(noTimes(user)){
-					return needProtectMyTeam(user);
+					return protectMyTeam(user);
 				}
 			}
 			if(user.getBeatTeam() != null && user.getBeatTeam().trim().length() > 0){
@@ -310,6 +310,16 @@ public class WuGuan {
 		}
 		return false;
 	}
+	private static boolean protectMyTeam(User user){
+		String url = user.getUrl()+MY_TEAM+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = myTeamId.matcher(page);
+		if(m.find()){
+			protectTeam(user, m.group(1));
+			return true;
+		}
+		return false;
+	}
 	public static String selectTeam(User user,List l){
 		double min = 1;
 		String minId = null;
@@ -356,7 +366,7 @@ public class WuGuan {
 			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
-					if(Tools.getValue(xw.group(1)) < 300000){
+					if(Tools.getValue(xw.group(1)) < 800000){
 						continue;
 					}
 					if(d >= max){
