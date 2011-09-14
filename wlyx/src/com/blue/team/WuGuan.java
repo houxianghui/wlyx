@@ -189,7 +189,9 @@ public class WuGuan {
 				if(m.find()){
 					if(m.group(1).equals(m.group(2)) && inUnion){
 						logger.info(user.getRoleName()+"修满了，换个地方");
-						leaveTeam(user);
+						if(!noTimes(user)){
+							leaveTeam(user);
+						}
 					}else{
 						try{
 							if(!inUnion && (Tools.getValue(m.group(1))/Tools.getValue(m.group(2)) <= MIN_PERCENT || Tools.getValue(m.group(1)) < 10000)){
@@ -241,6 +243,7 @@ public class WuGuan {
 		return false;
 	}
 	public static void leaveTeam(User user){
+		
 		String url = user.getUrl()+LEAVE_TEAM+Tools.getTimeStamp(true);
 		PageService.getPageWithCookie(url, user);
 	}
