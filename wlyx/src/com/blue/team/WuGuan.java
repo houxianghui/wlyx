@@ -360,7 +360,7 @@ public class WuGuan {
 			if(user.getUnionTeam().get(m.group(1))!=null){
 				continue;
 			}
-			if(user.getLevel().compareTo(m.group(4)) > 0){
+			if(Integer.parseInt(user.getLevel())>Integer.parseInt(m.group(4))){
 				continue;
 			}
 			String url = user.getUrl()+VIEW_TEAM+m.group(1)+Tools.getTimeStamp(true);
