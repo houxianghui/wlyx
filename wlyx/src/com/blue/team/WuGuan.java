@@ -369,7 +369,7 @@ public class WuGuan {
 			if(xw.find()){
 				try{
 					double d = Tools.getValue(xw.group(1))/Tools.getValue(xw.group(2));
-					if(Tools.getValue(xw.group(1)) < 800000){
+					if(Tools.getValue(xw.group(1)) < user.getMinThickness()){
 						continue;
 					}
 					if(d >= max){
