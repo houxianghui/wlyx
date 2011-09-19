@@ -39,6 +39,7 @@ public class User {
 	private String beatTeam;						//踢馆名称
 	private int buildPoint;							//建筑点数
 	private String teamId;							//武馆编号
+	private int minThickness = 800000;				//要进入踢馆的最小厚度
 	private Map<String, String> unionTeam = new HashMap<String,String>();
 	/*---------------------------------------------------------------*/
 	//挂野设置
@@ -627,5 +628,11 @@ public class User {
 		if(isMianChiDropWeapon()){
 			work.add(new DropWeaponThread(this));	//渑池卸武
 		}
+	}
+	public int getMinThickness() {
+		return minThickness;
+	}
+	public void setMinThickness(int minThickness) {
+		this.minThickness = minThickness;
 	}
 }
