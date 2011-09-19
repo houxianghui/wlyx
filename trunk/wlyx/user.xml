@@ -11,7 +11,7 @@
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
 				<!-- 是否需要开经验图 0否 1 是 -->
-				
+				<beauty>1</beauty>
 				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
 			</monstor>
@@ -86,6 +86,8 @@
 				<openRedProtect>1</openRedProtect>
 				<!-- 是否需要踢馆 -->
 				<needDesdroy>1</needDesdroy>
+				<!-- 入馆最小厚度 -->
+				<minThickness>800000</minThickness>
 				<!-- 踢馆是否自动开红图  0=否 1=是-->
 				<openRedBeat>1</openRedBeat>
 				<!-- 护馆选项：低于多少强制护馆  -->
