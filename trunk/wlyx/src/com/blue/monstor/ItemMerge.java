@@ -161,7 +161,7 @@ public class ItemMerge {
 		int index = page.indexOf("teamstock\":{");
 		if(index == -1){
 			logger.info(user.getRoleName()+"四海库房到期");
-			return new ArrayList<Item>();
+			return null;
 		}
 		page = page.substring(index);
 		Matcher out = item.matcher(page);
