@@ -72,7 +72,7 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
 	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
 	//awards_view ( 110573 )">辎重营荣誉礼包</a>
-	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">(全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包|.{2}成绩单|.{2}月饼|竞技礼包|.{2}天机石|英雄纪念礼包|减负报告单|完成任务得礼包|竞技场挑战得礼包|茶油灯芯礼包|兔年元宵灯笼|纸糊帖礼包|竹篾骨架礼包|春节红包|春节黄酒礼包|减负报告单出售|国家贡献\\d+级红包|.{1,10}援军令).*?(立即领取|已领取)",Pattern.DOTALL);
+	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">(全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包|.{2}成绩单|.{2}月饼|竞技礼包|.{2}天机石|英雄纪念礼包|减负报告单|完成任务得礼包|竞技场挑战得礼包|茶油灯芯礼包|兔年元宵灯笼|纸糊帖礼包|竹篾骨架礼包|春节红包|春节黄酒礼包|减负报告单出售|国家贡献\\d+级红包|.{0,10}援军令).*?(立即领取|已领取)",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/awards.php?act=fetch&award_id=119709&timeStamp=1282995924182&callback_func_name=awards_fetch_callback
 	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
