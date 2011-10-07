@@ -99,6 +99,9 @@ public class ItemMerge {
 	}
 	public static void mergeSiHaiKuFang(User user){
 		List<Item> l = getSiHaiKuFang(user);
+		if(l == null){
+			return;
+		}
 		Map<String,Item> m = new HashMap<String, Item>();
 		for(Item i:l){
 			if(i.getEquipType().equals("0") && !i.getCount().equals(i.getMaxCount())){
