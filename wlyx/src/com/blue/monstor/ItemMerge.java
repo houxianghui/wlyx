@@ -109,6 +109,9 @@ public class ItemMerge {
 	}
 	public static void mergeStock(User user){
 		List<Item> l = getStockList(user);
+		if(l == null){
+			return;
+		}
 		Map<String,Item> m = new HashMap<String, Item>();
 		for(Item i:l){
 			if(i.getEquipType().equals("0") && !i.getCount().equals(i.getMaxCount())){
