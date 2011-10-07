@@ -24,8 +24,16 @@ public class ItemMerge {
 	private static String SI_HAI_KU_FANG = "modules/warrior.php?act=hall&op=teamstock";
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=2878778&from=pack&to=teamstock&pos_x=0&pos_y=7&timeStamp=1317362887977&callback_func_name=itemClassTeamStk.dragItemCallback
 	private static String PACK_TO_SI_HAI = "modules/role_item.php?act=drag_item&from=pack&to=teamstock";
+	private static String PACK_TO_STOCK = "modules/role_item.php?act=drag_item&from=pack&to=stock";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=stock&timeStamp=1317910014344&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_stock
+	private static String LIST_STOCK = "modules/warrior.php?act=hall&op=stock";
+	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=check_pwd&timeStamp=1317909962943
+	private static String CHECK_STOCK_PWD = "modules/warrior.php?act=hall&op=check_pwd";
+	
 	private static Pattern p = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?\"position_x\":\"(\\d+)\",\"position_y\":\"(\\d+)\".*?max_superpose\":\"(\\d+)\",\"superpose\":\"(\\d+)\"");
 	private static Pattern item = Pattern.compile("item_id.*?theory_max_strengthen");
+	private static Pattern checkResult = Pattern.compile("\"success\":1",Pattern.DOTALL);
+	
 	public static void merge(User user){
 		List<Item> l = getPack(user);
 		merge(user,l);
@@ -44,6 +52,24 @@ public class ItemMerge {
 				String page = PageService.getPageWithCookie(url, user);
 				if(Tools.success(page)){
 					logger.info(user.getRoleName()+"合并"+Tools.hexToString(i.getName())+"到四海库房成功");
+				}
+			}
+		}
+	}
+	private static void mergeToStock(User user,List l,Map<String, Item> m){		
+		Iterator<Item> it = l.iterator();
+		while(it.hasNext()){
+			Item i = it.next();
+			if(i.getCount().equals(i.getMaxCount()) || !i.getEquipType().equals("0")){
+				continue;
+			}
+			Item to = m.get(i.getName());
+			if(to!=null){
+				String data = "&id="+i.getId()+"&pos_x="+to.getPositonX()+"&pos_y="+to.getPositionY()+"&quantity="+i.getCount();
+				String url = user.getUrl()+PACK_TO_STOCK+data+Tools.getTimeStamp(true);
+				String page = PageService.getPageWithCookie(url, user);
+				if(Tools.success(page)){
+					logger.info(user.getRoleName()+"合并"+Tools.hexToString(i.getName())+"到仓库成功");
 				}
 			}
 		}
@@ -81,11 +107,56 @@ public class ItemMerge {
 		}
 		mergeToTeamStock(user,getPack(user),m);
 	}
+	public static void mergeStock(User user){
+		List<Item> l = getStockList(user);
+		Map<String,Item> m = new HashMap<String, Item>();
+		for(Item i:l){
+			if(i.getEquipType().equals("0") && !i.getCount().equals(i.getMaxCount())){
+				m.put(i.getName(), i);
+			}
+		}
+		mergeToStock(user,getPack(user),m);
+	}
+	private static boolean checkStockPwd(User user){
+		String url = user.getUrl()+CHECK_STOCK_PWD+Tools.getTimeStamp(true);
+		String data = "pwd="+user.getStockPwd()+"&callback_func_name=callback_submit_form_check_pwd&callback_obj_name=dlg_check_pwd";
+		String page = PageService.postPage(url, data, user);
+		Matcher m = checkResult.matcher(page);
+		if(m.find()){
+			return true;
+		}
+		return false;
+	}
+	private static List<Item> getStockList(User user){
+		if(!checkStockPwd(user)){
+			logger.info(user.getRoleName()+"仓库密码错误");
+			return null;
+		}
+		
+		List<Item> l = new ArrayList<Item>();
+		String url = user.getUrl()+LIST_STOCK+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		int index = page.indexOf("\"stock\":{");
+		page = page.substring(index);
+		Matcher out = item.matcher(page);
+		while(out.find()){
+			String s = out.group();
+			Matcher m = p.matcher(s);
+			if(m.find()){
+				l.add(new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(7),m.group(6)));
+			}
+		}
+		return l;
+	}
 	private static List<Item> getSiHaiKuFang(User user){
 		List<Item> l = new ArrayList<Item>();
 		String url = user.getUrl()+SI_HAI_KU_FANG+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		int index = page.indexOf("teamstock\":{");
+		if(index == -1){
+			logger.info(user.getRoleName()+"四海库房到期");
+			return new ArrayList<Item>();
+		}
 		page = page.substring(index);
 		Matcher out = item.matcher(page);
 		while(out.find()){

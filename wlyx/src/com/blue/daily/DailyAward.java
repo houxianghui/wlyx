@@ -24,6 +24,7 @@ public class DailyAward extends BaseThread {
 				Monstor.checkAndSell(user);
 				ItemMerge.merge(user);
 				ItemMerge.mergeSiHaiKuFang(user);
+				ItemMerge.mergeStock(user);
 				sleep(60*60*1000);
 			}catch(Exception e){
 			}

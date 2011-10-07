@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.blue.common.User;
 import com.blue.tools.PageService;
+import com.blue.tools.Tools;
 
 public class VeryCD {
 	private static Logger logger = Logger.getLogger(VeryCD.class);
@@ -64,6 +65,9 @@ public class VeryCD {
 				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), sb.toString());
 				String cookie = getCookie(nextUrl,user);
 				user.setCookie(cookie);
+				if(!Tools.isEmpty(user.getStockPwd())){
+					PageService.setStocktCookie(user);
+				}
 				PageService.setCookie(user);
 			}
 		}catch(Exception e){

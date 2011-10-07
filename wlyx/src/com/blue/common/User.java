@@ -85,6 +85,7 @@ public class User {
 	//个人属性
 	private String userName;			//登陆用户名
 	private String password;
+	private String stockPwd;			//仓库密码
 	private int mingZhong;				//命中
 	private int duoShan;				//闪避
 	private int baoJi;					//暴击
@@ -634,5 +635,11 @@ public class User {
 	}
 	public void setMinThickness(int minThickness) {
 		this.minThickness = minThickness;
+	}
+	public String getStockPwd() {
+		return stockPwd;
+	}
+	public void setStockPwd(String stockPwd) {
+		this.stockPwd = stockPwd;
 	}
 }
