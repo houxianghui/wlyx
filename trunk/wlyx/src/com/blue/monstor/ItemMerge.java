@@ -99,7 +99,7 @@ public class ItemMerge {
 	}
 	public static void mergeSiHaiKuFang(User user){
 		List<Item> l = getSiHaiKuFang(user);
-		if(l == null){
+		if(l == null || l.size() == 0){
 			return;
 		}
 		Map<String,Item> m = new HashMap<String, Item>();
@@ -112,7 +112,7 @@ public class ItemMerge {
 	}
 	public static void mergeStock(User user){
 		List<Item> l = getStockList(user);
-		if(l == null){
+		if(l == null || l.size() == 0){
 			return;
 		}
 		Map<String,Item> m = new HashMap<String, Item>();
