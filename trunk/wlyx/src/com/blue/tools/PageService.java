@@ -16,6 +16,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.log4j.Logger;
@@ -28,6 +30,8 @@ import com.blue.tools.login.VeryCD;
 public class PageService {
 	
 	private static Logger logger = Logger.getLogger(PageService.class);
+	private static String CHECK_STOCK_PWD = "modules/warrior.php?act=hall&op=check_pwd";
+	
 	public static String getPageWithCookie(String page, User user) {
 		String str = null;
 		int count = 3;
@@ -48,7 +52,84 @@ public class PageService {
 		return str;
 
 	}
-
+	public static boolean setStocktCookie(User user){
+		String page = user.getUrl()+CHECK_STOCK_PWD+Tools.getTimeStamp(true);
+		Pattern p = Pattern.compile("");
+		String data = "pwd="+user.getStockPwd()+"&callback_func_name=callback_submit_form_check_pwd&callback_obj_name=dlg_check_pwd";
+		String result =  PageService.postPage(page, data, user);
+		Matcher m = p.matcher(result);
+		if(!m.find()){
+			logger.info(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ£¨≤ªΩ¯––≤÷ø‚∫œ≤¢≤Ÿ◊˜");
+			return false;
+		}
+		HttpURLConnection con = null;
+		InputStream inputStream = null;
+		try {
+	
+			URL url = new URL(page);
+			con = (HttpURLConnection) url.openConnection();
+			
+			if(con != null){
+				if (user.getCookie() != null) {
+					con.addRequestProperty("Cookie", user.getCookie());
+				}
+				con.setRequestMethod("POST");
+				con.setDoOutput(true);
+				con.setRequestProperty("connection", "none");
+				setGZipOn(con);
+				HttpURLConnection.setFollowRedirects(false);
+				OutputStream os = con.getOutputStream();
+				if(os != null){
+					os.write(data.getBytes("UTF-8"));
+					os.flush();
+					os.close();
+				}
+				StringBuffer sb = new StringBuffer("");
+				String key = null;
+				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
+					String value = con.getHeaderField(i);
+					if (key.startsWith("Set-Cookie")) {
+						if (!(value.contains("=deleted;"))) {
+							int index = value.indexOf(";");
+							if (index > 0)
+								sb.append(value.substring(0, index + 1));
+						}
+					} else if ((key.startsWith("location:"))
+							&& (value.contains("error_code"))) {
+						logger.error(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ");
+						return false;
+					}
+				}
+				user.setCookie(sb.toString());
+				return true;
+			}
+		}catch(SocketTimeoutException e){ 
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
+		}catch (Exception ex) {
+			logger.error(user.getRoleName()+" "+ex.getMessage());
+			if(logger.isDebugEnabled()){
+				logger.error(ex);
+			}
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
+		} finally {
+			if(inputStream != null){
+				try{
+					inputStream.close();
+				}catch(Exception e){
+					logger.error(e.getMessage());
+				}
+			}
+			if(con != null){
+				con.disconnect();
+			}
+		}
+		return false;
+		
+	}
 	private static String _getPageWithCookie(String page, User user) {
 		HttpURLConnection con = null;
 		InputStream inputStream = null;

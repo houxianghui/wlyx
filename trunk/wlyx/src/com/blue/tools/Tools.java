@@ -1,7 +1,9 @@
 package com.blue.tools;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -30,6 +32,11 @@ public class Tools {
 			i = 4;
 		}
 		return "&timeMark="+System.currentTimeMillis()/1000+"&time="+i+"0&timeStamp="+System.currentTimeMillis();
+	}
+	public static String getNow(){
+		Date d = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(d);
 	}
 	/*
 	 *\\uhhhh
@@ -64,6 +71,10 @@ public class Tools {
 	public static int getDay(){
 		Calendar c = Calendar.getInstance();
 		return c.get(Calendar.DATE);
+	}
+	public static int getDayOfWeek(){
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.DAY_OF_WEEK);
 	}
 	/**
 	 * 将231,231,311格式的字符串转换为double

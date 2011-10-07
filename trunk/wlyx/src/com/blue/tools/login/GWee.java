@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.blue.common.User;
 import com.blue.tools.PageService;
+import com.blue.tools.Tools;
 
 public class GWee {
 	private static final String VERIFY_SERVER = "passport.9wee.com";
@@ -66,6 +67,9 @@ public class GWee {
 				nextUrl = getLogin(nextUrl,sb,user);
 				String cookie = getCookie(nextUrl,user,sb.toString());
 				user.setCookie(cookie);
+				if(!Tools.isEmpty(user.getStockPwd())){
+					PageService.setStocktCookie(user);
+				}
 				PageService.setCookie(user);
 			}
 		}catch(Exception e){
