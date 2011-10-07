@@ -43,12 +43,20 @@ public class UserRead {
 			return;
 		}
 		String pwd = e.attributeValue("password");
+		String stockPwd = e.attributeValue("stockPwd");
+		if(stockPwd == null){
+			stockPwd = "";
+		}
 		String[] users = userName.split(",");
 		String[] pwds = pwd.split(",");
+		String[] stockPwds = stockPwd.split(",");
 		for(int i = 0;i < users.length;i++){
 			User user = new User();
 			user.setUserName(users[i]);
 			user.setPassword(pwds[i]);
+			if(i<stockPwds.length){
+				user.setStockPwd(stockPwds[i]);
+			}
 			user.setUrl(e.attributeValue("host"));
 			setMonstor(e,user);
 			setWarrior(e, user);
