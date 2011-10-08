@@ -143,7 +143,8 @@ public class ItemMerge {
 		String url = user.getUrl()+LIST_STOCK+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		int index = page.indexOf("\"stock\":{");
-		page = page.substring(index);
+		int end = page.indexOf("\"my_equip\":");
+		page = page.substring(index,end);
 		Matcher out = item.matcher(page);
 		while(out.find()){
 			String s = out.group();
@@ -159,11 +160,12 @@ public class ItemMerge {
 		String url = user.getUrl()+SI_HAI_KU_FANG+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		int index = page.indexOf("teamstock\":{");
+		int end = page.indexOf("\"my_equip\":");
 		if(index == -1){
 			logger.info(user.getRoleName()+"四海库房到期");
 			return null;
 		}
-		page = page.substring(index);
+		page = page.substring(index,end);
 		Matcher out = item.matcher(page);
 		while(out.find()){
 			String s = out.group();
@@ -175,7 +177,7 @@ public class ItemMerge {
 		return l;
 	}
 	private static Item getItem(Matcher m ){
-		return new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(8),m.group(7),"0".equals(m.group(6)));
+		return new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(8),m.group(7),"1".equals(m.group(6)));
 	}
 	private static List<Item> getPack(User user){
 		List<Item> l = new ArrayList<Item>();
