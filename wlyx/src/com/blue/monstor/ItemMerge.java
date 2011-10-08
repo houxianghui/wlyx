@@ -30,7 +30,7 @@ public class ItemMerge {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=hall&op=check_pwd&timeStamp=1317909962943
 	private static String CHECK_STOCK_PWD = "modules/warrior.php?act=hall&op=check_pwd";
 	
-	private static Pattern p = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?\"position_x\":\"(\\d+)\",\"position_y\":\"(\\d+)\".*?max_superpose\":\"(\\d+)\",\"superpose\":\"(\\d+)\"");
+	private static Pattern p = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?\"position_x\":\"(\\d+)\",\"position_y\":\"(\\d+)\".*?binding_type\":\"(\\d+)\".*?max_superpose\":\"(\\d+)\",\"superpose\":\"(\\d+)\"");
 	private static Pattern item = Pattern.compile("item_id.*?theory_max_strengthen");
 	private static Pattern checkResult = Pattern.compile("\"success\":1",Pattern.DOTALL);
 	
@@ -149,7 +149,7 @@ public class ItemMerge {
 			String s = out.group();
 			Matcher m = p.matcher(s);
 			if(m.find()){
-				l.add(new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(7),m.group(6)));
+				l.add(new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(8),m.group(7),"0".equals(m.group(6))));
 			}
 		}
 		return l;
@@ -169,10 +169,13 @@ public class ItemMerge {
 			String s = out.group();
 			Matcher m = p.matcher(s);
 			if(m.find()){
-				l.add(new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(7),m.group(6)));
+				l.add(getItem(m));
 			}
 		}
 		return l;
+	}
+	private static Item getItem(Matcher m ){
+		return new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(8),m.group(7),"0".equals(m.group(6)));
 	}
 	private static List<Item> getPack(User user){
 		List<Item> l = new ArrayList<Item>();
@@ -183,7 +186,7 @@ public class ItemMerge {
 			String s = out.group();
 			Matcher m = p.matcher(s);
 			if(m.find()){
-				l.add(new Item(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(7),m.group(6)));
+				l.add(getItem(m));
 			}
 		}
 		return l;
@@ -219,7 +222,7 @@ public class ItemMerge {
 						Matcher m = p.matcher(i.getCNName());
 						if(m.find()){
 							find = true;
-							logger.info(user.getRoleName()+" "+i.getCNName());
+							logger.info(user.getRoleName()+" "+i.getCNName()+" "+("0".equals(i.getCount())?"":i.getCount()+"¸ö ")+(i.isBind()?"ÒÑ":"Î´")+"°ó¶¨");
 						}
 					}
 					if(!find){

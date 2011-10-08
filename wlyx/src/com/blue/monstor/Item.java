@@ -12,6 +12,7 @@ public class Item {
 	private String equipType;
 	private String count;
 	private String maxCount;
+	private boolean isBind;
 	public String getMaxCount() {
 		return maxCount;
 	}
@@ -44,15 +45,19 @@ public class Item {
 	}
 	private String positionX;
 	private String positionY;
-	public Item(String id,String name,String type,String quality,String checked,int sellPrice) {
+	public Item(String id,String name,String type,String quality,String checked,int sellPrice,boolean isbind) {
 		this.id = id;
 		this.name = name;
 		this.quality = quality;
 		this.checked = checked;
 		this.sellPrice = sellPrice;
 		this.equipType = type;
+		this.isBind = isbind;
 	}
-	public Item(String id,String name,String equipType,String x,String y,String count,String maxCount) {
+	public Item(String id,String name,String type,String quality,String checked,int sellPrice) {
+		this(id,name,type,quality,checked,sellPrice,false);
+	}
+	public Item(String id,String name,String equipType,String x,String y,String count,String maxCount,boolean isBind) {
 		this.id = id;
 		this.name = name;
 		this.equipType = equipType;
@@ -60,6 +65,10 @@ public class Item {
 		this.positionY = y;
 		this.count = count;
 		this.maxCount = maxCount;
+		this.isBind = isBind;
+	}
+	public Item(String id,String name,String equipType,String x,String y,String count,String maxCount) {
+		this(id,name,equipType,x,y,count,maxCount,false);
 	}
 	public int getSellPrice() {
 		return sellPrice;
@@ -97,5 +106,11 @@ public class Item {
 	@Override
 	public String toString() {
 		return "[id="+id+"\tname="+Tools.hexToString(name)+"\tequipType="+equipType+"\tpositionX="+positionX+"\tPositionY="+positionY+"\tcount="+count+"\tmaxcount="+maxCount+"]";
+	}
+	public boolean isBind() {
+		return isBind;
+	}
+	public void setBind(boolean isBind) {
+		this.isBind = isBind;
 	}
 }
