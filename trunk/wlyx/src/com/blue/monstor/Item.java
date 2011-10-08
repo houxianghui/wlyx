@@ -91,6 +91,9 @@ public class Item {
 	public void setChecked(String checked) {
 		this.checked = checked;
 	}
+	public String getCNName(){
+		return Tools.hexToString(name);
+	}
 	@Override
 	public String toString() {
 		return "[id="+id+"\tname="+Tools.hexToString(name)+"\tequipType="+equipType+"\tpositionX="+positionX+"\tPositionY="+positionY+"\tcount="+count+"\tmaxcount="+maxCount+"]";

@@ -188,4 +188,46 @@ public class ItemMerge {
 		}
 		return l;
 	}
+	public static void find(String key,final List<User> users){
+		String[] regexs = key.split(" ");
+		if(regexs.length == 0){
+			logger.info("«Î ‰»Îπÿº¸◊÷");
+			return;
+		}
+		StringBuffer regex = new StringBuffer();
+		for(int i = 0;i<regexs.length;i++){
+			regex.append(regexs[i]);
+			if(i<regexs.length-1){
+				regex.append(".*?");
+			}
+		}
+		final Pattern p = Pattern.compile(regex.toString());
+		for(final User user:users){
+			new Thread(){
+				public void run() {
+					List<Item> l = getPack(user);
+					List<Item> stock = getStockList(user);
+					if(stock != null){
+						l.addAll(stock);
+					}
+					List<Item> teamStock = getSiHaiKuFang(user);
+					if(teamStock != null){
+						l.addAll(teamStock);
+					}
+					boolean find = false;
+					for(Item i:l){
+						Matcher m = p.matcher(i.getCNName());
+						if(m.find()){
+							find = true;
+							logger.info(user.getRoleName()+" "+i.getCNName());
+						}
+					}
+					if(!find){
+						logger.info(user.getRoleName()+"Œ¥’“µΩ");
+					}
+				};
+			}.start();
+			
+		}
+	}
 }
