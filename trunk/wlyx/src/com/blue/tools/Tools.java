@@ -14,6 +14,7 @@ public class Tools {
 		}
 		return "?timeStamp="+System.currentTimeMillis();
 	}
+	
 	public static String getRandAndTime(){
 		return "&rand="+System.currentTimeMillis()+getTimeStamp(true);
 	}
@@ -49,8 +50,12 @@ public class Tools {
 		String[] t = hex.split("\\\\u");
 		for(int i = 0;i < t.length;i++){
 			try{
-				char c = (char)Integer.parseInt(t[i],16);
-				sb.append(c);
+				if(t[i].length() == 4){
+					char c = (char)Integer.parseInt(t[i],16);
+					sb.append(c);
+				}else{
+					sb.append(t[i].replaceAll("7b2c", ""));
+				}
 			}catch(Exception e){}
 			
 		}
