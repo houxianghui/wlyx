@@ -144,6 +144,10 @@ public class ItemMerge {
 		String page = PageService.getPageWithCookie(url, user);
 		int index = page.indexOf("\"stock\":{");
 		int end = page.indexOf("\"my_equip\":");
+		if(index < 0 || end <0){
+			logger.info(user.getRoleName()+"获取仓库信息出错");
+			return null;
+		}
 		page = page.substring(index,end);
 		Matcher out = item.matcher(page);
 		while(out.find()){
@@ -194,19 +198,12 @@ public class ItemMerge {
 		return l;
 	}
 	public static void find(String key,final List<User> users){
-		String[] regexs = key.split(" ");
+		final String[] regexs = key.split(" ");
 		if(regexs.length == 0){
 			logger.info("请输入关键字");
 			return;
 		}
-		StringBuffer regex = new StringBuffer();
-		for(int i = 0;i<regexs.length;i++){
-			regex.append(regexs[i]);
-			if(i<regexs.length-1){
-				regex.append(".*?");
-			}
-		}
-		final Pattern p = Pattern.compile(regex.toString());
+		
 		for(final User user:users){
 			new Thread(){
 				public void run() {
@@ -219,15 +216,22 @@ public class ItemMerge {
 					if(teamStock != null){
 						l.addAll(teamStock);
 					}
-					boolean find = false;
+					boolean find = true;
+					boolean match = false;
 					for(Item i:l){
-						Matcher m = p.matcher(i.getCNName());
-						if(m.find()){
-							find = true;
+						find = true;
+						for(String s:regexs){
+							if(i.getCNName().indexOf(s) < 0){
+								find = false;
+								break;
+							}
+						}
+						if(find){
+							match = true;
 							logger.info(user.getRoleName()+" "+i.getCNName()+" "+("0".equals(i.getCount())?"":i.getCount()+"个 ")+(i.isBind()?"已":"未")+"绑定");
 						}
 					}
-					if(!find){
+					if(!match){
 						logger.info(user.getRoleName()+"未找到");
 					}
 				};
