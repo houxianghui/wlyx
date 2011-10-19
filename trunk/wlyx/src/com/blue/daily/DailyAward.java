@@ -1,3 +1,6 @@
+/**
+ * 每小时一次的监控进程
+ */
 package com.blue.daily;
 
 
@@ -6,6 +9,7 @@ import com.blue.common.Monitor;
 import com.blue.common.User;
 import com.blue.monstor.ItemMerge;
 import com.blue.monstor.Monstor;
+import com.blue.team.TeamEnergy;
 
 public class DailyAward extends BaseThread {
 	private User user;
@@ -25,6 +29,7 @@ public class DailyAward extends BaseThread {
 				ItemMerge.merge(user);
 				ItemMerge.mergeSiHaiKuFang(user);
 				ItemMerge.mergeStock(user);
+				TeamEnergy.sendEnergy(user);
 				sleep(60*60*1000);
 			}catch(Exception e){
 			}
