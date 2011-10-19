@@ -16,6 +16,7 @@ public class Main {
 	public static void main(String[] args)throws Exception {
 		if(System.getProperty("window") != null){
 			TestSystemTray.startWithFrame();
+			Main.start();
 		}else{
 			start();
 		}
