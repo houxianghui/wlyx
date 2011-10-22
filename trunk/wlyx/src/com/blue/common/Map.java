@@ -99,7 +99,7 @@ public class Map {
 		thirdMap.put("纣王亩", "526");
 		thirdMap.put("封神台", "527");
 		thirdMap.put("太乙池", "509");
-		
+		thirdMap.put("纣王墓", "526");
 	}
 	private static void initBigMap() {
 		bigMap.put("蓟京", "8");

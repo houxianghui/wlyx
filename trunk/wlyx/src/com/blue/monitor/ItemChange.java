@@ -12,6 +12,7 @@ import com.blue.tools.Tools;
 public class ItemChange {
 	private static Logger logger = Logger.getLogger(ItemChange.class);
 	//http://s4.verycd.9wee.com/modules/ore.php?submit=1&id=3&num=1&timeStamp=1290239964789&callback_func_name=ajaxCallback
+	//http://s4.verycd.9wee.com/modules/ore.php?submit=1&id=28&num=1&timeStamp=1318341639717&callback_func_name=ajaxCallback
 	private static final String CHENG_JI = "modules/ore.php?submit=1&num=1&callback_func_name=ajaxCallback&id=";
 	private static Pattern success = Pattern.compile("result\":\"(.*)\"");
 	public static void changeChengJiDan(User user){
@@ -44,6 +45,15 @@ public class ItemChange {
 				page = PageService.getPageWithCookie(url, user);
 				if((flag=successChange(page)) == true){
 					logger.info(user.getRoleName()+"兑换队徽成功");
+				}
+			}while(flag);
+		}
+		for(int i = 28;i<29;i++){
+			do{
+				String url = user.getUrl()+CHENG_JI+i+Tools.getTimeStamp(true);
+				page = PageService.getPageWithCookie(url, user);
+				if((flag=successChange(page)) == true){
+					logger.info(user.getRoleName()+"兑换青铜礼包成功");
 				}
 			}while(flag);
 		}
