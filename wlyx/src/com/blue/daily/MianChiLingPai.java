@@ -85,11 +85,11 @@ public class MianChiLingPai {
 	}
 
 	public static void getLingPai(User user){
-		if(Tools.needGetLingPai() && user.isCanMove()){
-			int now = Tools.getNowHour();
-			if(now >= 5 && now <=7){
-				MianChiLingPai.moveToLianZongXiYing(user);
-			}
-		}
+//		if(Tools.needGetLingPai() && user.isCanMove()){
+//			int now = Tools.getNowHour();
+//			if(now >= 5 && now <=7){
+//				MianChiLingPai.moveToLianZongXiYing(user);
+//			}
+//		}
 	}
 }
