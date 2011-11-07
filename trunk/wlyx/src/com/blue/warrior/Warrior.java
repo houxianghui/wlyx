@@ -41,7 +41,7 @@ public class Warrior {
 			String date = m.group(1).substring(0,10);
 			String now = Tools.getNow();
 			if(now.equals(date)){
-				if(Tools.getNowHour()>=11){
+				if(Tools.getNowHour()>=23){
 					return true;
 				}else{
 					return false;
