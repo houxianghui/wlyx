@@ -20,8 +20,8 @@ public class Attack {
 	private static Pattern speed = Pattern.compile("combatLive.combatLiveSpeed = (\\d+)");
 	private static Pattern time = Pattern.compile("\"t\":(\\d+),\"f\":\"finish\"");
 	private static Pattern p = Pattern.compile("success\":\"(\\S+?)\"");
-	public static boolean attack(User user){
-		String url = user.getUrl()+"modules/monster_fight.php?mid=1004"+Tools.getRandAndTime();
+	public static boolean attack(User user,String mid){
+		String url = user.getUrl()+"modules/monster_fight.php?mid="+mid+Tools.getRandAndTime();
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = p.matcher(page);
 		if(m.find()){
