@@ -17,6 +17,8 @@ public class KillMonstor {
 			String s = scan.next();
 			System.out.println("请输入攻击次数");
 			String time = scan.next();
+			System.out.println("请输入怪物编号");
+			String mid = scan.next();
 			int t = Integer.parseInt(time);
 			String[] users = s.split(",");
 			Iterator<User> it = l.iterator();
@@ -28,7 +30,7 @@ public class KillMonstor {
 						for(int j =0;j<t;j++){
 							boolean b = false;
 							do{
-								b =	Attack.attack(u);
+								b =	Attack.attack(u,mid);
 							}while(!b);
 							System.out.println((j+1)+"次攻击完成");
 						}
