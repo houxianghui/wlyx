@@ -22,8 +22,10 @@ public class GWee {
 		try{
 			URL url = new URL("https://"+VERIFY_SERVER+"/login");
 			con = (HttpURLConnection) url.openConnection();
+//			String data = "username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
+//					"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+"&x=20&y=16";
 			String data = "username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
-					"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+"&x=20&y=16";
+					"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+"&_REFERER=http%3A%2F%2Fs95.hero.9wee.com%2Fpassport.php%3Fact%3Dlogin%26referer%3D%2F";
 			if(con != null){
 				con.setDoOutput(true);
 				
