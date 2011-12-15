@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CreditCardWeb" default="deploy" basedir=".">
+
+	<property name="src.dir" value="JavaSource" />
+	<property name="web.dir" value="WebContent" />
+	<property name="build.dir" value="${web.dir}/WEB-INF/classes" />
+	<property name="target.dir" value="dist" />
+	<property name="lib.dir" value="${web.dir}/WEB-INF/lib"/>
+	<property name="j2ee.dir" value="/Volumes/home/Library/Genuitec/Common/plugins/com.genuitec.eclipse.j2eedt.core_7.5.0.zmyeclipse75020090612/data/libraryset/1.4/"/>
+	
+	<property name="test.dir" value="test"/>
+	<property name="test.src" value="${test.dir}/unit/"/>	
+	<property name="test.build" value="${build.dir}/test/classes"/>
+	<property name="test.data" value="${build.dir}/test/data"/>
+	<property name="test.report" value="${target.dir}/test/reports"/>
+
+	<property name="compile.deprecation" value="false" />
+	<property name="compile.optimize" value="false" />
+		
+	<property name="catalina.dir" value="/Volumes/dev/work/apache-tomcat-5.5.28"/>
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<fileset dir="${j2ee.dir}" includes="**/*.jar"/>
+		<fileset dir="test/lib" includes="**/*.jar"/>
+	</path>
+	<path id="test.classpath">
+		<path location="${build.dir}"/>
+		<path refid="compile.classpath"/>
+	</path>
+	
+	
+	<target name="genfiles" description="Generate the files">
+		<taskdef name="abator" classname="org.apache.ibatis.abator.ant.AbatorAntTask" classpath="test/lib/abator.jar" />
+		<abator overwrite="true" configfile="abatorConfig.xml" verbose="true">
+			<propertyset>
+				<propertyref name="${generated.source.dir}" />
+			</propertyset>
+		</abator>
+	</target>
+	
+	<target name="clean" >
+		<delete dir="${build.dir}"/>
+		<delete dir="${target.dir}" />
+		
+	</target>
+			
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${target.dir}" />
+	</target>
+			
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" 
+			encoding="gb18030" verbose="false" debug="true" source="1.4" target="1.4"
+			fork="true" memorymaximumsize="500M" 
+			deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<classpath refid="compile.classpath"/>
+		</javac>
+
+		<copy todir="${build.dir}" verbose="true">
+		   <fileset dir="${src.dir}">
+			  <exclude name="**/?*.java"/>
+		   </fileset>
+		</copy>
+	</target>
+
+	<target name="deploy" depends="compile">
+		<sync todir="${catalina.dir}/webapps/${ant.project.name}">
+			<fileset dir="${web.dir}"/>
+		</sync>
+	</target>
+	
+	<target name="start" depends="deploy">
+		
+	</target>
+	
+	<target name="tomcat.stop">
+		<echo message="停止Tomcat Web Server..."/>
+		<java classname="org.apache.catalina.startup.Bootstrap" spawn="yes" fork="true">
+			<jvmarg value="-Djava.endorsed.dirs=${catalina.dir}/common/endorsed"/>
+			<jvmarg value="-Dcatalina.base=${catalina.dir}"/>
+			<jvmarg value="-Dcatalina.home=${catalina.dir}"/>
+			<jvmarg value="-Djava.io.tmpdir=${catalina.dir}/temp"/>
+			<arg value="stop"/>
+			<classpath>
+				<pathelement location="${catalina.dir}/bin/bootstrap.jar"/>
+			</classpath>
+		</java>
+		<waitfor maxwait="10" maxwaitunit="minute" checkevery="1" checkeveryunit="second">
+			<not>
+				<http url="http://localhost:${tomcat.port}"/>
+			</not>
+		</waitfor>
+		<echo message="Tomcat Web Server已停止"/>
+	</target>
+	
+	<target name="tomcat.start" depends="deploy">
+		<java classname="org.apache.catalina.startup.Bootstrap" fork="true">
+			<jvmarg value="-Djava.endorsed.dirs=${catalina.dir}/common/endorsed"/>
+			<jvmarg value="-Dcatalina.base=${catalina.dir}" />
+			<jvmarg value="-Dcatalina.home=${catalina.dir}"/>
+			<jvmarg value="-Djava.io.tmpdir=${catalina.dir}/temp"/>
+			<arg value="start"/>
+			<classpath>
+				<pathelement location="${catalina.dir}/bin/bootstrap.jar"/>
+			</classpath>
+		</java>
+	</target>
+
+</project>

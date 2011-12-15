@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="gb18030" ?>
+<!DOCTYPE abatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Abator for iBATIS Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/abator-config_1_0.dtd">
+<abatorConfiguration >
+   <abatorContext id="DB2Tables" generatorSet="Java2">
+   <jdbcConnection driverClass="net.sourceforge.jtds.jdbc.Driver" connectionURL="jdbc:jtds:sybase://10.232.27.200:4700/djkwgdb;charset=cp936" userId="djkwgdbo" password="djkwgdbo" >
+      <classPathEntry location="E://Library//WorkSpace//DJKWG_finance//CreditCardWeb//WebContent//WEB-INF//lib//jtds-1.2.2.jar" />
+   </jdbcConnection>
+   <javaModelGenerator targetPackage="com.huateng.creditcard.acctsadjust.Vo" targetProject="E://Library//WorkSpace//DJKWG_finance//CreditCardWeb//JavaSource//" >
+		<property name="trimStrings" value="true" />
+   </javaModelGenerator>
+   <sqlMapGenerator targetPackage="sqlmaps.acctsadjust" targetProject="E://Library//WorkSpace//DJKWG_finance//CreditCardWeb//JavaSource//" />
+<!--  <table tableName="accts_adjust"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+      <table tableName="fs_adjust"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+       <table tableName="accts_adjust_records_temp"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+       <table tableName="fs_adjust_records_temp"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>  
+      
+       <table tableName="accts_action_code"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+       <table tableName="accts_inputter_checker"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+       <table tableName="accts_oper_log"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+    -->
+     <table tableName="accts_adjust_file_info"
+    	enableInsert="true"
+    	enableSelectByExample="true"
+    	enableSelectByPrimaryKey="true"
+    	enableUpdateByPrimaryKey="true"
+    	enableDeleteByPrimaryKey="false"
+    	enableDeleteByExample="false"
+    	enableCountByExample="true"
+    	enableUpdateByExample="true">
+    </table>
+  </abatorContext>
+
+</abatorConfiguration>

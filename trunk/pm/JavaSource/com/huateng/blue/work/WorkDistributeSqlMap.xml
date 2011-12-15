@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="work_distribute">
+
+	<select id="getSelectedStuff" resultClass="string" parameterClass="string">
+		select 
+			a.USER_ID 
+		from project_distribute a,ep_user b
+		where a.PROJECT_ID=#value#
+		and a.USER_ID=b.USER_ID
+	</select>
+	<select id="getNotSelectedStuff" resultClass="string" parameterClass="string">
+		select 
+			USER_ID 
+		from ep_user 
+		where exists(
+			select * from ep_user_role a,ep_role b
+			where a.ROLE_ID=b.ROLE_ID
+			and b.ROLE_NAME='员工'
+			and a.USER_ID=ep_user.USER_ID)			
+		and STAT in ('1','4')
+		order by USER_NAME
+	</select>
+	<select id="getWeekWork" resultMap="work_distribute.ibatorgenerated_BaseResultMap" parameterClass="com.huateng.blue.work.WorkDistributeExample">
+		select a.ID, a.WORK_ID, a.USER_ID, a.START_DATE, a.END_DATE,concat(b.CONTENT,': ',a.CONTENT) as CONTENT, a.WORK_STATUS, a.INPUT_USER, a.INPUT_DATE,
+	      a.NOTIFY_DAY
+	    from work_distribute a,work_list b
+	    
+	    <isParameterPresent>
+	      <include refid="work_distribute.ibatorgenerated_Example_Where_Clause" />
+	     
+	    </isParameterPresent>
+		and a.WORK_ID=b.WORK_ID
+	</select>
+</sqlMap>

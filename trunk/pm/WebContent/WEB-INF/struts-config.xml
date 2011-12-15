@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+	<!--
+		===================== data sources =================================
+	-->
+	<data-sources></data-sources>
+	<!--
+		========================= beans ====================================
+	-->
+	<!-- Bean -->
+	<form-beans>
+		<form-bean name="roleForm" type="com.eis.portal.role.RoleForm" />
+		<form-bean name="menuForm" type="com.eis.portal.menu.MenuForm" />
+		<form-bean name="opForm" type="com.eis.portal.op.OPForm" />
+		<form-bean name="rolemenuForm" type="com.eis.portal.rolemenu.RoleMenuForm" />
+		<form-bean name="roleOPForm" type="com.eis.portal.roleop.RoleOPForm" />
+		<form-bean name="userForm" type="com.eis.portal.user.UserForm" />
+		<form-bean name="loginChangeRoleForm"
+			type="com.eis.portal.loginchangerole.LoginChangeRoleForm" />
+		<form-bean name="homePageForm" type="com.eis.portal.homepage.HomePageForm" />
+		<form-bean name="reDefSDicForm" type="com.eis.dic.redefsdic.ReDefSDicForm" />
+		<form-bean name="dicTypeForm" type="com.eis.dic.dictype.DicTypeForm" />
+		<form-bean name="sDicForm" type="com.eis.dic.sdic.SDicForm" />
+		<form-bean name="pmKeyForm" type="com.eis.key.pmkey.PmKeyForm" />
+
+		<!--登录模块 登录验证-->
+		<form-bean name="loginForm" type="com.eis.portal.login.LoginForm" />
+		<!--系统维护模块 操作日志管理-->
+		<form-bean name="userLogoutForm" type="com.eis.portal.userlogout.UserLogoutForm" />
+		<!--登录模块 修改密码-->
+		<form-bean name="passwordForm" type="com.eis.portal.password.PasswordForm" />
+		<form-bean name="userLoginForm" type="com.eis.portal.userlogin.UserLoginForm" />
+		<!--多级字典-->
+		<form-bean name="mDicForm" type="com.eis.dic.mdic.MDicForm" />
+		<!--登录首页-->
+		<form-bean name="logIndexForm"
+			type="com.huateng.creditcard.apply.logindex.LogIndexForm" />
+		<form-bean name="projectMaintainForm" type="com.projectmaintain.ProjectMaintainForm" />
+		<form-bean name="programMaintainForm" type="com.projectmaintain.ProgramMaintainForm" />
+		<form-bean name="projectDistributeForm" type="com.projectmaintain.ProjectDistributeForm" />
+		<form-bean name="reportProjectDataListForm"
+			type="com.projectmaintain.ReportProjectDataListForm"></form-bean>
+		<form-bean name="getNotWriteNoteStuffForm"
+			type="com.projectmaintain.GetNotWriteNoteStuffForm" />
+		<form-bean name="scoreInfoForm" type="com.projectmaintain.ScoreInfoForm"></form-bean>
+		<form-bean name="issueRecordForm" type="com.projectmaintain.IssueRecordForm"></form-bean>
+		<form-bean name="requireChangeForm" type="com.projectmaintain.RequireChangeForm" />
+		<form-bean name="tASK_LISTForm" type="com.work.TASK_LISTForm" />
+		<form-bean name="pROJECT_LISTForm" type="com.work.PROJECT_LISTForm" />
+		<form-bean name="maintain_recordForm" type="com.maintainrecord.Maintain_recordForm" />
+		<form-bean name="lx_infoForm" type="com.lx.Lx_infoForm" />
+		
+		<form-bean name="workListForm" type="com.huateng.blue.work.WorkListForm"/>
+		<form-bean name="workDistributeForm" type="com.huateng.blue.work.WorkDistributeForm"/>
+		<form-bean name="workDailyForm" type="com.huateng.blue.work.WorkDailyForm"/>
+		<form-bean name="noticeForm" type="com.huateng.blue.notice.Ep_noticeForm"/>
+		<form-bean name="mainProblemForm" type="com.huateng.blue.work.MainProblemForm"/>
+		<form-bean name="signRecordForm" type="com.huateng.blue.work.SignRecordForm"/>
+	</form-beans>
+	<global-exceptions>
+	</global-exceptions>
+	<global-forwards>
+		<forward name="relogin" path="/portal/login/time_over.jsp" />
+		<forward name="default_error" path="/common/default_error.jsp" />
+		<forward name="base_error" path="/common/base_error.jsp" />
+		<forward name="error_close" path="/common/error_close.jsp" />
+		<forward name="default_success" path="/common/default_success.jsp" />
+		<forward name="default_homepage" path="/main.jsp" />
+		<forward name="doubleSubmit" path="/common/double_submit.jsp"></forward>
+		<forward name="error_msg" path="/common/error_message.jsp"></forward>
+		<forward name="doubleSubmit" path="/common/double_submit.jsp"></forward>
+	</global-forwards>
+	<action-mappings>
+		<action path="/Role" type="com.eis.portal.role.RoleAction"
+			name="roleForm" scope="request" validate="false">
+			<forward name="new" path="/portal/role/Role_new.jsp" />
+			<forward name="edit" path="/portal/role/Role_edit.jsp" />
+			<forward name="list" path="/portal/role/Role_list.jsp" />
+			<forward name="view" path="/portal/role/Role_view.jsp" />
+		</action>
+		<action path="/Menu" type="com.eis.portal.menu.MenuAction"
+			name="menuForm" scope="request" validate="false">
+			<forward name="new" path="/portal/menu/Menu_new.jsp" />
+			<forward name="edit" path="/portal/menu/Menu_edit.jsp" />
+			<forward name="view" path="/portal/menu/Menu_view.jsp" />
+			<forward name="list" path="/portal/menu/Menu_list.jsp" />
+			<forward name="blank" path="/portal/menu/blank.jsp" />
+			<forward name="beforeFirstLevel" path="/portal/menu/beforeFirstLevel.jsp" />
+			<forward name="listWithPerm" path="/portal/menu/Menu_list_withPerm.jsp" />
+		</action>
+		<action path="/OP" type="com.eis.portal.op.OPAction" name="opForm"
+			scope="request" validate="false">
+			<forward name="new" path="/portal/op/OP_new.jsp" />
+			<forward name="edit" path="/portal/op/OP_edit.jsp" />
+			<forward name="list" path="/portal/op/OP_list.jsp" />
+			<forward name="blank" path="/portal/op/OP_blank.jsp" />
+			<forward name="menulist" path="/portal/op/OP_menulist.jsp" />
+		</action>
+		<action path="/RoleMenu" type="com.eis.portal.rolemenu.RoleMenuAction"
+			name="rolemenuForm" scope="request" validate="false">
+			<forward name="list" path="/portal/role/Role_menu_list.jsp" />
+			<forward name="edit" path="/portal/rolemenu/Role_menu_edit.jsp" />
+		</action>
+		<action path="/RoleOP" type="com.eis.portal.roleop.RoleOPAction"
+			validate="false" name="roleOPForm" scope="request">
+			<forward name="edit" path="/portal/roleop/Role_OP_edit.jsp" />
+			<forward name="select" path="/portal/roleop/select.jsp" />
+		</action>
+		<action path="/User" type="com.eis.portal.user.UserAction"
+			name="userForm" scope="request" validate="false">
+			<forward name="new" path="/portal/user/User_new.jsp" />
+			<forward name="edit" path="/portal/user/User_edit.jsp" />
+			<forward name="view" path="/portal/user/User_view.jsp" />
+			<forward name="list" path="/portal/user/User_list.jsp" />
+			<forward name="querylist" path="/portal/user/User_querylist.jsp" />
+			<forward name="listpop" path="/portal/user/User_listpop.jsp" />
+			<forward name="list1" path="/apply/indepuser/Indepuser_list.jsp" />
+			<forward name="assignoperlistpop" path="/portal/user/assignOperList.jsp" />
+		</action>
+		<action path="/OrgPop" type="com.eis.portal.orgpop.OrgPopAction"
+			name="orgPopForm" scope="request" validate="false">
+			<forward name="list" path="/portal/orgpop/OrgPop_list.jsp" />
+			<forward name="listlower" path="/portal/orgpop/OrgPop_listlower.jsp" />
+		</action>
+		<action path="/OrgPopRefresh" type="com.eis.portal.orgpoprefresh.OrgPopRefreshAction"
+			name="orgPopRefreshForm" scope="request" validate="false">
+			<forward name="list" path="/portal/orgpoprefresh/OrgPopRefresh_list.jsp" />
+		</action>
+		<action path="/Org" type="com.eis.portal.org.OrgAction" name="orgForm"
+			scope="request" validate="false">
+			<forward name="view" path="/portal/org/Org_view.jsp" />
+			<forward name="list" path="/portal/org/Org_list.jsp" />
+			<forward name="listlower" path="/portal/org/Org_listlower.jsp" />
+		</action>
+		<action path="/OrgMenu" type="com.eis.portal.orgmenu.OrgMenuAction"
+			name="orgMenuForm" scope="request" validate="false">
+			<forward name="edit" path="/portal/orgmenu/Org_menu_edit.jsp" />
+		</action>
+		<action path="/LoginChangeRole"
+			type="com.eis.portal.loginchangerole.LoginChangeRoleAction" name="loginChangeRoleForm"
+			scope="request" validate="false">
+			<forward name="list"
+				path="/portal/loginchangerole/LoginChangeRole_list.jsp" />
+			<forward name="changerole" path="/main.jsp" />
+		</action>
+		<action path="/HomePage" type="com.eis.portal.homepage.HomePageAction"
+			name="homePageForm" scope="request" validate="false">
+			<forward name="new" path="/portal/homepage/HomePage_new.jsp" />
+			<forward name="edit" path="/portal/homepage/HomePage_edit.jsp" />
+			<forward name="view" path="/portal/homepage/HomePage_view.jsp" />
+			<forward name="list" path="/portal/homepage/HomePage_list.jsp" />
+		</action>
+		<action path="/ReDefSDic" type="com.eis.dic.redefsdic.ReDefSDicAction"
+			name="reDefSDicForm" scope="request" validate="false">
+			<forward name="new" path="/eis/dic/redefsdic/ReDefSDic_new.jsp" />
+			<forward name="edit" path="/eis/dic/redefsdic/ReDefSDic_edit.jsp" />
+			<forward name="view" path="/eis/dic/redefsdic/ReDefSDic_view.jsp" />
+			<forward name="list" path="/eis/dic/redefsdic/ReDefSDic_list.jsp" />
+		</action>
+		<action path="/DicType" type="com.eis.dic.dictype.DicTypeAction"
+			name="dicTypeForm" scope="request" validate="false">
+			<forward name="new" path="/eis/dic/dictype/DicType_new.jsp" />
+			<forward name="edit" path="/eis/dic/dictype/DicType_edit.jsp" />
+			<forward name="view" path="/eis/dic/dictype/DicType_view.jsp" />
+			<forward name="list" path="/eis/dic/dictype/DicType_list.jsp" />
+			<forward name="querylist" path="/eis/dic/dictype/DicType_querylist.jsp" />
+		</action>
+		<action path="/SDic" type="com.eis.dic.sdic.SDicAction" name="sDicForm"
+			scope="request" validate="false">
+			<forward name="new" path="/eis/dic/sdic/SDic_new.jsp" />
+			<forward name="edit" path="/eis/dic/sdic/SDic_edit.jsp" />
+			<forward name="view" path="/eis/dic/sdic/SDic_view.jsp" />
+			<forward name="list" path="/eis/dic/sdic/SDic_list.jsp" />
+			<forward name="querylist" path="/eis/dic/sdic/SDic_querylist.jsp" />
+		</action>
+		<action path="/PmKey" type="com.eis.key.pmkey.PmKeyAction"
+			name="pmKeyForm" scope="request" validate="false">
+			<forward name="new" path="/eis/key/pmkey/PmKey_new.jsp" />
+			<forward name="edit" path="/eis/key/pmkey/PmKey_edit.jsp" />
+			<forward name="view" path="/eis/key/pmkey/PmKey_view.jsp" />
+			<forward name="list" path="/eis/key/pmkey/PmKey_list.jsp" />
+			<forward name="querylist" path="/eis/key/pmkey/PmKey_querylist.jsp" />
+		</action>
+		<action path="/UserLogout" type="com.eis.portal.userlogout.UserLogoutAction"
+			name="userLogoutForm" scope="request" validate="false">
+			<forward name="exit" path="/portal/login/exit.jsp" />
+		</action>
+		<!--登录模块  登录验证===============-->
+		<action path="/Login" type="org.springframework.web.struts.DelegatingActionProxy"
+			name="loginForm" scope="request" validate="false">
+			<forward name="chgpwd" path="/portal/login/change_dft_password.jsp" />
+			<forward name="main" path="/main.jsp" />
+			<forward name="login" path="/index.jsp" />
+			<forward name="default_homepage" path="/main.jsp" />
+		</action>
+		<!--登录模块  修改密码===============-->
+		<action path="/Password" type="com.eis.portal.password.PasswordAction"
+			name="passwordForm" scope="request" validate="false">
+			<forward redirect="true" name="login" path="/index.jsp" />
+			<forward name="edit" path="/portal/login/modifypwd.jsp" />
+			<forward name="blank" path="/portal/login/password_ok.jsp" />
+			<forward name="fail" path="/portal/login/password_fail.jsp" />
+		</action>
+		<!--系统维护模块  操作日志管理===============-->
+		<action path="/OpLog" type="com.eis.portal.oplog.OpLogAction"
+			name="opLogForm" scope="request" validate="false">
+			<forward name="view" path="/portal/oplog/OpLog_view.jsp" />
+			<forward name="querylist" path="/portal/oplog/OpLog_querylist.jsp" />
+		</action>
+		<action path="/UserLogin" type="com.eis.portal.userlogin.UserLoginAction"
+			name="userLoginForm" scope="request" validate="false">
+			<forward name="new" path="/portal/userlogin/UserLogin_new.jsp" />
+			<forward name="edit" path="/portal/userlogin/UserLogin_edit.jsp" />
+			<forward name="view" path="/portal/userlogin/UserLogin_view.jsp" />
+			<forward name="list" path="/portal/userlogin/UserLogin_list.jsp" />
+			<forward name="querylist" path="/portal/userlogin/UserLogin_querylist.jsp" />
+		</action>
+		<!--多级字典-->
+		<action path="/MDic" type="com.eis.dic.mdic.MDicAction" name="mDicForm"
+			scope="request" validate="false">
+			<forward name="blank" path="/eis/dic/mdic/blank.jsp" />
+			<forward name="cfl" path="/eis/dic/mdic/beforeFirstLevel.jsp" />
+			<forward name="new" path="/eis/dic/mdic/MDic_new.jsp" />
+			<forward name="edit" path="/eis/dic/mdic/MDic_edit.jsp" />
+			<forward name="view" path="/eis/dic/mdic/MDic_view.jsp" />
+			<forward name="list" path="/eis/dic/mdic/MDic_list.jsp" />
+			<forward name="listPop" path="/eis/dic/mdic/MDic_listPop.jsp" />
+			<forward name="querylist" path="/eis/dic/mdic/MDic_querylist.jsp" />
+		</action>
+		<!--登录首页显示-->
+		<action path="/LogIndex"
+			type="com.huateng.creditcard.apply.logindex.LogIndexAction" name="logIndexForm"
+			scope="request" validate="false">
+			<forward name="inputerview" path="/apply/logindex/Inputer_view.jsp" />
+			<forward name="checkerview" path="/apply/logindex/Checker_view.jsp" />
+			<forward name="fresh" path="/apply/logindex/fresh.jsp" />
+			<forward name="note" path="/apply/logindex/note.jsp" />
+		</action>
+		<action path="/ProgramMaintainInit" forward="/projectmaintain/ProgramMaintain.jsp" />
+		<action path="/ProgramMaintain"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="programMaintainForm"
+			scope="request" validate="false">
+			<forward name="ql" path="/projectmaintain/ProgramMaintainList.jsp" />
+			<forward name="edit" path="/projectmaintain/ProgramMaintain.jsp" />
+		</action>
+
+		<action path="/ProjectDistributeAdd"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectDistributeForm"
+			scope="request" validate="true" input="projectmaintain/ProjectDistributeNew.jsp" />
+		<action path="/ProjectDistributeUpdate"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectDistributeForm"
+			scope="request" validate="true" input="projectmaintain/ProjectDistributeEdit.jsp" />
+		<action path="/ProjectDistribute"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectDistributeForm"
+			scope="request" validate="false">
+			<forward name="ed" path="/projectmaintain/ProjectDistribute.jsp" />
+			<forward name="view" path="/projectmaintain/ProjectDistributeView.jsp" />
+			<forward name="list" path="/projectmaintain/ProjectDistributeList.jsp" />
+			<forward name="al" path="/projectmaintain/ProjectDistributeInit.jsp" />
+			<forward name="edit" path="/projectmaintain/ProjectDistributeEdit.jsp" />
+			<forward name="new" path="/projectmaintain/ProjectDistributeNew.jsp" />
+			<forward name="detail" path="/projectmaintain/ProjectDistributeDetail.jsp" />
+			<forward name="display" path="/projectmaintain/WorkTable.jsp" />
+			<forward name="doneList" path="/projectmaintain/ProjectDistributeDoneList.jsp" />
+			<forward name="getNotDoneWorks" path="/projectmaintain/NotDoneWorksList.jsp" />
+		</action>
+		<action path="/WorkDistribute"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="workDistributeForm"
+			scope="request" validate="false">
+			<forward name="ed" path="/workmanage/WorkDistribute.jsp" />
+			<forward name="view" path="/workmanage/WorkDistributeView.jsp" />
+			<forward name="list" path="/workmanage/WorkDistributeList.jsp" />
+			<forward name="al" path="/workmanage/WorkDistributeInit.jsp" />
+			<forward name="edit" path="/workmanage/WorkDistributeEdit.jsp" />
+			<forward name="new" path="/workmanage/WorkDistributeNew.jsp" />
+			<forward name="detail" path="/workmanage/WorkDistributeDetail.jsp" />
+			<forward name="doneList" path="/workmanage/WorkDistributeDoneList.jsp" />
+			<forward name="getNotDoneWorks" path="/workmanage/NotDoneWorksList.jsp" />
+		</action>
+		<action path="/ProjectMaintainInit" forward="/projectmaintain/ProjectMaintainInit.jsp" />
+		<action path="/ProjectMaintainAdd"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectMaintainForm"
+			scope="request" validate="true" input="/ProjectMaintainInit.do" />
+		<action path="/ProjectMaintainUpdate"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectMaintainForm"
+			scope="request" validate="true" input="projectmaintain/ProjectMaintainEdit.jsp" />
+		<action path="/ProjectMaintain"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="projectMaintainForm"
+			scope="request" validate="false">
+			<forward name="epp" path="/projectmaintain/PreProjectMaintain.jsp" />
+			<forward name="add" path="/projectmaintain/ProjectMaintainInit.jsp" />
+			<forward name="qpl" path="/projectmaintain/ProjectMaintainList.jsp" />
+			<forward name="qal" path="/projectmaintain/ProjectMaintainAll.jsp" />
+			<forward name="edit" path="/projectmaintain/ProjectMaintainEdit.jsp"></forward>
+			<forward name="view" path="/projectmaintain/ProjectMaintainView.jsp" />
+			<forward name="gpp" path="/projectmaintain/PreProjectList.jsp" />
+			<forward name="gcp" path="/projectmaintain/ConflictProjectList.jsp" />
+			<forward name="changelist" path="/projectmaintain/ChangeList.jsp"></forward>
+			<forward name="gmip" path="/projectmaintain/GetMyInputProjects.jsp" />
+		</action>
+		<action path="/WorkListInit" forward="/workmanage/WorkMaintainInit.jsp" />
+		<action path="/WorkList"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="workListForm"
+			scope="request" validate="false">
+			<forward name="epp" path="/workmanage/PreWorkMaintain.jsp" />
+			<forward name="add" path="/workmanage/WorkMaintainInit.jsp" />
+			<forward name="list" path="/workmanage/WorkMaintainList.jsp" />
+			<forward name="listAll" path="/workmanage/WorkMaintainAll.jsp" />
+			<forward name="edit" path="/workmanage/WorkMaintainEdit.jsp"></forward>
+			<forward name="view" path="/workmanage/WorkMaintainView.jsp" />
+			<forward name="gm" path="/workmanage/GetMyInputWorks.jsp" />
+			<forward name="gdw" path="/workmanage/WorkDistributeDoneList.jsp"/>
+		</action>
+		<!-- zhengpy  20090212 begin-->
+		<action path="/ReportProjectDataList"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="reportProjectDataListForm"
+			scope="request" validate="false">
+			<forward name="init" path="/projectmaintain/ReportProjectDataList.jsp" />
+			<forward name="list" path="/projectmaintain/ReportProjectDataList.jsp" />
+		</action>
+		<!-- zhengpy  20090212 end-->
+		<action path="/NotWriteNoteStuff"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="getNotWriteNoteStuffForm"
+			scope="request" validate="false">
+			<forward name="list" path="/projectmaintain/NotWriteNoteStuffList.jsp" />
+		</action>
+		<action path="/ScoreInfo"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="scoreInfoForm"
+			scope="request" validate="false">
+			<forward name="init" path="/projectmaintain/ScoreInfo.jsp" />
+
+		</action>
+
+		<action path="/IssueRecord"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="issueRecordForm"
+			scope="request" validate="false">
+			<forward name="list" path="/projectmaintain/IssueRecordList.jsp"></forward>
+			<forward name="new" path="/projectmaintain/IssueRecordNew.jsp"></forward>
+			<forward name="edit" path="/projectmaintain/IssueRecordEdit.jsp"></forward>
+		</action>
+		<action path="/RequireChange"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="requireChangeForm"
+			scope="request" validate="false">
+			<forward name="list" path="/projectmaintain/RequireChangeList.jsp"></forward>
+			<forward name="new" path="/projectmaintain/RequireChangeNew.jsp"></forward>
+			<forward name="edit" path="/projectmaintain/RequireChangeEdit.jsp"></forward>
+		</action>
+		<action path="/WorkDaily"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="workDailyForm"
+			scope="request" validate="false">
+			<forward name="list" path="/workmanage/DailyList.jsp"></forward>
+			<forward name="new" path="/workmanage/DailyNew.jsp"></forward>
+			<forward name="edit" path="/workmanage/DailyEdit.jsp"></forward>
+			<forward name="detail" path="/workmanage/DailyView.jsp"></forward>
+			<forward name="init" path="/workmanage/DailyReport.jsp"></forward>
+		</action>
+		<action path="/MainProblem"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="mainProblemForm"
+			scope="request" validate="false">
+			<forward name="edit" path="/workmanage/Problems.jsp"></forward>
+		</action>
+		<action path="/TASK_LIST" type="com.work.TASK_LISTAction" name="tASK_LISTForm"
+			scope="request" validate="false">
+			<forward name="new" path="/work/TASK_LIST_new.jsp" />
+			<forward name="edit" path="/work/TASK_LIST_edit.jsp" />
+			<forward name="view" path="/work/TASK_LIST_view.jsp" />
+			<forward name="list" path="/work/TASK_LIST_list.jsp" />
+			<forward name="querylist" path="/work/TASK_LIST_querylist.jsp" />
+			<forward name="qa" path="/work/TASK_LIST_qa.jsp" />
+		</action>
+		
+		<action path="/Maintain_record" type="com.maintainrecord.Maintain_recordAction"
+			name="maintain_recordForm" scope="request" validate="false">
+			<forward name="new" path="/maintain_record/Maintain_record_new.jsp" />
+			<forward name="edit" path="/maintain_record/Maintain_record_edit.jsp" />
+			<forward name="resp" path="/maintain_record/Maintain_record_resp.jsp" />
+			<forward name="view" path="/maintain_record/Maintain_record_view.jsp" />
+			<forward name="list" path="/maintain_record/Maintain_record_list.jsp" />
+			<forward name="querylist"
+				path="/maintain_record/Maintain_record_querylist.jsp" />
+		</action>
+		<action path="/Lx_info" type="com.lx.Lx_infoAction" name="lx_infoForm"
+			scope="request" validate="false">
+			<forward name="new" path="/lx/Lx_info_new.jsp" />
+			<forward name="edit" path="/lx/Lx_info_edit.jsp" />
+			<forward name="view" path="/lx/Lx_info_view.jsp" />
+			<forward name="list" path="/lx/Lx_info_list.jsp" />
+			<forward name="querylist" path="/lx/Lx_info_querylist.jsp" />
+		</action>
+		<action path="/Ep_notice"  type="com.huateng.blue.notice.Ep_noticeAction" name="noticeForm"
+			scope="request" validate="false">
+			<forward name="new" path="/noticemanage/Ep_notice_new.jsp" /> 
+			<forward name="edit" path="/noticemanage/Ep_notice_edit.jsp" /> 
+			<forward name="view" path="/noticemanage/Ep_notice_view.jsp" /> 
+			<forward name="list" path="/noticemanage/Ep_notice_list.jsp" /> 
+			<forward name="querylist" path="/noticemanage/Ep_notice_querylist.jsp" /> 
+			<forward name="pop" path="/noticemanage/Notice.jsp" /> 
+		</action>
+		<action path="/SignRecord"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="signRecordForm"
+			scope="request" validate="false">
+			<forward name="list" path="/workmanage/SignRecordList.jsp"></forward>
+			<forward name="new" path="/workmanage/SignRecordNew.jsp"></forward>
+			<forward name="edit" path="/workmanage/SignRecordEdit.jsp"></forward>
+		</action>
+	</action-mappings>
+	<message-resources parameter="resource.MessageResources" />
+	<message-resources key="projectMaintain"
+		parameter="com.projectmaintain.ProjectMaintainMessage"></message-resources>
+
+
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation"
+			value="/WEB-INF/projectMaintain.xml /WEB-INF/WorkManage.xml" />
+	</plug-in>
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/org/apache/struts/validator/validator-rules.xml" />
+	</plug-in>
+	<!--
+		========== Plug Ins Configuration =================================
+	-->
+</struts-config>
