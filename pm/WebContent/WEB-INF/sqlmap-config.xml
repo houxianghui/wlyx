@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings
+	cacheModelsEnabled="false"
+	enhancementEnabled="true"
+	lazyLoadingEnabled="true"
+	maxRequests="512"
+	maxSessions="128"
+	maxTransactions="32"
+	useStatementNamespaces="true"
+	/>
+ 
+  <sqlMap resource="com/projectmaintain/ProjectMaintainMap.xml"/>  
+  <sqlMap resource="com/projectmaintain/ScoreInfoMap.xml"/>  
+  <sqlMap resource="com/huateng/blue/work/work_distribute_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/work_list_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/work_daily_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/WorkListSqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/WorkDistributeSqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/daily_achieve_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/daily_issue_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/main_problem_SqlMap.xml"/>
+  <sqlMap resource="com/huateng/blue/work/sign_record_SqlMap.xml"/>
+</sqlMapConfig>

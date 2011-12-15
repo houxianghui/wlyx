@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="gb2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<bean name="/Login" class="com.eis.portal.login.LoginAction">
+		<property name="signRecordBO" ref="signRecordBO"></property>
+	</bean>
+	<bean id="signRecordBO" class="com.huateng.blue.work.SignRecordBO">
+		<property name="dao" ref="commonDao" />
+		<property name="namespace" value="sign_record"></property>
+	</bean>
+	<bean name="/SignRecord" class="com.huateng.blue.work.SignRecordAction">
+		<property name="bo" ref="signRecordBO" />
+	</bean>
+	<bean id="workListBO" class="com.huateng.blue.work.WorkListBO">
+		<property name="dao" ref="commonDao" />
+		<property name="namespace" value="work_list"></property>
+	</bean>
+	<bean name="/WorkList" class="com.huateng.blue.work.WorkListAction">
+		<property name="bo" ref="workListBO" />
+	</bean>
+	<bean id="workDistributeBO" class="com.huateng.blue.work.WorkDistributeBO">
+		<property name="dao" ref="commonDao" />
+		<property name="namespace" value="work_distribute"></property>
+	</bean>
+	<bean id="workDailyBO" class="com.huateng.blue.work.WorkDailyBO">
+		<property name="dao" ref="commonDao" />
+		<property name="namespace" value="work_daily"></property>
+	</bean>
+	<bean name="/WorkDistribute" class="com.huateng.blue.work.WorkDistributeAction">
+		<property name="bo" ref="workDistributeBO" />
+	</bean>
+	<bean name="/WorkDaily" class="com.huateng.blue.work.WorkDailyAction">
+		<property name="bo" ref="workDailyBO"></property>
+	</bean>
+	<bean id="mainProblemBO" class="com.huateng.blue.work.MainProblemBO">
+		<property name="dao" ref="commonDao" />
+		<property name="namespace" value="main_problem"></property>
+	</bean>
+	<bean name="/MainProblem" class="com.huateng.blue.work.MainProblemAction">
+		<property name="bo" ref="mainProblemBO" />
+	</bean>
+</beans>

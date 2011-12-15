@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="gb2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!-- 公共模块 登录 -->
+	<bean id="login_bo" class="com.eis.portal.login.LoginBO" />
+	<bean id="login_dao" class="com.eis.portal.login.LoginDAO"></bean>	<!-- 公共模块 管理用户实时登录记录表 -->
+	<bean id="userlogin_bo" class="com.eis.portal.userlogin.UserLoginBO" />
+	<bean id="userlogin_dao" class="com.eis.portal.userlogin.UserLoginDAO"></bean>	<!-- 公共模块 签退 -->
+	<bean id="userlogout_bo" class="com.eis.portal.userlogout.UserLogoutBO" />
+	<bean id="userlogout_dao" class="com.eis.portal.userlogout.UserLogoutDAO"></bean>	<!-- 公共模块 修改密码 -->
+	<bean id="password_bo" class="com.eis.portal.password.PasswordBO" />
+	<bean id="password_dao" class="com.eis.portal.password.PasswordDAO"></bean>
+		<!-- 系统管理  操作日志管理 -->
+	<bean id="oplog_bo" class="com.eis.portal.oplog.OpLogBO"></bean>	<!-- 门户 菜单管理 -->
+	<bean id="menu_bo" class="com.eis.portal.menu.MenuBO"></bean>
+	<bean id="menu_dao" class="com.eis.portal.menu.MenuDAO"></bean>	<!-- 门户 操作权限定义 -->
+	<bean id="op_bo" class="com.eis.portal.op.OPBO"></bean>
+	<bean id="op_dao" class="com.eis.portal.op.OPDAO"></bean>	<!-- 门户 角色管理模块 -->
+	<bean id="role_bo" class="com.eis.portal.role.RoleBO"></bean>
+	<bean id="role_dao" class="com.eis.portal.role.RoleDAO"></bean>	<!-- 门户 角色菜单权限管理 -->
+	<bean id="rolemenu_bo" class="com.eis.portal.rolemenu.RoleMenuBO"></bean>
+	<bean id="rolemenu_dao" class="com.eis.portal.rolemenu.RoleMenuDAO"></bean>	<!-- 门户 角色操作权限管理 -->
+	<bean id="roleop_bo" class="com.eis.portal.roleop.RoleOPBO"></bean>
+	<bean id="roleop_dao" class="com.eis.portal.roleop.RoleOPDAO"></bean>	<!-- 门户 用户管理 -->
+	<bean id="user_bo" class="com.eis.portal.user.UserBO"></bean>
+	<bean id="user_dao" class="com.eis.portal.user.UserDAO"></bean>	<!-- 门户 首页模板管理 -->
+	<bean id="homepage_bo" class="com.eis.portal.homepage.HomePageBO"></bean>
+	<bean id="homepage_dao" class="com.eis.portal.homepage.HomePageDAO"></bean>	<!-- 字典归类码模块 -->
+	<bean id="dictype_bo" class="com.eis.dic.dictype.DicTypeBO"></bean>
+	<bean id="dictype_dao" class="com.eis.dic.dictype.DicTypeDAO"></bean>	<!-- 单级字典模块 -->
+	<bean id="sdic_bo" class="com.eis.dic.sdic.SDicBO"></bean>
+	<bean id="sdic_dao" class="com.eis.dic.sdic.SDicDAO"></bean>	<!-- 多级字典模块 -->
+	<bean id="mdic_bo" class="com.eis.dic.mdic.MDicBO"></bean>
+	<bean id="mdic_dao" class="com.eis.dic.mdic.MDicDAO"></bean>	<!-- 主键配置模块 -->
+	<bean id="pmkey_bo" class="com.eis.key.pmkey.PmKeyBO"></bean>
+	<bean id="pmkey_dao" class="com.eis.key.pmkey.PmKeyDAO"></bean>		<!-- 自定义单级字典模块 -->
+	<bean id="redefsdic_bo" class="com.eis.dic.redefsdic.ReDefSDicBO" />
+	<bean id="redefsdic_dao" class="com.eis.dic.redefsdic.ReDefSDicDAO"></bean>		<!-- 门户 用户管理  用户角色关系-->
+	<bean id="userrole_dao" class="com.eis.portal.user.UserRoleDAO"></bean>			<bean id="ep_notice_bo" class="com.huateng.blue.notice.Ep_noticeBO"></bean>  
+	<bean id="ep_notice_dao" class="com.huateng.blue.notice.Ep_noticeDAO"></bean>	 
+
+	<bean id="task_list_bo" class="com.work.TASK_LISTBO"></bean> 
+	<bean id="task_list_dao" class="com.work.TASK_LISTDAO"></bean>
+	<bean id="project_list_bo" class="com.work.PROJECT_LISTBO"></bean> 
+ 	<bean id="project_list_dao" class="com.work.PROJECT_LISTDAO"></bean>	
+ 	<bean id="maintain_record_bo" class="com.maintainrecord.Maintain_recordBO"></bean> 
+	<bean id="maintain_record_dao" class="com.maintainrecord.Maintain_recordDAO"></bean>	  
+	<bean id="lx_info_bo" class="com.lx.Lx_infoBO"></bean> 
+	<bean id="lx_info_dao" class="com.lx.Lx_infoDAO"></bean>
+</beans>
