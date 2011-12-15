@@ -56,7 +56,7 @@ parent.parent.parent.location="<%=request.getContextPath()%>/index.jsp";
 
 
 <link href="CSS/<%=css%>" rel="stylesheet" type="text/css">
-
+<link id="favicon" href="favicon.ico" rel="icon" type="image/x-icon" />
 <SCRIPT src="js/validate.js" type="text/javascript"></SCRIPT>
 <SCRIPT src="js/event.js" type="text/javascript"></SCRIPT>
 <SCRIPT src="js/func.js" type="text/javascript"></SCRIPT>
