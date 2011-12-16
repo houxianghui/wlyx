@@ -76,7 +76,7 @@ function MM_swapImage() { //v3.0
 //-->
 
 </script>
-
+<link id="favicon" href="favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 
 <body onload="MM_preloadImages('images/login/loginbutton_m.gif')">
