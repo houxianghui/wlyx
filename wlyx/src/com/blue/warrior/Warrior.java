@@ -56,23 +56,23 @@ public class Warrior {
 			return false;
 		}
 		Calendar c = Calendar.getInstance();
-		int day = c.get(Calendar.DAY_OF_WEEK);
-		if(day == Calendar.WEDNESDAY || day == Calendar.SATURDAY){
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			int minute = c.get(Calendar.MINUTE);
-			if(hour >= 13){
-				if(hour < 15){
+//		int day = c.get(Calendar.DAY_OF_WEEK);
+//		if(day == Calendar.WEDNESDAY || day == Calendar.SATURDAY){
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		if(hour >= 13){
+			if(hour < 15){
+				return true;
+			}else if(hour == 15){
+				if(minute <= 30){
+					Portal.goHome(user);
 					return true;
-				}else if(hour == 15){
-					if(minute <= 30){
-						Portal.goHome(user);
-						return true;
-					}else{
-						return false;
-					}
+				}else{
+					return false;
 				}
 			}
 		}
+//		}
 		return false;
 	}
 	private static boolean needWar(User user){
