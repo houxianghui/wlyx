@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -315,6 +316,10 @@ public class PageService {
 	}
 	
 	public static boolean readCookie(User user){
+		//每周三重新登录
+		if(Tools.getDayOfWeek() == Calendar.WEDNESDAY){
+			return false;
+		}
 		BufferedReader br = null;
 		try{
 			br = new BufferedReader(new FileReader("cookies/"+user.getUserName()+"."+user.getHost()+".ck"));
