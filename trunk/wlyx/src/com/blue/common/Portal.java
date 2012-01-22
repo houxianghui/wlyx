@@ -200,7 +200,7 @@ public class Portal {
 		if(user.getBeginTime() > now || now >= user.getEndTime()){
 			user.setShouldKillMonstor(false);
 		}else{
-			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Monitor.inWuGuan(user) && !Warrior.need10HoursTrain() && !Monitor.atFuBen(user)){
+			if(Integer.parseInt(user.getPoint()) > user.getSavePoint() && !Warrior.need10HoursTrain() && !Monitor.atFuBen(user)){
 				if(Warrior.canWar(user)){
 					user.setShouldKillMonstor(false);
 				}else{
