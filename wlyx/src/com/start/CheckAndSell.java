@@ -20,6 +20,8 @@ public class CheckAndSell {
 				public void run() {
 					Monstor.checkAndSell(user);
 					ItemMerge.merge(user);
+					ItemMerge.mergeSiHaiKuFang(user);
+					ItemMerge.mergeStock(user);
 				};
 			}.start();
 //			Monstor.checkAndSell(user);
