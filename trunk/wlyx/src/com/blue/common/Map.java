@@ -101,6 +101,7 @@ public class Map {
 		thirdMap.put("Ì«ÒÒ³Ø", "509");
 		thirdMap.put("æûÍõÄ¹", "526");
 		thirdMap.put("Ì«¼«Í¼Õó", "511");
+		thirdMap.put("Àè»ğ¶´", "510");
 	}
 	private static void initBigMap() {
 		bigMap.put("¼»¾©", "8");
