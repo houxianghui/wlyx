@@ -65,6 +65,7 @@ public class Monstor {
 	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
 	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
 	private static Pattern freeFinish = Pattern.compile("免费完成修炼");
+	private static Pattern getMonstorId = Pattern.compile("fnMoveToScene\\(\\s+(\\d+),",Pattern.DOTALL);
 	public static boolean killMonstor(User user){
 //		Portal.setUserInfo(user);
 		if(Integer.parseInt(user.getPoint()) <= user.getSavePoint()){
@@ -84,9 +85,23 @@ public class Monstor {
 		Matcher m = freeFinish.matcher(page);
 		return m.find();
 	}
+	public static String getMonstorUrl(User user){
+		//http://s4.verycd.9wee.com/modules/upgrade_help.php?act=practice&timeStamp=1329989639482&callback_func_name=ajaxCallback&callback_obj_name=dlg_view_practice
+		String url =user.getUrl()+ "modules/upgrade_help.php?act=practice"+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = getMonstorId.matcher(page);
+		//http://s4.verycd.9wee.com/modules/scene_walk.php?action=scene_move&scene_id=510&pk_status=0&rand=1329990188128&timeStamp=1329990180146&callback_func_name=callbackFnMoveToScene
+		StringBuffer backUrl = null;
+		if(m.find()){
+			backUrl = new StringBuffer(user.getUrl()+"modules/scene_walk.php?action=scene_move&scene_id=");
+			backUrl.append(m.group(1));
+			backUrl.append("&pk_status=0");
+			backUrl.append(Tools.getRandAndTime());
+		}
+		return backUrl == null?null:backUrl.toString();
+	}
 	private static boolean moveToMonstor(User user){
-		String level = user.getLevel();
-		String[] monstor = LevelVSMonstor.getMonstorInfo(level);
+		
 		if(!user.isCanMove()){
 			logger.info(user.getRoleName()+user.getStatus()+",停止移动");
 			return true;
@@ -94,32 +109,17 @@ public class Monstor {
 		//离开武馆
 		WuGuan.leaveTeam(user);
 		
-//		MianChiLingPai.getLingPai(user);
 		String page = null;
-		int times = 3;
-		while(times > 0){
-			page = Move.worldMove(user, monstor[0]);
-			if(!Tools.success(page)){
-				times--;
-				continue;
-			}else{
-				break;
-			}
-		}
-		if(times <= 0){
-			logger.info(user.getRoleName()+"连续3次移动失败，停止移动");			
-			Portal.goHome(user);
+		try{
+//			page = move(user);
+			page = PageService.getPageWithCookie(getMonstorUrl(user), user);
+		}catch(Exception e){
 			return false;
 		}
-		page = Move.secMove(user, monstor[1]);
-		if(monstor.length == 3){
-			if(monstor[2]!=null && monstor[2].trim().length() != 0){
-				page = Move.thirdMove(user, monstor[2]);			
-			}
-		}
+		
 		Matcher m = p.matcher(page);
 		String mid = null;
-		int l = Integer.parseInt(level)+3;
+		int l = Integer.parseInt(user.getLevel())+3;
 		String tmp = null;
 		String noChoice = null;
 		boolean find = false;
@@ -145,6 +145,33 @@ public class Monstor {
 				mid = noChoice;
 		}
 		return killIt(mid, user);
+	}
+	
+	private static String move(User user) throws Exception{
+		String[] monstor = LevelVSMonstor.getMonstorInfo(user.getLevel());
+		String page = null;
+		int times = 3;
+		while(times > 0){
+			page = Move.worldMove(user, monstor[0]);
+			if(!Tools.success(page)){
+				times--;
+				continue;
+			}else{
+				break;
+			}
+		}
+		if(times <= 0){
+			logger.info(user.getRoleName()+"连续3次移动失败，停止移动");			
+			Portal.goHome(user);
+			throw new Exception();
+		}
+		page = Move.secMove(user, monstor[1]);
+		if(monstor.length == 3){
+			if(monstor[2]!=null && monstor[2].trim().length() != 0){
+				page = Move.thirdMove(user, monstor[2]);			
+			}
+		}
+		return page;
 	}
 	public static boolean repairAll(User user){
 		String url = user.getUrl()+REPAIR+Tools.getRandAndTime();
