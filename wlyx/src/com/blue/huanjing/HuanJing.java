@@ -64,13 +64,13 @@ public class HuanJing {
 	}
 	public static void listSpecail(User user,int start)throws Exception{
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("»Ã¾³Ëþ-"+user.getUserName()+start+".txt"),true));
-		for(int i = start;i < start+101;i++){
+		for(int i = start;i < start+100;i++){
 			if((i-start) % 10 == 0){
 				System.out.println((i-start)+"% finished...");
 			}
 			String url = user.getUrl()+DETAIL_LIST+i+Tools.getTimeStamp(true);
 			String page = PageService.getPageWithCookie(url, user);
-			if(page == null || page.trim().length() == 0){
+			if(page == null || page.trim().length() == 0||Tools.isErrorPage(page)){
 				break;
 			}
 			Matcher m = p.matcher(page);

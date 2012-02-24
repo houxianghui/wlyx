@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 
 import com.blue.common.User;
 import com.blue.tools.login.GWee;
-import com.blue.tools.login.TaiWan;
 import com.blue.tools.login.VeryCD;
 
 public class PageService {
@@ -233,6 +232,11 @@ public class PageService {
 	private static StringBuffer readBackInfo(InputStream inputStream)
 			throws IOException, UnsupportedEncodingException {
 		String gzip = System.getProperty("GZIP");
+		String charset = "UTF-8";
+		String charsetProperty = System.getProperty("charset");
+		if(charsetProperty != null){
+			charset = charsetProperty;
+		}
 		boolean isGzipOn = false;
 		if(gzip != null){
 			isGzipOn = true;
@@ -244,12 +248,12 @@ public class PageService {
 			byte[] by = new byte[1024];
 			int len = 0;
 			while((len = gis.read(by))!=-1){
-				b.append(new String(by,0,len,"UTF-8"));
+				b.append(new String(by,0,len,charset));
 			}
 			gis.close();
 			return b;
 		}else{
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,charset));
 			StringBuffer sb = new StringBuffer();
 			String s = null;
 			while((s=br.readLine())!=null){
@@ -269,8 +273,9 @@ public class PageService {
 			URL url = new URL(pageUrl);
 			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
-				con.addRequestProperty("Host", user.getHost());
+				
 				if (user != null) {
+					con.addRequestProperty("Host", user.getHost());
 					con.addRequestProperty("Cookie", user.getCookie());
 				}
 				con.addRequestProperty("Content-Type",
@@ -302,9 +307,11 @@ public class PageService {
 	}
 
 	public static void setGZipOn(HttpURLConnection con) {
-		con.addRequestProperty("Accept-Encoding", "gzip,deflate");
-		con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3");
-		
+		boolean gzipon = System.getProperty("GZIP")!=null;
+		if(gzipon){
+			con.addRequestProperty("Accept-Encoding", "gzip,deflate");
+			con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3");
+		}
 	}
 
 	public static void displayMap(Map m) {
@@ -365,7 +372,6 @@ public class PageService {
 			return;
 		}
 		if(host.indexOf("tw") != -1){
-			TaiWan.login(user);
 			return;
 		}
 		GWee.login(user);
