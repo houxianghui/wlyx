@@ -25,6 +25,9 @@ public class Tools {
 	public static boolean success(String page){
 		return !page.contains("{\"error\":true") && page.trim().length() > 0;
 	}
+	public static boolean isErrorPage(String page){
+		return page.contains("{\"error\":true");
+	}
 	//&timeMark=1282959774&time=10&timeStamp=1282959775563
 	public static String getMarkAndTime(){
 		Random r = new Random();
