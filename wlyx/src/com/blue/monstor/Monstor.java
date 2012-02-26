@@ -113,6 +113,7 @@ public class Monstor {
 		try{
 //			page = move(user);
 			page = PageService.getPageWithCookie(getMonstorUrl(user), user);
+			page = page.substring(page.indexOf("monster"));
 		}catch(Exception e){
 			return false;
 		}
