@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.blue.common.User;
-import com.blue.monstor.ItemMerge;
-import com.blue.monstor.Monstor;
+import com.blue.tools.ItemMerge;
+import com.blue.tools.ItemTools;
 
 public class CheckUser {
 	public static void main(String[] args)throws Exception {
@@ -24,7 +24,7 @@ public class CheckUser {
 						u.login(false);
 						new Thread(){
 							public void run() {
-								Monstor.checkAndSell(u);
+								ItemTools.checkAndSell(u);
 								ItemMerge.merge(u);
 							};
 						}.start();

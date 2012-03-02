@@ -7,9 +7,9 @@ package com.blue.daily;
 import com.blue.common.BaseThread;
 import com.blue.common.Monitor;
 import com.blue.common.User;
-import com.blue.monstor.ItemMerge;
-import com.blue.monstor.Monstor;
 import com.blue.team.TeamEnergy;
+import com.blue.tools.ItemMerge;
+import com.blue.tools.ItemTools;
 
 public class DailyAward extends BaseThread {
 	private User user;
@@ -25,7 +25,7 @@ public class DailyAward extends BaseThread {
 			}
 			try{
 				Monitor.getAwards(user);
-				Monstor.checkAndSell(user);
+				ItemTools.checkAndSell(user);
 				ItemMerge.merge(user);
 				ItemMerge.mergeSiHaiKuFang(user);
 				ItemMerge.mergeStock(user);

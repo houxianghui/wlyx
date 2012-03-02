@@ -1,6 +1,5 @@
-package com.blue.monstor;
+package com.blue.tools;
 
-import com.blue.tools.Tools;
 
 public class Item {
 	public static String HORSE = "11";

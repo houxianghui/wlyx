@@ -3,8 +3,8 @@ package com.start;
 import java.util.Iterator;
 import java.util.List;
 import com.blue.common.User;
-import com.blue.monstor.ItemMerge;
-import com.blue.monstor.Monstor;
+import com.blue.tools.ItemMerge;
+import com.blue.tools.ItemTools;
 
 
 public class CheckAndSell {
@@ -18,7 +18,7 @@ public class CheckAndSell {
 			user.login(false);
 			new Thread(){
 				public void run() {
-					Monstor.checkAndSell(user);
+					ItemTools.checkAndSell(user);
 					ItemMerge.merge(user);
 					ItemMerge.mergeSiHaiKuFang(user);
 					ItemMerge.mergeStock(user);

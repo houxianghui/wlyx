@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.blue.common.User;
+import com.blue.tools.ItemTools;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -46,7 +47,7 @@ public class Attack {
 			int wait = ct/speed;
 			try{
 				Thread.sleep((wait+1)*1000);
-				Monstor.checkAndSell(user);
+				ItemTools.checkAndSell(user);
 				Monstor.repairAll(user);
 			}catch(Exception e){
 				return false;

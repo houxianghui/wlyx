@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.blue.common.User;
-import com.blue.monstor.ItemMerge;
+import com.blue.tools.ItemMerge;
 
 public class FindItem {
 	private static Logger logger = Logger.getLogger(FindItem.class);
