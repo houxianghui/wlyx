@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.blue.common.User;
 
-import com.blue.monstor.Monstor;
+import com.blue.tools.ItemTools;
 
 
 public class CheckItem {
@@ -16,7 +16,7 @@ public class CheckItem {
 		while(it.hasNext()){
 			User user = it.next();
 			user.login(false);
-			Monstor.displayTempPack(user);
+			ItemTools.displayTempPack(user);
 		}
 	}
 
