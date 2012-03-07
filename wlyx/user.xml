@@ -44,8 +44,10 @@
 				<dialog>4</dialog>
 				<!-- 是否自动完成天机堂任务 0 否 1 是 -->
 				<autoTianJi>1</autoTianJi>
-				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
+				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆5奇珍阁 0 不修 -->
 				<tianJiDoor>3</tianJiDoor>
+				<!-- 购买种子,参考种子.txt 填写种子编码 -->
+				<buySeed></buySeed>
 			</task>
 			<slavy caption="奴隶设置">
 				<!-- 是否抓奴 0 不需要 1需要 -->

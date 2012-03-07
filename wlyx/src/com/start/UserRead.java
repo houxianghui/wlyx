@@ -133,6 +133,8 @@ public class UserRead {
 		String dialog = e.elementText("dialog");
 		String autoTianJi = e.elementText("autoTianJi");
 		String minJingYan = e.elementText("minJingYan");
+		String buySeed = e.elementText("buySeed");
+		
 		if(!Tools.isEmpty(minJingYan)){
 			user.setMiniJingYan(Integer.parseInt(minJingYan));
 		}
@@ -147,6 +149,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(dialog)){
 			user.setDialog(Integer.parseInt(dialog.trim()));
+		}
+		if(!Tools.isEmpty(buySeed)){
+			user.setBuySeed(buySeed);
 		}
 	}
 	private void setSlavy(Element element,User user){

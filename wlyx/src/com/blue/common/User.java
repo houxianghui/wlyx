@@ -74,6 +74,7 @@ public class User {
 	private int miniMoney = 10000;				//最低金额
 	private int miniJingYan;					//最小经验
 	private int workType;						//日常任务类型
+	private String buySeed;						//购买种子
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
@@ -641,5 +642,11 @@ public class User {
 	}
 	public void setStockPwd(String stockPwd) {
 		this.stockPwd = stockPwd;
+	}
+	public String getBuySeed() {
+		return buySeed;
+	}
+	public void setBuySeed(String buySeed) {
+		this.buySeed = buySeed;
 	}
 }

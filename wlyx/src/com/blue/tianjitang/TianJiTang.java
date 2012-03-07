@@ -46,8 +46,7 @@ public class TianJiTang {
 			"<td align=\"right\" style=\"line-height: 20px;\">\\s*" +
 			"<a onclick=\"missionInfo\\((\\d+)\\)\" href=\"javascript:void\\(0\\);\">接受任务");
 	public static Pattern build = Pattern.compile("建筑积分:<span class=\"highlight\">(\\S+?)</span> &nbsp;&nbsp;贡献积分");
-	private static Pattern feed = Pattern.compile("team_farm_feed\\((\\d+), (\\d+), (\\d+), (\\d+), (\\d+), (\\d+), ''\\);\" href=\"javascript:void\\(0\\);\">我要浇水");
-	private static java.util.List<String> speak;
+		private static java.util.List<String> speak;
 	static{
 		initSpeak();
 	}
@@ -181,26 +180,5 @@ public class TianJiTang {
 			logger.info(user.getRoleName()+"修建天机阁"+user.getTianJiDoor()+"成功");
 		}
 	}
-	public static void plant(User user){
-		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=enter&bui_id=5&timeStamp=1331096889939&callback_func_name=ajaxCallback&callback_obj_name=team_foster_build5
-		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmaction&farm_id=121&team_id=58&creature_type=2&bui_id=5&page=1&timeStamp=1331097341676&callback_func_name=callbackTeamfarm
-		String url = user.getUrl()+"modules/team_foster.php?act=build&action=enter&bui_id=5"+Tools.getTimeStamp(true);
-		
-		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = feed.matcher(page);
-		while(m.find()){
-			StringBuffer sb = new StringBuffer(user.getUrl());
-			sb.append("modules/team_foster.php?act=build&action=farmaction&farm_id=");
-			sb.append(m.group(1));
-			sb.append("&team_id=");
-			sb.append(m.group(2));
-			sb.append("&creature_type=");
-			sb.append(m.group(3));
-			sb.append("&bui_id=");
-			sb.append(m.group(4));
-			sb.append("&page=");
-			sb.append(m.group(5));
-			PageService.getPageWithCookie(sb.toString(), user);
-		}
-	}
+	
 }
