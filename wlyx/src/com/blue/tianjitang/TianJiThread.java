@@ -20,6 +20,7 @@ public class TianJiThread extends BaseThread {
 				TianJiTang.autoFinish(user);
 				TianJiTang.build(user);
 				PlantSeeds.farm(user);
+				PlantSeeds.plant(user);
 				sleep(1000*60*10);
 			}catch(Exception e){
 			}
