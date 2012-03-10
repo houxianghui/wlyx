@@ -157,7 +157,7 @@ public class Monitor {
 		Matcher m = fuBen.matcher(page);
 		if(m.find()){
 			String map = Tools.hexToString(m.group(1));
-			if("∫Øπ»πÿ".equals(map) || "«ÿ ºª ¡Í".equals(map)){
+			if("∫Øπ»πÿ".equals(map) || "«ÿ ºª ¡Í".equals(map) ||"“Ï ﬁ÷æ".equals(map)){
 				return true;
 			}
 		}
