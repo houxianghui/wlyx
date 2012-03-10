@@ -134,6 +134,8 @@ public class UserRead {
 		String autoTianJi = e.elementText("autoTianJi");
 		String minJingYan = e.elementText("minJingYan");
 		String buySeed = e.elementText("buySeed");
+		String autoHarvest = e.elementText("autoHarvest");
+		String plantDay = e.elementText("plantDay");
 		
 		if(!Tools.isEmpty(minJingYan)){
 			user.setMiniJingYan(Integer.parseInt(minJingYan));
@@ -152,6 +154,12 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(buySeed)){
 			user.setBuySeed(buySeed);
+		}
+		if(!Tools.isEmpty(autoHarvest)){
+			user.setAutoHarvest("1".equals(autoHarvest.trim()));
+		}
+		if(!Tools.isEmpty(plantDay)){
+			user.setPlantDay(plantDay);
 		}
 	}
 	private void setSlavy(Element element,User user){
