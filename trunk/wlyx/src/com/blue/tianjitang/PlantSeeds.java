@@ -30,7 +30,16 @@ public class PlantSeeds {
 		}
 		bw.close();
 	}
+	private static boolean needPlant(User user){
+		String day = String.valueOf(Tools.getDayOfWeek());
+		if(user.getPlantDay().indexOf(day)==-1){
+			logger.info(user.getRoleName()+"今日无需种植");
+			return false;
+		}
+		return true;
+	}
 	private static boolean needBuy(User user,Matcher m)throws Exception{
+		
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmplant&submit=0&farm_id=125&team_id=58&bui_id=5&page=1&timeStamp=1331114428554&callback_func_name=ajaxCallback&callback_obj_name=fostor_farm_plant
 		String url = user.getUrl()+"modules/team_foster.php?act=build&action=farmplant&submit=0"+getPlantTryData(m);
 		String page = PageService.getPageWithCookie(url, user);
@@ -52,11 +61,15 @@ public class PlantSeeds {
 	}
 
 	public static void plant(User user)throws Exception{
+		
 		String url = user.getUrl()+QI_ZHEN_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher hm = harvest.matcher(page);
 		while(hm.find()){
 			harvest(user, hm);
+		}
+		if(!needPlant(user)){
+			return;
 		}
 		Matcher m = plant.matcher(page);
 		if(m.find()){
@@ -94,6 +107,10 @@ public class PlantSeeds {
 		return data;
 	}
 	public static void harvest(User user,Matcher m){
+		if(!user.isAutoHarvest()){
+			logger.info(user.getRoleName()+"设置为不自动收获");
+			return;
+		}
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmaction&submit=1&farm_id=121&team_id=58&creature_type=4&bui_id=5&page=1&timeStamp=1331168476685&callback_func_name=callbackTeamfarm
 		String url = user.getUrl()+"modules/team_foster.php?act=build&action=farmaction&submit=1"+getFarmData(m)+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);

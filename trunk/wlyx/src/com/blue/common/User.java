@@ -75,6 +75,8 @@ public class User {
 	private int miniJingYan;					//最小经验
 	private int workType;						//日常任务类型
 	private String buySeed;						//购买种子
+	private boolean autoHarvest=true;			//是否自动收获种子
+	private String plantDay;					//种植星期
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
@@ -648,5 +650,17 @@ public class User {
 	}
 	public void setBuySeed(String buySeed) {
 		this.buySeed = buySeed;
+	}
+	public boolean isAutoHarvest() {
+		return autoHarvest;
+	}
+	public void setAutoHarvest(boolean autoHarvest) {
+		this.autoHarvest = autoHarvest;
+	}
+	public String getPlantDay() {
+		return plantDay;
+	}
+	public void setPlantDay(String plantDay) {
+		this.plantDay = plantDay;
 	}
 }
