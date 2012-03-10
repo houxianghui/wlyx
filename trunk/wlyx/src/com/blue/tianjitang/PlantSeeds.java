@@ -36,6 +36,11 @@ public class PlantSeeds {
 			logger.info(user.getRoleName()+"今日无需种植");
 			return false;
 		}
+		int time = Tools.getNowHour();
+		if(time<10){
+			logger.info("未到10点，不进行种植操作");
+			return false;
+		}
 		return true;
 	}
 	private static boolean needBuy(User user,Matcher m)throws Exception{
