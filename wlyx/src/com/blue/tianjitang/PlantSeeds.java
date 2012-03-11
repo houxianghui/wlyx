@@ -19,6 +19,8 @@ public class PlantSeeds {
 	private static Pattern feed = Pattern.compile("team_farm_feed\\((\\d+), (\\d+), (\\d+), (\\d+), (\\d+), (\\d+), ''\\);\" href=\"javascript:void\\(0\\);\">我要");
 	private static Pattern harvest = Pattern.compile("team_farm_feed\\((\\d+), (\\d+), (\\d+), (\\d+), (\\d+), (\\d+), ''\\);\" href=\"javascript:void\\(0\\);\">收获",Pattern.DOTALL);
 	private static Pattern plant = Pattern.compile("team_farm_plant\\((\\d+), (\\d+), (\\d+), (\\d+)\\);\" href=\"javascript:void\\(0\\);\">我要种植");
+	private static Pattern getPackSeeds = Pattern.compile("<label for=\"radio_farm_plant_base_(\\d+)\">(\\S+?)</label>",Pattern.DOTALL);
+	
 	public static void getSeeds(User user)throws Exception{
 		String url = user.getUrl()+QI_ZHEN_URL+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -44,10 +46,11 @@ public class PlantSeeds {
 		return true;
 	}
 	private static boolean needBuy(User user,Matcher m)throws Exception{
-		
+		if(Tools.isEmpty(user.getBuySeed())){
+			return false;
+		}
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmplant&submit=0&farm_id=125&team_id=58&bui_id=5&page=1&timeStamp=1331114428554&callback_func_name=ajaxCallback&callback_obj_name=fostor_farm_plant
-		String url = user.getUrl()+"modules/team_foster.php?act=build&action=farmplant&submit=0"+getPlantTryData(m);
-		String page = PageService.getPageWithCookie(url, user);
+		String page = plantTry(user, m);
 		Pattern p = Pattern.compile("result\":\"(.*?)\"");
 		Matcher rm = p.matcher(page);
 		if(rm.find()){
@@ -57,6 +60,10 @@ public class PlantSeeds {
 			}
 		}
 		return false;
+	}
+	private static String plantTry(User user, Matcher m) {
+		String url = user.getUrl()+"modules/team_foster.php?act=build&action=farmplant&submit=0"+getPlantTryData(m);
+		return PageService.getPageWithCookie(url, user);
 	}
 	private static void buySeed(User user)throws Exception{
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmbuy&base_id=6254&timeStamp=1331100559126&callback_func_name=callbackfnBuyFarmPlant
@@ -81,10 +88,17 @@ public class PlantSeeds {
 			if(needBuy(user,m)){
 				buySeed(user);
 			}
-			//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmplant&submit=1&timeStamp=1331103129720
-			String plant = user.getUrl()+"modules/team_foster.php?act=build&action=farmplant&submit=1"+Tools.getTimeStamp(true);
-			String result = PageService.postPage(plant, getPlantData(m,user).toString(), user);
-			logger.info(getReturnMsg(user, result));
+			//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmplant&submit=0&farm_id=121&team_id=58&bui_id=5&page=1&timeStamp=1331453618308&callback_func_name=ajaxCallback&callback_obj_name=fostor_farm_plant
+			String result = plantTry(user, m);
+			Matcher canPlant = getPackSeeds.matcher(result);
+			while(canPlant.find()){
+				//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmplant&submit=1&timeStamp=1331103129720
+				String plant = user.getUrl()+"modules/team_foster.php?act=build&action=farmplant&submit=1"+Tools.getTimeStamp(true);
+				String s = PageService.postPage(plant, getPlantData(m,user,canPlant).toString(), user);
+				logger.info(user.getRoleName()+getReturnMsg(user, s));
+			}
+			
+			
 		}
 	}
 	private static String getReturnMsg(User user, String page) {
@@ -96,7 +110,7 @@ public class PlantSeeds {
 		}
 		return "";
 	}
-	private static StringBuffer getPlantData(Matcher m,User user) {
+	private static StringBuffer getPlantData(Matcher m,User user,Matcher canPlant) {
 		//team_id=58&farm_id=123&bui_id=5&page=1&radio_farm_plant_base=6254&confirm_button=%E7%A1%AE%E5%AE%9A&cancel_button=%E5%8F%96%E6%B6%88&callback_func_name=ajaxCallback
 		StringBuffer data = new StringBuffer("team_id=");
 		data.append(m.group(2));
@@ -107,7 +121,7 @@ public class PlantSeeds {
 		data.append("&page=");
 		data.append(m.group(4));
 		data.append("&radio_farm_plant_base=");
-		data.append(user.getBuySeed());
+		data.append(canPlant.group(1));
 		data.append("&confirm_button=%E7%A1%AE%E5%AE%9A&cancel_button=%E5%8F%96%E6%B6%88&callback_func_name=ajaxCallback");
 		return data;
 	}
