@@ -79,7 +79,7 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
 	public static final String GUO_DU = "modules/warrior.php?act=arena&op=join&part=1";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&arena_key=5_1_1283184000&team_mode=0&timeStamp=1283260822448
-	public static final String GET_GUO_DU_AWARD = "modules/warrior.php?act=arena&op=get_prise&team_mode=0&arena_key=";
+	public static final String GET_GUO_DU_AWARD = "modules/warrior.php?act=arena&op=get_prise&team_mode=0&submit=1&arena_key=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&timeStamp=1283261017202&callback_func_name=callback_load_content&callback_obj_name=content
 	public static final String GOTO_GUO_DU_YAN_WU = "modules/warrior.php?act=arena&callback_func_name=callback_load_content&callback_obj_name=content";
 	public static Pattern guoDuPrise = Pattern.compile("arena_get_prise \\( '(\\S+?)', '0' \\)\">领取");
@@ -105,8 +105,10 @@ public class Monitor {
 		if(Tools.success(page)){
 			Matcher m = guoDuPrise.matcher(page);
 			if(m.find()){
+				//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=get_prise&submit=1&arena_key=5_1_1331654400&team_mode=0&timeStamp=1331702195358
 				url = user.getUrl()+GET_GUO_DU_AWARD+m.group(1)+Tools.getTimeStamp(true);
-				page = PageService.getPage(url, user);
+				
+				page = PageService.postPage(url, data, user);
 				if(Tools.success(page)){
 					logger.info(user.getRoleName()+"领取国都演武厅奖励成功");
 				}
