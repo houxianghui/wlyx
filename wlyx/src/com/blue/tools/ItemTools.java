@@ -159,14 +159,18 @@ public class ItemTools {
 		List<Item> l = new ArrayList<Item>();
 		String url = user.getUrl()+Portal.USER_INFO+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		Matcher out = packItem.matcher(page);
-		while(out.find()){
-			String s = out.group();
-			Matcher m = p.matcher(s);
-			if(m.find()){
-				l.add(ItemMerge.getItem(m));
-			}
+		Matcher m = p.matcher(page);
+		while(m.find()){
+			l.add(ItemMerge.getItem(m));
 		}
+//		Matcher out = packItem.matcher(page);
+//		while(out.find()){
+//			String s = out.group();
+//			Matcher m = p.matcher(s);
+//			if(m.find()){
+//				l.add(ItemMerge.getItem(m));
+//			}
+//		}
 		return l;
 	}
 	public static List<Item> getStockList(User user){
