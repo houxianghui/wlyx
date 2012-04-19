@@ -151,6 +151,7 @@ public class WuGuan {
 		return false;
 	}
 	public static boolean gotoWuGuan(User user){
+		
 		if(Monitor.isHuanJing(user)){
 			logger.info(user.getRoleName()+"正在幻境塔，暂不进入武馆");
 			return false;
@@ -169,7 +170,11 @@ public class WuGuan {
 			return true;
 		}
 		getAllTeam(user);
-		
+		//强制护馆
+		if(!Tools.isEmpty(user.getProtectTeam())){
+			protectTeam(user, user.getUnionTeam().get(user.getProtectTeam()));
+			return true;
+		}
 		Portal.setTeamId(user);
 	
 		boolean inUnion = false;

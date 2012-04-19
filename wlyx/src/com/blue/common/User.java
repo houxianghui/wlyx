@@ -40,6 +40,7 @@ public class User {
 	private int buildPoint;							//建筑点数
 	private String teamId;							//武馆编号
 	private int minThickness = 800000;				//要进入踢馆的最小厚度
+	private String protectTeam ;
 	private Map<String, String> unionTeam = new HashMap<String,String>();
 	/*---------------------------------------------------------------*/
 	//挂野设置
@@ -83,6 +84,8 @@ public class User {
 	private boolean needXunLian;		//是否需要大厅
 	private String needWar;				//是否自动挂辎重
 	private int warriorChoice = 1;		//1 训练 2 授艺 0不挂
+	private String longTrainStartTime;	//超长挂机开始时间
+	private String trainOnce;			//超长挂机小时数
 	/*---------------------------------------------------------------*/
 	
 	//个人属性
@@ -662,5 +665,23 @@ public class User {
 	}
 	public void setPlantDay(String plantDay) {
 		this.plantDay = plantDay;
+	}
+	public String getProtectTeam() {
+		return protectTeam;
+	}
+	public void setProtectTeam(String protectTeam) {
+		this.protectTeam = protectTeam;
+	}
+	public String getLongTrainStartTime() {
+		return longTrainStartTime;
+	}
+	public void setLongTrainStartTime(String longTrainStartTime) {
+		this.longTrainStartTime = longTrainStartTime;
+	}
+	public String getTrainOnce() {
+		return trainOnce;
+	}
+	public void setTrainOnce(String trainOnce) {
+		this.trainOnce = trainOnce;
 	}
 }
