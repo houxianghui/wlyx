@@ -167,6 +167,12 @@ public class Warrior {
 		if(needLongTrain(user)){
 			if(!Tools.isEmpty(user.getTrainOnce())){
 				hourOnce = Integer.parseInt(user.getTrainOnce());
+				int day = Tools.getDayOfWeek();
+				if(day == Calendar.FRIDAY || day == Calendar.TUESDAY){
+					hourOnce = 14;
+				}else{
+					hourOnce = 21;
+				}
 			}
 		}
 		if(isDoubed(user)){
