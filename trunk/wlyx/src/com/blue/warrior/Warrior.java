@@ -164,6 +164,11 @@ public class Warrior {
 		if(need10HoursTrain()){
 			hourOnce = 12;
 		}
+		if(needLongTrain(user)){
+			if(!Tools.isEmpty(user.getTrainOnce())){
+				hourOnce = Integer.parseInt(user.getTrainOnce());
+			}
+		}
 		if(isDoubed(user)){
 			int day = Tools.getDayOfWeek();
 			if(day == Calendar.FRIDAY || day == Calendar.TUESDAY){
@@ -172,6 +177,7 @@ public class Warrior {
 				hourOnce = 21;
 			}
 		}
+		
 //		MianChiLingPai.getLingPai(user);
 		Portal.goHome(user);
 		String url = user.getUrl()+WARRIOR_URL+hourOnce+Tools.getTimeStamp(true);
@@ -221,6 +227,17 @@ public class Warrior {
 			logger.info(e.getMessage());
 		}
 		return false;
+	}
+	public static boolean needLongTrain(User user){
+		if(!Tools.isEmpty(user.getLongTrainStartTime())){
+			int i = Integer.parseInt(user.getLongTrainStartTime());
+			int hour = Tools.getNowHour();
+			if(hour>=i){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 	public static boolean need10HoursTrain(){
 	

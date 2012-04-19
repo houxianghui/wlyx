@@ -235,6 +235,7 @@ public class UserRead {
 		String openRedBeat = e.elementText("openRedBeat");
 		String openRedProtect = e.elementText("openRedProtect");
 		String minThickness = e.elementText("minThickness");
+		String forceProtect = e.elementText("forceProtect");
 		if(!Tools.isEmpty(name)){
 			user.setBeatTeam(name);
 		}
@@ -258,6 +259,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(minThickness)){
 			user.setMinThickness(Integer.parseInt(minThickness));
+		}
+		if(!Tools.isEmpty(forceProtect)){
+			user.setProtectTeam(forceProtect);
 		}
 	}
 }

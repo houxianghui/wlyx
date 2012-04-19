@@ -20,6 +20,10 @@
 				<warriorType>1</warriorType>
 				<!-- 是否需要辎重 0 不需要 1 需要 -->
 				<needZiZhong>1</needZiZhong>
+				<!-- 超长训练开始时间 -->
+				<startTime>23</startTime>
+				<!-- 训练时长 -->
+				<hourOnce>12</hourOnce>
 			</warrior>
 			<duel caption="竞技场设置">
 				<!--竞技开始时间-->
@@ -98,6 +102,8 @@
 				<openRedBeat>1</openRedBeat>
 				<!-- 护馆选项：低于多少强制护馆  -->
 				<protectMyTeam>0.8</protectMyTeam>
+				<!-- 强制护馆 -->
+				<forceProtect></forceProtect>
 				<!-- 踢馆名称  设置了就不随时扔砖了哦,设置友好踢馆会随时扔砖-->
 				<teamName></teamName>
 				<!-- 友好踢馆 1 是 0 否 -->
