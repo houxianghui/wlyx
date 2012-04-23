@@ -13,4 +13,7 @@ public class ToolsTest extends TestCase {
 	public void testNeedGetLingPai(){
 		assertTrue(Tools.needGetLingPai());
 	}
+	public void testGetNowHour(){
+		System.out.println(Tools.getNowHour());
+	}
 }
