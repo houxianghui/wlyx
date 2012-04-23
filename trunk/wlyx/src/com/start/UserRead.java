@@ -92,11 +92,19 @@ public class UserRead {
 		Element w = e.element("warrior");
 		String warriorType = w.elementText("warriorType");
 		String needZiZhong = w.elementText("needZiZhong");
+		String startTime = w.elementText("startTime");
+		String hourOnce = w.elementText("hourOnce");
 		if(!Tools.isEmpty(warriorType)){
 			user.setWarriorChoice(Integer.parseInt(warriorType.trim()));
 		}
 		if(!Tools.isEmpty(needZiZhong)){
 			user.setNeedWar(needZiZhong.trim());
+		}
+		if(!Tools.isEmpty(startTime)){
+			user.setLongTrainStartTime(startTime.trim());
+		}
+		if(!Tools.isEmpty(hourOnce)){
+			user.setTrainOnce(hourOnce.trim());
 		}
 	}
 	private void setDuel(Element element,User user){
