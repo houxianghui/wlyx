@@ -189,7 +189,7 @@ public class ItemTools {
 			return null;
 		}
 		page = page.substring(index,end);
-		Matcher out = packItem.matcher(page);
+		Matcher out = item.matcher(page);
 		while(out.find()){
 			String s = out.group();
 			Matcher m = p.matcher(s);
@@ -220,7 +220,7 @@ public class ItemTools {
 			return null;
 		}
 		page = page.substring(index,end);
-		Matcher out = packItem.matcher(page);
+		Matcher out = item.matcher(page);
 		while(out.find()){
 			String s = out.group();
 			Matcher m = p.matcher(s);
