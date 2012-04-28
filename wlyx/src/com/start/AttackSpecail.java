@@ -1,25 +1,35 @@
 package com.start;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import com.blue.common.User;
 import com.blue.huanjing.HuanJing;
 
 public class AttackSpecail {
-	public static void main(String[] args) throws Exception{
-		System.out.println("ÊäÈëµÇÂ¼ÓÃ»§Ãû");
-		Scanner in = new Scanner(System.in);
-		String name = in.next();
-		System.out.println("ÊäÈëÃÜÂë");
-		String pwd = in.next();
-		User user = new User();
-		user.setUserName(name);
-		user.setPassword(pwd);
-		user.login(false);
-		while(true){
-			System.out.println("¹¥»÷±àºÅ");
-			String id = in.next();
-			HuanJing.attack(user, id);
+	public static void main(String[] args) throws Exception {
+
+		List<User> l = Main.getUserInfo();
+		System.out.println("ÇëÊäÈëÓÃ»§Ãû");
+		Scanner scan = new Scanner(System.in);
+		String s = scan.next();
+		String[] users = s.split(",");
+		Iterator<User> it = l.iterator();
+		while (it.hasNext()) {
+			final User u = it.next();
+			for (int i = 0; i < users.length; i++) {
+				if (u.getUserName().equals(users[i])) {
+					u.login(false);
+					System.out.println("¹¥»÷±àºÅ");
+					Scanner in = new Scanner(System.in);
+					while (true) {
+						System.out.println("¹¥»÷±àºÅ");
+						String id = in.next();
+						HuanJing.attack(u, id);
+					}
+				}
+			}
 		}
 	}
 }
