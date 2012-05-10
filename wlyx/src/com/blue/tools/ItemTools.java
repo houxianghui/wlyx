@@ -14,7 +14,7 @@ import com.blue.common.User;
 public class ItemTools {
 	private static Logger logger = Logger.getLogger(ItemTools.class);
 	private static Pattern temp = Pattern.compile("temp\":\\{\".*?}},",Pattern.DOTALL);
-	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\"",Pattern.UNICODE_CASE);
+	private static Pattern item = Pattern.compile("item_id\":\"(\\d+)\",\"role_id\":\"\\d+\",\"name\":\"(\\S+?)\",\"equip_type\":\"(\\d+)\".*?quality\":\"(\\d+).*?buy_price\":\"(\\d+)\".*?is_checkup\":\"(\\d+)\".*?show_strengthen_tips",Pattern.UNICODE_CASE);
 	private static final String CHECK_URL = "modules/role_item.php?act=check_item&item_type=temp&callback_func_name=itemClass.dragItemCallback&id=";
 	//http://s4.verycd.9wee.com/modules/role_item.php?act=drag_item&id=4048839&from=temp&to=pack&timeStamp=1293058008242&callback_func_name=itemClass.dragItemCallback
 	private static final String PUT_TO_PACK = "modules/role_item.php?act=drag_item&from=temp&to=pack&callback_func_name=itemClass.dragItemCallback&id=";
