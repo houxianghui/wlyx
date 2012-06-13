@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.DuelThread;
+import com.blue.monitor.YiShouMonitorThread;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTaskThread;
@@ -632,6 +633,7 @@ public class User {
 		work.add(new CatchSlavyThread(this));		//自动抓奴
 		work.add(new TianJiThread(this));			//自动天机堂任务
 		work.add(new DailyAward(this));			//自动领取全民福利
+		work.add(new YiShouMonitorThread(this));	//免费异兽蛋
 		if(isMianChiDropWeapon()){
 			work.add(new DropWeaponThread(this));	//渑池卸武
 		}

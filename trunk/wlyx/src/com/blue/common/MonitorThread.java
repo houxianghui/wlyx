@@ -5,7 +5,6 @@ import com.blue.huanjing.HuanJing;
 import com.blue.monitor.FreeItemMonitor;
 import com.blue.monitor.RoomMonitor;
 import com.blue.monitor.TarenaMonitor;
-import com.blue.monitor.YiShouMonitor;
 //import com.blue.monitor.FreeItemMonitor;
 import com.blue.monitor.ShiKeMonitor;
 
@@ -37,7 +36,7 @@ public class MonitorThread extends BaseThread{
 				RoomMonitor.getRoomFree(user);
 				FreeItemMonitor.getFreeTimes(user);
 				TarenaMonitor.getReward(user);
-				YiShouMonitor.getYiShouEgg(user);
+				
 				sleep(10*60*1000);
 			}catch(Exception e){
 			}
