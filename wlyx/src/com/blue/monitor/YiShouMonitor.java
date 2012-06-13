@@ -10,7 +10,7 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class YiShouMonitor {
-	private static Logger logger = Logger.getLogger(YiShouMonitorTest.class);
+	private static Logger logger = Logger.getLogger(YiShouMonitor.class);
 	private static Pattern hasFreeEgg = Pattern.compile("item_id\":\"(\\d+)\",\"gold_price\":0,",Pattern.DOTALL);
 	//http://s4.verycd.9wee.com/modules/shop.php?act=treasure&action=buy&item_id=7034&awards=1&timeStamp=1338980866448
 	public static void getYiShouEgg(User user){
