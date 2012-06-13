@@ -71,6 +71,9 @@ public class UserRead {
 	}
 	private void setSoul(Element e,User user){
 		Element soul = e.element("soul");
+		if(soul == null){
+			return;
+		}
 		String needTrain = soul.elementText("needTrain");
 		String needProm = soul.elementText("needProm");
 		if(!Tools.isEmpty(needTrain)){
