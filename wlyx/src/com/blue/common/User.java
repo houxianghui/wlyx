@@ -130,6 +130,11 @@ public class User {
 	private boolean needGetLiBao = true;		//是否自动领取礼包
 	
 	//----------------------------------------------------------------
+	//武魂设置
+	private boolean needWHTrain;				//是否需要训练
+	private boolean needWHProm;					//是否需要提升品质
+	private boolean needWHFoster;				//是否需要培养
+	//----------------------------------------------------------------
 	
 	private boolean needRestart = false;	//重启用户
 	private String xiYingName;
@@ -692,5 +697,23 @@ public class User {
 	}
 	public void setSoulTrainOnce(String soulTrainOnce) {
 		this.soulTrainOnce = soulTrainOnce;
+	}
+	public boolean isNeedWHTrain() {
+		return needWHTrain;
+	}
+	public void setNeedWHTrain(boolean needWHTrain) {
+		this.needWHTrain = needWHTrain;
+	}
+	public boolean isNeedWHProm() {
+		return needWHProm;
+	}
+	public void setNeedWHProm(boolean needWHProm) {
+		this.needWHProm = needWHProm;
+	}
+	public boolean isNeedWHFoster() {
+		return needWHFoster;
+	}
+	public void setNeedWHFoster(boolean needWHFoster) {
+		this.needWHFoster = needWHFoster;
 	}
 }
