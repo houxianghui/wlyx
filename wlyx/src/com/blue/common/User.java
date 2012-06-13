@@ -87,6 +87,7 @@ public class User {
 	private int warriorChoice = 1;		//1 训练 2 授艺 0不挂
 	private String longTrainStartTime;	//超长挂机开始时间
 	private String trainOnce;			//超长挂机小时数
+	private String soulTrainOnce;		//武魂训练时间
 	/*---------------------------------------------------------------*/
 	
 	//个人属性
@@ -685,5 +686,11 @@ public class User {
 	}
 	public void setTrainOnce(String trainOnce) {
 		this.trainOnce = trainOnce;
+	}
+	public String getSoulTrainOnce() {
+		return soulTrainOnce;
+	}
+	public void setSoulTrainOnce(String soulTrainOnce) {
+		this.soulTrainOnce = soulTrainOnce;
 	}
 }
