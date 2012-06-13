@@ -65,10 +65,21 @@ public class UserRead {
 			setSlavy(e, user);
 			setDaily(e,user);
 			setTeam(e,user);
+			setSoul(e, user);
 			l.add(user);
 		}
 	}
-	
+	private void setSoul(Element e,User user){
+		Element soul = e.element("soul");
+		String needTrain = soul.elementText("needTrain");
+		String needProm = soul.elementText("needProm");
+		if(!Tools.isEmpty(needTrain)){
+			user.setNeedWHTrain(needTrain.equals("1"));
+		}
+		if(!Tools.isEmpty(needProm)){
+			user.setNeedWHProm("1".equals(needProm));
+		}
+	}
 	private void setMonstor(Element e,User user){
 		Element monstor = e.element("monstor");
 		String startTime = monstor.elementText("startTime");

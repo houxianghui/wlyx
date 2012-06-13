@@ -109,6 +109,12 @@
 				<!-- 友好踢馆 1 是 0 否 -->
 				<friendly>1</friendly>
 			</team>
+			<soul caption="武魂设置">
+				<!-- 是否需要训练 0 否 1 是 -->
+				<needTrain>1</needTrain>
+				<!-- 是否需要提升品质，只用铜板 0 否 1 是 -->
+				<needProm>1</needProm>
+			</soul>
 		</user>
 	</users>
 </set>
