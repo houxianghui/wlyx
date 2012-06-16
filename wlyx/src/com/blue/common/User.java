@@ -78,7 +78,7 @@ public class User {
 	private int workType;						//日常任务类型
 	private String buySeed;						//购买种子
 	private boolean autoHarvest=true;			//是否自动收获种子
-	private String plantDay;					//种植星期
+	private String plantDay="8";					//种植星期
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
