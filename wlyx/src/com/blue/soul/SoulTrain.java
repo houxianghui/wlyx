@@ -1,5 +1,7 @@
 package com.blue.soul;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,30 +17,34 @@ public class SoulTrain {
 	private static Pattern ORIGINAL_TOTAL = Pattern.compile("原属性<span class=\"highlight2\">（总和：(\\d+)）");
 	private static Pattern NEW_TOTAL = Pattern.compile("新属性<span class=\"highlight3\">（总和：(\\d+)<img ");
 	private static Pattern CAN_PROMOTION = Pattern.compile("（剩余<span class=\"highlight2\">(\\d+)</span>次）");
-	private static Pattern SOUL_ID_P = Pattern.compile("onclick=\"loader.refreshCache\\(\\);clsSoul.train\\((\\d+)\\);\">训练</a>"); 
-	private static String getSoulId(User user){
+	private static Pattern SOUL_ID_P = Pattern.compile("onclick=\"clsSoul.my\\((\\d+)\\)\"",Pattern.DOTALL);
+		//Pattern.compile("onclick=\"loader.refreshCache\\(\\);clsSoul.train\\((\\d+)\\);\">训练</a>"); 
+	private static List<String> getSoulId(User user){
 		//http://s4.verycd.9wee.com/modules/soul.php?timeStamp=1339565014318&callback_func_name=callback_load_content&callback_obj_name=content
+		List<String> souls = new ArrayList<String>();
 		String url = user.getUrl()+"modules/soul.php?"+Tools.getTimeStamp(false);
 		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = SOUL_ID_P.matcher(page);
-		if(m.find()){
-			return m.group(1);
+		while(m.find()){
+			souls.add(m.group(1));
 		}
-		return null;
+		return souls;
 	}
 	public static void train(User user){
-		String id = getSoulId(user);
-		if(id == null){
+		List<String> ids = getSoulId(user);
+		if(ids == null){
 			return ;
 		}
-		if(user.isNeedWHTrain()){
-			train(user, id);
-		}
-		if(user.isNeedWHProm()){
-			promotion(user,id);
-		}
-		if(user.isNeedWHFoster()){
-			foster(user,id);
+		for(String id:ids){
+			if(user.isNeedWHTrain()){
+				train(user, id);
+			}
+			if(user.isNeedWHProm()){
+				promotion(user,id);
+			}
+			if(user.isNeedWHFoster()){
+				foster(user,id);
+			}
 		}
 	}
 	private static void foster(User user,String id){
