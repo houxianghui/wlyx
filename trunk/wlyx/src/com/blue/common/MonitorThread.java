@@ -35,6 +35,7 @@ public class MonitorThread extends BaseThread{
 				HuanJing.readSave(user);
 				RoomMonitor.getRoomFree(user);
 				FreeItemMonitor.getFreeTimes(user);
+				FreeItemMonitor.getFreeSearch(user);
 				TarenaMonitor.getReward(user);
 				
 				sleep(10*60*1000);
