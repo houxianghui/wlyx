@@ -36,7 +36,7 @@ public class FreeItemMonitor {
 		url = user.getUrl()+"modules/fam_explore.php?action=view&mirror_money_type=&select_type=1"+Tools.getRandAndTime();
 		page = PageService.getPageWithCookie(url, user);
 		if(page.indexOf("秦王宝库")!=-1){
-			logger.info(user.getRoleName()+"探索秦王宝库成功");
+			logger.info(user.getRoleName()+"免费探索秦王宝库成功");
 		}
 	}
 	public static boolean hasFreeSearch(User user){
