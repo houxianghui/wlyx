@@ -76,11 +76,15 @@ public class UserRead {
 		}
 		String needTrain = soul.elementText("needTrain");
 		String needProm = soul.elementText("needProm");
+		String start = soul.elementText("longStart");
 		if(!Tools.isEmpty(needTrain)){
 			user.setNeedWHTrain(needTrain.equals("1"));
 		}
 		if(!Tools.isEmpty(needProm)){
 			user.setNeedWHProm("1".equals(needProm));
+		}
+		if(!Tools.isEmpty(start)){
+			user.setLongWHTrainStart(Integer.parseInt(start));
 		}
 	}
 	private void setMonstor(Element e,User user){
@@ -224,6 +228,7 @@ public class UserRead {
 		String needChangeItem = e.elementText("needChangeItem");
 		String needReadSave = e.elementText("needReadSave");
 		String needGetLiBao = e.elementText("needGetLiBao");
+		String needAutoRent = e.elementText("needAutoRent");
 		if(!Tools.isEmpty(needGetLiBao)){
 			user.setNeedGetLiBao("1".equals(needGetLiBao.trim()));
 		}
@@ -246,9 +251,13 @@ public class UserRead {
 		if(!Tools.isEmpty(needReadSave)){
 			user.setNeedReadSave("1".equals(needReadSave));
 		}
+		if(!Tools.isEmpty(needAutoRent)){
+			user.setNeedAutoRent("1".equals(needAutoRent));
+		}
 	}
 	private void setTeam(Element element,User user){
 		Element e = element.element("team");
+		String open = e.attributeValue("open");
 		String name = e.elementText("teamName");
 		String friendly= e.elementText("friendly");
 		String percent = e.elementText("protectMyTeam");
@@ -284,6 +293,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(forceProtect)){
 			user.setProtectTeam(forceProtect);
+		}
+		if(!Tools.isEmpty(open)){
+			user.setNeedTeamWork("1".equals(open));
 		}
 	}
 }

@@ -88,8 +88,10 @@
 				<needReadSave>0</needReadSave>
 				<!-- 是否自动领取礼包 1 是 0 否 -->
 				<needGetLiBao>1</needGetLiBao>
+				<!-- 是否自动租赁 0=否 1=是-->
+				<needAutoRent>0</needAutoRent>
 			</daily>
-			<team caption="踢馆设置">
+			<team caption="踢馆设置" open="1"><!-- 1 开 0 关 -->
 				<!-- 是否需要护联盟馆 -->
 				<needProtect>1</needProtect>
 				<!-- 是否自动开护馆红图  0=否 1=是-->
@@ -112,6 +114,8 @@
 			<soul caption="武魂设置">
 				<!-- 是否需要训练 0 否 1 是 -->
 				<needTrain>1</needTrain>
+				<!-- 几点后开始8小时训练 -->
+				<longStart>23</longStart>				
 				<!-- 是否需要提升品质，只用铜板 0 否 1 是 -->
 				<needProm>1</needProm>
 			</soul>

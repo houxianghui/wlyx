@@ -31,6 +31,7 @@ public class User {
 		this.fightPersion = fightPersion;
 	}	
 	//武馆设置
+	private boolean needTeamWork=true;					//是否需要踢护馆功能
 	private boolean friendly;						//友好踢馆
 	private double teamProtectedPercent=0.8;		//护馆比例
 	private boolean needTiGuan;						//是否踢馆
@@ -41,6 +42,7 @@ public class User {
 	private int buildPoint;							//建筑点数
 	private String teamId;							//武馆编号
 	private int minThickness = 800000;				//要进入踢馆的最小厚度
+	private boolean needAutoRent;					//是否自动续租
 	private String protectTeam ;
 	private Map<String, String> unionTeam = new HashMap<String,String>();
 	/*---------------------------------------------------------------*/
@@ -134,6 +136,7 @@ public class User {
 	private boolean needWHTrain;				//是否需要训练
 	private boolean needWHProm;					//是否需要提升品质
 	private boolean needWHFoster;				//是否需要培养
+	private int longWHTrainStart;				//8小时开始时间
 	//----------------------------------------------------------------
 	
 	private boolean needRestart = false;	//重启用户
@@ -715,5 +718,23 @@ public class User {
 	}
 	public void setNeedWHFoster(boolean needWHFoster) {
 		this.needWHFoster = needWHFoster;
+	}
+	public int getLongWHTrainStart() {
+		return longWHTrainStart;
+	}
+	public void setLongWHTrainStart(int longWHTrainStart) {
+		this.longWHTrainStart = longWHTrainStart;
+	}
+	public boolean isNeedAutoRent() {
+		return needAutoRent;
+	}
+	public void setNeedAutoRent(boolean needAutoRent) {
+		this.needAutoRent = needAutoRent;
+	}
+	public boolean isNeedTeamWork() {
+		return needTeamWork;
+	}
+	public void setNeedTeamWork(boolean needTeamWork) {
+		this.needTeamWork = needTeamWork;
 	}
 }

@@ -127,7 +127,7 @@ public class PlantSeeds {
 	}
 	public static void harvest(User user,Matcher m){
 		if(!user.isAutoHarvest()){
-			logger.info(user.getRoleName()+"设置为不自动收获");
+//			logger.info(user.getRoleName()+"设置为不自动收获");
 			return;
 		}
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmaction&submit=1&farm_id=121&team_id=58&creature_type=4&bui_id=5&page=1&timeStamp=1331168476685&callback_func_name=callbackTeamfarm
