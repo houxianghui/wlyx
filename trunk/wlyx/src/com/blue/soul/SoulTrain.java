@@ -56,10 +56,14 @@ public class SoulTrain {
 		if(Warrior.need10HoursTrain()){
 			hourOnce = 8;
 		}
+		int nowHour = Tools.getNowHour();
+		if(nowHour>=user.getLongWHTrainStart()){
+			hourOnce = 8;
+		}
 		String url = user.getUrl()+"modules/soul.php?act=train&op=start&soul_id="+id+"&hour="+hourOnce+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		if(page.startsWith("<script>")){
-			logger.info(user.getRoleName()+"武魂训练"+hourOnce+"开始");
+			logger.info(user.getRoleName()+"武魂训练"+hourOnce+"小时开始");
 		}
 	}
 	

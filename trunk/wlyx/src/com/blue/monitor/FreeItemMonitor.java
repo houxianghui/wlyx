@@ -15,4 +15,10 @@ public class FreeItemMonitor {
 		String url = user.getUrl()+GET_FREE_TIMES+Tools.getTimeStamp(true);
 		PageService.getPageWithCookie(url, user);
 	}
+	
+	public static void getFreeSearch(User user){
+		//http://s4.verycd.9wee.com/modules/fam_explore.php?action=enter&select_type=1&timeStamp=1340159802313&callback_func_name=ajaxCallback&callback_obj_name=callbackFamExplore
+		String url = user.getUrl()+"modules/fam_explore.php?action=enter&select_type=1"+Tools.getTimeStamp(true);
+		PageService.getPageWithCookie(url, user);
+	}
 }

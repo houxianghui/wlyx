@@ -151,7 +151,9 @@ public class WuGuan {
 		return false;
 	}
 	public static boolean gotoWuGuan(User user){
-		
+		if(!user.isNeedTeamWork()){
+			return true;
+		}
 		if(Monitor.isHuanJing(user)){
 			logger.info(user.getRoleName()+"正在幻境塔，暂不进入武馆");
 			return false;

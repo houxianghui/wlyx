@@ -213,6 +213,12 @@ public class ItemTools {
 		List<Item> l = new ArrayList<Item>();
 		String url = user.getUrl()+SI_HAI_KU_FANG+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
+		if(page.indexOf("你的四海库房已经到期")!=-1){
+			if(user.isNeedAutoRent()){
+				rentStock(user);
+				return getSiHaiKuFang(user);
+			}
+		}
 		int index = page.indexOf("teamstock\":{");
 		int end = page.indexOf("\"my_equip\":");
 		if(index == -1){
@@ -229,5 +235,16 @@ public class ItemTools {
 			}
 		}
 		return l;
+	}
+	private static void rentStock(User user){
+		//radio_team_stock_daynum=price_ten&confirm_button=%E7%A1%AE%E5%AE%9A&cancel_button=%E5%8F%96%E6%B6%88&callback_func_name=ajaxCallback
+		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=stockhire&timeStamp=1340174658049
+		String url = user.getUrl()+"modules/team_foster.php?act=build&action=stockhire"+Tools.getTimeStamp(true);
+		String data = "radio_team_stock_daynum=price_ten&confirm_button=%E7%A1%AE%E5%AE%9A&cancel_button=%E5%8F%96%E6%B6%88&callback_func_name=ajaxCallback";
+		String page = PageService.postPage(url, data, user);
+		page = Tools.hexToString(page);
+		if(page.indexOf("成功")!=-1){
+			logger.info(user.getRoleName()+"续租四海库房成功");
+		}
 	}
 }
