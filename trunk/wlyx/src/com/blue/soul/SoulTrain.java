@@ -57,7 +57,7 @@ public class SoulTrain {
 			hourOnce = 8;
 		}
 		int nowHour = Tools.getNowHour();
-		if(nowHour>=user.getLongWHTrainStart()){
+		if(nowHour>=user.getLongWHTrainStart() && user.getLongWHTrainStart()!=0){
 			hourOnce = 8;
 		}
 		String url = user.getUrl()+"modules/soul.php?act=train&op=start&soul_id="+id+"&hour="+hourOnce+Tools.getTimeStamp(true);
