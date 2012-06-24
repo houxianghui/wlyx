@@ -137,6 +137,7 @@ public class User {
 	private boolean needWHProm;					//是否需要提升品质
 	private boolean needWHFoster;				//是否需要培养
 	private int longWHTrainStart;				//8小时开始时间
+	private int soulCount=1;					//训练武魂个数
 	//----------------------------------------------------------------
 	
 	private boolean needRestart = false;	//重启用户
@@ -736,5 +737,11 @@ public class User {
 	}
 	public void setNeedTeamWork(boolean needTeamWork) {
 		this.needTeamWork = needTeamWork;
+	}
+	public int getSoulCount() {
+		return soulCount;
+	}
+	public void setSoulCount(int soulCount) {
+		this.soulCount = soulCount;
 	}
 }
