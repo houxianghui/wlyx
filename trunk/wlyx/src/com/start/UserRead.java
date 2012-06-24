@@ -77,6 +77,7 @@ public class UserRead {
 		String needTrain = soul.elementText("needTrain");
 		String needProm = soul.elementText("needProm");
 		String start = soul.elementText("longStart");
+		String count = soul.elementText("trianCount");
 		if(!Tools.isEmpty(needTrain)){
 			user.setNeedWHTrain(needTrain.equals("1"));
 		}
@@ -85,6 +86,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(start)){
 			user.setLongWHTrainStart(Integer.parseInt(start));
+		}
+		if(!Tools.isEmpty(count)){
+			user.setSoulCount(Integer.parseInt(count));
 		}
 	}
 	private void setMonstor(Element e,User user){

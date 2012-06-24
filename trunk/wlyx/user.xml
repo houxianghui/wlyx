@@ -118,6 +118,8 @@
 				<longStart>23</longStart>				
 				<!-- 是否需要提升品质，只用铜板 0 否 1 是 -->
 				<needProm>1</needProm>
+				<!-- 训练个数 -->
+				<trainCount>1</trainCount>
 			</soul>
 		</user>
 	</users>
