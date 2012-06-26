@@ -77,7 +77,7 @@ public class UserRead {
 		String needTrain = soul.elementText("needTrain");
 		String needProm = soul.elementText("needProm");
 		String start = soul.elementText("longStart");
-		String count = soul.elementText("trianCount");
+		String count = soul.elementText("trainCount");
 		if(!Tools.isEmpty(needTrain)){
 			user.setNeedWHTrain(needTrain.equals("1"));
 		}
