@@ -35,7 +35,7 @@ public class SoulTrain {
 		if(ids == null){
 			return ;
 		}
-		int i = 0;
+		int i = 1;
 		for(String id:ids){
 			if(i>user.getSoulCount()){
 				return;
