@@ -1,5 +1,7 @@
 package com.blue.common;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,8 +75,10 @@ public class Monitor {
 	//http://s4.verycd.9wee.com/modules/awards.php?timeStamp=1282995533899&callback_func_name=ajaxCallback&callback_obj_name=dlg_awards
 	public static final String AWARD="modules/awards.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_awards";
 	//awards_view ( 110573 )">辎重营荣誉礼包</a>
-	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">(全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包|.{2}成绩单|.{2}月饼|竞技礼包|.{2}天机石|英雄纪念礼包|减负报告单|完成任务得礼包|竞技场挑战得礼包|茶油灯芯礼包|兔年元宵灯笼|纸糊帖礼包|竹篾骨架礼包|春节红包|春节黄酒礼包|减负报告单出售|国家贡献\\d+级红包|.{0,10}援军令|青铜宝箱兑换|.{1,2}龙年|.{1,11}集字|勇者闯关得金券|幻境塔通关礼包|遗失的包裹|挑战礼包|上线得礼包|武魂初体验礼包|.{1,10}护卫).*?(立即领取|已领取)",Pattern.DOTALL);
+//	public static Pattern awards = Pattern.compile("awards_view \\( (\\d+) \\)\">(全民福利礼包|辎重营荣誉礼包|中秋.*?月饼礼包|.{2}成绩单|.{2}月饼|竞技礼包|.{2}天机石|英雄纪念礼包|减负报告单|完成任务得礼包|竞技场挑战得礼包|茶油灯芯礼包|兔年元宵灯笼|纸糊帖礼包|竹篾骨架礼包|春节红包|春节黄酒礼包|减负报告单出售|国家贡献\\d+级红包|.{0,10}援军令|青铜宝箱兑换|.{1,2}龙年|.{1,11}集字|勇者闯关得金券|幻境塔通关礼包|遗失的包裹|挑战礼包|上线得礼包|武魂初体验礼包|.{1,10}护卫).*?(立即领取|已领取)",Pattern.DOTALL);
+	public static Pattern awards = getAwardPattern();
 	//http://s4.verycd.9wee.com/modules/awards.php?act=fetch&award_id=119709&timeStamp=1282995924182&callback_func_name=awards_fetch_callback
+	
 	public static final String GET_AWARD = "modules/awards.php?act=fetch&callback_func_name=awards_fetch_callback&award_id=";
 	//http://s4.verycd.9wee.com/modules/warrior.php?act=arena&op=join&part=1&timeStamp=1283176271321
 	public static final String GUO_DU = "modules/warrior.php?act=arena&op=join&part=1";
@@ -86,7 +90,30 @@ public class Monitor {
 	public static Pattern huanJing = Pattern.compile("<li><span class=\"date\">(\\d+)月(\\d+)日 (\\d+):(\\d+)</span>");
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1293930089295&timeStamp=1293930089295&callback_func_name=ajaxCallback&callback_obj_name=content
 	private static final String HUAN_JING_BEAT = "modules/duel.php?act=pvehall&callback_func_name=ajaxCallback&callback_obj_name=content";
-	
+	public static Pattern getAwardPattern(){
+		BufferedReader br = null;
+		try{
+			br = new BufferedReader(new FileReader("gift.txt"));
+			StringBuffer sb = new StringBuffer("awards_view \\( (\\d+) \\)\">(");
+			String s = null;
+			while((s=br.readLine())!=null){
+				sb.append(s);
+				sb.append("|");
+			}
+			sb.replace(sb.length()-1, sb.length(), "");
+			sb.append(").*?(立即领取|已领取)");
+			return Pattern.compile(sb.toString(),Pattern.DOTALL);
+		}catch(Exception e){
+			logger.error("gift.txt没找到",e);
+			throw new RuntimeException(e);
+		}finally{
+			try{
+				br.close();
+			}catch(Exception e){
+				throw new RuntimeException("文件关闭失败");
+			}
+		}
+	}
 	public static void guoDu(User user){
 		if(!user.isNeedGuoDu()){
 			return;
