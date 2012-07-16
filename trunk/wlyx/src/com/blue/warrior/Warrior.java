@@ -52,7 +52,7 @@ public class Warrior {
 	}
 	
 	public static boolean canWar(User user){
-		if(user.getNeedWar().equals("0")){
+		if("0".equals(user.getNeedWar())){
 			return false;
 		}
 		Calendar c = Calendar.getInstance();
