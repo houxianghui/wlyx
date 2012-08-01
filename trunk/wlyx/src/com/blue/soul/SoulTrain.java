@@ -74,8 +74,11 @@ public class SoulTrain {
 	}
 	
 	private static void promotion(User user,String id){
-		String data = "soul_id="+id+"&act=promotion&op=ok&type=1&callback_func_name=ajaxCallback&callback_obj_name=dlg_soul_promotion";
+		String data = "soul_id="+id+"&act=promotion&op=ok&type="+user.getPromType()+"&callback_func_name=ajaxCallback&callback_obj_name=dlg_soul_promotion";
 		//soul_id=4&act=promotion&op=ok&type=1&callback_func_name=ajaxCallback&callback_obj_name=dlg_soul_promotion
+		if(user.getPromType() != 1){
+			data+="&mirror_money_type="+user.getPromUse();
+		}
 		String url = user.getUrl()+"modules/soul.php?"+Tools.getTimeStamp(false);
 		String page = PageService.postPage(url, data, user);
 		if(getOriginal(page)<getNewTotal(page)){
