@@ -135,6 +135,8 @@ public class User {
 	//武魂设置
 	private boolean needWHTrain;				//是否需要训练
 	private boolean needWHProm;					//是否需要提升品质
+	private int promType = 1;					//武魂提升使用方式 1=铜板 2=1礼券 3=3礼券 4=8礼券 5=12黄金
+	private int promUse = 1;					//提升使用 0=黄金 1=礼券
 	private boolean needWHFoster;				//是否需要培养
 	private int longWHTrainStart;				//8小时开始时间
 	private int soulCount=1;					//训练武魂个数
@@ -743,5 +745,17 @@ public class User {
 	}
 	public void setSoulCount(int soulCount) {
 		this.soulCount = soulCount;
+	}
+	public int getPromType() {
+		return promType;
+	}
+	public void setPromType(int promType) {
+		this.promType = promType;
+	}
+	public int getPromUse() {
+		return promUse;
+	}
+	public void setPromUse(int promUse) {
+		this.promUse = promUse;
 	}
 }

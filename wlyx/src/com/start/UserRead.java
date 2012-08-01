@@ -78,6 +78,8 @@ public class UserRead {
 		String needProm = soul.elementText("needProm");
 		String start = soul.elementText("longStart");
 		String count = soul.elementText("trainCount");
+		String promType = soul.elementText("promType");
+		String promUse = soul.elementText("promUse");
 		if(!Tools.isEmpty(needTrain)){
 			user.setNeedWHTrain(needTrain.equals("1"));
 		}
@@ -90,6 +92,12 @@ public class UserRead {
 		if(!Tools.isEmpty(count)){
 			user.setSoulCount(Integer.parseInt(count));
 		}
+		if(!Tools.isEmpty(promType)){
+			user.setPromType(Integer.parseInt(promType));
+		}
+		if(!Tools.isEmpty(promUse)){
+			user.setPromUse(Integer.parseInt(promUse));
+		}
 	}
 	private void setMonstor(Element e,User user){
 		Element monstor = e.element("monstor");
@@ -97,6 +105,7 @@ public class UserRead {
 		String endTime = monstor.elementText("endTime");
 		String savePoint = monstor.elementText("savePoint");
 		String picture = monstor.elementText("beauty");
+		String killOnce = monstor.elementText("killOnce");
 		if(!Tools.isEmpty(startTime)){
 			user.setBeginTime(Integer.parseInt(startTime.trim()));
 		}
@@ -108,6 +117,9 @@ public class UserRead {
 		}
 		if(!Tools.isEmpty(picture)){
 			user.setNeedBeauty("1".equals(picture.trim()));
+		}
+		if(!Tools.isEmpty(killOnce)){
+			user.setKillMonstorOnce(killOnce);
 		}
 	}
 	private void setWarrior(Element e,User user){
