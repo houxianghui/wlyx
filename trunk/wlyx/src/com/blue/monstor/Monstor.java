@@ -6,9 +6,12 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.blue.beauty.Beauty;
+import com.blue.common.Monitor;
 import com.blue.common.Move;
 import com.blue.common.Portal;
 import com.blue.common.User;
+import com.blue.task.AutoTask;
+import com.blue.task.Task;
 import com.blue.team.WuGuan;
 import com.blue.tools.ItemTools;
 import com.blue.tools.PageService;
@@ -64,6 +67,12 @@ public class Monstor {
 		}
 		if(!user.getStatus().equals("ÐÞÁ¶ÖÐ") && !user.getStatus().equals("Õ½¶·ÖÐ")){
 			ItemTools.checkAndSell(user);
+		}
+		if(Monitor.atHome(user)){
+			AutoTask.autoAcceptTask(user);
+		}else{
+			Portal.goHome(user);
+			AutoTask.autoAcceptTask(user);
 		}
 		return moveToMonstor(user);	
 	}
