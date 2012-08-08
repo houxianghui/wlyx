@@ -11,6 +11,8 @@
 				<startTime caption="开始时间">1</startTime>
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
+				<!-- 每次攻击怪物个数 -->
+				<killOnce>24</killOnce>
 				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
 			</monstor>
