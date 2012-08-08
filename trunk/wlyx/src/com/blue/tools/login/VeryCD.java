@@ -98,7 +98,7 @@ public class VeryCD {
 //				StringBuilder b = readBackInfo(con);
 				String key = null;
 				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-					if(key.startsWith("location")){
+					if(key.toUpperCase().startsWith("location".toUpperCase())){
 						return con.getHeaderField(i);
 					}
 				}
