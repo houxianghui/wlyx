@@ -8,6 +8,7 @@ public class ServerDuelHallThread extends BaseThread {
 	
 	public ServerDuelHallThread(User user) {
 		this.user = user;
+		this.start();
 	}
 	@Override
 	public void run() {
