@@ -89,6 +89,10 @@
 				<!-- 0=黄金 1=礼券 -->
 				<promUse>1</promUse>
 			</soul>
+			<serverDuel caption="跨服竞技">
+				<!-- 是否需要跨服竞技 0 否 1 是-->
+				<needDuel>0</needDuel>
+			</serverDuel>
 		</user>
 		
 	</users>
