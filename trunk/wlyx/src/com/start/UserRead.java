@@ -66,7 +66,18 @@ public class UserRead {
 			setDaily(e,user);
 			setTeam(e,user);
 			setSoul(e, user);
+			setServerDuel(e, user);
 			l.add(user);
+		}
+	}
+	private void setServerDuel(Element e,User user){
+		Element duel = e.element("serverDuel");
+		if(duel == null){
+			return;
+		}
+		String needDuel = duel.elementText("needDuel");
+		if(!Tools.isEmpty(needDuel)){
+			user.setNeedServerDuelHall("1".equals(duel));
 		}
 	}
 	private void setSoul(Element e,User user){
