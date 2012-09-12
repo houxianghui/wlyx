@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import com.blue.common.User;
 import com.blue.enums.Profession;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
 public class ServerDuelHall {
+	private static Logger logger = Logger.getLogger(ServerDuelHall.class);
 	/**
 	 * <a href="javascript:void(0);" onclick="fnServerDuelRoleFight( 7250 );">发起挑战</a>
 																					</td>
@@ -49,5 +52,6 @@ public class ServerDuelHall {
 		Challenged c = l.get(0);
 		String url = "modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
 		PageService.getPageWithCookie(url, user);
+		logger.info(user.getRoleName()+"跨服挑战"+c.getUserName());
 	}
 }
