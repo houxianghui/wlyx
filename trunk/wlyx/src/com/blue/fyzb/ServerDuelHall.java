@@ -50,8 +50,8 @@ public class ServerDuelHall {
 			return;
 		}
 		Challenged c = l.get(0);
-		String url = "modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
-		PageService.getPageWithCookie(url, user);
+		String url = user.getUrl()+"modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"¿ç·þÌôÕ½"+c.getUserName());
 	}
 }
