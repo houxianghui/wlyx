@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.DuelThread;
+import com.blue.fyzb.ServerDuelHallThread;
 import com.blue.monitor.YiShouMonitorThread;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
@@ -148,7 +149,10 @@ public class User {
 	private String wealDate;	//上次占卜时间
 	private String url = "s4.verycd.9wee.com";			//所在服务器	
 	private String cookie;			
-
+	//-----------------------------------------------------------------
+	//跨服竞技
+	private boolean needServerDuelHall;		//是否需要跨服竞技
+	//-----------------------------------------------------------------
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
 	}
@@ -646,6 +650,7 @@ public class User {
 		work.add(new TianJiThread(this));			//自动天机堂任务
 		work.add(new DailyAward(this));			//自动领取全民福利
 		work.add(new YiShouMonitorThread(this));	//免费异兽蛋
+		work.add(new ServerDuelHallThread(this));//跨服竞技
 		if(isMianChiDropWeapon()){
 			work.add(new DropWeaponThread(this));	//渑池卸武
 		}
@@ -721,6 +726,12 @@ public class User {
 	}
 	public void setNeedWHFoster(boolean needWHFoster) {
 		this.needWHFoster = needWHFoster;
+	}
+	public boolean isNeedServerDuelHall() {
+		return needServerDuelHall;
+	}
+	public void setNeedServerDuelHall(boolean needServerDuelHall) {
+		this.needServerDuelHall = needServerDuelHall;
 	}
 	public int getLongWHTrainStart() {
 		return longWHTrainStart;

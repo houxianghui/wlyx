@@ -324,9 +324,9 @@ public class PageService {
 	
 	public static boolean readCookie(User user){
 		//每周三重新登录
-		if(Tools.getDayOfWeek() == Calendar.WEDNESDAY){
-			return false;
-		}
+//		if(Tools.getDayOfWeek() == Calendar.WEDNESDAY){
+//			return false;
+//		}
 		BufferedReader br = null;
 		try{
 			br = new BufferedReader(new FileReader("cookies/"+user.getUserName()+"."+user.getHost()+".ck"));
@@ -334,6 +334,9 @@ public class PageService {
 			user.setCookie("");
 			while((s=br.readLine()) != null){
 				user.setCookie(user.getCookie()+s);
+			}
+			if(Tools.isEmpty(user.getCookie())){
+				return false;
 			}
 			return true;
 		}catch(Exception e){
