@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.DuelThread;
+import com.blue.enums.Profession;
 import com.blue.fyzb.ServerDuelHallThread;
 import com.blue.monitor.YiShouMonitorThread;
 import com.blue.slavy.CatchSlavyThread;
@@ -152,6 +153,7 @@ public class User {
 	//-----------------------------------------------------------------
 	//跨服竞技
 	private boolean needServerDuelHall;		//是否需要跨服竞技
+	private Profession profession;			//挑战派系
 	//-----------------------------------------------------------------
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
