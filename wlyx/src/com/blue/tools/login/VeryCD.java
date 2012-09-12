@@ -4,6 +4,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -13,6 +15,7 @@ import com.blue.tools.Tools;
 
 public class VeryCD {
 	private static Logger logger = Logger.getLogger(VeryCD.class);
+	private static Pattern p = Pattern.compile("document\\.getElementById\\(\"play_frame\"\\)\\.src=\"(.*?)\"");
 	public static void login( User user){
 		if(PageService.readCookie(user)){
 			return;
@@ -62,7 +65,16 @@ public class VeryCD {
 					}
 				}
 				
+				user.setCookie(sb.toString());
+//				String page = PageService.getPageWithCookie("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), user);
 				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), sb.toString());
+				String page = PageService.getPageWithCookie(nextUrl, user);
+				Matcher m = p.matcher(page);
+				if(m.find()){
+					nextUrl = m.group(1);
+				}
+//				nextUrl = user.getUrl()+"passport.php?act=login&referer=%2F&username="+user.getUserName()+"&time="+Tools.getTimeStamp(true);//"&mac=ff2af4be183ef4a32a8dc6ec98c6c59f";
+//				user.setCookie(sb.toString());
 				String cookie = getCookie(nextUrl,user);
 				user.setCookie(cookie);
 				if(!Tools.isEmpty(user.getStockPwd())){
@@ -124,6 +136,7 @@ public class VeryCD {
 				con.addRequestProperty("Host", user.getHost());
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
+				con.setRequestProperty("Cookie", user.getCookie());
 //				setGZipOn(con);
 				HttpURLConnection.setFollowRedirects(false);
 				con.setInstanceFollowRedirects(false);
