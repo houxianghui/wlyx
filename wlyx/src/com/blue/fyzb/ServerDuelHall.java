@@ -2,6 +2,7 @@ package com.blue.fyzb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +50,8 @@ public class ServerDuelHall {
 		if(l.size() == 0){
 			return;
 		}
-		Challenged c = l.get(0);
+		Random r = new Random();
+		Challenged c = l.get(r.nextInt(l.size()));
 		String url = user.getUrl()+"modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"¿ç·þÌôÕ½"+c.getUserName());
