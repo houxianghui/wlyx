@@ -13,8 +13,8 @@ public class ServerDuelHallThread extends BaseThread {
 	@Override
 	public void run() {
 		while(!needStop){
-			ServerDuelHall.challenge(user);
 			try {
+				ServerDuelHall.challenge(user);
 				Thread.sleep(3*60*1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
