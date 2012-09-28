@@ -11,6 +11,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.blue.common.User;
+import com.blue.enums.Profession;
+import com.blue.fyzb.ServerDuelConfig;
 import com.blue.tools.Tools;
 
 public class UserRead {
@@ -77,7 +79,20 @@ public class UserRead {
 		}
 		String needDuel = duel.elementText("needDuel");
 		if(!Tools.isEmpty(needDuel)){
-			user.setNeedServerDuelHall("1".equals(duel));
+			user.setNeedServerDuelHall("1".equals(needDuel));
+		}
+		if(!user.isNeedServerDuelHall()){
+			return;
+		}
+		Element c = duel.element("config");
+		List<Element> l = c.elements();
+		for(Element el : l){
+			ServerDuelConfig config = new ServerDuelConfig();
+			config.setChallengProfession(Profession.valueOf(el.attributeValue("name")));
+			config.setActiveSkill(el.elementText("activeSkill"));
+			config.setAssistSkillA(el.elementText("assistSkillA"));
+			config.setAssistSkillB(el.elementText("assistSkillB"));
+			user.getServerDuelConfigMap().put(config.getChallengProfession(), config);
 		}
 	}
 	private void setSoul(Element e,User user){

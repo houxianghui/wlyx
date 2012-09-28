@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.enums.Profession;
 import com.blue.team.WuGuan;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
@@ -32,6 +33,7 @@ public class Portal {
 		<li><div class="attr_ds_lite" title="暴击率：<span class=highlight>1%</span> 的几率给对手造成 1.5 倍伤害">暴击率 <span class="highlight small_font">1%</span></div></li>
 		<li><div class="attr_id_lite" title="破击率：<span class=highlight>0%</span> 的几率无视对手防御">破击率 <span class="highlight small_font">0%</span></div></li>
 	 */
+	private static Pattern profession = Pattern.compile("派系：<span class=\"highlight\">.*? - (.*?)</");
 	private static Pattern attribute = Pattern.compile("命中率：额外 <span class=highlight>\\+(\\d+)%</span>.*?躲闪率：<span class=highlight>(\\d+)%</span>.*?暴击率：<span class=highlight>(\\d+)%</span>.*?破击率：<span class=highlight>(\\d+)%",Pattern.DOTALL);
 	
 	private static Pattern HP = Pattern.compile("<div class=\"point_bar_bg\" title=\"当前气血：<span class=highlight>(\\d+) / (\\d+)</span>");
@@ -132,9 +134,12 @@ public class Portal {
 		user.getAttribMap().put("命中率", user.getMingZhong());
 		user.getAttribMap().put("暴击率", user.getBaoJi());
 		user.getAttribMap().put("破击率", user.getPoJi());
+		m = profession.matcher(page);
+		if(m.find()){
+			user.setProfession(Profession.valueOf(m.group(1)));
+		}
 	}
 	public static boolean setUserInfo(User user){
-		user.setKillMonstorOnce("24");
 		String url = user.getUrl();
 		String page = PageService.getPageWithCookie(url, user);
 		while(!Tools.success(page)){

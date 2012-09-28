@@ -12,6 +12,7 @@ import com.blue.daily.DailyAward;
 import com.blue.daily.DailyWealsThread;
 import com.blue.duel.DuelThread;
 import com.blue.enums.Profession;
+import com.blue.fyzb.ServerDuelConfig;
 import com.blue.fyzb.ServerDuelHallThread;
 import com.blue.monitor.YiShouMonitorThread;
 import com.blue.slavy.CatchSlavyThread;
@@ -49,7 +50,7 @@ public class User {
 	private Map<String, String> unionTeam = new HashMap<String,String>();
 	/*---------------------------------------------------------------*/
 	//挂野设置
-	private String killMonstorOnce;		//每次击杀怪物个数
+	private String killMonstorOnce = "24";		//每次击杀怪物个数
 	private String level;				//等级
 	private String point;				//精力点数
 	private int savePoint;				//保留精力点数
@@ -108,6 +109,7 @@ public class User {
 	private int currHP;					//当前HP
 	private int currMP;					//当前MP
 	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
+	private Profession profession;		//角色派系
 	/*---------------------------------------------------------------*/
 	//奴隶设置
 	private int needCatchSlavy = 0;
@@ -153,7 +155,7 @@ public class User {
 	//-----------------------------------------------------------------
 	//跨服竞技
 	private boolean needServerDuelHall;		//是否需要跨服竞技
-	private Profession profession;			//挑战派系
+	private Map<Profession,ServerDuelConfig> ServerDuelConfigMap = new HashMap<Profession, ServerDuelConfig>();		//挑战派系配置
 	//-----------------------------------------------------------------
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
@@ -621,6 +623,7 @@ public class User {
 			PageService.login(this);
 		}
 		Portal.setUserInfo(this);
+		Portal.setUserAttribute(this);
 		
 		logger.info(getRoleName()+"登陆成功");
 		if(startWork){
@@ -770,5 +773,17 @@ public class User {
 	}
 	public void setPromUse(int promUse) {
 		this.promUse = promUse;
+	}
+	public Profession getProfession() {
+		return profession;
+	}
+	public void setProfession(Profession profession) {
+		this.profession = profession;
+	}
+	public Map<Profession, ServerDuelConfig> getServerDuelConfigMap() {
+		return ServerDuelConfigMap;
+	}
+	public void setServerDuelConfigMap(Map<Profession, ServerDuelConfig> serverDuelConfigMap) {
+		ServerDuelConfigMap = serverDuelConfigMap;
 	}
 }

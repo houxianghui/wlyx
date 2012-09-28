@@ -11,34 +11,52 @@ import org.apache.log4j.Logger;
 import com.blue.common.User;
 import com.blue.enums.Profession;
 import com.blue.tools.PageService;
+import com.blue.tools.SkillUtil;
 import com.blue.tools.Tools;
 
 public class ServerDuelHall {
 	private static Logger logger = Logger.getLogger(ServerDuelHall.class);
 	/**
-	 * <a href="javascript:void(0);" onclick="fnServerDuelRoleFight( 7250 );">发起挑战</a>
+	 *	<tr>
+						<td width="32%" align="left"><a title="富士-富格曼5区" href="javascript:void(0);">富士-富...</a></td>
+						<td width="17%" align="left">控制系</td>
+						<td width="18%" align="left">武安君</td>
+						<td width="15%" align="left" class="small_font">Lv.108</td>
+						<td width="18%" align="center">
+																								<a href="javascript:void(0);" onclick="fnServerDuelRoleFight( 1307, 10 );">发起挑战</a>
 																					</td>
 					</tr>
-										<tr>
-						<td width="32%" align="left"><a title="枪王-浩方11区" href="javascript:void(0);">枪王-浩...</a></td>
-						<td width="17%" align="left">防护系</td>
-						<td width="18%" align="left">武安君</td>
-						<td width="15%" align="left" class="small_font">Lv.102</td>
 
 	 */
-	private static Pattern p = Pattern.compile("fnServerDuelRoleFight\\( (\\d+) \\);\">发起挑战.*?void\\(0\\);\">(.*?)</a>.*?left\">(.*?系).*?Lv.(\\d+)",Pattern.DOTALL);
+	private static Pattern external = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
+	private static Pattern inner = Pattern.compile(".*?void\\(0\\);\">(.*?)</a>.*?left\">\\s*(.*?系).*?Lv.(\\d+).*?fnServerDuelRoleFight\\( (\\d+).*?发起挑战</a>",Pattern.DOTALL);
+	private static Pattern times = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span>");
 	public static List<Challenged> getChallenged(User user){
 		String url = user.getUrl()+"modules/server_duel_hall.php?"+Tools.getTimeStamp(false);
 		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = p.matcher(page);
+		Matcher time = times.matcher(page);
+		if(time.find()){
+			if(time.group(1).equals(time.group(2))){
+				return null;
+			}
+		}
+		Matcher exMatcher = external.matcher(page);
 		List<Challenged> l = new ArrayList<Challenged>();
-		while(m.find()){
-			Challenged c = new Challenged();
-			c.setId(m.group(1));
-			c.setUserName(m.group(2));
-			c.setProfession(Profession.valueOf(m.group(3)));
-			c.setLevel(Integer.parseInt(m.group(4)));
-			l.add(c);
+		while(exMatcher.find()){
+			String s = exMatcher.group();
+			Matcher m = inner.matcher(s);
+			if(m.find()){
+				Challenged c = new Challenged();
+				c.setId(m.group(4));
+				c.setUserName(m.group(1));
+				if(m.group(2).startsWith("刺")){
+					c.setProfession(Profession.刺杀系);
+				}else{
+					c.setProfession(Profession.valueOf(m.group(2)));
+				}
+				c.setLevel(Integer.parseInt(m.group(3)));
+				l.add(c);
+			}
 		}
 		return l;
 	}
@@ -47,11 +65,12 @@ public class ServerDuelHall {
 			return;
 		}
 		List<Challenged> l = getChallenged(user);
-		if(l.size() == 0){
+		if(l == null || l.size() == 0){
 			return;
 		}
 		Random r = new Random();
 		Challenged c = l.get(r.nextInt(l.size()));
+		SkillUtil.equipSkill(user, c.getProfession());
 		String url = user.getUrl()+"modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"跨服挑战"+c.getUserName());
