@@ -5,15 +5,14 @@
 		<proxyPort></proxyPort>
 	</system>
 	<users>
-
-	<user username="" password=""  stockPwd=""  host="s4.verycd.9wee.com" >
+		<user username="" password="" stockPwd="" host="s4.verycd.9wee.com">
 			<monstor caption="野训设置">
-				<startTime caption="开始时间">1</startTime>
+				<startTime caption="开始时间">0</startTime>
 				<endTime caption="结束时间">8</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
-				<!-- 每次攻击怪物个数 -->
-				<killOnce>24</killOnce>
-				<!-- 装备保留  3 蓝装以上 4 紫装以上 5 全卖 -->
+				<!-- 是否需要开经验图 0否 1 是 -->
+				<beauty>1</beauty>
+				<!-- 装备保留 3 蓝装以上 4 紫装以上 5 全卖 -->
 				<quality>4</quality>
 			</monstor>
 			<warrior caption="大厅设置">
@@ -21,25 +20,41 @@
 				<warriorType>1</warriorType>
 				<!-- 是否需要辎重 0 不需要 1 需要 -->
 				<needZiZhong>1</needZiZhong>
+				<!-- 超长训练开始时间 -->
+				<startTime>23</startTime>
+				<!-- 训练时长 -->
+				<hourOnce>12</hourOnce>
 			</warrior>
 			<duel caption="竞技场设置">
-				<!--竞技开始时间-->
-				<duelStart>12</duelStart>
-				<!--竞技间隔 单位为分钟-->
+				<!--竞技开始时间 -->
+				<duelStart>8</duelStart>
+				<!--竞技间隔 单位为分钟 -->
 				<duelDue>0</duelDue>
-				<!--竞技卸武 1 卸武 0 不卸武-->
+				<!--竞技卸武 1 卸武 0 不卸武 -->
 				<dropWeapon>0</dropWeapon>
+				<!-- 竞技模式 1 逐级 2 冲级 默认逐级 -->
+				<dueltype>2</dueltype>
+				<!-- 是否需要刷尾巴 0 不需要 1 需要 默认需要 -->
+				<needBeatTail>1</needBeatTail>
+				<!--挑战角色名称 -->
+				<fightPerson></fightPerson>
 			</duel>
 			<task caption="日常任务设置">
-				<!--收集类任务最小金额-->
+				<!--收集类任务最小金额 -->
 				<minMoney>20000</minMoney>
-				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆 0 不修 -->
-				<tianJiDoor>1</tianJiDoor>
-<!-- 购买种子,参考种子.txt 填写种子编码 ,不购买则不填写-->
+				<!-- 战斗任务最小经验值 -->
+				<minJingYan>9000</minJingYan>
+				<!-- 对话任务 1 全接 3 蓝装 4 紫装 5 不接 -->
+				<dialog>4</dialog>
+				<!-- 是否自动完成天机堂任务 0 否 1 是 -->
+				<autoTianJi>1</autoTianJi>
+				<!-- 天机堂修门选项 1 四海库房 2 万守关 3 玲珑阁 4 藏书馆5奇珍阁 0 不修 -->
+				<tianJiDoor>3</tianJiDoor>
+				<!-- 购买种子,参考种子.txt 填写种子编码 ,不购买则不填写 -->
 				<buySeed></buySeed>
-				<!-- 是否自动收获 1 是，0 否-->
-				<autoHarvest>1</autoHarvest>
-				<!-- 种植时间，逗号分割。1=星期天,2=星期一,3=星期二,4=星期三,5=星期四,6=星期五,7=星期六。 对应每周7天 ，周三会被系统清理，建议周3不种植-->
+				<!-- 是否自动收获 1 是，0 否 -->
+				<autoHarvest></autoHarvest>
+				<!-- 种植时间，逗号分割。1=星期天,2=星期一,3=星期二,4=星期三,5=星期四,6=星期五,7=星期六。 对应每周7天 ，周三会被系统清理，建议周3不种植 -->
 				<plantDay>1,4,5,6,7</plantDay>
 			</task>
 			<slavy caption="奴隶设置">
@@ -48,35 +63,53 @@
 				<!-- 最少奴隶个数 -->
 				<minSlavy>3</minSlavy>
 				<!-- 折磨方式 1 宣传 2 修门 -->
-				<painType>2</painType>
-				<!-- 修门选项 2 玄武 3 朱雀 3 白虎 4 青龙-->
+				<painType>1</painType>
+				<!-- 修门选项 2 玄武 3 朱雀 4 白虎 5 青龙 -->
 				<build>2</build>
 				<!-- 黑屋开始时间 -->
 				<blackStart>0</blackStart>
 				<!-- 黑屋结束时间 -->
 				<blackEnd>0</blackEnd>
+				<!-- 门客折磨顺序1=习文伴武 2=财源广进 5=网络奇珍 3=精忠报国 4=兴修土木 -->
+				<menKeStep>1,5,3,4,2</menKeStep>
 			</slavy>
 			<daily caption="日常设置">
-				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿-->
-				<buyGlory>2</buyGlory>
-				<!-- 是否需要领取每日福利礼包 1 领取 0不领 -->
+				<!-- 换荣誉 0 不换 1 换经验 2换紫玉 3 祖母绿 -->
+				<buyGlory>1</buyGlory>
+				<!-- 是否需要领取全民福利礼包 0 不領 1 礼券 2 精力 3 石头 -->
 				<dailyWeal>1</dailyWeal>
 				<!-- 是否报名国都演武 1 报名 0 不报 -->
 				<guoDuYanWu>0</guoDuYanWu>
 				<!-- 渑池演武厅是否卸武 1 卸武 2 不卸武 -->
-				<mianChi>2</mianChi>
+				<mianChi>0</mianChi>
+				<!-- 是否需要自动兑换道具 0 否 1 是 -->
+				<needChangeItem>0</needChangeItem>
+				<!-- 是否需要自动读取幻境塔进度 1 是 0 否 -->
 				<needReadSave>0</needReadSave>
-
+				<!-- 是否自动领取礼包 1 是 0 否 -->
+				<needGetLiBao>1</needGetLiBao>
+				<!-- 是否自动租赁 0=否 1=是 -->
+				<needAutoRent>0</needAutoRent>
 			</daily>
-			<team caption="踢馆设置">
+			<team caption="踢馆设置" open="1"><!-- 1 开 0 关 -->
 				<!-- 是否需要护联盟馆 -->
 				<needProtect>1</needProtect>
-				<!-- 护馆选项：低于多少强制护馆  -->
-				<protectMyTeam>0.5</protectMyTeam>
+				<!-- 是否自动开护馆红图 0=否 1=是 -->
+				<openRedProtect>1</openRedProtect>
 				<!-- 是否需要踢馆 -->
 				<needDesdroy>1</needDesdroy>
-				<!-- 踢馆名称  设置了就不随时扔砖了哦-->
+				<!-- 入馆最小厚度 -->
+				<minThickness>800000</minThickness>
+				<!-- 踢馆是否自动开红图 0=否 1=是 -->
+				<openRedBeat>1</openRedBeat>
+				<!-- 护馆选项：低于多少强制护馆 -->
+				<protectMyTeam>0.8</protectMyTeam>
+				<!-- 强制护馆 -->
+				<forceProtect></forceProtect>
+				<!-- 踢馆名称 设置了就不随时扔砖了哦,设置友好踢馆会随时扔砖 -->
 				<teamName></teamName>
+				<!-- 友好踢馆 1 是 0 否 -->
+				<friendly>1</friendly>
 			</team>
 			<soul caption="武魂设置">
 				<!-- 是否需要训练 0 否 1 是 -->
@@ -85,15 +118,47 @@
 				<needProm>1</needProm>
 				<longStart>23</longStart>
 				<!-- 1=铜板 2=1礼券/黄金 3=3礼券/黄金 4=8礼券/黄金 5=12礼券/黄金 -->
-				<promType>1</promType>	
+				<promType>1</promType>
 				<!-- 0=黄金 1=礼券 -->
 				<promUse>1</promUse>
 			</soul>
 			<serverDuel caption="跨服竞技">
-				<!-- 是否需要跨服竞技 0 否 1 是-->
-				<needDuel>0</needDuel>
+				<!-- 是否需要跨服竞技 0 否 1 是 -->
+				<needDuel>1</needDuel>
+				<config>
+					<profession name="控制系">
+						<activeSkill>定身式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="气宗系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="破坏系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="防护系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>怒澜式</assistSkillB>
+					</profession>
+					<profession name="刺杀系">
+						<activeSkill>定身式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="剑宗系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+				</config>
 			</serverDuel>
 		</user>
-		
+
 	</users>
 </set>
