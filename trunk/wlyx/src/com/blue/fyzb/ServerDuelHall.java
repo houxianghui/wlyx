@@ -31,6 +31,7 @@ public class ServerDuelHall {
 	private static Pattern external = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
 	private static Pattern inner = Pattern.compile(".*?void\\(0\\);\">(.*?)</a>.*?left\">\\s*(.*?系).*?Lv.(\\d+).*?fnServerDuelRoleFight\\( (\\d+).*?发起挑战</a>",Pattern.DOTALL);
 	private static Pattern times = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span>");
+	private static Pattern msg = Pattern.compile("message\":\"(.*?) <span class=\\\"highlight\\\">(.*?)<\\/span>(.*?)\"");
 	public static List<Challenged> getChallenged(User user){
 		String url = user.getUrl()+"modules/server_duel_hall.php?"+Tools.getTimeStamp(false);
 		String page = PageService.getPageWithCookie(url, user);
@@ -74,5 +75,18 @@ public class ServerDuelHall {
 		String url = user.getUrl()+"modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"跨服挑战"+c.getUserName());
+		getReward(user);
+	}
+	
+	private static void getReward(User user){
+		int[] cut = {5,9,12,14,15};
+		for(int i = 5;i<cut.length;i++){
+			String url = user.getUrl()+"/modules/server_duel_top.php?act=get&cnt="+i+Tools.getTimeStamp(true);
+			String result = PageService.getPageWithCookie(url, user);
+			Matcher m = msg.matcher(result);
+			if(m.find()){
+				logger.info(user.getRoleName()+Tools.hexToString((m.group(1)+m.group(2)+m.group(3))));
+			}
+		}
 	}
 }
