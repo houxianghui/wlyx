@@ -50,10 +50,19 @@ public class ServerDuelHall {
 				Challenged c = new Challenged();
 				c.setId(m.group(4));
 				c.setUserName(m.group(1));
-				if(m.group(2).startsWith("刺")){
+				String name = m.group(2);
+				if(Tools.contains(name, "刺杀")){
 					c.setProfession(Profession.刺杀系);
-				}else{
-					c.setProfession(Profession.valueOf(m.group(2)));
+				}else if(Tools.contains(name, "破坏")){
+					c.setProfession(Profession.破坏系);
+				}else if(Tools.contains(name, "剑")){
+					c.setProfession(Profession.剑宗系);
+				}else if(Tools.contains(name, "气")){
+					c.setProfession(Profession.气宗系);
+				}else if(Tools.contains(name, "防护")){
+					c.setProfession(Profession.防护系);
+				}else if(Tools.contains(name, "控制")){
+					c.setProfession(Profession.控制系);
 				}
 				c.setLevel(Integer.parseInt(m.group(3)));
 				l.add(c);
