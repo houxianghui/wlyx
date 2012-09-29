@@ -90,7 +90,7 @@ public class ServerDuelHall {
 	private static void getReward(User user){
 		int[] cut = {5,9,12,14,15};
 		for(int i = 0;i<cut.length;i++){
-			String url = user.getUrl()+"modules/server_duel_top.php?act=get&cnt="+i+Tools.getTimeStamp(true);
+			String url = user.getUrl()+"modules/server_duel_top.php?act=get&cnt="+cut[i]+Tools.getTimeStamp(true);
 			String result = PageService.getPageWithCookie(url, user);
 			Matcher m = msg.matcher(result);
 			if(m.find()){
