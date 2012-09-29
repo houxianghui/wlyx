@@ -35,7 +35,7 @@ public class GuardMonitor {
 				ItemMerge.merge(user);
 			}
 		}
-		wearGuard(user);
+//		wearGuard(user);
 	}
 	private static void wearGuard(User user){
 		List<Item> items = ItemTools.getPack(user);
