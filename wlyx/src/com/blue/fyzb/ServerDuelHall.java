@@ -13,6 +13,7 @@ import com.blue.enums.Profession;
 import com.blue.tools.PageService;
 import com.blue.tools.SkillUtil;
 import com.blue.tools.Tools;
+import com.start.GetAllHuanJing;
 
 public class ServerDuelHall {
 	private static Logger logger = Logger.getLogger(ServerDuelHall.class);
@@ -31,7 +32,7 @@ public class ServerDuelHall {
 	private static Pattern external = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
 	private static Pattern inner = Pattern.compile(".*?void\\(0\\);\">(.*?)</a>.*?left\">\\s*(.*?系).*?Lv.(\\d+).*?fnServerDuelRoleFight\\( (\\d+).*?发起挑战</a>",Pattern.DOTALL);
 	private static Pattern times = Pattern.compile("今日已发起 <span class=\"highlight\">(\\d+) / (\\d+)</span>");
-	private static Pattern msg = Pattern.compile("message\":\"(.*?) <span class=\\\"highlight\\\">(.*?)<\\/span>(.*?)\"");
+	private static Pattern msg = Pattern.compile("message\":\"(.*?)<");
 	public static List<Challenged> getChallenged(User user){
 		String url = user.getUrl()+"modules/server_duel_hall.php?"+Tools.getTimeStamp(false);
 		String page = PageService.getPageWithCookie(url, user);
@@ -71,6 +72,7 @@ public class ServerDuelHall {
 		return l;
 	}
 	public static void challenge(User user){
+		getReward(user);
 		if(!user.isNeedServerDuelHall()){
 			return;
 		}
@@ -84,7 +86,6 @@ public class ServerDuelHall {
 		String url = user.getUrl()+"modules/server_duel_fight.php?action=fight&rid="+c.getId()+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
 		logger.info(user.getRoleName()+"跨服挑战"+c.getUserName());
-		getReward(user);
 	}
 	
 	private static void getReward(User user){
