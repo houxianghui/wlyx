@@ -103,4 +103,13 @@ public class Tools {
 		int day = c.get(Calendar.DAY_OF_WEEK);
 		return day%2 != 0;
 	}
+	public static boolean contains(String s,String find){
+		char[] chars = find.toCharArray();
+		for(char c:chars){
+			if(s.indexOf(c)!=-1){
+				return true;
+			}
+		}
+		return false;
+	}
 }
