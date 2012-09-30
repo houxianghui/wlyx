@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.common.Portal;
 import com.blue.common.User;
 import com.blue.enums.Profession;
 import com.blue.tools.PageService;
@@ -80,6 +81,7 @@ public class ServerDuelHall {
 		if(l == null || l.size() == 0){
 			return;
 		}
+		Portal.custRoom(user);
 		Random r = new Random();
 		Challenged c = l.get(r.nextInt(l.size()));
 		SkillUtil.equipSkill(user, c.getProfession());
