@@ -16,7 +16,7 @@ public class ServerDuelHallThread extends BaseThread {
 			try {
 				ServerDuelHall.challenge(user);
 				Thread.sleep(3*60*1000);
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
