@@ -1,0 +1,1 @@
+java -cp wl.jar com.blue.mfight.FightMonstor

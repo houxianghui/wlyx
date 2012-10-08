@@ -1,0 +1,1 @@
+@java -cp wl.jar -DGZIP com.blue.start.GetSeedInfoMain
