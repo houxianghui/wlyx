@@ -75,7 +75,7 @@
               <goal>assembly</goal>
             </goals>
             <configuration>
-              <finalName />
+              <finalName>暗影</finalName>
               <descriptors>
                 <descriptor>zip.xml</descriptor>
               </descriptors>
