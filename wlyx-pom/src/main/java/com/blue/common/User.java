@@ -156,6 +156,7 @@ public class User {
 	//-----------------------------------------------------------------
 	//跨服竞技
 	private boolean needServerDuelHall;		//是否需要跨服竞技
+	private boolean useDefault = true;		//是否使用职业技能
 	private Map<Profession,ServerDuelConfig> ServerDuelConfigMap = new HashMap<Profession, ServerDuelConfig>();		//挑战派系配置
 	//-----------------------------------------------------------------
 	public boolean isNeedDuiHuan() {
@@ -626,7 +627,9 @@ public class User {
 		Portal.setUserInfo(this);
 		Portal.setUserAttribute(this);
 		//设置跨服竞技配置
-		RoleSkillForProfession.setServerDuelConfig(this);
+		if(useDefault){
+			RoleSkillForProfession.setServerDuelConfig(this);
+		}
 		
 		logger.info(getRoleName()+"登陆成功");
 		if(startWork){
@@ -788,5 +791,11 @@ public class User {
 	}
 	public void setServerDuelConfigMap(Map<Profession, ServerDuelConfig> serverDuelConfigMap) {
 		ServerDuelConfigMap = serverDuelConfigMap;
+	}
+	public boolean isUseDefault() {
+		return useDefault;
+	}
+	public void setUseDefault(boolean useDefault) {
+		this.useDefault = useDefault;
 	}
 }

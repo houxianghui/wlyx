@@ -125,6 +125,40 @@
 			<serverDuel caption="跨服竞技">
 				<!-- 是否需要跨服竞技 0 否 1 是 -->
 				<needDuel>1</needDuel>
+				<!-- 是否需要跨服竞技 0 否 1 是 -->
+				<useDefault>1</useDefault>
+				<config caption="如果useDefault=1 这里可以不用设置">
+					<profession name="控制系">
+						<activeSkill>定身式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="气宗系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="破坏系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="防护系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>怒澜式</assistSkillB>
+					</profession>
+					<profession name="刺杀系">
+						<activeSkill>定身式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+					<profession name="剑宗系">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</profession>
+				</config>
 			</serverDuel>
 		</user>
 

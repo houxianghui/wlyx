@@ -57,6 +57,13 @@ public class ItemChange {
 				}
 			}while(flag);
 		}
+		for(int i = 1075;i<1076;i++){
+			String url = user.getUrl()+CHENG_JI+i+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(url, user);
+			if((flag=successChange(page)) == true){
+				logger.info(user.getRoleName()+"兑换天之聚宝盆成功");
+			}
+		}
 	}
 	private static boolean successChange(String s){
 		Matcher m = success.matcher(s);

@@ -82,22 +82,28 @@ public class UserRead {
 			return;
 		}
 		String needDuel = duel.elementText("needDuel");
+		String useDefault = duel.elementText("useDefault");
 		if (!Tools.isEmpty(needDuel)) {
 			user.setNeedServerDuelHall("1".equals(needDuel));
 		}
 		if (!user.isNeedServerDuelHall()) {
 			return;
 		}
-//		Element c = duel.element("config");
-//		List<Element> l = c.elements();
-//		for (Element el : l) {
-//			ServerDuelConfig config = new ServerDuelConfig();
-//			config.setChallengProfession(Profession.valueOf(el.attributeValue("name")));
-//			config.setActiveSkill(el.elementText("activeSkill"));
-//			config.setAssistSkillA(el.elementText("assistSkillA"));
-//			config.setAssistSkillB(el.elementText("assistSkillB"));
-//			user.getServerDuelConfigMap().put(config.getChallengProfession(), config);
-//		}
+		if("1".equals(useDefault)){
+			user.setUseDefault(true);
+			return;
+		}else{
+			Element c = duel.element("config");
+			List<Element> l = c.elements();
+			for (Element el : l) {
+				ServerDuelConfig config = new ServerDuelConfig();
+				config.setChallengProfession(Profession.valueOf(el.attributeValue("name")));
+				config.setActiveSkill(el.elementText("activeSkill"));
+				config.setAssistSkillA(el.elementText("assistSkillA"));
+				config.setAssistSkillB(el.elementText("assistSkillB"));
+				user.getServerDuelConfigMap().put(config.getChallengProfession(), config);
+			}
+		}
 	}
 
 	private void setSoul(Element e, User user) {
