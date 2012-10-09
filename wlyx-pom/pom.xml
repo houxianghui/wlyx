@@ -109,7 +109,6 @@
 						</goals>
 						<id>zip</id>
 						<configuration>
-							<finalName></finalName>
 							<descriptors>
 								<descriptor>zip.xml</descriptor>
 							</descriptors>
