@@ -79,6 +79,17 @@ public class SkillUtil {
 			boolean isExistA = Tools.isEmpty(assistA);
 			boolean isExistB = Tools.isEmpty(assistB);
 			
+			if(equiped.get(assistA) != null || isExistA){
+				isExistA = true;
+			}
+			if(isExistB || equiped.get(assistB)!=null){
+				isExistB = true;
+			}
+			
+			if(isExistA && isExistB){
+				return;
+			}
+			
 			for(String s:assists){
 				if(!s.equals(assistA) && !s.equals(assistB)){
 					removeSkill(user, equiped.get(s));

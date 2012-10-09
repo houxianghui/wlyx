@@ -136,6 +136,9 @@ public class PlantSeeds {
 		logger.info(getReturnMsg(user, page));
 	}
 	public static void farm(User user){
+		if(!user.isNeedFarm()){
+			return;
+		}
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=enter&bui_id=5&timeStamp=1331096889939&callback_func_name=ajaxCallback&callback_obj_name=team_foster_build5
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmaction&farm_id=121&team_id=58&creature_type=2&bui_id=5&page=1&timeStamp=1331097341676&callback_func_name=callbackTeamfarm
 		//http://s4.verycd.9wee.com/modules/team_foster.php?act=build&action=farmaction&farm_id=122&team_id=58&creature_type=3&bui_id=5&page=1&timeStamp=1331116993587&callback_func_name=callbackTeamfarm

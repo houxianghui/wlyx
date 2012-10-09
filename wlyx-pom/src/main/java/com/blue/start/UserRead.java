@@ -288,6 +288,8 @@ public class UserRead {
 		String needReadSave = e.elementText("needReadSave");
 		String needGetLiBao = e.elementText("needGetLiBao");
 		String needAutoRent = e.elementText("needAutoRent");
+		String needFarm = e.elementText("needFarm");
+		
 		if (!Tools.isEmpty(needGetLiBao)) {
 			user.setNeedGetLiBao("1".equals(needGetLiBao.trim()));
 		}
@@ -312,6 +314,9 @@ public class UserRead {
 		}
 		if (!Tools.isEmpty(needAutoRent)) {
 			user.setNeedAutoRent("1".equals(needAutoRent));
+		}
+		if(!Tools.isEmpty(needFarm)){
+			user.setNeedFarm("1".equals(needFarm));
 		}
 	}
 

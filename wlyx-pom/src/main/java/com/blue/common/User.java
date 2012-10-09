@@ -85,6 +85,7 @@ public class User {
 	private String buySeed;						//购买种子
 	private boolean autoHarvest=true;			//是否自动收获种子
 	private String plantDay="8";					//种植星期
+	private boolean needFarm = true;			//是否自动浇水
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
@@ -797,5 +798,11 @@ public class User {
 	}
 	public void setUseDefault(boolean useDefault) {
 		this.useDefault = useDefault;
+	}
+	public boolean isNeedFarm() {
+		return needFarm;
+	}
+	public void setNeedFarm(boolean needFarm) {
+		this.needFarm = needFarm;
 	}
 }
