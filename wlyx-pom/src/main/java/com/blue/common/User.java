@@ -21,6 +21,7 @@ import com.blue.task.AutoTaskThread;
 import com.blue.team.WuGuanThread;
 import com.blue.tianjitang.TianJiThread;
 import com.blue.tools.PageService;
+import com.blue.user.RoleSkillForProfession;
 import com.blue.warrior.WarriorThread;
 
 public class User {
@@ -624,6 +625,8 @@ public class User {
 		}
 		Portal.setUserInfo(this);
 		Portal.setUserAttribute(this);
+		//设置跨服竞技配置
+		RoleSkillForProfession.setServerDuelConfig(this);
 		
 		logger.info(getRoleName()+"登陆成功");
 		if(startWork){

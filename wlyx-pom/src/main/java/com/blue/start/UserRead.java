@@ -88,16 +88,16 @@ public class UserRead {
 		if (!user.isNeedServerDuelHall()) {
 			return;
 		}
-		Element c = duel.element("config");
-		List<Element> l = c.elements();
-		for (Element el : l) {
-			ServerDuelConfig config = new ServerDuelConfig();
-			config.setChallengProfession(Profession.valueOf(el.attributeValue("name")));
-			config.setActiveSkill(el.elementText("activeSkill"));
-			config.setAssistSkillA(el.elementText("assistSkillA"));
-			config.setAssistSkillB(el.elementText("assistSkillB"));
-			user.getServerDuelConfigMap().put(config.getChallengProfession(), config);
-		}
+//		Element c = duel.element("config");
+//		List<Element> l = c.elements();
+//		for (Element el : l) {
+//			ServerDuelConfig config = new ServerDuelConfig();
+//			config.setChallengProfession(Profession.valueOf(el.attributeValue("name")));
+//			config.setActiveSkill(el.elementText("activeSkill"));
+//			config.setAssistSkillA(el.elementText("assistSkillA"));
+//			config.setAssistSkillB(el.elementText("assistSkillB"));
+//			user.getServerDuelConfigMap().put(config.getChallengProfession(), config);
+//		}
 	}
 
 	private void setSoul(Element e, User user) {

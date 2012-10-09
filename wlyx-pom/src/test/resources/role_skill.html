@@ -1,0 +1,227 @@
+<div class="dlg_title">技能高级设置</div>
+<div style="width:550px">
+	<form method="post" name="form_equip_for_class" onsubmit="submit_equip_for_class ( this ); return false;">
+	<div>
+		当你在 <span class="highlight">演武厅</span>，<span class="highlight">竞技场</span>，<span class="highlight">奴隶之战</span> 中与其他派系的玩家进行对抗时，可使用这里设置的主动技能来应对不同的对手。若未选择，则默认使用当前在技能面板中装备的主动技能。<br /><span class="highlight">( 除上述战斗外的其他战斗模式，将始终使用技能面板中装备的技能 )</span>
+	</div>
+
+	<div class="line" style="width:100%"></div>
+
+	<div class="container" style="width:100%">
+		<table style="width:100%">
+			<tr>
+				<td><span class="important">对抗派系</span></td>
+				<td><span class="important">主动技能</span></td>
+				<td><span class="important">辅助技能1</span></td>
+				<td><span class="important">辅助技能2</span></td>
+				<td><span class="important">镜像套装</span></td>
+			</tr>
+						<tr>
+				<td>对抗【破坏系】：</td>
+				<td>
+					<select name="equip_skill_for_class[1]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[1]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[1]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						<tr>
+				<td>对抗【防护系】：</td>
+				<td>
+					<select name="equip_skill_for_class[2]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[2]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[2]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						<tr>
+				<td>对抗【剑宗系】：</td>
+				<td>
+					<select name="equip_skill_for_class[3]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[3]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[3]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						<tr>
+				<td>对抗【气宗系】：</td>
+				<td>
+					<select name="equip_skill_for_class[4]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[4]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[4]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						<tr>
+				<td>对抗【控制系】：</td>
+				<td>
+					<select name="equip_skill_for_class[5]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[5]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[5]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						<tr>
+				<td>对抗【刺杀系】：</td>
+				<td>
+					<select name="equip_skill_for_class[6]">
+						<option value="0">&lt;未选择&gt;</option>
+																		<option value="12">基本枪法 Lv.10+3</option>
+																																				<option value="14">破风枪法 Lv.10+3</option>
+																								<option value="15">狂怒枪法 Lv.10+3</option>
+																																				<option value="17">怒蛟枪法 Lv.10+3</option>
+																								<option value="18" selected>亢龙枪法 Lv.10+11</option>
+																																																<option value="21">龙卷枪法 Lv.10+3</option>
+																								<option value="126">鹰击长空 Lv.5+3</option>
+																																																					</select>
+				</td>
+				<td>					
+										<select name="assistant1_skill_for_class[6]">
+						<option value="0">&lt;未选择&gt;</option>
+													<option value="19">物换星移 Lv.10+3</option>
+													<option value="20" selected>金刚不坏 Lv.10+3</option>
+												</select>
+									</td>
+				<td>
+											无技能可用
+									</td>
+				<td>
+					<select name="item_standby_for_class[6]">
+						<option selected>未设置</option>
+																																																																																																		</select>
+				</td>
+			</tr>
+						</table>
+	</div>
+
+	<div style="text-align: center; margin-top: 10px">
+		<input type="submit" value="确定" class="button" />
+		<input type="button" class="button" onclick='dialog.close(this);' value="取消" />
+	</div>
+	</form>
+
+</div>
+
+<script type="text/javascript">
+<!--
+submit_equip_for_class = function ( form )
+{
+	process.start ();
+	loader.post ( '/modules/role_skill.php?act=equip_for_class', null, form, null, 'callback_equip_for_class' );
+};
+
+callback_equip_for_class = function ( ret )
+{
+	if ( ret.success )
+	{
+		loader.refreshCache ();
+		show_alert ( '恭喜，技能已经设置成功！', "dialog.close ( 'dlg_equip_for_class' );" );
+	}
+};
+//-->
+</script>

@@ -24,7 +24,7 @@ public class SkillUtil {
 	static{
 		BufferedReader br = null;
 		try {
-			InputStream is = SkillUtil.class.getResourceAsStream("skills.txt");
+			InputStream is = FileUtil.readFile("skills.txt");
 			br = new BufferedReader(new InputStreamReader(is));
 			String s = null;
 			Map<String,String> m = null;
