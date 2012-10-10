@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.blue.common.User;
+import com.blue.monitor.RolesMonitor;
 import com.blue.monstor.UserMonitor;
 
 
@@ -35,6 +36,8 @@ public class Main {
 			Thread.sleep(3 * 1000);
 		}
 		new UserMonitor(l);
+		RolesMonitor rm = RolesMonitor.getInstance();
+		rm.setUsers(l);
 	}
 
 	public static List<User> getUserInfo() throws Exception, IOException {

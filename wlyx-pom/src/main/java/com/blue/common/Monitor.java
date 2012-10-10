@@ -22,8 +22,6 @@ public class Monitor {
 	public static final String POSITION="modules/scene.php";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=fawn_submit&rand=1280046928316&timeStamp=1280046903963
 	public static final String SLAVY = "modules/role_slavery.php?act=fawn_submit";
-	//http://s4.verycd.9wee.com/modules/refresh_team_scene_data.php?action=refresh&timeMark=1280047930&time=41&timeStamp=1280047781563&callback_func_name=fnInitTeamSceneData
-	public static final String SCENE="";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?timeStamp=1280199739437&callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality
 	public static final String SLAVY_MASTER = "modules/role_slavery.php?callback_func_name=ajaxCallback&callback_obj_name=dlg_sociality";
 	//http://s4.verycd.9wee.com/modules/role_slavery.php?act=comfort_submit&rand=1280199942890&timeStamp=1280199919046

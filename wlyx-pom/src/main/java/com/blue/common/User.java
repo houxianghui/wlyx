@@ -34,6 +34,7 @@ public class User {
 	public void setFightPersion(String fightPersion) {
 		this.fightPersion = fightPersion;
 	}	
+	
 	//武馆设置
 	private boolean needTeamWork=true;					//是否需要踢护馆功能
 	private boolean friendly;						//友好踢馆
@@ -64,6 +65,7 @@ public class User {
 	/*---------------------------------------------------------------*/
 	
 	//竞技场设置
+	private int duelTime;						//完成竞技次数
 	private String fightPersion;				//指定对手
 	private int duelStartTime;					//竞技开始时间
 	private String duelType="1";				//1 逐级 2 冲级
@@ -74,6 +76,7 @@ public class User {
 	private int duelNo;							//竞技场排名
 	private boolean fastChallenge = true;		//是否快速竞技
 	private boolean needJingJi;					//是否需要竞技
+	private String duelInfo;					//竞技场信息
 	/*---------------------------------------------------------------*/
 	
 	//日常任务设置
@@ -86,6 +89,8 @@ public class User {
 	private boolean autoHarvest=true;			//是否自动收获种子
 	private String plantDay="8";					//种植星期
 	private boolean needFarm = true;			//是否自动浇水
+	private String taskInfo;					//日常任务完成情况
+	
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
@@ -112,6 +117,9 @@ public class User {
 	private int currMP;					//当前MP
 	private Map<String, Integer> attribMap = new HashMap<String, Integer>();
 	private Profession profession;		//角色派系
+	private String position;			//角色位置
+	private String capacity;			//身份
+	private String gotWeals;			//每日福利
 	/*---------------------------------------------------------------*/
 	//奴隶设置
 	private int needCatchSlavy = 0;
@@ -804,5 +812,41 @@ public class User {
 	}
 	public void setNeedFarm(boolean needFarm) {
 		this.needFarm = needFarm;
+	}
+	public int getDuelTime() {
+		return duelTime;
+	}
+	public void setDuelTime(int duelTime) {
+		this.duelTime = duelTime;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(String capacity) {
+		this.capacity = capacity;
+	}
+	public String getGotWeals() {
+		return gotWeals;
+	}
+	public void setGotWeals(String gotWeals) {
+		this.gotWeals = gotWeals;
+	}
+	public String getTaskInfo() {
+		return taskInfo;
+	}
+	public void setTaskInfo(String taskInfo) {
+		this.taskInfo = taskInfo;
+	}
+	public String getDuelInfo() {
+		return duelInfo;
+	}
+	public void setDuelInfo(String duelInfo) {
+		this.duelInfo = duelInfo;
 	}
 }

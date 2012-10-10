@@ -13,6 +13,14 @@ import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 import com.blue.warrior.Warrior;
 
+/**
+ * @author blue
+ *
+ */
+/**
+ * @author blue
+ *
+ */
 public class Portal {
 	private static Logger logger = Logger.getLogger(Portal.class);
 	//http://s4.verycd.9wee.com/modules/role_info.php?timeStamp=1279701586234&callback_func_name=callback_load_content&callback_obj_name=content
@@ -49,7 +57,16 @@ public class Portal {
 	//http://s4.verycd.9wee.com/modules/duel.php?act=pvehall&rand=1293891706483&timeStamp=1293891706483&callback_func_name=ajaxCallback&callback_obj_name=content
 	private static String huanJing = "modules/duel.php?act=pvehall&callback_func_name=ajaxCallback&callback_obj_name=content";
 	private static String ROOM_RECOVER="modules/warrior.php?act=guestroom&op=restore&id=1";
+	private static Pattern position = Pattern.compile("<div class=\"city_scene_name\">(.*?)</div>",Pattern.DOTALL);
+	private static Pattern teamPosition = Pattern.compile("team_name\":\"(.*?)\"");
+	private static Pattern mapPosition = Pattern.compile("map_name\": \"(.*?)\"");
+	//身份
+	private static Pattern capacity = Pattern.compile("点击查看主仆关系\" >(.*?)</a> ",Pattern.DOTALL);
+	private static Pattern dailyWeals = Pattern.compile("您今日签到随机获得的奖励：</span><span class=\"text_scene\">(.*?)</span>",Pattern.DOTALL);
 	
+	private static Pattern taskInfo = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(.*?)</span>");
+	
+	private static Pattern duelInfo = Pattern.compile("今日你已经发起了 <span class=\"highlight\">(.*?)</span> 场挑战");
 	public static int getIntValue(String s){
 		int i = 0;
 		while(i < s.length()){
@@ -215,8 +232,82 @@ public class Portal {
 				user.setShouldKillMonstor(false);
 			}
 		}
-//		setTeamId(user);
+		setTaskInfo(user);
+		setGotWeals(user);
+		setCapacity(user, page);
+		setPosition(user);
+		setDuelInfo(user);
 		return Tools.success(page);
+	}
+	
+	/**
+	 * 设置竞技信息
+	 * @param user
+	 */
+	private static void setDuelInfo(User user) {
+		String url = user.getUrl()+"modules/duel.php?act=hall"+Tools.getTimeStamp(true);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = duelInfo.matcher(page);
+		if(m.find()){
+			user.setDuelInfo(m.group(1));
+		}
+	}
+	/**
+	 * 设置任务完成信息0/20
+	 * @param user
+	 */
+	private static void setTaskInfo(User user) {
+		String url = user.getUrl()+"modules/task.php?"+Tools.getTimeStamp(false);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = taskInfo.matcher(page);
+		if(m.find()){
+			user.setTaskInfo(m.group(1));
+		}
+	}
+	/**
+	 * 设置角色的当日福利
+	 * @param user
+	 */
+	private static void setGotWeals(User user){
+		String url = user.getUrl()+"modules/day_weals.php?act=show"+Tools.getRandAndTime();
+		String page = PageService.getPageWithCookie(url, user);
+		setGotWeals(user, page);
+	}
+	private static void setGotWeals(User user,String page){
+		Matcher m = dailyWeals.matcher(page);
+		if(m.find()){
+			user.setGotWeals(m.group(1));
+		}
+	}
+	/**
+	 * 设置角色的身份信息（奴隶、奴隶主）
+	 * @param user
+	 * @param page
+	 */
+	private static void setCapacity(User user,String page){
+		Matcher m = capacity.matcher(page);
+		if(m.find()){
+			user.setCapacity(m.group(1));
+		}
+	}
+	private static void setPosition(User user){
+		String url = user.getUrl()+"modules/scene.php?"+Tools.getTimeStamp(false);
+		String page = PageService.getPageWithCookie(url, user);
+		Matcher m = position.matcher(page);
+		
+		if(m.find()){
+			user.setPosition(m.group(1));
+		}else{
+			m = teamPosition.matcher(page);
+			if(m.find()){
+				user.setPosition(Tools.hexToString(m.group(1)));
+			}else{
+				m = mapPosition.matcher(page);
+				if(m.find()){
+					user.setPosition(Tools.hexToString(m.group(1)));
+				}
+			}
+		}
 	}
 	public static void setTeamId(User user){
 		String url = user.getUrl()+WuGuan.MY_TEAM+Tools.getTimeStamp(true);
