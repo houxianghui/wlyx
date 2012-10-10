@@ -1,0 +1,295 @@
+<input type="hidden" id="nsid" />
+<div class="field_container">
+
+	<div class="container" style="padding-bottom: 10px">
+
+		<div class="field_left">
+			<div class="field_frame">
+				<div class="field_title"><div class="field_title_frame"><div class="field_title_content" id="map_name"></div></div></div>
+				<div class="field_frame_content">
+					<div id="scene_list"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="field_center">
+			<div class="field_box">
+				<div class="field_main">
+					<div style="height: 168px">
+						<div style="float:right">
+							<a href="javascript:void(0);" onclick="load_panel ( 'map' )" class="purple">地图</a> |
+							<a href="javascript:void(0);" onclick="switch_scene ( 0, '国都' );" class="purple">返回国都</a>
+						</div>
+						<div class="field_box_title">
+							<div id="scene_name" class="field_name_div"></div>
+						</div>
+						<div id="scene_des"></div>
+						<div id="sub_scene">
+							<ul id="field_sub_scenes_ul"></ul>
+						</div>
+					</div>
+
+					<div id="div_tip_field"></div>
+					<div id="div_tip_sub"></div>
+					<div id="div_tip_monster"></div>
+					<div id="div_tip_back"></div>
+					<div class="field_objects" id="scene_npc_monster">
+						<ul id="scene_npc_monster_barrier_ul"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="field_right">
+			<div class="field_frame">
+				<div class="field_title"><div class="field_title_frame"><div class="field_title_content">本场景玩家列表</div></div></div>
+				<div class="field_frame_content" style="height:290px">
+					<div class="field_buttons">
+						<a href="javascript:void(0);" onclick="document.getElementById('pop_div_search_role').style.display='block';" class="field_button_search">玩家查询</a>
+						<a href="javascript:void(0);" onclick="fnViewMoreRole( 'view_more', null, null, null );" class="field_button_more">查看更多</a>
+					</div>
+					<div class="field_role_list" id="scene_role">
+						<ul id="field_role_list_ul" style="height: 250px; overflow-y: auto;">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="container" style="width: 100%;">
+	
+		<div id="scene_bottom_div" class="field_switch_box normal_scene">
+
+			<div class="field_switch_buttons" id="field_switch_buttons">
+				<a href="javascript:void(0);" onclick="field_box_switch_show ( 'current_mission' ); load_role_mission_list ( 1, 'field_mission_box' ); highlight ( this )">当前任务</a>
+				<a href="javascript:void(0);" onclick="field_box_switch_show ( 'fight_events' ); highlight ( this )" class="highlight">战斗信息</a>
+				<a href="javascript:void(0);" onclick="field_box_switch_show ( 'scene_events' ); highlight ( this )">场景事件</a>				
+				<a href="javascript:void(0);" onclick="field_box_switch_show ( 'accept_mission' );  load_role_mission_list ( 0, 'field_mission_box_accept' ); highlight ( this )">可接任务</a>
+			</div>
+
+			<div id="field_box_switches" class="field_switch_content">
+				<div id="field_box_switch_fight_events">
+					<ul id="fight_events_ul"></ul>
+				</div>
+				<div id="field_box_switch_scene_events" style="display:none">
+					<div class="scene_events">
+						<ul id="scene_events_ul"></ul>
+					</div>
+				</div>
+				<div id="field_box_switch_current_mission" style="display:none">
+					<div id="field_mission_box"><li style="text-align:center; line-height: 50px">正在载入当前任务信息，请稍候...</li></div>
+				</div>
+				<div id="field_box_switch_accept_mission" style="display:none">
+					<div id="field_mission_box_accept"><li style="text-align:center; line-height: 50px">正在载入可接任务信息，请稍候...</li></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="scene_group_div" style="float: left; width: 200px; margin-left: 10px;">
+			<div class="field_frame">
+				<div class="field_title"><div class="field_title_frame"><div class="field_title_content">副本组队</div></div></div>
+				<div class="field_frame_content" style="height:113px;">
+					<div id="group_btn"><span class="highlight">友情提示</span></div>
+					<div id="group_role" class="group_role_list" >
+						<ul id="group_role_list_ul">
+							<li align="center" style="width:99%;">副本内危机四伏，极其凶险！建议你邀请2个同一场景上的玩家，点击 <img align="absmiddle" title="" src="http://static.hero.9wee.com/icons/icon-group.gif"/> 图标，邀请对方组成队伍后共同冒险。</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<script>
+//setTimeout('removeClass("scene_bottom_div","normal_scene"); appendClass("scene_bottom_div","instance_scene");', 3000 );
+//setTimeout('removeClass("scene_bottom_div","instance_scene"); appendClass("scene_bottom_div","normal_scene");', 6000 );
+
+</script>
+<!-- hidden DIV search -->
+<div class="pop_div_search_role" id="pop_div_search_role">
+<!-- start -->
+<form onsubmit='return fnSearchRole ( this )'>
+<table>
+	<tr>
+	<td align="right"><a class="pop_div_search_role_close" title="" href="javascript:void(0);" onclick="$('pop_div_search_role').style.display='none';" titlecontent="关闭"></a></td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center" ><b>选择您要搜索的条件</b></td>
+	</tr>
+	<tr>
+		<td>名称：</td>
+		<td>
+			<input id="s_role_name" name="s_role_name" type="text" size="18" maxlength="15" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td>国家：</td>
+		<td>
+			<select id="select_country" name="select_country">
+				<option value="0" selected>国家无限制</option>
+																				<option value="2">齐国</option>
+																<option value="3">楚国</option>
+																<option value="4">魏国</option>
+																<option value="5">燕国</option>
+																<option value="6">赵国</option>
+																<option value="7">韩国</option>
+																																			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>职位：</td>
+		<td>
+			<select id="select_gradation" name="select_gradation">
+				<option value="0" selected>职业无限制</option>
+								<option value="1">流浪者</option>
+								<option value="2">食客</option>
+								<option value="3">武士</option>
+								<option value="4">精英武士</option>
+								<option value="5">武士统领</option>
+								<option value="6">侍卫</option>
+								<option value="7">精英侍卫</option>
+								<option value="8">侍卫统领</option>
+								<option value="9">兵卫</option>
+								<option value="10">精英兵卫</option>
+								<option value="11">兵卫统领</option>
+								<option value="12">都卫</option>
+								<option value="13">精英都卫</option>
+								<option value="14">都卫统领</option>
+								<option value="15">禁卫</option>
+								<option value="16">精英禁卫</option>
+								<option value="17">禁卫统领</option>
+								<option value="18">将军</option>
+								<option value="19">上将军</option>
+								<option value="20">元帅</option>
+								<option value="21">武安君</option>
+								<option value="22">平天侯</option>
+								<option value="23">左司马</option>
+								<option value="24">右司马</option>
+								<option value="25">大司马</option>
+							</select>
+		</td>
+	</tr>
+	<tr>
+		<td>等级：</td>
+		<td>
+			<select id="select_level" name="select_level">
+				<option value="0" selected>等级无限制</option>
+				<option value="1">有挑战性</option>
+				<option value="2">不具挑战性</option>
+				<option value="3">极度危险</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>罪恶：</td>
+		<td>
+			<select id="select_crime" name="select_crime">
+				<option value="0" selected>罪恶无限制</option>
+								<option value="10">全民公敌</option>
+								<option value="9">活阎罗</option>
+								<option value="8">鬼见愁</option>
+								<option value="7">嗜血恶魔</option>
+								<option value="6">杀人狂</option>
+								<option value="5">屠夫</option>
+								<option value="4">刽子手</option>
+								<option value="3">凶徒</option>
+								<option value="2">恶霸</option>
+								<option value="1">平民</option>
+							</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center" valign="bottom">
+			<!--<input class="button" type="button" value="查询" onclick="fnSearchRole();">-->
+			<input class="button" type="submit" value="查询" >
+		</td>
+	</tr>
+</table>
+<input type="hidden" id="hid_role_name">
+<input type="hidden" id="hid_role_country">
+<input type="hidden" id="hid_role_gradation">
+<input type="hidden" id="hid_role_level">
+<input type="hidden" id="hid_role_crime">
+</form>
+<!-- end -->
+</div>
+<!-- hidden DIV search -->
+
+<script type="text/javascript">
+//window.instanceEnterFlag = 2;
+window.isInstanceZone = 0;
+window.roleInCity = 0;
+dialog.close ( 'dlg_map' );
+callbackfnScene( {"comTac":0,"barrier_limit":null,"role_pk_status":"1","s_old_sid":0,"map_name":"\u6e14\u9633\u90e1","s_time":1349846541,"s_role_id":"25796","gender":"1","pic_src":"19.jpg","s_level":"1","s_nsid":"19","s_name":"\u6e14\u9633\u90e1","combat_tactics":"0","s_des":"\u6e14\u9633\u90e1\u4e43\u662f\u71d5\u957f\u57ce\u4ee5\u5357\u6700\u7e41\u76db\u7684\u90e1\u53bf\uff0c\u5730\u91ce\u5e7f\u9614\u3001\u7269\u961c\u6c11\u4e30\u3002\u81ea\u53e4\u71d5\u8d75\u591a\u5947\u58eb\uff0c\u800c\u6e14\u9633\u90e1\u66f4\u662f\u5947\u4eba\u8f88\u51fa\u3002\u4f20\u95fb\u6218\u56fd\u7b2c\u4e00\u523a\u5ba2\u8346\u8f72\uff0c\u4e00\u8eab\u7edd\u827a\u4fbf\u5e08\u4ece\u4e8e\u6b64\u5730\u4e00\u4f4d\u65e0\u540d\u5c60\u592b\u3002\u51fb\u7b51\u540d\u5bb6\u9ad8\u6e10\u79bb\u4e5f\u66fe\u957f\u671f\u9690\u4e8e\u6e14\u9633\u95f9\u5e02\u4f5c\u4e50\u8c31\u66f2\u3002","s_parent":"0","s_3_arr":[],"s_s1":{"id":"19","name":"\u6e14\u9633\u90e1"},"s_s2":null,"s_s3":null,"sArr":[{"width":"45","height":"25","left":"80","top":"42","id":"19","name":"\u6e14\u9633\u90e1"},{"width":"75","height":"45","left":"45","top":"75","id":"20","name":"\u5174\u9686\u9547"},{"width":"65","height":"45","left":"30","top":"140","id":"21","name":"\u5bc6\u4e91\u9547"},{"width":"65","height":"55","left":"100","top":"165","id":"22","name":"\u6b66\u9633\u9547"},{"width":"80","height":"65","left":"50","top":"260","id":"23","name":"\u660c\u5e73\u9547"}],"s_npc":[{"npc_id":"6","npc_name":"\u7530\u5149","npc_title":"\u71d5\u56fd\u540d\u5c06","npc_des":"\u6b64\u4eba\u8eab\u9ad8\u516d\u5c3a\u6709\u4f59\uff0c\u8eab\u7740\u767d\u8272\u957f\u886b\uff0c\u4f53\u683c\u9b41\u68a7\uff0c\u53cc\u76ee\u5982\u7535\uff0c\u70af\u70af\u6709\u795e\u3002","is_attack":0,"bind_monster_id":0,"scene_id":"19","level_range":"","rank_des":"","flag_type":""}],"s_monster":[],"s_barrier":null,"s_refresh":"60","s_exit":null,"s_move":[{"move_id":"14","move_des":"\u4f20\u9001\u81f3\u3010\u5b89\u5e73\u90e1\u3011","move_pay":"500","move_title":"\u70b9\u51fb\u540e\uff0c\u53ef\u79fb\u52a8\u5230 <span class=special>\u8d75\u56fd<\/span> \u9644\u8fd1\u7684 <span class=special>\u5b89\u5e73\u90e1<\/span> \u3002\u5018\u82e5\u672a\u5f00\u542f\u8be5\u70b9\u7684\u4f20\u9001\uff0c\u8bf7\u4ece\u5730\u56fe\u4e0b\u65b9 <span class=special>\u660c\u5e73\u9547<\/span> \u5bfb\u627e\u5f00\u542f\u8def\u7ebf\u3002"},{"move_id":"24","move_des":"\u4f20\u9001\u81f3\u3010\u6d4e\u5357\u90e1\u3011","move_pay":"500","move_title":"\u70b9\u51fb\u540e\uff0c\u53ef\u79fb\u52a8\u5230 <span class=special>\u9f50\u56fd<\/span> \u9644\u8fd1\u7684 <span class=special>\u6d4e\u5357\u90e1<\/span> \u3002\u5018\u82e5\u672a\u5f00\u542f\u8be5\u70b9\u7684\u4f20\u9001\uff0c\u8bf7\u4ece\u5730\u56fe\u4e0b\u65b9 <span class=special>\u660c\u5e73\u9547<\/span> \u5bfb\u627e\u5f00\u542f\u8def\u7ebf\u3002"}],"s_alert":0,"rookie_area":null,"s_roles":[],"s_fight":null,"s_rumor":[{"id":"1055049","event_type":"3","event_time":"10\u670810\u65e5 13:22","event_content":"\u6740\u4eba\u72c2 <a href=\"javascript:void(0);\" onclick=\"view_role(25796)\">stbaby<\/a> \u5927\u6447\u5927\u6446\u5730\u8fdb\u5165\u4e86\u6e14\u9633\u90e1","scene_id":"19"},{"id":"7186","event_type":"2","event_time":"10\u670810\u65e5 12:40","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u71d5\u56fd\u4e0a\u5c06\u519b\u5728<span class=\"text_scene\">\u592a\u6781\u56fe\u9635<\/span>\u6740\u6b7b<span class=\"text_monster\">\u72c2\u5929\u72ee<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u6d41\u83b9\u4e1d<\/span>\u3011"},{"id":"7185","event_type":"2","event_time":"10\u670809\u65e5 22:46","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u71d5\u56fd\u5143\u5e05\u5728<span class=\"text_scene\">\u7687\u9f99\u7891<\/span>\u6740\u6b7b<span class=\"text_monster\">\u51f6\u6b8b\u7684\u65cb\u6708\u67aa\u5ba2<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u7ea2\u6676\u7389<\/span>\u3011"},{"id":"7184","event_type":"2","event_time":"10\u670809\u65e5 22:11","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u71d5\u56fd\u6b66\u5b89\u541b\u5728<span class=\"text_scene\">\u5c71\u91ce\u8d3c\u7a9d<\/span>\u6740\u6b7b<span class=\"text_monster\">\u4e7e\u5764\u7684\u5deb\u86ee\u4f7f\u8005<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u8774\u8776\u523a<\/span>\u3011"},{"id":"7182","event_type":"2","event_time":"10\u670809\u65e5 22:02","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u9b4f\u56fd\u7981\u536b\u5728<span class=\"text_scene\">\u94dc\u5c38\u68fa<\/span>\u6740\u6b7b<span class=\"text_monster\">\u4e24\u4eea\u7684\u72e9\u730e\u5c60\u592b<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u72c2\u9f99\u5251<\/span>\u3011"},{"id":"7183","event_type":"2","event_time":"10\u670809\u65e5 22:02","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u8d75\u56fd\u6b66\u5b89\u541b\u5728<span class=\"text_scene\">\u5c71\u91ce\u8d3c\u7a9d<\/span>\u6740\u6b7b<span class=\"text_monster\">\u72c2\u66b4\u7684\u5deb\u86ee\u4f7f\u8005<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u957f\u7a7a\u67aa<\/span>\u3011"},{"id":"7181","event_type":"2","event_time":"10\u670809\u65e5 21:51","event_content":"\u3010\u6c5f\u6e56\u4f20\u8a00\u3011\u67d0\u71d5\u56fd\u6b66\u5b89\u541b\u5728<span class=\"text_scene\">\u5c71\u91ce\u8d3c\u7a9d<\/span>\u6740\u6b7b<span class=\"text_monster\">\u4e7e\u5764\u7684\u5deb\u86ee\u4f7f\u8005<\/span>\u540e\u83b7\u5f97\u4e86\u3010<span style=\"color:#ff00cc\">\u65ad\u7389\u5315<\/span>\u3011"}],"s_group_role":null,"s_group_info":null,"isInvite":null,"role_base":"","instance_zone":"0","s_role_level":"101","instance_door":0,"tip_scene_id":0,"tip_monster_id":0,"tip_back":0} , true );
+
+//>> start add by arrok 2009-7-14
+var tip_scene_id = 0;
+var tip_monster_id = 0;
+var tip_back = 0;
+var now_scene_id = 19;
+
+//一展拳脚
+if( tip_scene_id == 2 && tip_monster_id == 1 )
+{
+	//地点提示
+	if( now_scene_id != 2 && now_scene_id != 165 && now_scene_id != 166 && tip_back == 0 )
+	{
+		$("div_tip_field").innerHTML = '<div id="rookie_field_tip" class="rookietips" style="left: 140px; top: 70px; display: block;"><img src="http://static.hero.9wee.com/styles/default/field_tip.gif"></div>';
+		$("div_tip_field").style.display = 'block';
+	}
+	//攻击提示
+	if( now_scene_id == 2 )
+	{
+		if( tip_back == 0 )
+		{
+			//请点击对 野猪 发起攻击
+			$("div_tip_monster").innerHTML = '<div id="rookie_monster_tip" class="rookietips" style="left: 350px; top: 175px; display: block;"><img src="http://static.hero.9wee.com/styles/default/attack_tip.gif"><span class="rookietips_span">请点击对 野猪 发起攻击</span></div>';
+			$("div_tip_monster").style.display = 'block';
+		}
+		else
+		{
+			//返回 任务组织 完成任务
+			$("div_tip_back").innerHTML = '<div id="rookie_back_tip" class="rookietips" style="left: 450px; top: -20px; display: block;"><img src="http://static.hero.9wee.com/styles/default/attack_tip.gif"><span class="rookietips_span">返回 任务组织 完成任务</span></div>';
+		}
+	}
+}
+
+//收集皮毛
+if( tip_scene_id == 171 && tip_monster_id == 102 )
+{
+	//地点提示
+	if( now_scene_id != 5 && now_scene_id != 171 && now_scene_id != 172 && tip_back == 0 )
+	{
+		$("div_tip_field").innerHTML = '<div id="rookie_field_tip" class="rookietips" style="left: 120px; top: 230px; display: block;"><img src="http://static.hero.9wee.com/styles/default/field_tip.gif"></div>';
+		$("div_tip_field").style.display = 'block';
+	}
+	if( now_scene_id == 5 )
+	{
+		$("div_tip_sub").innerHTML = '<div id="rookie_field_tip" class="rookietips" style="left: 245px; top: 68px; display: block;"><img src="http://static.hero.9wee.com/styles/default/field_tip.gif"></div>';
+	}
+	//攻击提示
+	if( now_scene_id == 171 )
+	{
+		if( tip_back == 0 )
+		{
+			//请点击对 大灰狼 发起攻击
+			$("div_tip_monster").innerHTML = '<div id="rookie_monster_tip" class="rookietips" style="left: 350px; top: 175px; display: block;"><img src="http://static.hero.9wee.com/styles/default/attack_tip.gif"><span class="rookietips_span">请点击对 大灰狼 发起攻击</span></div>';
+		}
+		else
+		{
+			//返回 任务组织 完成任务
+			$("div_tip_back").innerHTML = '<div id="rookie_back_tip" class="rookietips" style="left: 450px; top: -20px; display: block;"><img src="http://static.hero.9wee.com/styles/default/attack_tip.gif"><span class="rookietips_span">返回 任务组织 完成任务</span></div>';
+		}
+	}
+}
+
+//<< end add by arrok 2009-7-14
+
+var objItem = getTag ( 'field_switch_buttons', 'a', 0 );
+objItem.onclick ();
+</script>
