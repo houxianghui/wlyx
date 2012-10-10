@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>wlyx</artifactId>
+    <groupId>com.blue</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../wlyx/pom.xml</relativePath>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.blue</groupId>
-  <artifactId>wlyx-pom</artifactId>
-  <name>wlyx-pom</name>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>wlyx-base</artifactId>
+  <name>wlyx-base</name>
   <url>http://maven.apache.org</url>
   <build>
-    <finalName>wl</finalName>
+    <finalName>wlyx-base</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -89,7 +94,13 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.10</version>
-      <scope>compile</scope>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <properties>

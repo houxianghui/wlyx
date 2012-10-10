@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.blue</groupId>
-	<artifactId>wlyx-pom</artifactId>
+	<artifactId>wlyx-base</artifactId>
 	<packaging>jar</packaging>
 
-	<name>wlyx-pom</name>
+	<name>wlyx-base</name>
 	<url>http://maven.apache.org</url>
 	<parent>
 		<groupId>com.blue</groupId>
 		<artifactId>wlyx</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../wlyx</relativePath>
+		<relativePath>../wlyx/pom.xml</relativePath>
   	</parent>
 	<properties>
 		<project.build.sourceEncoding>gbk</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>wl</finalName>
+		<finalName>wlyx-base</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -56,7 +56,7 @@
 							<target>
 								<copy todir="target">
 									<fileset dir="src/main/resources"
-										includes="gift.txt,user.xml,speak.txt,查找物品.bat,开始图形化挂机.bat"></fileset>
+										includes="gift.txt,user.xml,speak.txt,查找物品.bat,开始图形化挂机.bat,run.bat"></fileset>
 								</copy>
 							</target>
 						</configuration>

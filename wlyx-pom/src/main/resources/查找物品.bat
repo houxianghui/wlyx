@@ -1,2 +1,2 @@
-@java -DGZIP -cp wl.jar;. com.blue.start.FindItem
+@run.bat com.blue.start.FindItem
 @pause

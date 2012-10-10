@@ -1,1 +1,1 @@
-java -cp wl.jar com.blue.mfight.FightMonstor
+@run com.blue.mfight.FightMonstor

@@ -1,1 +1,1 @@
-java -cp wl.jar com.blue.start.CG
+@run com.blue.start.CG

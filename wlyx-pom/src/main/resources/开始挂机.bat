@@ -1,1 +1,1 @@
-@java -cp wl.jar -DGZIP com.blue.start.Main
+@run com.blue.start.Main

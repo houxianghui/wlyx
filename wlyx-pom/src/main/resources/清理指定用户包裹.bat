@@ -1,2 +1,2 @@
-@java -DGZIP -cp wl.jar com.blue.start.CheckUser
+@run com.blue.start.CheckUser
 @pause

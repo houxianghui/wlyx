@@ -1,0 +1,1 @@
+@javaw -cp wlyx-base.jar;. -DGZIP -Dwindow %1%

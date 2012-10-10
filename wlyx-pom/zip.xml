@@ -11,7 +11,7 @@
 			<directory>${project.build.directory}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
-				<include>wl.jar</include>
+				<include>wlyx-base.jar</include>
 				<include>gift.txt</include>
 				<include>speak.txt</include>
 				<include>user.xml</include>

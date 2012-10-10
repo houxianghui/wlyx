@@ -1,2 +1,2 @@
-@java -cp wl.jar com.blue.start.GetAllHuanJing
+@run com.blue.start.GetAllHuanJing
 @pause

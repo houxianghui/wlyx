@@ -1,1 +1,1 @@
-@java -cp wl.jar -DGZIP com.blue.start.GetSeedInfoMain
+@run.bat com.blue.start.GetSeedInfoMain
