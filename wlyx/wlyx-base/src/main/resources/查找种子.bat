@@ -1,0 +1,1 @@
+@run.bat com.blue.start.GetSeedInfoMain

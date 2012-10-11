@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="英雄,武林英雄,战国,网页游戏,webgame,休闲游戏,绿色网游" />
+	<meta name="description" content="武林英雄" />
+	<title>VeryCD</title>
+	<link type="text/css" rel="stylesheet" href="/common/css/default/default.css?rnd=20120314" media="all" />
+	<link type="text/css" rel="stylesheet" href="http://static.hero.9wee.com/css/default/im.css" media="all" />
+	<script type="text/javascript" src="/common/js_lang/zh_cn.js?rnd=20120814"></script>
+	<script type="text/javascript" src="/common/script/common.js?rnd=20111019"></script>
+	<script type="text/javascript" src="/common/script/game.js?rnd=20120815"></script>
+	<script type="text/javascript" src="/common/script/role.js?rnd=20120316"></script>
+	<script type="text/javascript" src="/common/script/scene.js?rnd=20120613"></script>
+	<script type="text/javascript" src="/common/script/titlebox.js?rnd=20110713123"></script>
+	<script type="text/javascript" src="/common/script/province.js"></script>
+    <script type="text/javascript" src="/common/script/time_counter.js?rnd=2011071309"></script>
+	<script type="text/javascript" src="/extends/im_center/filter.js"></script>
+	<script type="text/javascript" src="/extends/im_center/classIm_zh_cn.js"></script>
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+
+<body onKeyUp='keyEvent(event)'>
+
+<!-- 头部 -->
+<script type="text/javascript">
+<!--
+
+var contentPanels = {
+
+	// 信函
+	'message' : { 'menus' : [ [ '历史信函', 'message.php?highlight=0', 'dialog' ], [ '事件簿', 'message.php?highlight=1', 'dialog' ], [ '交易记录', 'message.php?highlight=2', 'dialog' ], [ '撰写信函', 'send_message.php', 'dialog' ] ] },
+
+	// 任务
+	'mission' : { 'menus' : [ [ '当前任务', 'role_mission.php?highlight=0', 'dialog' ], [ '可接任务', 'role_mission.php?highlight=1', 'dialog' ] ] },
+
+	// 地图
+	'map' : { 'menus' : [ [ '世界地图', 'map.php', 'dialog' ] ] },
+
+	// 社交
+	'sociality' : { 'menus' : [ [ '好友名录', 'role_buddy.php?highlight=0', 'dialog' ], [ '仇敌名录', 'role_buddy.php?highlight=1', 'dialog' ], [ '查找玩家', 'view_role.php?act=by_name', 'dialog' ],[ '主仆互动', 'role_slavery.php', 'dialog' ], [ '拜师带徒', 'master_student.php', 'dialog' ], [ '交易记录', 'message.php?highlight=3', 'dialog' ],[ '旗武团', 'tarena.php?act=team&op=myteam', 'dialog' ] ] },
+
+	// 武馆
+	'team' : { 'menus' : [ [ '我的武馆', 'team.php?act=my_team', 'dialog' ], /* [ '护馆踢馆', 'warrior.php?act=team' ], */ [ '武馆邀请', 'team.php?act=role_get_invitation', 'dialog' ], [ '武馆查询', 'team.php?act=team_list', 'dialog' ] ] },
+
+	// 国家
+	'country': { 'menus' : [ [ '国家信息', 'country.php?act=info', 'dialog' ], [ '君侯选举', 'country.php?act=master', 'dialog' ], [ '历届君侯', 'country.php?act=master_history', 'dialog' ], [ '国家名人堂', 'country.php?act=offers', 'dialog' ], [ '国家通缉犯', 'country.php?act=malefactors', 'dialog' ], [ '国家管理', 'country.php?act=manage', 'dialog' ] ] },
+
+	// 排名
+	'rank': { 'menus' : [ [ '个人排名', 'rank.php?highlight=0', 'dialog' ], [ '属性排名', 'rank.php?highlight=1', 'dialog' ], [ '武馆排名', 'rank.php?highlight=2', 'dialog' ],[ '幻境塔排行','rank.php?highlight=3', 'dialog' ],[ '渑池演武厅排名','rank.php?act=mianchi', 'dialog' ], [ '联赛地域排行', 'new_rank_arena.php', 'dialog' ]] },
+	//战场排行[ '战场排行','rank.php?highlight=3', 'dialog' ],
+
+	// 商城
+	'shop': { 'menus' : [ [ '高级材料', 'shop.php?act=treasure', 'dialog' ], /* ['高级装备', 'shop.php?act=regie', 'dialog'] , /*[ '拍卖场', 'shop.php?act=auction', 'dialog' ], */ [ '高级账号', 'shop.php?act=vip', 'dialog' ] ,[ '幻境塔积分', 'shop.php?act=pve', 'dialog' ]/*, [ '高级材料', 'shop.php?act=treasure', 'dialog' ], [ '武馆商城', 'shop.php?act=team', 'dialog' ]*/ ] },
+
+	// 设施
+	'duel' : { 'menus' : [ [ '竞技场', 'duel.php?act=hall', '17', '武林英雄，经得了风雨，却怕无敌手，竞技场里可以找到旗鼓相当的玩家进行挑战。挑战胜利则可获得荣誉值。','13' ], [ '奴隶市场', 'duel.php?act=slavery', '18', '光在竞技场中战胜对手不过瘾？你可以来此再找手下败将交手，这次却不只是比武切磋，更能抢到他的奴隶，甚至将他本人俘获为奴隶。','13' ], [ '荣誉树', 'duel.php?act=glory', '19', '荣誉树下结硕果，这里是武士们获得荣誉嘉奖的场所，你可以使用竞技场内攒下的荣誉来购买你想要的功能。','13' ], [ '幻境塔', 'duel.php?act=pvehall', '37', '一日，城北江上忽现一奇塔，因传闻靠近塔便会出现幻觉而得名幻境塔。众多能人异士纷纷前去一探究竟，试图解开这神秘塔之谜。','38' ], [ '纳贤阁', 'duel.php?act=pveslavery', '38', '藏龙卧虎之地，英雄门客齐聚在此招贤纳士。','38' ],  ['交易市场','market.php','dialog','','13'],['美女画廊','beauty.php','dialog'],['奴隶悬赏','slavery_reward.php','dialog','30'] ,['仓库','warrior.php?act=hall&op=stock','dialog'],['黄金联赛','server_arean.php','dialog'],['风云争霸','server_duel.php','dialog'] ] },
+
+	// 角色
+	'role' : { 'menus' : [ [ '人物', 'role_info.php' ], [ '技能', 'role_skill.php' ], [ '觉醒技能', 'role_awaken_skill.php' ], [ '武魂', 'soul.php' ] ] },
+	// 武魂
+	'soul' : { 'menus' : [ [ '武魂殿', 'soul.php?act=hall'], [ '武魂', 'soul.php' ] ] }
+
+};
+
+window.bulletinScriptUrl = 'http://game.verycd.com/html/hero/javascript/VeryCD_JS_title_news.js';
+
+
+window.windowTitle = '武林英雄 - 大型武侠网页游戏 - VeryCD 4 5合区（原潜龙勿用 鸿渐于陆）';
+window.globalData = {"moneyNames":{"1":"\u94dc\u5e01","2":"\u9ec4\u91d1","3":"\u79ef\u5206","4":"\u793c\u5238"},"itemSets":{"1":{"name":"\u731b\u864e\u5957\u88c5","quantity":"7"},"2":{"name":"\u4ed9\u9e64\u5957\u88c5","quantity":"7"},"3":{"name":"\u730e\u9e70\u5957\u88c5","quantity":"7"},"4":{"name":"\u9738\u6c14\u5957\u88c5","quantity":"7"},"5":{"name":"\u4e7e\u5764\u5957\u88c5","quantity":"7"},"6":{"name":"\u7075\u52a8\u5957\u88c5","quantity":"7"},"7":{"name":"\u8c6a\u6770\u5957\u88c5","quantity":"7"},"8":{"name":"\u4fa0\u5ba2\u5957\u88c5","quantity":"7"},"9":{"name":"\u9690\u58eb\u5957\u88c5","quantity":"7"},"10":{"name":"\u5962\u534e\u5957\u88c5\r\n","quantity":"6"},"11":{"name":"\u6740\u624b\u5934\u76ee\u5957\u88c5","quantity":"2"},"12":{"name":"\u51b0\u9e9f\u5957\u88c5","quantity":"7"},"13":{"name":"\u788e\u7389\u5957\u88c5","quantity":"7"},"14":{"name":"\u9f99\u51e4\u5957\u88c5","quantity":"7"},"15":{"name":"\u5929\u6daf\u5957\u88c5","quantity":"7"},"16":{"name":"\u7d2b\u9704\u5957\u88c5","quantity":"7"},"17":{"name":"\u9756\u90aa\u5957\u88c5","quantity":"7"},"18":{"name":"\u5546\u5468\u5957\u88c5","quantity":"2"},"19":{"name":"\u7765\u7768\u5957\u88c5","quantity":"7"},"20":{"name":"\u70bd\u7075\u5957\u88c5","quantity":"7"},"21":{"name":"\u971c\u534e\u5957\u88c5","quantity":"7"},"22":{"name":"\u77f3\u5934\u5957\u88c5","quantity":"2"},"23":{"name":"\u6653\u6b4c\u5957\u88c5","quantity":"9"},"24":{"name":"\u989c\u7eb6\u5957\u88c5","quantity":"9"},"25":{"name":"\u753b\u5fc3\u5957\u88c5","quantity":"9"},"26":{"name":"\u9f99\u98de\u5957\u88c5","quantity":"9"},"27":{"name":"\u53e4\u9999\u5957\u88c5","quantity":"9"},"28":{"name":"\u4e91\u5915\u5957\u88c5","quantity":"9"},"29":{"name":"\u9633\u6625\u5957\u88c5","quantity":"7"},"30":{"name":"\u6000\u666f\u5957\u88c5","quantity":"7"},"31":{"name":"\u661f\u67d3\u5957\u88c5","quantity":"7"},"32":{"name":"\u706b\u67ab\u5957\u88c5","quantity":"7"},"33":{"name":"\u51cc\u7a7a\u5957\u88c5","quantity":"7"},"34":{"name":"\u82cd\u591c\u5957\u88c5","quantity":"7"},"108":{"name":"\u6218\u795e\u5957\u88c5","quantity":"2"},"109":{"name":"\u78d0\u77f3\u5957\u88c5","quantity":"2"},"110":{"name":"\u9f99\u795e\u5957\u88c5","quantity":"2"},"111":{"name":"\u51e4\u7fbd\u5957\u88c5","quantity":"2"},"112":{"name":"\u96f7\u4e91\u5957\u88c5","quantity":"2"},"113":{"name":"\u795e\u98ce\u5957\u88c5","quantity":"2"},"114":{"name":"\u795d\u878d\u5957\u88c5","quantity":"2"},"115":{"name":"\u91d1\u521a\u5957\u88c5","quantity":"2"},"116":{"name":"\u4f0f\u9b54\u5957\u88c5","quantity":"2"},"117":{"name":"\u5e7f\u6cd5\u5957\u88c5","quantity":"2"},"118":{"name":"\u767d\u83b2\u5957\u88c5","quantity":"2"},"119":{"name":"\u795e\u6b66\u5957\u88c5","quantity":"2"},"121":{"name":"\u4e09\u624d\u5957\u88c5","quantity":"7"},"122":{"name":"\u5251\u4fa0\u5957\u88c5","quantity":"7"},"123":{"name":"\u864e\u8d32\u5957\u88c5","quantity":"7"}},"equipTypes":{"1":"\u6b66\u5668","2":"\u5e3d\u5b50","3":"\u4e0a\u88c5","4":"\u8170\u5e26","5":"\u62a4\u8155","6":"\u4e0b\u88c5","7":"\u978b\u5b50","8":"\u62ab\u98ce","9":"\u9879\u94fe","10":"\u8170\u9970","11":"\u5750\u9a91","12":"\u62a4\u536b","13":"\u6b66\u9b42"},"gradations":{"1":"\u6d41\u6d6a\u8005","2":"\u98df\u5ba2","3":"\u6b66\u58eb","4":"\u7cbe\u82f1\u6b66\u58eb","5":"\u6b66\u58eb\u7edf\u9886","6":"\u4f8d\u536b","7":"\u7cbe\u82f1\u4f8d\u536b","8":"\u4f8d\u536b\u7edf\u9886","9":"\u5175\u536b","10":"\u7cbe\u82f1\u5175\u536b","11":"\u5175\u536b\u7edf\u9886","12":"\u90fd\u536b","13":"\u7cbe\u82f1\u90fd\u536b","14":"\u90fd\u536b\u7edf\u9886","15":"\u7981\u536b","16":"\u7cbe\u82f1\u7981\u536b","17":"\u7981\u536b\u7edf\u9886","18":"\u5c06\u519b","19":"\u4e0a\u5c06\u519b","20":"\u5143\u5e05","21":"\u6b66\u5b89\u541b","22":"\u5e73\u5929\u4faf","23":"\u5de6\u53f8\u9a6c","24":"\u53f3\u53f8\u9a6c","25":"\u5927\u53f8\u9a6c"},"weaponClass":{"0":"\u7a7a\u624b","1":"\u67aa","2":"\u5251","3":"\u5315\u9996","4":"\u722a\u7259","5":"\u8e44\u89d2","6":"\u5251\u5b97","7":"\u7834\u574f","8":"\u9759\u7269","9":"\u5f13\u7bad","10":"\u97ad","11":"\u722c\u884c","12":"\u6811\u7cbe","21":"\u901a\u7528\u5750\u9a91","22":"\u91cd\u7532\u5750\u9a91","23":"\u4e2d\u7532\u5750\u9a91","24":"\u8f7b\u7532\u5750\u9a91","25":"\u7834\u574f\u7cfb\u5750\u9a91","26":"\u9632\u62a4\u7cfb\u5750\u9a91","27":"\u5251\u5b97\u7cfb\u5750\u9a91\uff08\u91cd\uff09","28":"\u6c14\u5b97\u7cfb\u5750\u9a91","29":"\u5251\u5b97\u7cfb\u5750\u9a91\uff08\u8f7b\uff09","30":"\u63a7\u5236\u7cfb\u5750\u9a91","31":"\u523a\u6740\u7cfb\u5750\u9a91","32":"\u6c14\u5b97","41":"\u7834\u574f","42":"\u9632\u62a4","43":"\u5251\u5b97\uff08\u91cd\uff09","44":"\u6c14\u5b97","45":"\u5251\u5b97\uff08\u8f7b\uff09","46":"\u63a7\u5236","47":"\u523a\u6740","48":"\u91cd","49":"\u4e2d","50":"\u8f7b","51":"\u901a","52":"\u91d1\u521a\u9632","53":"\u81c2\u529b\u5251","54":"\u81c2\u529b\u7834","55":"\u6c14\u8840\u9632","56":"\u8eab\u6cd5\u6c14","57":"\u5185\u606f\u6c14","58":"\u8eab\u6cd5\u5251","59":"\u6c14\u8840\u63a7","60":"\u8eab\u6cd5\u523a","61":"\u6c14\u8840\u7834","62":"\u6839\u9aa8\u5251","63":"\u8eab\u6cd5\u63a7","64":"\u7eaf\u79cd\u7834\u574f\u7cfb","65":"\u7eaf\u79cd\u7834\u574f\u7cfb","66":"\u7eaf\u79cd\u7834\u574f\u7cfb","67":"\u6df7\u8840\u7834\u574f\u7cfb","68":"\u6df7\u8840\u7834\u574f\u7cfb","69":"\u6df7\u8840\u7834\u574f\u7cfb","70":"\u7eaf\u79cd\u9632\u62a4\u7cfb","71":"\u7eaf\u79cd\u9632\u62a4\u7cfb","72":"\u7eaf\u79cd\u9632\u62a4\u7cfb","73":"\u6df7\u8840\u9632\u62a4\u7cfb","74":"\u6df7\u8840\u9632\u62a4\u7cfb","75":"\u6df7\u8840\u9632\u62a4\u7cfb","76":"\u7eaf\u79cd\u5251\u5b97\u7cfb","77":"\u7eaf\u79cd\u5251\u5b97\u7cfb","78":"\u7eaf\u79cd\u5251\u5b97\u7cfb","79":"\u6df7\u8840\u5251\u5b97\u7cfb","80":"\u6df7\u8840\u5251\u5b97\u7cfb","81":"\u6df7\u8840\u5251\u5b97\u7cfb","82":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","83":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","84":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","85":"\u6df7\u8840\u6c14\u5b97\u7cfb","86":"\u6df7\u8840\u6c14\u5b97\u7cfb","87":"\u6df7\u8840\u6c14\u5b97\u7cfb","88":"\u7eaf\u79cd\u63a7\u5236\u7cfb","89":"\u7eaf\u79cd\u63a7\u5236\u7cfb","90":"\u7eaf\u79cd\u63a7\u5236\u7cfb","91":"\u6df7\u8840\u63a7\u5236\u7cfb","92":"\u6df7\u8840\u63a7\u5236\u7cfb","93":"\u6df7\u8840\u63a7\u5236\u7cfb","94":"\u7eaf\u79cd\u523a\u6740\u7cfb","95":"\u7eaf\u79cd\u523a\u6740\u7cfb","96":"\u7eaf\u79cd\u523a\u6740\u7cfb","97":"\u6df7\u8840\u523a\u6740\u7cfb","98":"\u6df7\u8840\u523a\u6740\u7cfb","99":"\u6df7\u8840\u523a\u6740\u7cfb","100":"\u5251\u5b97"},"skillClass":{"1":"\u7834\u574f\u7cfb","2":"\u9632\u62a4\u7cfb","3":"\u5251\u5b97\u7cfb","4":"\u6c14\u5b97\u7cfb","5":"\u63a7\u5236\u7cfb","6":"\u523a\u6740\u7cfb"},"countries":{"1":"\u79e6\u56fd","2":"\u9f50\u56fd","3":"\u695a\u56fd","4":"\u9b4f\u56fd","5":"\u71d5\u56fd","6":"\u8d75\u56fd","7":"\u97e9\u56fd","8":"\u84ec\u83b1","9":"\u6e11\u6c60","10":"\u6218\u573a"},"attributes":{"1":"\u91d1","2":"\u6728","3":"\u6c34","4":"\u706b","5":"\u571f"},"armourTypes":{"1":{"armour_type_name":"\u91cd\u7532","armour_fit_skill_class":"1,2,3"},"2":{"armour_type_name":"\u4e2d\u7532","armour_fit_skill_class":"1,2,3,4"},"3":{"armour_type_name":"\u8f7b\u7532","armour_fit_skill_class":null},"21":{"armour_type_name":"\u901a\u7528\u5750\u9a91","armour_fit_skill_class":""},"22":{"armour_type_name":"\u91cd\u7532\u5750\u9a91","armour_fit_skill_class":"1,2,3"},"23":{"armour_type_name":"\u4e2d\u7532\u5750\u9a91","armour_fit_skill_class":"3,4"},"24":{"armour_type_name":"\u8f7b\u7532\u5750\u9a91","armour_fit_skill_class":"3,5,6"},"25":{"armour_type_name":"\u7834\u574f\u7cfb\u5750\u9a91","armour_fit_skill_class":"1"},"26":{"armour_type_name":"\u9632\u62a4\u7cfb\u5750\u9a91","armour_fit_skill_class":"2"},"27":{"armour_type_name":"\u5251\u5b97\u7cfb\u5750\u9a91\uff08\u91cd\uff09","armour_fit_skill_class":"3"},"28":{"armour_type_name":"\u6c14\u5b97\u7cfb\u5750\u9a91","armour_fit_skill_class":"4"},"29":{"armour_type_name":"\u5251\u5b97\u7cfb\u5750\u9a91\uff08\u8f7b\uff09","armour_fit_skill_class":"3"},"30":{"armour_type_name":"\u63a7\u5236\u7cfb\u5750\u9a91","armour_fit_skill_class":"5"},"31":{"armour_type_name":"\u523a\u6740\u7cfb\u5750\u9a91","armour_fit_skill_class":"6"},"32":{"armour_type_name":"\u6c14\u5b97","armour_fit_skill_class":"4"},"41":{"armour_type_name":"\u7834\u574f","armour_fit_skill_class":"1"},"42":{"armour_type_name":"\u9632\u62a4","armour_fit_skill_class":"2"},"43":{"armour_type_name":"\u5251\u5b97\uff08\u91cd\uff09","armour_fit_skill_class":"3"},"44":{"armour_type_name":"\u6c14\u5b97","armour_fit_skill_class":"4"},"45":{"armour_type_name":"\u5251\u5b97\uff08\u8f7b\uff09","armour_fit_skill_class":"3"},"46":{"armour_type_name":"\u63a7\u5236","armour_fit_skill_class":"5"},"47":{"armour_type_name":"\u523a\u6740","armour_fit_skill_class":"6"},"48":{"armour_type_name":"\u91cd\u7532\u62a4\u536b","armour_fit_skill_class":"1,2,3"},"49":{"armour_type_name":"\u4e2d\u7532\u62a4\u536b","armour_fit_skill_class":"3,4"},"50":{"armour_type_name":"\u8f7b\u7532\u62a4\u536b","armour_fit_skill_class":"3,5,6"},"51":{"armour_type_name":"\u901a\u7528\u62a4\u536b","armour_fit_skill_class":""},"52":{"armour_type_name":"\u9632\u62a4\u7cfb\u62a4\u536b","armour_fit_skill_class":"2"},"53":{"armour_type_name":"\u5251\u5b97\u7cfb\u62a4\u536b","armour_fit_skill_class":"3"},"54":{"armour_type_name":"\u7834\u67aa\u7cfb\u62a4\u536b","armour_fit_skill_class":"1"},"55":{"armour_type_name":"\u9632\u62a4\u7cfb\u62a4\u536b","armour_fit_skill_class":"2"},"56":{"armour_type_name":"\u6c14\u5b97\u7cfb\u62a4\u536b","armour_fit_skill_class":"4"},"57":{"armour_type_name":"\u6c14\u5b97\u7cfb\u62a4\u536b","armour_fit_skill_class":"4"},"58":{"armour_type_name":"\u5251\u5b97\u7cfb\u62a4\u536b","armour_fit_skill_class":"3"},"59":{"armour_type_name":"\u63a7\u5236\u7cfb\u62a4\u536b","armour_fit_skill_class":"5"},"60":{"armour_type_name":"\u523a\u6740\u7cfb\u62a4\u536b","armour_fit_skill_class":"6"},"61":{"armour_type_name":"\u7834\u574f\u7cfb\u62a4\u536b","armour_fit_skill_class":"1"},"62":{"armour_type_name":"\u5251\u5b97\u7cfb\u62a4\u536b","armour_fit_skill_class":"3"},"63":{"armour_type_name":"\u63a7\u5236\u7cfb\u62a4\u536b","armour_fit_skill_class":"5"},"64":{"armour_type_name":"\u7eaf\u79cd\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"65":{"armour_type_name":"\u7eaf\u79cd\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"66":{"armour_type_name":"\u7eaf\u79cd\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"67":{"armour_type_name":"\u6df7\u8840\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"68":{"armour_type_name":"\u6df7\u8840\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"69":{"armour_type_name":"\u6df7\u8840\u7834\u574f\u7cfb","armour_fit_skill_class":"1"},"70":{"armour_type_name":"\u7eaf\u79cd\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"71":{"armour_type_name":"\u7eaf\u79cd\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"72":{"armour_type_name":"\u7eaf\u79cd\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"73":{"armour_type_name":"\u6df7\u8840\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"74":{"armour_type_name":"\u6df7\u8840\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"75":{"armour_type_name":"\u6df7\u8840\u9632\u62a4\u7cfb","armour_fit_skill_class":"2"},"76":{"armour_type_name":"\u7eaf\u79cd\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"77":{"armour_type_name":"\u7eaf\u79cd\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"78":{"armour_type_name":"\u7eaf\u79cd\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"79":{"armour_type_name":"\u6df7\u8840\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"80":{"armour_type_name":"\u6df7\u8840\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"81":{"armour_type_name":"\u6df7\u8840\u5251\u5b97\u7cfb","armour_fit_skill_class":"3"},"82":{"armour_type_name":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"83":{"armour_type_name":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"84":{"armour_type_name":"\u7eaf\u79cd\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"85":{"armour_type_name":"\u6df7\u8840\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"86":{"armour_type_name":"\u6df7\u8840\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"87":{"armour_type_name":"\u6df7\u8840\u6c14\u5b97\u7cfb","armour_fit_skill_class":"4"},"88":{"armour_type_name":"\u7eaf\u79cd\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"89":{"armour_type_name":"\u7eaf\u79cd\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"90":{"armour_type_name":"\u7eaf\u79cd\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"91":{"armour_type_name":"\u6df7\u8840\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"92":{"armour_type_name":"\u6df7\u8840\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"93":{"armour_type_name":"\u6df7\u8840\u63a7\u5236\u7cfb","armour_fit_skill_class":"5"},"94":{"armour_type_name":"\u7eaf\u79cd\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"95":{"armour_type_name":"\u7eaf\u79cd\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"96":{"armour_type_name":"\u7eaf\u79cd\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"97":{"armour_type_name":"\u6df7\u8840\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"98":{"armour_type_name":"\u6df7\u8840\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"99":{"armour_type_name":"\u6df7\u8840\u523a\u6740\u7cfb","armour_fit_skill_class":"6"},"100":{"armour_type_name":"\u5251\u5b97","armour_fit_skill_class":"3"}}};
+window.roleInCity = 1;
+window.globalChatGradation = 9;
+window.staticURL = 'http://static.hero.9wee.com';
+window.styleURL = 'http://static.hero.9wee.com';
+window.cookieDomain = 's4.verycd.9wee.com';
+
+//防沉迷
+window.fcm_role_id = '25796_FCM';
+setCookie( '25796_FCM' , 1 );
+//防沉迷
+
+process.start ();
+
+window.onload = function ()
+{
+	load_modules ( 'role_info.php', 'role_base' );
+	load_stage ( '/modules/scene.php' );
+
+	clsSocket.globalChatPrice = '1';
+	clsSocket.globalChatMoneyName = '黄金';
+
+	window.clsIm = new classIm ();
+	clsIm.channels = {
+		'R' : { 'name' : lang ( 'im_chl_R' ), 'desc' : lang ( 'rookie_channel_desc' ), 'show_in_global' : false },
+		'C' : { 'name' : lang ( 'im_chl_C' ), 'desc' : lang ( 'country_channel_desc' ) },
+		'S' : { 'name' : lang ( 'im_chl_S' ), 'desc' : lang ( 'scene_channel_desc' ) },
+		'M' : { 'name' : lang ( 'im_chl_M' ), 'desc' : lang ( 'master_channel_desc' ), 'view_online' : true },
+		'T' : { 'name' : lang ( 'im_chl_T' ), 'desc' : lang ( 'team_channel_desc' ), 'view_online' : true },
+		'G' : { 'name' : lang ( 'im_chl_G' ), 'desc' : lang ( 'group_channel_desc' ), 'view_online' : true },
+		'TK' : { 'name' : lang ( 'im_chl_TK' ), 'desc' : lang ( 'tk_channel_desc' ), 'view_online' : true },
+		'TP' : { 'name' : lang ( 'im_chl_TP' ), 'desc' : lang ( 'tp_channel_desc' ), 'view_online' : true },
+		'TS' : { 'name' : lang ( 'im_chl_TS' ), 'desc' : lang ( 'ts_channel_desc' ), 'view_online' : true }
+	};
+
+		clsIm.nickname = "stbaby";
+	clsIm.login_key = "4d1e45f5edc82e84f6ca0b6180e603f9";
+	clsIm.host = "chat2.hero.9wee.com";
+	clsIm.port = "3925";
+	clsIm.swf_path = "/extends/im_center/socket.swf";
+	clsIm.feedback_url = "http://cs.9wee.com/";
+	clsIm.operation_icon = window.staticURL + '/icons/icon-extend-lite.gif';
+
+	clsSocket.preMessages = [{"role_id":"0","role_name":"","post_time":"13:39:25","message":"\u6363\u53fd\u53fd\u5927\u4fa0\u5728\u6b66\u9986\u3010\u68a6\u5e7b\u56fd\u5ea6\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 1616 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:40:44","message":"sino2010\u5728\u6b66\u9986\u3010\u68a6\u5e7b\u56fd\u5ea6\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 1454 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:41:06","message":"\u9006\u6625\u5bd2\u5728\u6b66\u9986\u3010\u6700\u7ec8\u5e7b\u60f3\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 1621 \u677f\u7816\u4fee\u590d\u4e86\u3010\u9752\u9f99\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"35045","role_name":"\u5386\u53f2\u7684\u7559\u8a00","post_time":"13:41:46","message":"\u627e\u5973\u670b\u53cb\u5c31\u50cf\u6d17\u7d2b\u4ed9\u7389\uff0c\u603b\u662f\u5bf9\u90e8\u5206\u5c5e\u6027\u4e0d\u6ee1\u610f\uff0c\u7d2b\u4ed9\u7389\u7528\u5b8c\u540e\u624d\u53d1\u73b0\u6700\u597d\u7684\u5c5e\u6027\u5df2\u7ecf\u88ab\u9519\u8fc7\u4e86\u3002","is_deleted":"0"},{"role_id":"21451","role_name":"Angelyaoo","post_time":"13:41:54","message":"\u6211\u4eec\u4e4b\u6240\u4ee5\u4f1a\u5fc3\u7d2f\uff0c\u5c31\u662f\u5e38\u5e38\u5f98\u5f8a\u5728\u575a\u6301\u548c\u653e\u5f03\u4e4b\u95f4\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:44:14","message":"\u554a\u554a\u7eaa\u5728\u6b66\u9986\u3010\u6c5f\u6e56\u5ba2\u6808\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 1681 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:44:14","message":"\u5bc2\u5bde\u5d06\u9690\u5728\u6b66\u9986\u3010\u9738\u738b\u6545\u91cc\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 4379 \u677f\u7816\u4fee\u590d\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"24175","role_name":"\u8e22\u9986_50","post_time":"13:46:54","message":"\u6bcf\u5f53\u51b2\u950b\u53f7\u54cd\u8d77\uff0c\u6211\u5c31\u8d76\u7d27\u8eb2\u8fdb\u58d5\u6c9f\u91cc\uff0c\u56e0\u4e3a\uff1a\u6211\u662f\u5367\u5e95\uff01","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:48:33","message":"\u6c38\u6052\u306e\u7ffc\u5728\u6b66\u9986\u3010\u661f\u5df4\u514b\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 3345 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"21318","role_name":"\u6f58\u5e15\u65af","post_time":"13:51:36","message":"\u6ce8\u610f\u529b\u5bf9\u4eba\u6765\u8bf4\uff0c\u5c31\u50cf\u9633\u5149\u3002\u6ce8\u610f\u529b\u6240\u53ca\u4e4b\u5904\uff0c\u5c31\u6210\u957f\uff1b\u5ffd\u7565\uff0c\u5c31\u67af\u840e\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:58:24","message":"msq1992\u5728\u6b66\u9986\u3010\u9f50\u4e50\u65e0\u7a77\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 3286 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"13:58:24","message":"\u8e22\u9986_104\u5728\u6b66\u9986\u3010\u68a6\u5e7b\u56fd\u5ea6\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 1896 \u677f\u7816\u4fee\u590d\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"14:02:31","message":"\u6708\u5a49\u513f\u5728\u6b66\u9986\u3010\u5915\u9633\u57ce\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 5973 \u677f\u7816\u7838\u6bc1\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"0","role_name":"","post_time":"14:03:17","message":"\u98a8\u96f2\u5728\u6b66\u9986\u3010\u6c5f\u6e56\u5ba2\u6808\u3011\u9a7b\u5730\u5185\u4f7f\u7528\u4e86 3600 \u677f\u7816\u4fee\u590d\u4e86\u3010\u7384\u6b66\u95e8\u3011\u7684\u8010\u4e45\u3002","is_deleted":"0"},{"role_id":"29764","role_name":"\u5723\u8bde\u8001\u4eba","post_time":"14:03:44","message":"\u7b2c\u4e00\u5929\u5f88\u6b8b\u9177\uff0c\u7b2c\u4e8c\u5929\u5f88\u6b8b\u9177\uff0c\u7b2c\u4e09\u5929\u5f88\u7f8e\u597d\uff0c\u7edd\u5927\u591a\u6570\u4eba\u90fd\u662f\u6b7b\u5728\u7b2c\u4e8c\u5929\u665a\u4e0a\u3002","is_deleted":"0"}];
+	clsSocket.init ();
+
+	clsIm.join_channel ( "C", '5' );
+
+	clsIm.join_channel( "M", '25796' );
+	clsIm.join_channel( "T", '58' );
+
+	clsIm.chat_history ( '' );
+
+
+
+	window.preMasterList = null;
+	setTimeout ( 'msShowMasterChat()', 5000 );
+
+	changeStuStatus ( 0 );
+	setTimeout ( "msAutoChat ();", 20000 );
+	setTimeout ( "sysAutoChat ();", 60000 );
+
+
+	document.body.oncontextmenu = function () { return false; }
+	window.onresize = function ()
+	{
+		fitDiv ( 'game_box', 'wrapper' );
+	}
+
+	start_check_message ( 90000 );
+
+	pre_load_image (
+		window.staticURL + '/icons/icon-close.gif',
+		window.staticURL + '/icons/icon-close-highlight.gif',
+		window.staticURL + '/styles/default/switch-button-highlight.gif',
+		window.staticURL + '/styles/default/switch-button-hover.gif',
+		window.staticURL + '/styles/default/navi-menu-highlight.gif',
+		window.staticURL + '/styles/default/button-bg-highlight.gif',
+		window.staticURL + '/styles/default/short-button-bg-highlight.gif',
+		window.staticURL + '/styles/default/large-button-bg-highlight.gif',
+		window.staticURL + '/styles/default/normal-button-bg-highlight.gif',
+		window.staticURL + '/styles/default/long-button-bg-highlight.gif',
+		window.staticURL + '/styles/default/block-bg.gif',
+		window.staticURL + '/styles/default/block-h-bg.gif',
+		window.staticURL + '/styles/default/navi-icon-highlight.gif',
+		window.staticURL + '/styles/default/navi-icon-active.gif'
+	);
+
+	// fitDiv ( 'game_box', 'wrapper' );
+	// $('game_box').style.visibility = 'visible';
+
+	// process.finish ();
+
+	
+/*官方服务器内嵌广告*/
+/*官方服务器内嵌广告*/
+}
+
+function load_wee_inner_bbs ( noJump )
+{
+	var ctrl = $('wee_inner_bbs_ctrl');
+	ctrl.style.backgroundImage = 'url(' + window.staticURL + '/icons/icon-arrow-up.gif)';
+	ctrl.setAttribute ( 'titlecontent', '隐藏交流论坛' );
+	ctrl.onclick = function ()
+	{
+		hide_wee_inner_bbs ();
+	};
+	$('wee_inner_bbs').style.display = 'block';
+
+	var strUrl = window.location.hostname;
+	var area = strUrl.substring(0, strUrl.indexOf('.'));
+
+	$('wee_inner_bbs').src = 'http://www.9wee.com/group/inline.php?gid=145&area=' + area;
+	$('game_box').style.height = '1050px';
+
+	setCookie ( 'show_wee_inner_bbs', 1 );
+	fitDiv ( 'game_box', 'wrapper' );
+
+	if ( noJump == null )
+	{
+		window.location = '#bbs';
+	}
+}
+
+function hide_wee_inner_bbs ( noJump )
+{
+	var ctrl = $('wee_inner_bbs_ctrl');
+	ctrl.style.backgroundImage = 'url(' + window.staticURL + '/icons/icon-arrow-down.gif)';
+	ctrl.setAttribute ( 'titlecontent', '显示交流论坛' );
+	ctrl.onclick = function ()
+	{
+		load_wee_inner_bbs ();
+	};
+	$('wee_inner_bbs').style.display = 'none';
+	$('wee_inner_bbs').src = 'about:blank';
+	$('game_box').style.height = '522px';
+
+	setCookie ( 'show_wee_inner_bbs', 0 );
+	fitDiv ( 'game_box', 'wrapper' );
+
+	if ( noJump == null )
+	{
+		window.location = '#top';
+	}
+}
+
+function online_time_alert(){
+	var nowDate = new Date();
+	var online_time;
+	var tmpTime = parseInt(getCookie('totalTime_25796'));
+	if( typeof( totalTime ) == "undefined" || Math.abs( totalTime - tmpTime ) >= 120 ) totalTime = tmpTime;
+	if( isNaN ( totalTime ) ) totalTime = 0;
+	var fcm=parseInt(getCookie(fcm_role_id));
+	//设置在线时间显示
+
+	var obj = $( 'show_fcm' );
+	if ( obj ) obj.style.display = "block";
+
+	if(fcm != 1){
+		if(totalTime>=0){
+			var lostTime= totalTime*1000;//获取毫秒数
+			var lostSeconds=Math.floor(lostTime/1000);
+			var lostHour=lostSeconds>=3600?Math.floor(lostSeconds/3600):0;
+			var lostMinutes=lostSeconds-lostHour*3600;
+			lostMinutes=lostMinutes>=60?Math.floor(lostMinutes/60):0;
+			lostSeconds=lostSeconds-lostHour*3600-lostMinutes*60;
+			lostHour=lostHour>0?(lostHour>=10?lostHour:'0'+lostHour):'00';
+			lostMinutes=lostMinutes>0?(lostMinutes>=10?lostMinutes:'0'+lostMinutes):'00';
+			lostSeconds=lostSeconds>0?(lostSeconds>=10?lostSeconds:'0'+lostSeconds):'00';
+			$('timeOnline').innerHTML=lostHour+":"+lostMinutes+":"+lostSeconds;
+			totalTime = totalTime + 1;
+			if( totalTime % 30 == 0 )
+			{
+				setCookie( 'totalTime_25796' , totalTime );
+			}
+
+		}
+		if(lostHour){
+			if ( lostHour >0 && lostHour<=2 && lostMinutes%30==0 && lostSeconds%30==0 ) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_0_2',lostHour ), 0 );
+			if ( lostHour ==3  && lostMinutes%30==0 && lostSeconds%30==0 ) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_3',lostHour ), 0 );
+			if ( lostHour>=3 && lostHour<5 && lostMinutes%15 == 0 && lostSeconds%10==0) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_3_5' ), 0 );
+			if ( lostHour>=5 && lostMinutes%15 == 0 && lostSeconds%15==0) clsIm.send_msg ( 0, lang ( 'system_message' ), lang ( 'system_message_sign' ), lang ( 'tire_awoke_5' ), 0 );
+		}
+
+		setTimeout ( "try { online_time_alert(); } catch ( e ) {};", 1000);
+	}else{
+		var fcm_show = $('fcm_show');
+		if ( fcm_show ) fcm_show.innerHTML = "";
+	}
+
+}
+/*官方服务器内嵌广告*/
+function load_wee_inner_ads ()
+{
+	var ctrl = $('wee_inner_ads_ctrl');
+	ctrl.innerHTML = '点击隐藏';
+	ctrl.onclick = function ()
+	{
+		hide_wee_inner_ads ();
+		ctrl.blur();
+	};
+	$('wee_inner_ads_content').style.display = 'block';
+	setCookie ( 'show_wee_inner_ads', 1 );
+}
+function hide_wee_inner_ads ()
+{
+	var ctrl = $('wee_inner_ads_ctrl');
+	ctrl.innerHTML = '点击显示';
+	ctrl.onclick = function ()
+	{
+		load_wee_inner_ads ();
+		ctrl.blur();
+	};
+	$('wee_inner_ads_content').style.display = 'none';
+	setCookie ( 'show_wee_inner_ads', 0 );
+}
+function recordClickCnt (n)
+{
+	if(isNaN(n)) return;
+	var ck = new Ajax( '/modules/record_clickcnt.php', 'itemId=' + n + '&time='+ new Date().getTime() );
+	ck.get ();
+}
+/*官方服务器内嵌广告*/
+//-->
+</script>
+<!--
+-->
+
+<div id="top_bar">
+	<div id="top_bar_content">
+
+		<div id="bulletin_box">
+			<div id="bulletin_border">
+				<ul class="bulletin_content" id="hero_news_title">
+					<li>							正在载入最新游戏公告，请稍候...
+						</li>
+				</ul>
+			</div>
+		</div><!-- bulletin_box -->
+
+		<div class="buttons">
+			<div class="time">
+				<script type="text/javascript">
+				<!--
+				var showTimeSysTime = 1349849075000;
+				//-->
+				</script>
+				<script type="text/javascript" src="/common/script/show_time.js"></script>
+			</div><!-- time -->
+					<a href="http://game.verycd.com/hero_bbs" target="_blank" style="padding:0">论坛交流</a>
+			<a id="top_button_gift" class="top_button_gift" href="javascript:void(0);" onclick="dialog.open ( '/modules/awards.php', 'dlg_awards' )">礼包 / 新手卡</a>
+
+			<a class="top_button_normal" href="javascript:void(0);" onclick="addBookmark ( windowTitle, window.location.href )">加入收藏</a>
+
+			<a class="top_button_normal" href="javascript:void(0);" onclick="dialog.open ( '/modules/setting.php?act=prefer', 'dlg_setting' )">设置</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="charge_gold ()">充值</a>
+			<a class="top_button_normal" href="javascript:void(0);" onclick="get_help ( 'yxjs/' )">帮助</a>
+			<a class="top_button_normal" href="/passport.php?act=logout&referer=http://s4.verycd.9wee.com">退出</a>
+		</div><!-- buttons -->
+	</div><!-- top_bar_content -->
+</div><!-- top_bar -->
+
+<div id="footer">
+	<div class="content">
+		<div id="navi">
+			<ul>
+				<li class="logo">
+								<a href="http://game.verycd.com/hero" target="_blank"></a>
+								</li>
+				<li><a href="javascript:void(0);" id="navi_button_map" onclick="load_panel ( 'duel' );" onmouseover="navi_toggle_menu ( 'duel', this );">设施</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_sociality" onclick="load_panel ( 'sociality' );" onmouseover="navi_toggle_menu ( 'sociality', this );">社交</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_team" onclick="load_panel ( 'team' );" onmouseover="navi_toggle_menu ( 'team', this );">武馆</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_country" onclick="load_panel ( 'country' );" onmouseover="navi_toggle_menu ( 'country', this );">国家</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_rank" onclick="load_panel ( 'rank' );" onmouseover="navi_toggle_menu ( 'rank', this );">排名</a></li>
+				<li><a href="javascript:void(0);" id="navi_button_shop" onclick="load_panel ( 'shop' );" onmouseover="navi_toggle_menu ( 'shop', this );">商城</a></li>
+			</ul>
+		</div>
+
+	</div>
+</div><!-- navi -->
+
+<div id="wrapper" onmouseover="navi_hide_menu ( naviLastMenu );">
+	<a name="top"></a>
+	<div id="game_box" class="container">
+		<div class="stage_container">
+			<div class="stage_top"><div class="stage_top_right"></div><div class="stage_top_left"></div></div>
+			<div class="stage_body">
+				<div id="stage" class="stage_content"></div>
+			</div>
+			<div class="stage_bottom"><div class="stage_bottom_right"></div><div class="stage_bottom_left"></div></div>
+		</div><!-- stage_container -->
+
+		<div id="main" class="main">
+			<div class="border_top"></div>
+			<a class="dialog_close" href="javascript:void(0);" onclick="close_panel ();" title="关闭"></a>
+			<div class="main_container">
+				<div class="main_content">
+					<div class="main_menu" id="main_menu"></div>
+					<div class="container" id="content"></div>
+				</div><!-- main_content -->
+			</div><!-- main_container -->
+			<div class="border_bottom"></div>
+		</div><!-- main -->
+
+		<div>
+			<div class="left">
+				<div class="account_info">
+					<div class="account_info_title">武林英雄</div>
+					<div class="role_base_top"></div>
+					<div id="module_box_role_base">
+						<div class="role_visual">
+
+	<div id="role_item_states_box" class="role_item_states_box"></div>
+	<div id="role_skill_states_box" class="role_skill_states_box"></div>
+
+	<div class="role_visual_img" onclick="dialog.open('/modules/upload_avatar.php', 'dlg_upload_avatar')" title="更换人物形象"  style="cursor: pointer; width:172px; height:172px"
+	><img id="role_visualize_img" alt="" src="http://static.hero.9wee.com/styles/default/visualize-1.jpg" title="更换人物形象" style="width:172px; height:172px" /></div>
+	<div class="role_name_bar">
+		<span style="float:right"><a href="javascript:void(0);" onclick="dialog.open ( '/modules/shop.php?act=vip', 'dlg_shop' )" title="点击升级或延长高级账号时间">普通账号↑</a></span>
+		<span class="highlight" title="查看改名记录"><a onclick="dialog.open('/modules/role_name.php', 'dlg_change_name' );">stbaby</a></span>
+			</div>
+
+</div>
+
+<div id="quick_buttons" class="quick_buttons container">
+	<a href="javascript:void(0);" onclick="load_panel ( 'mission' );close_rookie_tips( 'mission' );" id="quick_button_mission">任务</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'role', 0 );close_rookie_tips( 'role' );" id="quick_button_role" >人物</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'role', 1 );">技能</a>
+	<a href="javascript:void(0);" onclick="load_panel ( 'message' );" id="quick_button_message">信函</a>
+</div>
+
+<table class="nopadding" style="margin: 3px 0 0 3px" width="98%" height="213">
+	<tr>
+		<td width="40">等级：</td>
+		<td height="24">
+			Lv.<span class="highlight" name="text_role_level">101</span>
+			
+			天煞
+			<a href="javascript:void(0);" onclick="role_gradation ()" title="点击查看职位详细信息" id="link_role_gradation">燕国元帅</a>
+		</td>
+	</tr>
+	<tr>
+		<td>经验：</td>
+		<td>	
+			<div class="point_bar_bg" title="等级：<span class=highlight>Lv.101</span> / 当前等级上限：<span class=highlight>Lv.130</span><br />经验：<span class=highlight>24,012,586 / 50,423,411</span>">
+				<div id="point_exp" class="point_bar_1" style="width:48%" title="等级：<span class=highlight>Lv.101</span> / 当前等级上限：<span class=highlight>Lv.130</span><br />经验：<span class=highlight>24,012,586 / 50,423,411</span>"></div>
+			</div>
+
+		</td>
+	</tr>
+	<tr>
+		<td>气血：</td>
+		<td>
+			<div style="float:left">
+				<div class="point_bar_bg" title="当前气血：<span class=highlight>3489 / 4135</span><br />">
+					<div id="point_life" class="point_bar_2" style="width:84%" title="当前气血：<span class=highlight>3489 / 4135</span><br />"></div>
+				</div>
+			</div>
+			<div style="float:left; margin-left: 3px">
+				<div onclick="buy_pool ()" class="life_pool_0" title="<span class='highlight'>便携式气血包</span> <span class='special'>( 点击购买库存 )</span><br />九维网推出的先进产品，可在每场战斗结束时自动为携带者提供气血补给 <br />当前库存：<span class='highlight'>0 / 1,000,000</span><br />到期时间：<span class='highlight'></span><span style='color:#ff0000;'>（未生效）</span>" titlewidth="300"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>内息：</td>
+		<td>
+			<div style="float:left">
+					<div class="point_bar_bg" title="当前内息：<span class=highlight>848 / 1913</span><br />">
+						<div id="point_mana" class="point_bar_3" style="width:44%" title="当前内息：<span class=highlight>848 / 1913</span><br />"></div>
+					</div>
+			</div>
+			<div style="float:left; margin-left: 3px">
+				<div onclick="buy_pool ()" class="mana_pool_0" title="<span class='highlight'>便携式内息包</span> <span class='special'>( 点击购买库存 )</span><br />九维网推出的先进产品，可在每场战斗结束时自动为携带者提供内息补给 <br />当前库存：<span class='highlight'>0 / 1,000,000</span><br />到期时间：<span class='highlight'></span><span style='color:#ff0000;'>（未生效）</span>" titlewidth="300"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">精力：</td>
+		<td>
+			<div style="float:left; width: 125px">
+				<span class="highlight small_font"><span id="text_energy" name="text_energy" class="highlight" title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">200</span> / <span id="text_energy_max" name="text_energy_max" class="highlight" title="每天早上 8 点将自动一次性恢复 <span class='highlight'>90</span> 点精力">200</span></span>
+				&nbsp;<a href="javascript:void(0);" onclick="if ( !roleInCity ) { show_alert ( window.lang ( 'restore_energy_tip' ) ); } else { load_panel ( 'warrior', 2 ) }" title="精力将于每天早上 8 点自动恢复，也可以在客房补充精力">恢复精力</a>
+			</div>
+					</td>
+	</tr>
+	<tr>
+		<td>状态：</td>
+		<td>
+			<table class="nopadding"><tr>
+				<td width="50">
+				<span class="highlight" id="text_stat" name="text_stat">
+				<a href="javascript:void(0);" onclick="start_war ()">运输中</a>
+				</span>
+				</td>
+				<td>
+					PK：<span id="text_pk_status"><span style="color:red" title="在杀戮状态下可主动刺杀其他玩家，其他玩家也可刺杀你">杀戮</span></span>
+					<a href="javascript:void(0);" onclick="show_confirm ( window.lang ( 'pk_status_confirm' ), 'switch_pk_status ()' )">切换</a>
+				</td>
+			</tr></table>
+		</td>
+	</tr>
+	<tr>
+						<td>身份：</td><td><a class="highlight" onclick="load_panel ( 'sociality', 3 )" title="点击查看主仆关系" >自由身</a> [ <a href="javascript:void(0);" onclick="if ( !load_panel ( 'duel', 1, false ) ) show_alert ( window.lang ( 'catch_slave_tip' ) );">我要俘获奴隶</a> ]</td>
+					</tr>
+	<tr height="22">
+		<td>铜币：</td>
+		<td>
+			<span id="text_money" class="small_text small_font" style="font-weight: normal; width:120px">122,485,546</span>
+		</td>
+	</tr>
+	<tr height="22">
+		<td>黄金：</td>
+		<td>
+			<span id="text_gold" class="small_text small_font" style="width:64px; font-weight: normal; margin-right: 6px;">0</span>
+			<a href="javascript:void(0);" onclick="charge_gold ()" style="float:left">兑购黄金</a>
+		</td>
+	</tr>
+	<tr height="22">
+		<td>礼券：</td>
+		<td>
+			<span id="text_ticket" class="small_text small_font" style="width:64px; font-weight: normal; margin-right: 6px;">2,412</span>
+			<a href="javascript:void(0);" onclick="dialog.open( '/modules/upgrade_help.php', 'dlg_upgrade_help' );" class="purple">升级导航</a>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+<!--
+
+window.roleLifePercentWeak = 0.2;
+//window.roleStat = '';
+window.roleStat = '';
+window.inCombat = '';
+
+window.langRolePoints = {
+	'role_stat_weak' : "<span style=\"color:#9d8b7e\" title=\"虚弱状态时气血和内息将停止自动恢复\">虚弱</span>",
+	'role_stat_train' : "<a href=\"javascript:void(0);\" onclick=\"start_train ()\">训练中</a>",
+	'role_stat_work' : "<a href=\"javascript:void(0);\" onclick=\"start_work ()\">授艺中</a>",
+	'role_stat_normal' : "<span style=\"color:#2f783f\">正常</span>",
+	'role_stat_in_combat' : "<a href=\"javascript:void(0);\" onclick=\"view_combat ( '%0' )\">战斗中</a>",
+	'life_detail' : "当前气血：<span class=highlight>%0 / %1</span>",
+	'mana_detail' : "当前内息：<span class=highlight>%0 / %1</span>"
+};
+
+window.roleStates = [];
+window.roleStatesTimmer = 0;
+role_load_states ();
+
+if ( window.intervalRefreshRoleInfo != null ) clearTimeout ( window.intervalRefreshRoleInfo );
+window.intervalRefreshRoleInfo = setTimeout ( "loader.refreshCache (); load_modules ( 'role_info.php', 'role_base' );", 60000 );
+// show_dead_box ( true );
+highlight_button_message ( window.countNewMessage );
+
+
+if ( !window.roleInfo ) window.roleInfo = {};
+if ( window.roleInfo['gradation'] && 20 > window.roleInfo['gradation'] )
+{
+	role_gradation_alert ();
+}
+window.roleInfo['level'] = 101;
+window.roleInfo['gradation'] = 20;
+
+if( 0 )
+{
+	if( 0 > 0  && $( "city_home_menu" ) )
+	{
+		load_stage ( '/modules/scene.php' );
+	}
+}
+//-->
+</script>
+					</div>
+					<div class="role_base_bottom"></div>
+				</div><!-- account_info -->
+			</div><!-- left -->
+			<!--游戏内置广告 start-->
+						<!--游戏内置广告 end-->
+		</div>
+
+				<div id="wee_inner_bbs_frame" class="container">
+			<iframe id="wee_inner_bbs" src="about:blank"></iframe>
+		</div>
+
+	</div><!-- wrapper_container -->
+
+</div><!-- wrapper -->
+
+<!-- Player Bulletin list Box -->
+<div id="player_bulletin_box"></div>
+<!-- Player Bulletin Box -->
+
+<!-- 9wee live -->
+
+
+
+<script type="text/javascript">
+	//var popDeskFlag = getCookie('login_time_' + "1349848871");
+	//if (!popDeskFlag) {
+		process.start();
+		loader.get( '/modules/show_desk.php?rand='+ new Date().getTime(), 'dlg_show_desk' );
+		setCookie('login_time_' + "1349848871", 1);
+	//}
+	
+</script>
+
+<!-- 底部 -->
+</body>
+</html>

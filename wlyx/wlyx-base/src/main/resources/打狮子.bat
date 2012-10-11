@@ -1,0 +1,1 @@
+@run com.blue.mfight.FightMonstor

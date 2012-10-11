@@ -1,0 +1,1 @@
+java -cp wlyx-base.jar;. -DGZIP %1%
