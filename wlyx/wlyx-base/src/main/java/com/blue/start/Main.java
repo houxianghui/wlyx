@@ -29,6 +29,8 @@ public class Main {
 
 		UserRead ur = new UserRead();
 		List<User> l = ur.readUser();
+		RolesMonitor rm = RolesMonitor.getInstance();
+		rm.setUsers(l);
 		Iterator<User> it = l.iterator();
 		while (it.hasNext()) {
 			User user = it.next();
@@ -36,8 +38,7 @@ public class Main {
 			Thread.sleep(3 * 1000);
 		}
 		new UserMonitor(l);
-		RolesMonitor rm = RolesMonitor.getInstance();
-		rm.setUsers(l);
+		
 	}
 
 	public static List<User> getUserInfo() throws Exception, IOException {
