@@ -4,13 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+
 <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-<script type="text/javascript">
-$(document).ready(function() {
-	$("table tr:nth-child(even)").css("background", "white");
-})
-</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
 <title>暗影刺客</title>
 </head>
@@ -32,7 +28,7 @@ $(document).ready(function() {
 	</tr>
 	<c:forEach items="${users}" var="user">
 		<tr>
-		<td><c:out value="${user.roleName}"></c:out></td>
+		<td><a href="list?act=login&username=<c:out value="${user.userName}"/>" target="_blank"><c:out value="${user.roleName}"></c:out></a></td>
 		<td><c:out value="${user.profession}"></c:out></td>
 		<td><c:out value="${user.level}"></c:out></td>
 		<td><c:out value="${user.point}"></c:out></td>

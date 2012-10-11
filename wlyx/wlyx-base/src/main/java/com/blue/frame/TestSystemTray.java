@@ -20,11 +20,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.blue.start.Main;
+import com.blue.start.Start;
 import com.blue.tools.FileUtil;
 
 
 public class TestSystemTray {
-	public static void startWithFrame() throws Exception {
+	public static void startWithFrame(Start start) throws Exception {
 
 		TrayIcon trayIcon = null;
 		if (SystemTray.isSupported()) // 判断系统是否支持系统托盘
@@ -65,7 +66,8 @@ public class TestSystemTray {
 						@Override
 						public void run() {
 							try {
-								Main.start();
+								Main m = new Main();
+								m.start();
 							} catch (Exception e) {
 								jta.setText(e.getMessage());
 							}
@@ -117,6 +119,7 @@ public class TestSystemTray {
 			} catch (AWTException e1) {
 				e1.printStackTrace();
 			}
+			start.run();
 		}
 	}
 }

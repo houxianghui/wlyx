@@ -1,2 +1,1 @@
-@runw.bat com.blue.start.Main
-exit
+@start javaw -cp wlyx-base.jar;. -DGZIP -Dwindow com.blue.start.Main

@@ -12,17 +12,21 @@ import com.blue.monitor.RolesMonitor;
 import com.blue.monstor.UserMonitor;
 
 
-public class Main {
+public class Main implements Start{
+	@Override
+	public void run() throws Exception {
+		start();
+	}
 	public static void main(String[] args) throws Exception {
+		Main m = new Main();
 		if (System.getProperty("window") != null) {
-			com.blue.frame.TestSystemTray.startWithFrame();
-			Main.start();
+			com.blue.frame.TestSystemTray.startWithFrame(m);
 		} else {
-			start();
+			m.start();
 		}
 	}
 
-	public static void start() throws Exception {
+	public void start() throws Exception {
 		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
 		System.setProperty("sun.net.client.defaultReadTimeout", "15000");
 		System.setProperty("GZIP", "");
@@ -33,9 +37,19 @@ public class Main {
 		rm.setUsers(l);
 		Iterator<User> it = l.iterator();
 		while (it.hasNext()) {
-			User user = it.next();
-			user.login(true);
-			Thread.sleep(3 * 1000);
+			final User user = it.next();
+			
+			new Thread(){
+				public void run() {
+					try {
+						user.login(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				};
+			}.start();
+			
+//			Thread.sleep(3 * 1000);
 		}
 		new UserMonitor(l);
 		
@@ -56,6 +70,7 @@ public class Main {
 		while ((s = br.readLine()) != null) {
 			sb.append(s + "\n");
 		}
+		br.close();
 		return sb.toString();
 	}
 }

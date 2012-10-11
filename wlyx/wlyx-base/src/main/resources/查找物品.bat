@@ -1,2 +1,2 @@
-@run.bat com.blue.start.FindItem
+@java -cp wlyx-base.jar;. -DGZIP com.blue.start.FindItem
 @pause

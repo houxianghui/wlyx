@@ -59,9 +59,9 @@ public class Portal {
 	private static String ROOM_RECOVER="modules/warrior.php?act=guestroom&op=restore&id=1";
 	private static Pattern position = Pattern.compile("<div class=\"city_scene_name\">(.*?)</div>",Pattern.DOTALL);
 	private static Pattern teamPosition = Pattern.compile("team_name\":\"(.*?)\"");
-	private static Pattern mapPosition = Pattern.compile("map_name\": \"(.*?)\"");
-	//身份
-	private static Pattern capacity = Pattern.compile("点击查看主仆关系\" >(.*?)</a> ",Pattern.DOTALL);
+	private static Pattern mapPosition = Pattern.compile("map_name\":\\s*\"(.*?)\"");
+	//身份 点击查看主仆关系">奴隶主</a>
+	private static Pattern capacity = Pattern.compile("点击查看主仆关系\"\\s*>(.*?)</a> ",Pattern.DOTALL);
 	private static Pattern dailyWeals = Pattern.compile("您今日签到随机获得的奖励：</span><span class=\"text_scene\">(.*?)</span>",Pattern.DOTALL);
 	
 	private static Pattern taskInfo = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(.*?)</span>");

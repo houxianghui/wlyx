@@ -9,7 +9,6 @@
 	<name>wlyx</name>
 	<url>http://maven.apache.org</url>
 	<modules>
-		<module>../wlyx-prd</module>
 		<module>../wlyx-base</module>
 		<module>../wlyx-web</module>
 	</modules>
