@@ -56,7 +56,7 @@
 							<target>
 								<copy todir="target">
 									<fileset dir="src/main/resources"
-										includes="gift.txt,user.xml,speak.txt,查找物品.bat,开始图形化挂机.bat,run.bat"></fileset>
+										includes="gift.txt,user.xml,speak.txt,查找物品.bat,开始图形化挂机.bat,run.bat,runw.bat"></fileset>
 								</copy>
 							</target>
 						</configuration>
