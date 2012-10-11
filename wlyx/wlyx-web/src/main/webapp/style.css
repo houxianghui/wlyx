@@ -1,0 +1,117 @@
+@CHARSET "GB18030";
+
+body { 
+font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+color: #4f6b72; 
+background: #E6EAE9; 
+} 
+
+a { 
+color: #c75f3e; 
+} 
+
+#mytable { 
+width: 700px; 
+padding: 0; 
+margin: 0; 
+} 
+
+caption { 
+padding: 0 0 5px 0; 
+width: 700px; 
+font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+text-align: right; 
+} 
+
+th { 
+font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+color: #4f6b72; 
+border-right: 1px solid #C1DAD7; 
+border-bottom: 1px solid #C1DAD7; 
+border-top: 1px solid #C1DAD7; 
+letter-spacing: 2px; 
+text-transform: uppercase; 
+text-align: left; 
+padding: 6px 6px 6px 12px; 
+background: #CAE8EA  no-repeat; 
+} 
+
+th.nobg { 
+border-top: 0; 
+border-left: 0; 
+border-right: 1px solid #C1DAD7; 
+background: none; 
+} 
+
+td { 
+border-right: 1px solid #C1DAD7; 
+border-bottom: 1px solid #C1DAD7; 
+background: #fff; 
+font-size:11px; 
+padding: 6px 6px 6px 12px; 
+color: #4f6b72; 
+} 
+
+
+td.alt { 
+background: #F5FAFA; 
+color: #797268; 
+} 
+
+th.spec { 
+border-left: 1px solid #C1DAD7; 
+border-top: 0; 
+background: #fff no-repeat; 
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+} 
+
+th.specalt { 
+border-left: 1px solid #C1DAD7; 
+border-top: 0; 
+background: #f5fafa no-repeat; 
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+color: #797268; 
+} 
+/*---------for IE 5.x bug*/ 
+html>body td{ font-size:11px;} 
+body,td,th { 
+font-family: ËÎÌו, Arial; 
+font-size: 12px; 
+}
+.ext{
+	background-color: #CBDDF3;
+	background-image: -webkit-linear-gradient(top, #DAE7F6, #CDDEF3 45%, #ABC7EC 46%, #ABC7EC 50%, #B8CFEE 51%, #CBDDF3);
+	border-bottom-color: #99BCE8;
+	border-bottom-style: solid;
+	border-bottom-width: 0px;
+	border-left-color: #99BCE8;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #99BCE8;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #99BCE8;
+	border-top-style: solid;
+	border-top-width: 1px;
+	box-shadow: #F4F8FD 0px 1px 0px 0px inset;
+	box-sizing: border-box;
+	color: black;
+	cursor: default;
+	display: block;
+	font-family: helvetica, tahoma, verdana, sans-serif;
+	font-size: 12px;
+	height: 25px;
+	left: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-bottom: 4px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 3px;
+	position: absolute;
+	top: 0px;
+	width: 700px;
+	z-index: 1;
+}
