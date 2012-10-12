@@ -28,7 +28,7 @@
 	</tr>
 	<c:forEach items="${users}" var="user">
 		<tr>
-		<td><a href="list?act=login&username=<c:out value="${user.userName}"/>" target="_blank"><c:out value="${user.roleName}"></c:out></a></td>
+		<td><a href="<c:out value="${user.url}"/>" target="_blank"><c:out value="${user.roleName}"></c:out></a></td>
 		<td><c:out value="${user.profession}"></c:out></td>
 		<td><c:out value="${user.level}"></c:out></td>
 		<td><c:out value="${user.point}"></c:out></td>
