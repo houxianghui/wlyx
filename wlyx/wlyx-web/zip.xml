@@ -19,6 +19,7 @@
 				<include>*.jsp</include>
 				<include>*.css</include>
 				<include>*.bat</include>
+				<include>*.exe</include>
 			</includes>
 		</fileSet>
 	</fileSets>

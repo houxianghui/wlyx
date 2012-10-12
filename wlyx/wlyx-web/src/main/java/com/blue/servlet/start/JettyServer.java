@@ -8,27 +8,14 @@ import org.mortbay.jetty.webapp.WebAppContext;
 import com.blue.start.Start;
 
 public class JettyServer implements Start{
-	public JettyServer(String[] args) {
-		if(args.length == 0){
-			this.port = 8080;
-		}else{
-			try{
-				this.port = Integer.parseInt(args[0]);
-			}catch(Exception e){
-				System.err.print("端口为数字 请输入正确的数字");
-			}
-			
-		}
-	}
-	private int port;
 	public void run() throws Exception {
-		
-		start(port);
+		String port = System.getProperty("server.port");
+		start(Integer.parseInt(port));
 	}
 	private void start(int port)throws Exception{
 		final String WEBAPPDIR = ".";
 		 
-		final Server server = new Server(8080);
+		final Server server = new Server(port);
 		 
 		 
 		final String CONTEXTPATH = "/";
@@ -41,8 +28,17 @@ public class JettyServer implements Start{
 		server.join();
 	}
 	public static void main(String[] args) throws Exception{
-		JettyServer server = new JettyServer(args);
-		server.run();
-//		TestSystemTray.startWithFrame(server);
+		final JettyServer server = new JettyServer();
+		new Thread(){
+			public void run() {
+				try {
+					server.run();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			};
+		}.start();
+		
+		
 	}
 }
