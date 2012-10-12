@@ -229,8 +229,8 @@ public class PageService {
 		return "";
 	}
 
-	private static StringBuffer readBackInfo(InputStream inputStream)
-			throws IOException, UnsupportedEncodingException {
+	private static StringBuffer readBackInfo(InputStream inputStream) throws Exception
+			{
 		String gzip = System.getProperty("GZIP");
 		String charset = "UTF-8";
 		String charsetProperty = System.getProperty("charset");
@@ -242,27 +242,29 @@ public class PageService {
 			isGzipOn = true;
 		}
 		if(isGzipOn){
-			GZIPInputStream gis = new GZIPInputStream(inputStream);
-	
-			StringBuffer b = new StringBuffer();
-			byte[] by = new byte[1024];
-			int len = 0;
-			while((len = gis.read(by))!=-1){
-				b.append(new String(by,0,len,charset));
+			GZIPInputStream gis;
+			try {
+				gis = new GZIPInputStream(inputStream);
+				StringBuffer b = new StringBuffer();
+				byte[] by = new byte[1024];
+				int len = 0;
+				while((len = gis.read(by))!=-1){
+					b.append(new String(by,0,len,charset));
+				}
+				gis.close();
+				return b;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			gis.close();
-			return b;
-		}else{
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,charset));
-			StringBuffer sb = new StringBuffer();
-			String s = null;
-			while((s=br.readLine())!=null){
-				sb.append(s+"\n");
-			}
-			br.close();
-			return sb;
 		}
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,charset));
+		StringBuffer sb = new StringBuffer();
+		String s = null;
+		while((s=br.readLine())!=null){
+			sb.append(s+"\n");
+		}
+		br.close();
+		return sb;
 	}
 
 

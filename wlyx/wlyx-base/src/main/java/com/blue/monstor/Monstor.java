@@ -115,6 +115,8 @@ public class Monstor {
 			return false;
 		}
 		
+		page = PageService.getPageWithCookie(getScenceUrl(user), user);
+		
 		Matcher m = p.matcher(page);
 		String mid = null;
 		int l = Integer.parseInt(user.getLevel())+3;
@@ -144,7 +146,13 @@ public class Monstor {
 		}
 		return killIt(mid, user);
 	}
-	
+	private static String getScenceUrl(User user){
+		StringBuilder sb = new StringBuilder();
+		sb.append(user.getUrl());
+		sb.append("modules/scene.php?");
+		sb.append(Tools.getTimeStamp(false));
+		return sb.toString();
+	}
 	private static String move(User user) throws Exception{
 		String[] monstor = LevelVSMonstor.getMonstorInfo(user.getLevel());
 		String page = null;

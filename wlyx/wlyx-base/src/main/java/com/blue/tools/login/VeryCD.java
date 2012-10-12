@@ -1,6 +1,7 @@
 package com.blue.tools.login;
 
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -24,10 +25,7 @@ public class VeryCD {
 		try{
 			URL url = new URL("http://secure.verycd.com/signin?f=out");
 			con = (HttpURLConnection) url.openConnection();
-			String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +
-					"username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
-					"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+
-					"&_REFERER=";
+			String data = makeLoginData(user);
 			if(con != null){
 				con.setDoOutput(true);
 				
@@ -92,6 +90,13 @@ public class VeryCD {
 				con.disconnect();
 			}
 		}
+	}
+	public static String makeLoginData(User user) throws UnsupportedEncodingException {
+		String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +
+				"username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
+				"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+
+				"&_REFERER=";
+		return data;
 	}
 	private static String getLogin(String pageUrl, String cookie){
 		HttpURLConnection con = null;

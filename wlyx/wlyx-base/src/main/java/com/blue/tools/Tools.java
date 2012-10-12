@@ -123,7 +123,7 @@ public class Tools {
 	public static void start() throws DocumentException {
 		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
 		System.setProperty("sun.net.client.defaultReadTimeout", "15000");
-		System.setProperty("GZIP", "");
+		System.setProperty("GZIP", "gzip");
 
 		UserRead ur = new UserRead();
 		List<User> l = ur.readUser();
