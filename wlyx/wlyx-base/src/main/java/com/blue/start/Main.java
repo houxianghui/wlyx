@@ -4,55 +4,25 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import com.blue.common.User;
-import com.blue.monitor.RolesMonitor;
-import com.blue.monstor.UserMonitor;
+import com.blue.tools.Tools;
 
 
 public class Main implements Start{
 	@Override
 	public void run() throws Exception {
-		start();
+		Tools.start();
 	}
+	
 	public static void main(String[] args) throws Exception {
 		Main m = new Main();
 		if (System.getProperty("window") != null) {
 			com.blue.frame.TestSystemTray.startWithFrame(m);
 		} else {
-			m.start();
+			m.run();
 		}
-	}
-
-	public void start() throws Exception {
-		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
-		System.setProperty("sun.net.client.defaultReadTimeout", "15000");
-		System.setProperty("GZIP", "");
-
-		UserRead ur = new UserRead();
-		List<User> l = ur.readUser();
-		RolesMonitor rm = RolesMonitor.getInstance();
-		rm.setUsers(l);
-		Iterator<User> it = l.iterator();
-		while (it.hasNext()) {
-			final User user = it.next();
-			
-			new Thread(){
-				public void run() {
-					try {
-						user.login(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				};
-			}.start();
-			
-//			Thread.sleep(3 * 1000);
-		}
-		new UserMonitor(l);
-		
 	}
 
 	public static List<User> getUserInfo() throws Exception, IOException {

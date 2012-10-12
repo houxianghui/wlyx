@@ -22,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.blue.monstor.UserMonitor;
 import com.blue.start.Main;
 import com.blue.start.Start;
 import com.blue.tools.FileUtil;
@@ -30,56 +29,19 @@ import com.blue.tools.FileUtil;
 
 public class TestSystemTray {
 	public static void startWithFrame(Start start) throws Exception {
-
+		makeWindow();
+		start.run();
+	}
+	private static void makeWindow() {
 		TrayIcon trayIcon = null;
 		if (SystemTray.isSupported()) // 判断系统是否支持系统托盘
 		{
 			SystemTray tray = SystemTray.getSystemTray(); // 获取系统托盘
 			Image image = Toolkit.getDefaultToolkit().getImage(FileUtil.readUrl("TrayIcon.png"));// 载入图片
 			// 创建一个窗体
-			final JFrame frame = new JFrame();
-			frame.setIconImage(image);
-			frame.setResizable(false);
-			frame.setTitle("暗影刺客");
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setLayout(new BorderLayout());
-			frame.setBounds(800, 800, 400, 400);
-			frame.setLocationRelativeTo(null);
-
-			frame.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowIconified(WindowEvent e) {
-					frame.setVisible(false);
-				}
-			});
-
-			JButton jb = new JButton("开始挂机");
-			final JTextArea jta = new JTextArea();
-			jta.setAutoscrolls(true);
-			jta.setLineWrap(true);
-			jta.setDocument(new LimitDocument(jta));
-			PrintStream ps = new PrintStream(new MyOutputStream(jta));
-			System.setOut(ps);
-			System.setErr(ps);
-
-			jb.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent arg0) {
-
-					new Thread() {
-						@Override
-						public void run() {
-							try {
-								Main m = new Main();
-								m.start();
-							} catch (Exception e) {
-								jta.setText(e.getMessage());
-							}
-						}
-					}.start();
-
-				}
-			});
+			final JFrame frame = makeMainFrame(image);
+			final JTextArea jta = makeConsole();
+			JButton jb = makeStartButton(jta);
 
 			Container c = new Container();
 			FlowLayout fl = new FlowLayout();
@@ -125,8 +87,59 @@ public class TestSystemTray {
 			} catch (AWTException e1) {
 				e1.printStackTrace();
 			}
-			start.run();
 		}
+	}
+	private static JButton makeStartButton(final JTextArea jta) {
+		JButton jb = new JButton("开始挂机");
+		
+
+		jb.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				new Thread() {
+					@Override
+					public void run() {
+						try {
+							Main m = new Main();
+							m.run();
+						} catch (Exception e) {
+							jta.setText(e.getMessage());
+						}
+					}
+				}.start();
+
+			}
+		});
+		return jb;
+	}
+	private static JTextArea makeConsole() {
+		final JTextArea jta = new JTextArea();
+		jta.setAutoscrolls(true);
+		jta.setLineWrap(true);
+		jta.setDocument(new LimitDocument(jta));
+		PrintStream ps = new PrintStream(new MyOutputStream(jta));
+		System.setOut(ps);
+		System.setErr(ps);
+		return jta;
+	}
+	private static JFrame makeMainFrame(Image image) {
+		final JFrame frame = new JFrame();
+		frame.setIconImage(image);
+		frame.setResizable(false);
+		frame.setTitle("暗影刺客");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		frame.setBounds(800, 800, 400, 400);
+		frame.setLocationRelativeTo(null);
+
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowIconified(WindowEvent e) {
+				frame.setVisible(false);
+			}
+		});
+		return frame;
 	}
 	private static JButton makeExitButton() {
 		JButton exit = new JButton("退出");
@@ -147,7 +160,7 @@ public class TestSystemTray {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					String url = "http://localhost:"+System.getProperty("server.port");
+					String url = "http://localhost:"+System.getProperty("server.port")+"/list";
 					Runtime.getRuntime().exec("explorer "+url);
 				} catch (IOException e) {
 					e.printStackTrace();

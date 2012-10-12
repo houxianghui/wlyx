@@ -6,18 +6,17 @@ import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 
 import com.blue.start.Start;
+import com.blue.tools.Tools;
 
 public class JettyServer implements Start{
 	public void run() throws Exception {
+		//挂机开始
+		Tools.start();
+		//监控服务器启动
 		String port = System.getProperty("server.port");
-		start(Integer.parseInt(port));
-	}
-	private void start(int port)throws Exception{
 		final String WEBAPPDIR = ".";
 		 
-		final Server server = new Server(port);
-		 
-		 
+		final Server server = new Server(Integer.parseInt(port));
 		final String CONTEXTPATH = "/";
 		 
 		final URL warUrl = JettyServer.class.getClassLoader().getResource(WEBAPPDIR);
@@ -27,18 +26,9 @@ public class JettyServer implements Start{
 		server.start();
 		server.join();
 	}
+	
 	public static void main(String[] args) throws Exception{
 		final JettyServer server = new JettyServer();
-		new Thread(){
-			public void run() {
-				try {
-					server.run();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			};
-		}.start();
-		
-		
+		com.blue.frame.TestSystemTray.startWithFrame(server);
 	}
 }

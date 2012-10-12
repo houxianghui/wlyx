@@ -1,1 +1,0 @@
-@java -cp wlyx-web.jar;. com.blue.servlet.start.JettyServer

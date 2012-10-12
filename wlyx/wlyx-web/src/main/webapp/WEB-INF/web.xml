@@ -13,7 +13,6 @@
 	<servlet>
 		<servlet-name>start</servlet-name>
 		<servlet-class>com.blue.servlet.MainServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>start</servlet-name>

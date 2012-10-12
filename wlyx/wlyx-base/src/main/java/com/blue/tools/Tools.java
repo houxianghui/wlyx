@@ -4,7 +4,16 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+
+import org.dom4j.DocumentException;
+
+import com.blue.common.User;
+import com.blue.monitor.RolesMonitor;
+import com.blue.monstor.UserMonitor;
+import com.blue.start.UserRead;
 
 
 public class Tools {
@@ -110,5 +119,31 @@ public class Tools {
 			}
 		}
 		return false;
+	}
+	public static void start() throws DocumentException {
+		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
+		System.setProperty("sun.net.client.defaultReadTimeout", "15000");
+		System.setProperty("GZIP", "");
+
+		UserRead ur = new UserRead();
+		List<User> l = ur.readUser();
+		RolesMonitor rm = RolesMonitor.getInstance();
+		rm.setUsers(l);
+		Iterator<User> it = l.iterator();
+		while (it.hasNext()) {
+			final User user = it.next();
+			
+			new Thread(){
+				public void run() {
+					try {
+						user.login(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				};
+			}.start();
+			
+		}
+		new UserMonitor(l);
 	}
 }

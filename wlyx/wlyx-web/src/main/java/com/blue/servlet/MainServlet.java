@@ -11,7 +11,7 @@ public class MainServlet extends HttpServlet {
 	public void init() throws ServletException {
 		try{
 			Main m = new Main();
-			m.start();
+			m.run();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
