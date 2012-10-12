@@ -2,6 +2,8 @@ package com.blue.frame;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -12,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.PrintStream; //import java.net.URLClassLoader;  
 
 import javax.swing.JButton;
@@ -19,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.blue.monstor.UserMonitor;
 import com.blue.start.Main;
 import com.blue.start.Start;
 import com.blue.tools.FileUtil;
@@ -77,16 +81,15 @@ public class TestSystemTray {
 				}
 			});
 
-			JButton exit = new JButton("退出");
-			exit.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent arg0) {
-					System.exit(0);
-				}
-			});
-			frame.add(jb, BorderLayout.NORTH);
+			Container c = new Container();
+			FlowLayout fl = new FlowLayout();
+			c.setLayout(fl);
+			c.add(jb);
+			c.add(makeMonitorButton());
+			c.add(makeExitButton());
+			
+			frame.add(c, BorderLayout.NORTH);
 			frame.add(new JScrollPane(jta), BorderLayout.CENTER);
-			frame.add(exit, BorderLayout.SOUTH);
 			frame.setVisible(true);
 
 			ActionListener listener = new ActionListener() {
@@ -108,7 +111,10 @@ public class TestSystemTray {
 
 				}
 			});
+			MenuItem monitor = new MenuItem("查看用户状态");
+			monitor.addActionListener(getMonitorListener());
 			popup.add(defaultItem);
+			popup.add(monitor);
 			popup.add(exitItem);
 			trayIcon = new TrayIcon(image, "暗影刺客", popup);// 创建托盘图标
 
@@ -121,5 +127,32 @@ public class TestSystemTray {
 			}
 			start.run();
 		}
+	}
+	private static JButton makeExitButton() {
+		JButton exit = new JButton("退出");
+		exit.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		return exit;
+	}
+	private static JButton makeMonitorButton(){
+		JButton jb = new JButton("查看用户状态");
+		jb.addActionListener(getMonitorListener());
+		return jb;
+	}
+	private static ActionListener getMonitorListener(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String url = "http://localhost:"+System.getProperty("server.port");
+					Runtime.getRuntime().exec("explorer "+url);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
 	}
 }

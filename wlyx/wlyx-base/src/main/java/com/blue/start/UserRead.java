@@ -34,7 +34,12 @@ public class UserRead {
 			p.setProperty("http.proxyHost", sys.elementText("proxyHost"));
 			p.setProperty("http.proxyPort", sys.elementText("proxyPort"));
 		}
-
+		String serverPort = sys.elementText("serverPort");
+		if(!Tools.isEmpty(serverPort)){
+			p.setProperty("server.port",serverPort);
+		}else{
+			p.setProperty("server.port", "9527");
+		}
 		for (Iterator<Element> it = root.element("users").elementIterator("user"); it.hasNext();) {
 			Element e = it.next();
 			setUserInfo(e, l);
