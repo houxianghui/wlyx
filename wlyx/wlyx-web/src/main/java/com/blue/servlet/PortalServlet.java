@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.blue.common.Portal;
 import com.blue.common.User;
 import com.blue.monitor.PackageItemMonitor;
 import com.blue.monitor.RolesMonitor;
@@ -26,6 +27,7 @@ import com.blue.start.FindItem;
 import com.blue.tools.Item;
 import com.blue.tools.ItemMerge;
 import com.blue.tools.PageService;
+import com.blue.tools.Tools;
 import com.blue.tools.login.VeryCD;
 
 public class PortalServlet extends HttpServlet {
@@ -37,6 +39,8 @@ public class PortalServlet extends HttpServlet {
 			login(request, response);
 		}else if("find".equals(request.getParameter("act"))){
 			find(request, response);
+		}else if("stopTrain".equals(request.getParameter("act"))){
+			stopTrain(request, response);
 		}
 	}
 
@@ -153,5 +157,35 @@ public class PortalServlet extends HttpServlet {
 			}
 		}
 	}
-
+	private void stopTrain(HttpServletRequest request,HttpServletResponse response){
+		String userName = request.getParameter("userName");
+		try {
+			userName = URLDecoder.decode(userName,"gb18030");
+			RolesMonitor rm = RolesMonitor.getInstance();
+			User user = rm.getUser(userName);
+			String url = "modules/auto_combats.php?act=cancel";
+			PageService.getPageWithCookie(user.getUrl()+url+Tools.getTimeStamp(true), user);
+			url = "modules/warrior.php?act=hall&op=train&cancel=1";
+			PageService.getPageWithCookie(user.getUrl()+url+Tools.getTimeStamp(true), user);
+			Portal.setUserInfo(user);
+			write(response,"end success");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private void write(HttpServletResponse response, String s){
+		PrintWriter pw  = null;
+		try {
+			pw = response.getWriter();
+			pw.write(s);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(pw != null){
+				pw.close();
+			}
+		}
+		
+	}
 }

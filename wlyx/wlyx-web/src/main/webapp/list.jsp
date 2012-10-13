@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<script type="text/javascript" src="jquery-1.8.0.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
@@ -16,6 +16,16 @@
 		
 		window.open(url);
 	}
+	$(function(){
+		$("#stop").click(function(){
+			var name = encodeURI(encodeURI($(this).attr("name")));
+			var url = "list?act=stopTrain&userName="+name;
+		
+			window.open(url);
+			location.reload();
+		});
+		
+	});
 </script>
 </head>
 <body >
@@ -28,6 +38,7 @@
 	</table>
 	<table width="98%" cellspacing="1" border="0" cellpadding="0" class=".ext">
 	<tr>
+		<th>操作</th>
 		<th>角色名称</th>
 		<th>派系</th>
 		<th>等级</th>
@@ -43,6 +54,7 @@
 	</tr>
 	<c:forEach items="${users}" var="user">
 		<tr>
+		<td><input type="button" value="中断训练/挂野" id="stop" name="<c:out value="${user.userName}"/>" /></td>
 		<td><a href="<c:out value="${user.url}"/>" target="_blank"><c:out value="${user.roleName}"></c:out></a></td>
 		<td><c:out value="${user.profession}"></c:out></td>
 		<td><c:out value="${user.level}"></c:out></td>
