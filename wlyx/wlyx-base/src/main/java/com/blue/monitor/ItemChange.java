@@ -64,6 +64,14 @@ public class ItemChange {
 				logger.info(user.getRoleName()+"兑换天之聚宝盆成功");
 			}
 		}
+		String ids[] = {"609"};
+		for(int i = 0;i<ids.length;i++){
+			String url = user.getUrl()+CHENG_JI+ids[i]+Tools.getTimeStamp(true);
+			page = PageService.getPageWithCookie(url, user);
+			if((flag=successChange(page)) == true){
+				logger.info(user.getRoleName()+"兑换青烟玉成功");
+			}
+		}
 	}
 	private static boolean successChange(String s){
 		Matcher m = success.matcher(s);
