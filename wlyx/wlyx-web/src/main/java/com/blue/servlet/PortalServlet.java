@@ -5,6 +5,11 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,7 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.blue.common.User;
+import com.blue.monitor.PackageItemMonitor;
 import com.blue.monitor.RolesMonitor;
+import com.blue.servlet.pojo.FindItemResult;
+import com.blue.start.FindItem;
+import com.blue.tools.Item;
+import com.blue.tools.ItemMerge;
 import com.blue.tools.PageService;
 import com.blue.tools.login.VeryCD;
 
@@ -25,6 +35,8 @@ public class PortalServlet extends HttpServlet {
 			list(request, response);
 		} else if ("login".equals(request.getParameter("act"))) {
 			login(request, response);
+		}else if("find".equals(request.getParameter("act"))){
+			find(request, response);
 		}
 	}
 
@@ -79,6 +91,67 @@ public class PortalServlet extends HttpServlet {
 		List<User> l = rm.getUsers();
 		request.setAttribute("users", l);
 		request.getRequestDispatcher("list.jsp").forward(request, response);
+	}
+	private void find(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+//		request.setCharacterEncoding("GBK");
+		String item = request.getParameter("item");
+		item = URLDecoder.decode(item,"UTF-8");
+		
+		final String[] regexs = item.split(" ");
+		if(regexs.length == 0){
+			return;
+		}
+		RolesMonitor rm = RolesMonitor.getInstance();
+		List<User> users = rm.getUsers();
+		final List<FindItemResult> result = Collections.synchronizedList(new ArrayList<FindItemResult>());
+		List<Thread> threads = new ArrayList<Thread>();
+		for(final User user:users){
+			Thread t = new Thread(){
+				@Override
+				public void run() {
+					if(user.getPackageItems() == null || user.getStockItems() == null || user.getTeamStockItems()==null){
+						PackageItemMonitor.upadtePackage(user);
+					}
+					findInList(regexs, user, result, "包裹", user.getPackageItems());
+					findInList(regexs, user, result, "仓库", user.getStockItems());
+					findInList(regexs, user, result, "四海库房", user.getTeamStockItems());
+				}
+			};
+			t.start();
+			threads.add(t);
+		}
+		for(Thread t : threads){
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		request.setAttribute("result", result);
+		request.getRequestDispatcher("find.jsp").forward(request, response);
+	}
+	private void findInList(String[] regexs,User user,List<FindItemResult> result,String position,List<Item> target){
+		boolean find = true;
+		if(target == null){
+			return;
+		}
+		for(Item i :target){
+			find = true;
+			for(String s:regexs){
+				if(i.getCNName().indexOf(s) < 0){
+					find = false;
+					break;
+				}
+			}
+			if(find){
+				FindItemResult f = new FindItemResult();
+				f.setRoleName(user.getRoleName());
+				f.setCount(i.getCount());
+				f.setPosition(position);
+				f.setItemName(i.getCNName());
+				result.add(f);
+			}
+		}
 	}
 
 }

@@ -8,8 +8,9 @@
 		<user username="blue_ranger_1" password="abc123" stockPwd="" host="s4.verycd.9wee.com">
 			<monstor caption="野训设置">
 				<startTime caption="开始时间">0</startTime>
-				<endTime caption="结束时间">8</endTime>
+				<endTime caption="结束时间">24</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
+				<killOnce>1</killOnce>
 				<!-- 是否需要开经验图 0否 1 是 -->
 				<beauty>1</beauty>
 				<!-- 装备保留 3 蓝装以上 4 紫装以上 5 全卖 -->

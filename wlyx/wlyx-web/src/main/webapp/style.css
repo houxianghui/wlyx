@@ -3,13 +3,21 @@
 body { 
 font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
 color: #4f6b72; 
-background: #E6EAE9; 
+background: #E6EAE9;
+text-align: center;
 } 
 
 a { 
 color: #c75f3e; 
-} 
-
+}
+.red{
+	color:red
+}
+table{
+	align:center;
+	text-align:left;
+	width: 98%;
+}
 #mytable { 
 width: 700px; 
 padding: 0; 

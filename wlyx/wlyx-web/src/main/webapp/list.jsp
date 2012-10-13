@@ -9,9 +9,24 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
 <title>暗影刺客</title>
+<script type="text/javascript">
+	function search(){
+		var url = "list?act=find&item="+document.getElementById("item").value;
+		url = encodeURI(encodeURI(url));
+		
+		window.open(url);
+	}
+</script>
 </head>
-<body>
-	<table cellspacing="1" border="0" cellpadding="0" class=".ext">
+<body >
+	<table width="98%">
+		<tr><td>物品关键词之间可以使用空格分隔，比如<span class="red">卸武&nbsp;15</span>代表搜索卸武式15重</td></tr>
+		<tr>
+			
+			<td>物品关键词：<input type="text" name="item" id="item"><input type="Button" value="查找物品" onclick="search()"></td>
+		</tr>
+	</table>
+	<table width="98%" cellspacing="1" border="0" cellpadding="0" class=".ext">
 	<tr>
 		<th>角色名称</th>
 		<th>派系</th>

@@ -14,12 +14,14 @@ import com.blue.duel.DuelThread;
 import com.blue.enums.Profession;
 import com.blue.fyzb.ServerDuelConfig;
 import com.blue.fyzb.ServerDuelHallThread;
+import com.blue.monitor.PackageMonitorThread;
 import com.blue.monitor.YiShouMonitorThread;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTaskThread;
 import com.blue.team.WuGuanThread;
 import com.blue.tianjitang.TianJiThread;
+import com.blue.tools.Item;
 import com.blue.tools.PageService;
 import com.blue.user.RoleSkillForProfession;
 import com.blue.warrior.WarriorThread;
@@ -120,6 +122,9 @@ public class User {
 	private String position;			//角色位置
 	private String capacity;			//身份
 	private String gotWeals;			//每日福利
+	private List<Item> packageItems;	//包裹物品
+	private List<Item> stockItems;		//仓库物品
+	private List<Item> teamStockItems;	//四海库房
 	/*---------------------------------------------------------------*/
 	//奴隶设置
 	private int needCatchSlavy = 0;
@@ -671,6 +676,7 @@ public class User {
 		work.add(new DailyAward(this));			//自动领取全民福利
 		work.add(new YiShouMonitorThread(this));	//免费异兽蛋
 		work.add(new ServerDuelHallThread(this));//跨服竞技
+		work.add(new PackageMonitorThread(this));	//物品列表
 		if(isMianChiDropWeapon()){
 			work.add(new DropWeaponThread(this));	//渑池卸武
 		}
@@ -848,5 +854,23 @@ public class User {
 	}
 	public void setDuelInfo(String duelInfo) {
 		this.duelInfo = duelInfo;
+	}
+	public List<Item> getPackageItems() {
+		return packageItems;
+	}
+	public void setPackageItems(List<Item> packageItems) {
+		this.packageItems = packageItems;
+	}
+	public List<Item> getStockItems() {
+		return stockItems;
+	}
+	public void setStockItems(List<Item> stockItems) {
+		this.stockItems = stockItems;
+	}
+	public List<Item> getTeamStockItems() {
+		return teamStockItems;
+	}
+	public void setTeamStockItems(List<Item> teamStockItems) {
+		this.teamStockItems = teamStockItems;
 	}
 }
