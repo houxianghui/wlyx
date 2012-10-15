@@ -13,6 +13,7 @@ import com.blue.tools.Tools;
 public class AutoTask {
 	private static Logger logger = Logger.getLogger(AutoTask.class);
 	private static Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
+	private static Pattern tasks = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
 	private static Pattern finish = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成.*?进行中");
 	//<li>经验：<span class="highlight">+13546</span></span></li>
 	private static Pattern reward = Pattern.compile("<li.*?(经验|铜币|物品).*?(\\d+)",Pattern.DOTALL);
@@ -102,14 +103,18 @@ public class AutoTask {
 	public static void autoFinishTask(User user){
 		String url = getTaskListUrl(user);
 		String page = PageService.getPageWithCookie(url, user);
-		
-		Matcher m2 = finish.matcher(page);
-		if(m2.find()){
-			url = user.getUrl()+AUTO_TASK_URL+m2.group(1)+Tools.getTimeStamp(true);
-			page = PageService.getPageWithCookie(url, user);			
-			if(Tools.success(page)){
-				logger.info(user.getRoleName()+"委托任务"+m2.group(1)+"成功 ");
+		Matcher m = tasks.matcher(page);
+		while(m.find()){
+			String s = m.group();
+			Matcher m2 = finish.matcher(s);
+			if(m2.find()){
+				url = user.getUrl()+AUTO_TASK_URL+m2.group(1)+Tools.getTimeStamp(true);
+				String result = PageService.getPageWithCookie(url, user);			
+				if(Tools.success(result)){
+					logger.info(user.getRoleName()+"委托任务"+m2.group(1)+"成功 ");
+				}
 			}
+			
 		}
 		
 		if(freeFinish(user)){
