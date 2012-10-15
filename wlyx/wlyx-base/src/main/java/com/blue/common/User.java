@@ -16,6 +16,8 @@ import com.blue.fyzb.ServerDuelConfig;
 import com.blue.fyzb.ServerDuelHallThread;
 import com.blue.monitor.PackageMonitorThread;
 import com.blue.monitor.YiShouMonitorThread;
+import com.blue.serverarean.ServerAreanConfig;
+import com.blue.serverarean.ServerAreanThread;
 import com.blue.slavy.CatchSlavyThread;
 import com.blue.task.AutoRewardThread;
 import com.blue.task.AutoTaskThread;
@@ -36,7 +38,8 @@ public class User {
 	public void setFightPersion(String fightPersion) {
 		this.fightPersion = fightPersion;
 	}	
-	
+	//黄金联赛
+	private ServerAreanConfig serverAreanConfig;	//黄金联赛配置
 	//武馆设置
 	private boolean needTeamWork=true;					//是否需要踢护馆功能
 	private boolean friendly;						//友好踢馆
@@ -167,6 +170,7 @@ public class User {
 	private String wealDate;	//上次占卜时间
 	private String url = "s4.verycd.9wee.com";			//所在服务器	
 	private String cookie;			
+	private String serverAreanCookie;				//黄金联赛cookie
 	//-----------------------------------------------------------------
 	//跨服竞技
 	private boolean needServerDuelHall;		//是否需要跨服竞技
@@ -677,6 +681,7 @@ public class User {
 		work.add(new YiShouMonitorThread(this));	//免费异兽蛋
 		work.add(new ServerDuelHallThread(this));//跨服竞技
 		work.add(new PackageMonitorThread(this));	//物品列表
+		work.add(new ServerAreanThread(this));	//挑战名人堂
 		if(isMianChiDropWeapon()){
 			work.add(new DropWeaponThread(this));	//渑池卸武
 		}
@@ -872,5 +877,17 @@ public class User {
 	}
 	public void setTeamStockItems(List<Item> teamStockItems) {
 		this.teamStockItems = teamStockItems;
+	}
+	public ServerAreanConfig getServerAreanConfig() {
+		return serverAreanConfig;
+	}
+	public void setServerAreanConfig(ServerAreanConfig serverAreanConfig) {
+		this.serverAreanConfig = serverAreanConfig;
+	}
+	public String getServerAreanCookie() {
+		return serverAreanCookie;
+	}
+	public void setServerAreanCookie(String serverAreanCookie) {
+		this.serverAreanCookie = serverAreanCookie;
 	}
 }

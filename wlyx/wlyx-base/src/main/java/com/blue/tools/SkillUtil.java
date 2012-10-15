@@ -13,9 +13,11 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.blue.common.Portal;
 import com.blue.common.User;
 import com.blue.enums.Profession;
 import com.blue.fyzb.ServerDuelConfig;
+import com.blue.serverarean.AutoChallengeConfig;
 
 public class SkillUtil {
 	private static Logger logger = Logger.getLogger(SkillUtil.class);
@@ -53,6 +55,60 @@ public class SkillUtil {
 	}
 	public static String getSkillId(User user,String skillName){
 		return skills.get(user.getProfession()).get(skillName);
+	}
+	public static void equipSkill(User user,AutoChallengeConfig ac){
+		
+		Map<String,String> equiped = getEquipedSkill(user);
+		if(ac == null){
+			logger.info(user.getRoleName()+"未设置"+ac.getName()+"的挑战技能，使用默认技能");
+			return;
+		}else{
+			equipActiveSkill(user, ac.getActiveSkill());
+			
+			String assistA = ac.getAssistSkillA();
+			String assistB = ac.getAssistSkillB();
+			if(Tools.isEmpty(assistA) && Tools.isEmpty(assistB)){
+				return;
+			}
+			Set<String> assists = equiped.keySet();
+			//如果没有设置技能，则默认为true
+			boolean isExistA = Tools.isEmpty(assistA);
+			boolean isExistB = Tools.isEmpty(assistB);
+			
+			if(equiped.get(assistA) != null || isExistA){
+				isExistA = true;
+			}
+			if(isExistB || equiped.get(assistB)!=null){
+				isExistB = true;
+			}
+			
+			if(isExistA && isExistB){
+				return;
+			}
+			
+			for(String s:assists){
+				if(!s.equals(assistA) && !s.equals(assistB)){
+					removeSkill(user, equiped.get(s));
+				}else{
+					if(s.equals(assistA)){
+						isExistA = true;
+					}else if(s.equals(assistB)){
+						isExistB = true;
+					}
+				}
+			}
+			//客房回蓝
+			if(!isExistA || !isExistB){
+				Portal.custRoom(user);
+			}
+			
+			if(!isExistA){
+				equipAssistSkill(user, assistA);
+			}
+			if(!isExistB){
+				equipAssistSkill(user, assistB);
+			}
+		}
 	}
 	/**
 	 * 为跨服竞技设置挑战技能

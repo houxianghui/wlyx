@@ -27,6 +27,9 @@ public class Tools {
 	public static String getRandAndTime(){
 		return "&rand="+System.currentTimeMillis()+getTimeStamp(true);
 	}
+	public static String getRand(char c){
+		return c+"rand="+System.currentTimeMillis();
+	}
 	public static String getGtimeAndTime(){
 		//&g_time=1279160603&timeStamp=1279160670604
 		return "&g_time="+System.currentTimeMillis()/1000+"&timeStamp"+System.currentTimeMillis();

@@ -268,7 +268,7 @@ public class PageService {
 	}
 
 
-	public static String getPage(String pageUrl, User user)  {
+	public static String getPage(String pageUrl, String cookie,User user)  {
 		HttpURLConnection con = null;
 		InputStream inputStream = null;
 		try{
@@ -276,9 +276,9 @@ public class PageService {
 			con = (HttpURLConnection) url.openConnection();
 			if(con != null){
 				
-				if (user != null) {
-					con.addRequestProperty("Host", user.getHost());
-					con.addRequestProperty("Cookie", user.getCookie());
+				if (cookie != null) {
+//					con.addRequestProperty("Host", user.getHost());
+					con.addRequestProperty("Cookie", cookie);
 				}
 				con.addRequestProperty("Content-Type",
 						"application/x-www-form-urlencoded");
@@ -380,5 +380,50 @@ public class PageService {
 			return;
 		}
 		GWee.login(user);
+	}
+	public static String getCookie(String pageUrl,User user){
+		HttpURLConnection con = null;
+		try{
+			URL url = new URL(pageUrl);
+			con = (HttpURLConnection) url.openConnection();
+			if(con != null){
+				con.addRequestProperty("Host", user.getHost());
+				con.addRequestProperty("Content-Type",
+						"application/x-www-form-urlencoded");
+				
+				con.setRequestProperty("Cookie", user.getCookie());
+//				setGZipOn(con);
+				HttpURLConnection.setFollowRedirects(false);
+				con.setInstanceFollowRedirects(false);
+				
+				StringBuffer sb = new StringBuffer();
+				String key = null;
+				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
+					String value = con.getHeaderField(i);
+					if (key.startsWith("Set-Cookie")) {
+						if (!(value.contains("=deleted;"))) {
+							int index = value.indexOf(";");
+							if (index > 0)
+								sb.append(value.substring(0, index + 1));
+						}
+					} else if ((key.startsWith("location:"))
+							&& (value.contains("error_code"))) {
+						return null;
+					}
+				}
+				return sb.toString();
+			}
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
+		}finally{
+			if(con != null){
+				con.disconnect();
+			}
+		}
+		
+		return "";
 	}
 }

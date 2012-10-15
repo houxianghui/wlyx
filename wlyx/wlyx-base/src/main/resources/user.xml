@@ -5,10 +5,10 @@
 		<proxyPort></proxyPort>
 	</system>
 	<users>
-		<user username="blue_ranger_1" password="abc123" stockPwd="" host="s4.verycd.9wee.com">
+		<user username="blue_ranger" password="abc123" stockPwd="" host="s4.verycd.9wee.com">
 			<monstor caption="野训设置">
 				<startTime caption="开始时间">0</startTime>
-				<endTime caption="结束时间">24</endTime>
+				<endTime caption="结束时间">1</endTime>
 				<savePoint caption="保留精力点数">20</savePoint>
 				<killOnce>1</killOnce>
 				<!-- 是否需要开经验图 0否 1 是 -->
@@ -163,6 +163,27 @@
 					</profession>
 				</config>
 			</serverDuel>
+			<severArean>
+				<!-- 自动报名 1=单人 2= -->
+				<autoSign open="1" id="1"></autoSign>
+				<autoChallengeConfig open="1">
+					<personage name="王翦">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</personage>
+					<personage name="李牧">
+						<activeSkill>卸武式</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</personage>
+					<personage name="白起">
+						<activeSkill>截脉</activeSkill>
+						<assistSkillA>灭情战意</assistSkillA>
+						<assistSkillB>心眼式</assistSkillB>
+					</personage>
+				</autoChallengeConfig>
+			</severArean>
 		</user>
 
 	</users>

@@ -13,6 +13,8 @@ import org.dom4j.io.SAXReader;
 import com.blue.common.User;
 import com.blue.enums.Profession;
 import com.blue.fyzb.ServerDuelConfig;
+import com.blue.serverarean.AutoChallengeConfig;
+import com.blue.serverarean.ServerAreanConfig;
 import com.blue.tools.FileUtil;
 import com.blue.tools.Tools;
 
@@ -77,8 +79,38 @@ public class UserRead {
 			setTeam(e, user);
 			setSoul(e, user);
 			setServerDuel(e, user);
+			setServerArean(e,user);
 			l.add(user);
 		}
+	}
+
+	private void setServerArean(Element e, User user) {
+		ServerAreanConfig config = new ServerAreanConfig();
+		Element server = e.element("severArean");
+		if(server == null){
+			return;
+		}
+		Element sign = server.element("autoSign");
+		String autoSign = sign.attributeValue("open");
+		config.setNeedAutoSign("1".equals(autoSign));
+		String id = sign.attributeValue("id");
+		config.setSignId(id);
+		
+		Element autoChallenge = server.element("autoChallengeConfig");
+		if(autoChallenge == null){
+			return;
+		}
+		config.setNeedAutoChallenge("1".equals(autoChallenge.attributeValue("open")));
+		List<Element> l = autoChallenge.elements("personage");
+		for(Element p:l){
+			AutoChallengeConfig ac = new AutoChallengeConfig();
+			ac.setName(p.attributeValue("name"));
+			ac.setActiveSkill(p.elementText("activeSkill"));
+			ac.setAssistSkillA(p.elementText("assistSkillA"));
+			ac.setAssistSkillB(p.elementText("assistSkillB"));
+			config.addChallengeConfig(ac);
+		}
+		user.setServerAreanConfig(config);
 	}
 
 	private void setServerDuel(Element e, User user) {

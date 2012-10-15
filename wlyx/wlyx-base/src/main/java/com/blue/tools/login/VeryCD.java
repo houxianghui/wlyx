@@ -46,22 +46,7 @@ public class VeryCD {
 					os.close();
 				}
 				//__utma=242249088.396578207.1271208283.1280120446.1280130776.185; __utmz=242249088.1280112946.182.177.utmcsr=game.verycd.com|utmccn=(referral)|utmcmd=referral|utmcct=/hero/; __utmc=242249088; __utmb=242249088.4.10.1280130776;dcm=1;
-				StringBuffer sb = new StringBuffer("");
-				String key = null;
-				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-					String value = con.getHeaderField(i);
-					if (key.startsWith("Set-Cookie")) {
-						if (!(value.contains("=deleted;"))) {
-							int index = value.indexOf(";");
-							if (index > 0)
-								sb.append(value.substring(0, index + 1));
-						}
-					} else if ((key.startsWith("location:"))
-							&& (value.contains("error_code"))) {
-						logger.error("µÇÂ½Ê§°Ü");
-						return ;
-					}
-				}
+				StringBuffer sb = readCookie(con);
 				
 				user.setCookie(sb.toString());
 //				String page = PageService.getPageWithCookie("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), user);
@@ -90,6 +75,25 @@ public class VeryCD {
 				con.disconnect();
 			}
 		}
+	}
+	public static StringBuffer readCookie(HttpURLConnection con) {
+		StringBuffer sb = new StringBuffer("");
+		String key = null;
+		for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
+			String value = con.getHeaderField(i);
+			if (key.startsWith("Set-Cookie")) {
+				if (!(value.contains("=deleted;"))) {
+					int index = value.indexOf(";");
+					if (index > 0)
+						sb.append(value.substring(0, index + 1));
+				}
+			} else if ((key.startsWith("location:"))
+					&& (value.contains("error_code"))) {
+				logger.error("µÇÂ½Ê§°Ü");
+				return null;
+			}
+		}
+		return sb;
 	}
 	public static String makeLoginData(User user) throws UnsupportedEncodingException {
 		String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +

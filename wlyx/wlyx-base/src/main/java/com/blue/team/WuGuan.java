@@ -141,7 +141,7 @@ public class WuGuan {
 	 */
 	private static boolean noTimes(User user){
 		String url = user.getUrl()+TEAM_LIST+Tools.getTimeStamp(true);
-		String page = PageService.getPage(url, user);
+		String page = PageService.getPageWithCookie(url, user);
 		Matcher m = times.matcher(page);
 		if(m.find()){
 			if(m.group(1).equals(m.group(2))){

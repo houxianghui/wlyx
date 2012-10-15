@@ -49,7 +49,7 @@ public class PortalServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		User user = rm.getUser(username);
 		String url = "http://game.verycd.com/hero/";
-		String page = PageService.getPage(url, null);
+		String page = PageService.getPage(url, null,null);
 		OutputStream pw = null;
 		try {
 			pw = response.getOutputStream();

@@ -1,0 +1,164 @@
+
+<script type="text/javascript">
+
+window.view_personage = function( id )
+{
+	process.start (); 
+	loader.refreshCache();
+	loader.get ( './modules/personage.php?action=view_monster&mid='+id, 'vie_personage' );
+}
+
+</script>
+
+<div class="person_content">
+    <div style="text-align: center; font-size: 18px; margin-bottom: 8px;background-color:#dedad1; width: 100px; font-weight: bold; padding: 2px; margin-left: 310px;">挑战名人堂</div>
+     <ul class="person">
+     
+     <!--每日挑战npc-->
+       		<li>
+            	<div style="background:url( http://static.hero.9wee.com/styles/default/personage_bg.gif ); display: block; height: 130px;">
+            	2012年10月<br/>
+            	第三周<br/>
+            	<a titlecontent="王翦" onclick="view_personage( 1 );" href="javascript:void(0);">王翦</a>
+                <br/>               
+                                 				[ <a href="javascript:void(0);" class="highlight" onclick="show_confirm ( '确认挑战【王翦】？', 'personageRoleFight(1,12398,18)' );">挑战</a> ]<br/>               	
+                                
+                
+                            </div>
+         </li >
+			<li>
+            	<div style="background:url( http://static.hero.9wee.com/styles/default/personage_bg.gif ); display: block; height: 130px;">
+            	2012年10月<br/>
+            	第三周<br/>
+            	<a titlecontent="项燕" onclick="view_personage( 2 );" href="javascript:void(0);">项燕</a>
+                <br/>               
+                                 				[ <a href="javascript:void(0);" class="highlight" onclick="show_confirm ( '确认挑战【项燕】？', 'personageRoleFight(2,12399,18)' );">挑战</a> ]<br/>               	
+                                
+                
+                            </div>
+         </li >
+			<li>
+            	<div style="background:url( http://static.hero.9wee.com/styles/default/personage_bg.gif ); display: block; height: 130px;">
+            	2012年10月<br/>
+            	第三周<br/>
+            	<a titlecontent="廉颇" onclick="view_personage( 3 );" href="javascript:void(0);">廉颇</a>
+                <br/>               
+                                 				[ <a href="javascript:void(0);" class="highlight" onclick="show_confirm ( '确认挑战【廉颇】？', 'personageRoleFight(3,12400,18)' );">挑战</a> ]<br/>               	
+                                
+                
+                            </div>
+         </li >
+			<li>
+            	<div style="background:url( http://static.hero.9wee.com/styles/default/personage_bg.gif ); display: block; height: 130px;">
+            	2012年10月<br/>
+            	第三周<br/>
+            	<a titlecontent="白起" onclick="view_personage( 4 );" href="javascript:void(0);">白起</a>
+                <br/>               
+                                 				[ <a href="javascript:void(0);" class="highlight" onclick="show_confirm ( '确认挑战【白起】？', 'personageRoleFight(4,12401,18)' );">挑战</a> ]<br/>               	
+                                
+                
+                            </div>
+         </li >
+			<li>
+            	<div style="background:url( http://static.hero.9wee.com/styles/default/personage_bg.gif ); display: block; height: 130px;">
+            	2012年10月<br/>
+            	第三周<br/>
+            	<a titlecontent="李牧" onclick="view_personage( 5 );" href="javascript:void(0);">李牧</a>
+                <br/>               
+                                 				[ <a href="javascript:void(0);" class="highlight" onclick="show_confirm ( '确认挑战【李牧】？', 'personageRoleFight(5,12402,18)' );">挑战</a> ]<br/>               	
+                                
+                
+                            </div>
+         </li >
+		
+         </ul>
+        <div  style="margin:0px 5px 5px; height:30px; clear: both">
+           <table  style=" margin-top: 10px; padding: 0px 10px;" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                   <td>今日挑战次数：<span class="highlight" >0/3</span></td>
+                   <!--<td>本周连胜数：<span class="highlight"></span></td>    -->
+                    <td  align="right">本周累计胜利场次：<span class="highlight" >0</span></td>
+                    <td align="right">挑战状态：
+                        <span id="next_combat_time" class="highlight">可挑战</span>
+                        <span id="next_combat_time_note"></span></td>
+                </tr>
+            </table>
+        </div>
+        <div  style="background-color:#E9E5DC">
+                        <div class="scroll_container" style="width:370px; float: left;background-color:#E9E5DC">
+				<div class="scroll_top"><div class="scroll_top_right"></div><div class="scroll_top_left"></div></div>
+				<div class="scroll_body">
+					<div class="scroll_content">
+						<div class="scroll_inner">
+							<div style="margin: 3px;">
+								<div style="height: 25px; clear: both;">
+                                                                    <table width="99%" cellspacing="0" cellpadding="0">
+                                                                    <tbody><tr>
+                                                                    <td width="90">
+                                                                    <span class="important">名人堂事件</span>
+																	<a href="javascript:void(0);" onclick="getMyFightEvent()" class="highlight" style='margin-left:185px'>我的事件</a>
+                                                                    </td>
+                                                                    </tr>
+                                                                    </tbody></table>
+								</div>
+
+								<div style="height: 150px; padding-right: 2px; overflow-y: auto;">
+                                                                    
+								<ul>
+																		                                    <li><span class="date">10月15日 17:30</span><br>哈迪纶之刃-game2-17区战胜王翦 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026120 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>老兵的故事-开心网4区战胜白起 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026119 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>本塘片儿川-迅雷31区战胜白起 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026118 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>TOM-迅雷34区战胜白起 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026117 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>暴风战神-三国梦8区战胜王翦 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026116 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>红豆相思-暴风9区战胜王翦 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026115 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>亦之-九维26区输给王翦 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026114 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>天天痴迷剑-360卫士11区战胜李牧 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026113 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>飞刀广州-迅雷34区战胜白起 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026112 );">查看战斗</a>】</li>
+                                                                        <li><span class="date">10月15日 17:30</span><br>太阳风-51.com-6区战胜王翦 【<a class="highlight" href="javascript:void(0);" onclick="view_combat ( 20153026111 );">查看战斗</a>】</li>
+                                    									                                                                </ul>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="scroll_bottom"><div class="scroll_bottom_right"></div><div class="scroll_bottom_left"></div></div>
+				<div style="width: 208px;" class="scroll_bottom_bar"></div>
+			</div>
+            <div style=" float: right; width: 320px;background-color:#E9E5DC">
+              <span class="important" style="background-color:#dedad1; padding: 5px;  font-weight: bold; display: block">小提示：</span>
+              <ul style="display: block">
+                  <li style=" line-height: 25px;">1.您可在此挑战历届冠军,每次胜利可获得[<span class="highlight">兑换券*2</span>]</li>
+                  <li style=" line-height: 25px;">2.如[本周胜利场次]达到[<span class="highlight">10</span>]次,可额外获得[<span class="highlight">80000</span>]荣誉</li>
+                  <li style=" line-height: 25px;">3.每位报名参赛玩家[<span class="highlight">周一</span>]至[<span class="highlight">周日</span>],每天可发起[<span class="highlight">3</span>]次挑战</li>
+                  <li style=" line-height: 25px;">4.玩家只能挑战本人相应等级段的武林名人</li>
+                  <li style=" line-height: 25px;">5.可挑战名单每日[<span class="highlight">0:00</span>]刷新</li>
+                  <li style=" line-height:25px;">6.奖励在战斗胜利后将通过礼包形式立即发放到玩家所在服务器角色内</li>
+              </ul>
+             
+             </div>
+        
+        </div>
+</div>
+<script type="text/javascript">
+var delayTime=0;
+if(delayTime<=0)
+{
+     $( "next_combat_time").innerHTML = '可挑战';
+}else{
+    $( "next_combat_time_note").innerHTML = '后可挑战';
+     if ( window.per_combat_time ) clearTimeout ( per_combat_time.interval );
+    window.per_combat_time = new clsCounter ( 'per_combat_time' );
+    per_combat_time.init ( 'next_combat_time', delayTime,function(){
+        $( "next_combat_time").innerHTML = '可挑战';
+        $( "next_combat_time_note").innerHTML = '';
+    });
+}
+
+//查看我的事件
+window.getMyFightEvent = function  ()
+{
+	process.start ();
+	loader.get ( '/modules/personage.php?action=get_my_event' );
+}
+</script>

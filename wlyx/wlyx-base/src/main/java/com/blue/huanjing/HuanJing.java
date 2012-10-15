@@ -40,7 +40,7 @@ public class HuanJing {
 			}
 		}
 		String url = user.getUrl()+ATTACK+id+Tools.getTimeStamp(true);
-		String page = PageService.getPage(url, user);
+		String page = PageService.getPageWithCookie(url, user);
 		System.out.println(Tools.success(page));
 	}
 	public static void listAll(User user)throws Exception{
