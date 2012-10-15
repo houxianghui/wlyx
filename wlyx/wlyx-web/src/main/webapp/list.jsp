@@ -20,9 +20,12 @@
 		$("#stop").click(function(){
 			var name = encodeURI(encodeURI($(this).attr("name")));
 			var url = "list?act=stopTrain&userName="+name;
-		
-			window.open(url);
-			location.reload();
+			$.get(url,{act:'stopTrain',userName:name},function(data){
+				alert(data);
+				//window.open(url);
+				location.reload();
+			});
+			
 		});
 		
 	});
