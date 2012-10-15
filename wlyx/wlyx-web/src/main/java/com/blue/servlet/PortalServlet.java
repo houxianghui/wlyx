@@ -168,7 +168,7 @@ public class PortalServlet extends HttpServlet {
 			url = "modules/warrior.php?act=hall&op=train&cancel=1";
 			PageService.getPageWithCookie(user.getUrl()+url+Tools.getTimeStamp(true), user);
 			Portal.setUserInfo(user);
-			write(response,"end success");
+			write(response,"stop train success");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
