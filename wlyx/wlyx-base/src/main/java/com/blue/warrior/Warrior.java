@@ -169,9 +169,9 @@ public class Warrior {
 				hourOnce = Integer.parseInt(user.getTrainOnce());
 				int day = Tools.getDayOfWeek();
 				if(day == Calendar.FRIDAY || day == Calendar.TUESDAY){
-					hourOnce = 14;
-				}else{
-					hourOnce = 21;
+					if(hourOnce>14){
+						hourOnce = 14;
+					}
 				}
 			}
 		}
