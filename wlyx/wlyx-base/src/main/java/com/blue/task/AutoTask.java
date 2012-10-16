@@ -14,7 +14,8 @@ public class AutoTask {
 	private static Logger logger = Logger.getLogger(AutoTask.class);
 	private static Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
 	private static Pattern tasks = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
-	private static Pattern finish = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成.*?进行中");
+	//mission_auto_complete ( 'day', '41001', '900' )
+	private static Pattern finish = Pattern.compile("mission_auto_complete.*?,\\s*'(\\d+)',\\s*'(\\d+)'.*?进行中",Pattern.DOTALL);
 	//<li>经验：<span class="highlight">+13546</span></span></li>
 	private static Pattern reward = Pattern.compile("<li.*?(经验|铜币|物品).*?(\\d+)",Pattern.DOTALL);
 	private static Pattern finished = Pattern.compile("<a href=\"javascript:void\\(0\\);\" onclick=\"view_mission \\( 'day', (\\d+), true \\)\" class=\"purple\">领取奖励",Pattern.DOTALL);
