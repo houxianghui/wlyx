@@ -267,7 +267,46 @@ public class PageService {
 		return sb;
 	}
 
-
+	public static String getPage(String pageUrl){
+		HttpURLConnection con = null;
+		InputStream inputStream = null;
+		try{
+			URL url = new URL(pageUrl);
+			con = (HttpURLConnection) url.openConnection();
+			if(con != null){
+				
+				con.addRequestProperty("Content-Type",
+						"application/x-www-form-urlencoded");
+				inputStream = con.getInputStream();
+				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,"utf-8"));
+				StringBuffer sb = new StringBuffer();
+				String s = null;
+				while((s=br.readLine())!=null){
+					sb.append(s+"\n");
+				}
+				br.close();
+				return sb.toString();
+			}
+		}catch(SocketTimeoutException e){ 
+			if(con != null){
+				con.setConnectTimeout(1);
+			}
+		}catch(Exception e){
+			logger.error(e.getMessage());
+		}finally{
+			if(inputStream != null){
+				try{
+					inputStream.close();
+				}catch(Exception e){
+					logger.error(e.getMessage());
+				}
+			}
+			if(con != null){
+				con.disconnect();
+			}
+		}
+		return "";
+	}
 	public static String getPage(String pageUrl, String cookie,User user)  {
 		HttpURLConnection con = null;
 		InputStream inputStream = null;

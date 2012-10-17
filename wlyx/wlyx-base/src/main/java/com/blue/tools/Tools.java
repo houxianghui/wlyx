@@ -126,6 +126,7 @@ public class Tools {
 	public static void start() throws DocumentException {
 		System.setProperty("sun.net.client.defaultConnectTimeout", "15000");
 		System.setProperty("sun.net.client.defaultReadTimeout", "15000");
+		System.setProperty("user.timezone","GMT+8");
 		System.setProperty("GZIP", "gzip");
 
 		UserRead ur = new UserRead();

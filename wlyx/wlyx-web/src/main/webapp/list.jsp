@@ -27,6 +27,10 @@
 			});
 			
 		});
+		$("a").click(function(){
+			var name= encodeURI(encodeURI($(this).attr("name")));
+			window.open("list?act=login&userName="+name);
+		});
 		
 	});
 </script>
@@ -58,7 +62,7 @@
 	<c:forEach items="${users}" var="user">
 		<tr>
 		<td><input type="button" value="ÖÐ¶ÏÑµÁ·/¹ÒÒ°" id="stop" name="<c:out value="${user.userName}"/>" /></td>
-		<td><a href="<c:out value="${user.url}"/>" target="_blank"><c:out value="${user.roleName}"></c:out></a></td>
+		<td><a target="_blank" name="<c:out value="${user.userName}"/>"><c:out value="${user.roleName}"></c:out></a></td>
 		<td><c:out value="${user.profession}"></c:out></td>
 		<td><c:out value="${user.level}"></c:out></td>
 		<td><c:out value="${user.point}"></c:out></td>

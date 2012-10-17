@@ -3,17 +3,14 @@ package com.blue.servlet;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,12 +20,9 @@ import com.blue.common.User;
 import com.blue.monitor.PackageItemMonitor;
 import com.blue.monitor.RolesMonitor;
 import com.blue.servlet.pojo.FindItemResult;
-import com.blue.start.FindItem;
 import com.blue.tools.Item;
-import com.blue.tools.ItemMerge;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
-import com.blue.tools.login.VeryCD;
 
 public class PortalServlet extends HttpServlet {
 	@Override
@@ -45,18 +39,23 @@ public class PortalServlet extends HttpServlet {
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) {
-		RolesMonitor rm = RolesMonitor.getInstance();
-		String username = request.getParameter("username");
-		User user = rm.getUser(username);
-		String url = "http://game.verycd.com/hero/";
-		String page = PageService.getPage(url, null,null);
+		
+		
 		OutputStream pw = null;
 		try {
+			RolesMonitor rm = RolesMonitor.getInstance();
+			String username = request.getParameter("userName");
+			username = URLDecoder.decode(username, "gb18030");
+			User user = rm.getUser(username);
+//			String url = "http://game.verycd.com/hero/";
+			String url = "http://secure.verycd.com/signin";
+			StringBuffer page = new StringBuffer();
+			page.append(PageService.getPage(url));
 			pw = response.getOutputStream();
 			response.setContentType("text/html;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
-		
-			pw.write(autoLogin(user, page).toString().getBytes("utf-8"));
+			
+			pw.write(appendScript(user, page).toString().getBytes("utf-8"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -71,7 +70,7 @@ public class PortalServlet extends HttpServlet {
 
 	}
 
-	private StringBuffer autoLogin(User user, String page) {
+	private StringBuffer appendScript(User user, StringBuffer page) {
 		StringBuffer sb = new StringBuffer();
 
 		int bodyIndex = page.indexOf("</body>");
@@ -79,17 +78,51 @@ public class PortalServlet extends HttpServlet {
 			return sb.append(page);
 		}
 		sb.append(page.substring(0, bodyIndex));
-		sb.append("<script>");
-		sb.append("document.getElementsByName(\"username\")[0].value=\"" + user.getUserName() + "\";");
-		sb.append("document.getElementsByName(\"password\")[0].value=\"" + user.getPassword() + "\";");
-//		sb.append("document.forms[0].submit();");
-//		sb.append("document.forms[0].action=\"http://secure.verycd.com/signin\";");
-//		sb.append("document.getElementById(\"login_button\").click();");
+		replaceScriptWithContent(page, sb);
+		replaceCss(page, sb);
+		
+		sb.append("<script type=\"text/javascript\">");
+		sb.append("document.getElementsByName(\"username\")[1].value=\"" + user.getUserName() + "\";");
+		sb.append("document.getElementsByName(\"password\")[1].value=\"" + user.getPassword() + "\";");
+		sb.append("document.forms[1].action=\"http://secure.verycd.com/signin\";");
+		sb.append("document.forms[1].submit();");
+//		sb.append("document.getElementById(\"login_submit\").click();");
 		sb.append("</script>");
 		sb.append(page.substring(bodyIndex));
 		return sb;
 	}
 
+	public void replaceCss(StringBuffer page, StringBuffer sb) {
+		Pattern css = Pattern.compile("<link rel=\"stylesheet\" href=\"(/.*?)\" type=\"text/css\" media=\"screen\" />");
+		Matcher cm = css.matcher(page);
+		while(cm.find()){
+			sb.append("<link rel=\"stylesheet\" href=\"");
+			sb.append("http://game.verycd.com/");
+			sb.append(cm.group(1));
+			sb.append("\" type=\"text/css\" media=\"screen\" />\r\n");
+		}
+	}
+	public void replaceScriptWithContent(StringBuffer page, StringBuffer sb) {
+		Pattern p = Pattern.compile("<script type=\"text/javascript\" src=\"(.*?)\">",Pattern.DOTALL);
+		Matcher m = p.matcher(page);
+		
+		while(m.find()){
+			sb.append("<script type=\"text/javascript\" >");
+			sb.append(PageService.getPage(m.group(1)));
+			sb.append("\r\n</script>\r\n");
+		}
+	}
+	public void replaceScript(StringBuffer page, StringBuffer sb) {
+		Pattern p = Pattern.compile("<script type=\"text/javascript\" src=\"(/.*?)\">",Pattern.DOTALL);
+		Matcher m = p.matcher(page);
+		
+		while(m.find()){
+			sb.append("<script type=\"text/javascript\" src=\"");
+			sb.append("http://game.verycd.com/");
+			sb.append(m.group(1));
+			sb.append("\"></script>\r\n");
+		}
+	}
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RolesMonitor rm = RolesMonitor.getInstance();
 		List<User> l = rm.getUsers();
