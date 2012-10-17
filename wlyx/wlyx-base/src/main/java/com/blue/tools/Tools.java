@@ -1,6 +1,5 @@
 package com.blue.tools;
 
-import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,16 +54,10 @@ public class Tools {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		return df.format(d);
 	}
-	public static String hexToString(String hex){
-		try{
-			return URLDecoder.decode(hex,"utf-8");
-		}catch(Exception e){
-			return hex;
-		}
-	}
+
 	/*
 	 */
-	public static String hexToStringOld(String hex){
+	public static String hexToString(String hex){
 		if(hex.indexOf("\\u")==-1){
 			return hex;
 		}
