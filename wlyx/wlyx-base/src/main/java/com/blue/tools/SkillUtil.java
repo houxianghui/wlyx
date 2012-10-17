@@ -191,7 +191,7 @@ public class SkillUtil {
 	public static boolean equipAssistSkill(User user,String skillName){
 		String url = user.getUrl()+"modules/role_skill.php?act=skill_use&skill_id="+getSkillId(user, skillName)+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
-		if(page.indexOf("skill_id") != -1){
+		if(page.indexOf("skill_id") != -1 || page.indexOf("role_base")!=-1){
 			logger.info(user.getRoleName()+"施展"+skillName+"成功");
 			return true;
 		}else{
