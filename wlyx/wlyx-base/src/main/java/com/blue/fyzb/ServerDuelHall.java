@@ -96,7 +96,7 @@ public class ServerDuelHall {
 			String result = PageService.getPageWithCookie(url, user);
 			Matcher m = msg.matcher(result);
 			if(m.find()){
-				logger.info(user.getRoleName()+Tools.hexToString((m.group(1)+m.group(2)+m.group(3))));
+				logger.info(user.getRoleName()+Tools.hexToString((m.group(1))));
 			}
 		}
 	}
