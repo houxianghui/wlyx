@@ -17,15 +17,17 @@
 		window.open(url);
 	}
 	$(function(){
-		$("#stop").click(function(){
-			var name = encodeURI(encodeURI($(this).attr("name")));
-			var url = "list?act=stopTrain&userName="+name;
-			$.get(url,{act:'stopTrain',userName:name},function(data){
-				alert(data);
-				//window.open(url);
-				location.reload();
+		$(":button[value='÷–∂œ—µ¡∑/π““∞']").each(function(){
+			$(this).click(function(){
+				var name = encodeURI(encodeURI($(this).attr("name")));
+				var url = "list?act=stopTrain&userName="+name;
+				$.get(url,{act:'stopTrain',userName:name},function(data){
+					alert(data);
+					//window.open(url);
+					location.reload();
+				});
+				
 			});
-			
 		});
 		$("a").click(function(){
 			var name= encodeURI(encodeURI($(this).attr("name")));
@@ -61,7 +63,7 @@
 	</tr>
 	<c:forEach items="${users}" var="user">
 		<tr>
-		<td><input type="button" value="÷–∂œ—µ¡∑/π““∞" id="stop" name="<c:out value="${user.userName}"/>" /></td>
+		<td><input type="button" value="÷–∂œ—µ¡∑/π““∞" name="<c:out value="${user.userName}"/>" /></td>
 		<td><a target="_blank" name="<c:out value="${user.userName}"/>"><c:out value="${user.roleName}"></c:out></a></td>
 		<td><c:out value="${user.profession}"></c:out></td>
 		<td><c:out value="${user.level}"></c:out></td>

@@ -193,7 +193,7 @@ public class PortalServlet extends HttpServlet {
 	private void stopTrain(HttpServletRequest request,HttpServletResponse response){
 		String userName = request.getParameter("userName");
 		try {
-			userName = URLDecoder.decode(userName,"gb18030");
+			userName = URLDecoder.decode(userName,"UTF-8");
 			RolesMonitor rm = RolesMonitor.getInstance();
 			User user = rm.getUser(userName);
 			String url = "modules/auto_combats.php?act=cancel";
