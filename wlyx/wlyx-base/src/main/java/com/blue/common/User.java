@@ -175,7 +175,7 @@ public class User {
 	//跨服竞技
 	private boolean needServerDuelHall;		//是否需要跨服竞技
 	private boolean useDefault = true;		//是否使用职业技能
-	private Map<Profession,ServerDuelConfig> ServerDuelConfigMap = new HashMap<Profession, ServerDuelConfig>();		//挑战派系配置
+	private Map<Profession,ServerDuelConfig> serverDuelConfigMap = new HashMap<Profession, ServerDuelConfig>();		//挑战派系配置
 	//-----------------------------------------------------------------
 	public boolean isNeedDuiHuan() {
 		return needDuiHuan;
@@ -807,10 +807,10 @@ public class User {
 		this.profession = profession;
 	}
 	public Map<Profession, ServerDuelConfig> getServerDuelConfigMap() {
-		return ServerDuelConfigMap;
+		return serverDuelConfigMap;
 	}
 	public void setServerDuelConfigMap(Map<Profession, ServerDuelConfig> serverDuelConfigMap) {
-		ServerDuelConfigMap = serverDuelConfigMap;
+		this.serverDuelConfigMap = serverDuelConfigMap;
 	}
 	public boolean isUseDefault() {
 		return useDefault;
