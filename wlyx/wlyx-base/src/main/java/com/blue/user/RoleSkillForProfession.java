@@ -50,7 +50,7 @@ public class RoleSkillForProfession {
 		Matcher m = assistSkill.matcher(s);
 		int i = 0;
 		while(m.find()){
-			assists[i] = getSelectedSkill(m.group());
+			assists[i++] = getSelectedSkill(m.group());
 		}
 		return assists;
 	}
