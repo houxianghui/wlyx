@@ -3,9 +3,10 @@
 	<system>
 		<proxyHost></proxyHost>
 		<proxyPort></proxyPort>
+		<serverPort>9527</serverPort>
 	</system>
 	<users>
-		<user username="blue_ranger" password="abc123" stockPwd="" host="s4.verycd.9wee.com">
+		<user username="" password="" stockPwd="" host="s4.verycd.9wee.com">
 			<monstor caption="野训设置">
 				<startTime caption="开始时间">0</startTime>
 				<endTime caption="结束时间">1</endTime>
