@@ -130,6 +130,7 @@ public class UserRead {
 			user.setUseDefault(true);
 			return;
 		}else{
+			user.setUseDefault(false);
 			Element c = duel.element("config");
 			List<Element> l = c.elements();
 			for (Element el : l) {
