@@ -12,7 +12,7 @@ import com.blue.tools.Tools;
 
 public class AutoTask {
 	private static Logger logger = Logger.getLogger(AutoTask.class);
-	private static Pattern p = Pattern.compile("mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)\">自动完成");
+	private static Pattern p = Pattern.compile("mission_auto_complete.*?'day',\\s*'(\\d+)',\\s*'(\\d+)'.*?自动完成");
 	private static Pattern tasks = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
 	//mission_auto_complete ( 'day', '41001', '900' )
 	private static Pattern finish = Pattern.compile("mission_auto_complete.*?,\\s*'(\\d+)',\\s*'(\\d+)'.*?进行中",Pattern.DOTALL);
