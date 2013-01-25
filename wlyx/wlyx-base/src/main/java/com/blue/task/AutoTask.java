@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.blue.beauty.Beauty;
 import com.blue.common.User;
+import com.blue.tools.FileUtil;
 import com.blue.tools.PageService;
 import com.blue.tools.Tools;
 
@@ -16,7 +17,7 @@ public class AutoTask {
 	private static Pattern taskPattern = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
 	
 	private static Pattern trs = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
-	private static Pattern tasks = Pattern.compile("任务奖励.*?([铜币|经验]).*?\\+(\\d+).*?mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)",Pattern.DOTALL);
+	private static Pattern tasks = Pattern.compile("任务奖励.*?(铜币|经验).*?\\+(\\d+).*?mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)",Pattern.DOTALL);
 	private static Pattern getReward = Pattern.compile("mission_get_rewards \\( 'day', (\\d+) \\).*?领取奖励");
 	//mission_auto_complete ( 'day', '41001', '900' )
 	private static Pattern finish = Pattern.compile("mission_auto_complete.*?,\\s*'(\\d+)',\\s*'(\\d+)'.*?进行中",Pattern.DOTALL);
@@ -59,7 +60,7 @@ public class AutoTask {
 //			}
 //		}	
 	}
-	private static void filterTask(String page,User user){
+	public static void filterTask(String page,User user){
 		Matcher m = trs.matcher(page);
 		while(m.find()){
 			filterDetail(m.group(),user);
@@ -74,12 +75,12 @@ public class AutoTask {
 			if("铜币".equals(reward)){
 				if(count >= user.getMiniMoney()){
 					autoFinish(taskId,user);
-					logger.info(user.getRoleName()+"接受铜板为"+m.group(2)+"的收集任务"+taskId);
+					logger.info(user.getRoleName()+"接受铜板为"+count+"的收集任务"+taskId);
 				}
 			}else if("经验".equals(reward)){
 				if(count >= user.getMiniJingYan()){
 					autoFinish(taskId,user);
-					logger.info(user.getRoleName()+"接受战斗型任务"+taskId);
+					logger.info(user.getRoleName()+"接受经验为"+count+"的战斗型任务"+taskId);
 				}
 			}
 		}
@@ -224,5 +225,9 @@ public class AutoTask {
 			logger.info(user.getRoleName()+"领取任务奖励 "+m.group(1));
 		}
 		return Tools.success(page);
+	}
+	public static void main(String[] args) throws Exception{
+		String page = FileUtil.readFileToString("task.html");
+		filterTask(page, new User());
 	}
 }
