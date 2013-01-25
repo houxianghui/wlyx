@@ -13,7 +13,11 @@ import com.blue.tools.Tools;
 public class AutoTask {
 	private static Logger logger = Logger.getLogger(AutoTask.class);
 	private static Pattern p = Pattern.compile("mission_auto_complete.*?'day',\\s*'(\\d+)',\\s*'(\\d+)'.*?自动完成");
-	private static Pattern tasks = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
+	private static Pattern taskPattern = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
+	
+	private static Pattern trs = Pattern.compile("<tr>.*?</tr>",Pattern.DOTALL);
+	private static Pattern tasks = Pattern.compile("任务奖励.*?([铜币|经验]).*?\\+(\\d+).*?mission_auto_complete \\( 'day', '(\\d+)', '(\\d+)' \\)",Pattern.DOTALL);
+	private static Pattern getReward = Pattern.compile("mission_get_rewards \\( 'day', (\\d+) \\).*?领取奖励");
 	//mission_auto_complete ( 'day', '41001', '900' )
 	private static Pattern finish = Pattern.compile("mission_auto_complete.*?,\\s*'(\\d+)',\\s*'(\\d+)'.*?进行中",Pattern.DOTALL);
 	//<li>经验：<span class="highlight">+13546</span></span></li>
@@ -47,12 +51,45 @@ public class AutoTask {
 				Beauty.dailyTask(user);
 			}
 		}
-		Matcher m = p.matcher(page);		
+		filterTask(page,user);
+//		Matcher m = p.matcher(page);		
+//		while(m.find()){
+//			if(acceptTask(user, m.group(1))){
+//				logger.info(user.getRoleName()+"接受 "+m.group(1)+"成功");
+//			}
+//		}	
+	}
+	private static void filterTask(String page,User user){
+		Matcher m = trs.matcher(page);
 		while(m.find()){
-			if(acceptTask(user, m.group(1))){
-				logger.info(user.getRoleName()+"接受 "+m.group(1)+"成功");
+			filterDetail(m.group(),user);
+		}
+	}
+	private static void filterDetail(String group,User user) {
+		Matcher m = tasks.matcher(group);
+		if(m.find()){
+			String reward = m.group(1);
+			int count = Integer.parseInt(m.group(2));
+			String taskId = m.group(3);
+			if("铜币".equals(reward)){
+				if(count >= user.getMiniMoney()){
+					autoFinish(taskId,user);
+					logger.info(user.getRoleName()+"接受铜板为"+m.group(2)+"的收集任务"+taskId);
+				}
+			}else if("经验".equals(reward)){
+				if(count >= user.getMiniJingYan()){
+					autoFinish(taskId,user);
+					logger.info(user.getRoleName()+"接受战斗型任务"+taskId);
+				}
 			}
-		}	
+		}
+	}
+	private static void autoFinish(String taskId,User user) {
+		String url = user.getUrl()+AUTO_TASK_URL+taskId+Tools.getTimeStamp(true);
+		String result = PageService.getPageWithCookie(url, user);			
+		if(Tools.success(result)){
+			logger.info(user.getRoleName()+"委托任务"+taskId+"成功 ");
+		}
 	}
 	private static String getTaskListUrl(User user){
 		return user.getUrl()+TASK_LIST_URL+Tools.getTimeStamp(false);
@@ -71,6 +108,12 @@ public class AutoTask {
 		}
 		return false;
 	}
+	/**
+	 * @param user
+	 * @param taskId
+	 * @return
+	 * @deprecated 系统修改任务系统，功能失效
+	 */
 	private static boolean getTask(User user,String taskId){
 		String url = user.getUrl()+TASK_DETAIL_URL+taskId+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
@@ -148,10 +191,15 @@ public class AutoTask {
 		return false;
 		
 	}
+	/**
+	 * 领取奖励-城内
+	 * @param user
+	 * @return
+	 */
 	public static boolean getReward(User user){
 		String url = getTaskListUrl(user);
 		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = finished.matcher(page);
+		Matcher m = getReward.matcher(page);
 		String reward = user.getUrl()+REWARD_URL;
 		if(m.find()){
 			String taskId = m.group(1);
@@ -161,6 +209,11 @@ public class AutoTask {
 		}
 		return getRewardOut(user);
 	}
+	/**
+	 * 领取任务奖励-城外
+	 * @param user
+	 * @return
+	 */
 	private static boolean getRewardOut(User user){
 		String url = user.getUrl()+TASK_LIST_OUT+Tools.getTimeStamp(true);
 		String page = PageService.getPageWithCookie(url, user);
