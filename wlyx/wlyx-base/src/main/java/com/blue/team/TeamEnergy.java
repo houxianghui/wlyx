@@ -3,6 +3,7 @@
  */
 package com.blue.team;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,18 +20,33 @@ public class TeamEnergy {
 	
 	private static Pattern fullEnergy = Pattern.compile("青龙门:<span class=\"highlight\" titlecontent=\"积累上限：(\\S+?)<br />牌匾加成：.*?\">(\\S+?)</span>"); 
 	public static void sendEnergy(User user){
-		Portal.setTeamId(user);
-		if(Tools.isEmpty(user.getTeamId())){
+		if(needSend()){
+			doSendEnergy(user);
+			return;
+		}else{
 			return;
 		}
-		String url = user.getUrl()+VIEW_ENERGY+user.getTeamId()+ Tools.getTimeStamp(true);
-		String page = PageService.getPageWithCookie(url, user);
-		Matcher m = fullEnergy.matcher(page);
-		if(m.find()){
-			if(m.group(1).equals(m.group(2))){
-				doSendEnergy(user);
-			}
+//		Portal.setTeamId(user);
+//		if(Tools.isEmpty(user.getTeamId())){
+//			return;
+//		}
+//		String url = user.getUrl()+VIEW_ENERGY+user.getTeamId()+ Tools.getTimeStamp(true);
+//		String page = PageService.getPageWithCookie(url, user);
+//		Matcher m = fullEnergy.matcher(page);
+//		if(m.find()){
+//			if(m.group(1).equals(m.group(2))){
+//				doSendEnergy(user);
+//			}
+//		}
+	}
+	
+	private static boolean needSend(){
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DATE);
+		if(day == 1 || day == 11 || day == 21){
+			return true;
 		}
+		return false;
 	}
 	private static void doSendEnergy(User user){
 		String url = user.getUrl()+SEND_ENERGY+Tools.getTimeStamp(true);
