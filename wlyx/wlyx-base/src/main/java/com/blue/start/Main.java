@@ -11,7 +11,6 @@ import com.blue.tools.Tools;
 
 
 public class Main implements Start{
-	@Override
 	public void run() throws Exception {
 		Tools.start();
 	}
