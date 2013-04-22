@@ -29,7 +29,7 @@ public class AutoTask {
 	private static Pattern outTask = Pattern.compile("view_mission \\( 'day', (\\d+), true \\)");
 	private static Pattern hasDoing = Pattern.compile("将于.*? 完成");
 	private static Pattern getRewardOut = Pattern.compile("view_mission.*?(\\d+).*?领取奖励");
-	private static Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / 20");
+	private static Pattern taskCount = Pattern.compile("今日已接受任务数量：<span class=\"highlight\">(\\d+) / (\\d+)");
 	//"quality":"3"
 	private static Pattern dialog = Pattern.compile("mission_id.*?quality\":\"(\\d+)\",");
 	
