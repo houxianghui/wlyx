@@ -9,6 +9,10 @@ public class RoomMonitor {
 	public static final String roomFree = "modules/warrior.php?act=guestroom&op=restore&id=";
 	
 	public static void getRoomFree(User user){
+		if(!user.isNeedRoomAct()){
+			return;
+		}
+		
 		for(int i = 6;i<8;i++){
 			String url = user.getUrl()+roomFree+i+Tools.getTimeStamp(true);
 			PageService.getPageWithCookie(url, user);

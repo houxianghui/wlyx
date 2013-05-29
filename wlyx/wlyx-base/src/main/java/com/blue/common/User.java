@@ -152,6 +152,7 @@ public class User {
 	private boolean needReadSave = false;		//是否自动读取幻境塔进度
 	private Map<String, String> gloryMap = new HashMap<String, String>();	//荣誉换。。
 	private boolean needGetLiBao = true;		//是否自动领取礼包
+	private boolean needRoomAct = false;	//是否自动领取客房福利
 	
 	//----------------------------------------------------------------
 	//武魂设置
@@ -889,5 +890,11 @@ public class User {
 	}
 	public void setServerAreanCookie(String serverAreanCookie) {
 		this.serverAreanCookie = serverAreanCookie;
+	}
+	public boolean isNeedRoomAct() {
+		return needRoomAct;
+	}
+	public void setNeedRoomAct(boolean needRoomAct) {
+		this.needRoomAct = needRoomAct;
 	}
 }
