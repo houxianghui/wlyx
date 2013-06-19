@@ -95,7 +95,8 @@ public class User {
 	private String plantDay="8";					//种植星期
 	private boolean needFarm = true;			//是否自动浇水
 	private String taskInfo;					//日常任务完成情况
-	
+	private boolean needTaskManage;				//是否开启托管任务
+	private String taskManageType;				//托管任务类型
 	/*---------------------------------------------------------------*/
 	
 	//大厅设置
@@ -896,5 +897,17 @@ public class User {
 	}
 	public void setNeedRoomAct(boolean needRoomAct) {
 		this.needRoomAct = needRoomAct;
+	}
+	public boolean isNeedTaskManage() {
+		return needTaskManage;
+	}
+	public void setNeedTaskManage(boolean needTaskManage) {
+		this.needTaskManage = needTaskManage;
+	}
+	public String getTaskManageType() {
+		return taskManageType;
+	}
+	public void setTaskManageType(String taskManageType) {
+		this.taskManageType = taskManageType;
 	}
 }

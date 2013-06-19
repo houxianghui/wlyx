@@ -74,6 +74,7 @@ public class UserRead {
 			setWarrior(e, user);
 			setDuel(e, user);
 			setTask(e, user);
+			setTaskManage(e, user);
 			setSlavy(e, user);
 			setDaily(e, user);
 			setTeam(e, user);
@@ -281,6 +282,22 @@ public class UserRead {
 		}
 		if (!Tools.isEmpty(plantDay)) {
 			user.setPlantDay(plantDay);
+		}
+	}
+	private void setTaskManage(Element element, User user) {
+		Element e = element.element("taskManage");
+		if(e == null){
+			return;
+		}
+		String isOpen = e.attributeValue("open");
+		String type = e.elementText("type");
+
+		if (!Tools.isEmpty(isOpen)) {
+			user.setNeedTaskManage("1".equals(isOpen));
+		}
+	
+		if (!Tools.isEmpty(type)) {
+			user.setTaskManageType(type);
 		}
 	}
 

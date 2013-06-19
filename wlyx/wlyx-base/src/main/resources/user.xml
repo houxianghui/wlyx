@@ -61,6 +61,10 @@
 				<!-- 种植时间，逗号分割。1=星期天,2=星期一,3=星期二,4=星期三,5=星期四,6=星期五,7=星期六。 对应每周7天 ，周三会被系统清理，建议周3不种植 -->
 				<plantDay>1,4,5,6,7</plantDay>
 			</task>
+			<taskManage caption="任务托管" open=""><!-- 1-开 0-关 -->
+				<!-- 托管类型 0-战斗 1-收集 2-战斗+收集 -->
+				<type></type>
+			</taskManage>
 			<slavy caption="奴隶设置">
 				<!-- 是否抓奴 0 不需要 1需要 -->
 				<catchSlavy>1</catchSlavy>

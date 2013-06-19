@@ -20,6 +20,7 @@ public class AutoTaskThread extends BaseThread {
 				}
 				AutoTask.autoAcceptTask(user);
 				AutoTask.autoFinishTask(user);
+				TaskManage.autoFinish(user);
 				sleep(5*1000*60);
 			}catch(Exception e){
 			}
