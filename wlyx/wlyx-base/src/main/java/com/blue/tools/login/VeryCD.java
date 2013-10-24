@@ -1,183 +1,58 @@
 package com.blue.tools.login;
 
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import com.blue.common.User;
-import com.blue.tools.PageService;
-import com.blue.tools.Tools;
 
 public class VeryCD {
-	private static Logger logger = Logger.getLogger(VeryCD.class);
-	private static Pattern p = Pattern.compile("document\\.getElementById\\(\"play_frame\"\\)\\.src=\"(.*?)\"");
+	private static Pattern p = Pattern.compile("play_frame\"\\).src=\"(.*?)\"");
 	public static void login( User user){
-		if(PageService.readCookie(user)){
-			return;
-		}
-		HttpURLConnection con = null;
-		try{
-			URL url = new URL("http://secure.verycd.com/signin?f=out");
-			con = (HttpURLConnection) url.openConnection();
-			String data = makeLoginData(user);
-			if(con != null){
-				con.setDoOutput(true);
-				
-				con.setRequestMethod("POST");
-				con.addRequestProperty("Host", "secure.verycd.com");
-				con.addRequestProperty("Content-Type",
-						"application/x-www-form-urlencoded");
-				con.addRequestProperty("Referer", "http://secure.verycd.com/3rdServices/50hero");
-				PageService.setGZipOn(con);
-				HttpURLConnection.setFollowRedirects(false);
-				con.setInstanceFollowRedirects(false);
-				
-				OutputStream os =con.getOutputStream();
-//				GZIPOutputStream gis = new GZIPOutputStream(os);
-				if(os != null){
-					os.write(data.getBytes("UTF-8"));
-					os.flush();
-					os.close();
-				}
-				//__utma=242249088.396578207.1271208283.1280120446.1280130776.185; __utmz=242249088.1280112946.182.177.utmcsr=game.verycd.com|utmccn=(referral)|utmcmd=referral|utmcct=/hero/; __utmc=242249088; __utmb=242249088.4.10.1280130776;dcm=1;
-				StringBuffer sb = readCookie(con);
-				
-				user.setCookie(sb.toString());
-//				String page = PageService.getPageWithCookie("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), user);
-				String nextUrl = getLogin("http://secure.verycd.com/signin?ak=50hero&sid="+user.getHost(), sb.toString());
-				String page = PageService.getPageWithCookie(nextUrl, user);
-				Matcher m = p.matcher(page);
-				if(m.find()){
-					nextUrl = m.group(1);
-				}
-//				nextUrl = user.getUrl()+"passport.php?act=login&referer=%2F&username="+user.getUserName()+"&time="+Tools.getTimeStamp(true);//"&mac=ff2af4be183ef4a32a8dc6ec98c6c59f";
-//				user.setCookie(sb.toString());
-				String cookie = getCookie(nextUrl,user);
-				user.setCookie(cookie);
-				if(!Tools.isEmpty(user.getStockPwd())){
-					PageService.setStocktCookie(user);
-				}
-				PageService.setCookie(user);
-			}
-		}catch(Exception e){
-			logger.info(user.getUserName()+e.getMessage());
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}finally{
-			if(con != null){
-				con.disconnect();
-			}
-		}
+		 HttpClient client = new DefaultHttpClient();
+	       try{
+	    	   HttpGet get = new HttpGet("http://game.verycd.com/hero/");
+	    	   HttpResponse response = client.execute(get);
+	    	   String s = EntityUtils.toString(response.getEntity(), "utf-8");
+	    	   
+	    	   HttpPost post = new HttpPost("http://secure.verycd.com/signin");
+	    	   List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+	    	   nvps.add(new BasicNameValuePair("username", "sp_lulu"));
+	    	   nvps.add(new BasicNameValuePair("password", "abc123"));
+	    	   nvps.add(new BasicNameValuePair("login_submit", "µÇÂ¼"));
+	    	   nvps.add(new BasicNameValuePair("continue", "http://game.verycd.com/hero/"));
+	    	   post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+	    	   response = client.execute(post);
+	    	   EntityUtils.consume(response.getEntity());
+	    	   response = client.execute(new HttpPost("http://www.verycd.com/ajax/member?m=loginInfo&game=50hero"));
+	    	   EntityUtils.consume(response.getEntity());
+	    	   response = client.execute(new HttpPost("http://www.verycd.com/game/ajax/servers?game=50hero"));
+	    	   EntityUtils.consume(response.getEntity());
+	    	   get = new HttpGet("http://secure.verycd.com/signin?ak=50hero&sid=s4.verycd.9wee.com");
+	    	   response = client.execute(get);
+	    	   s = EntityUtils.toString(response.getEntity(), "utf-8");
+	    	  
+	    	   Matcher m = p.matcher(s);
+	    	   if(m.find()){
+	    		  get = new HttpGet(m.group(1));
+	    		  response = client.execute(get);
+	    		  EntityUtils.consume(response.getEntity());
+	    	   }
+	    	   user.setClient(client);
+	       }catch(Exception e){
+	    	   e.printStackTrace();
+	       }
 	}
-	public static StringBuffer readCookie(HttpURLConnection con) {
-		StringBuffer sb = new StringBuffer("");
-		String key = null;
-		for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-			String value = con.getHeaderField(i);
-			if (key.startsWith("Set-Cookie")) {
-				if (!(value.contains("=deleted;"))) {
-					int index = value.indexOf(";");
-					if (index > 0)
-						sb.append(value.substring(0, index + 1));
-				}
-			} else if ((key.startsWith("location:"))
-					&& (value.contains("error_code"))) {
-				logger.error("µÇÂ½Ê§°Ü");
-				return null;
-			}
-		}
-		return sb;
-	}
-	public static String makeLoginData(User user) throws UnsupportedEncodingException {
-		String data = "ru=http%3A%2F%2Fsecure.verycd.com%2F3rdServices%2F50hero&login_submit=%E7%99%BB%E5%BD%95&" +
-				"username=" + URLEncoder.encode(user.getUserName(),"utf-8")+
-				"&password=" + URLEncoder.encode(user.getPassword(),"utf-8")+
-				"&_REFERER=";
-		return data;
-	}
-	private static String getLogin(String pageUrl, String cookie){
-		HttpURLConnection con = null;
-		try{
-			URL url = new URL(pageUrl);
-			con = (HttpURLConnection) url.openConnection();
-			if(con != null){
-				con.addRequestProperty("Host", "secure.verycd.com");
-				con.addRequestProperty("Cookie", cookie);
-				con.addRequestProperty("Content-Type",
-						"application/x-www-form-urlencoded");
-//				setGZipOn(con);
-				HttpURLConnection.setFollowRedirects(false);
-				con.setInstanceFollowRedirects(false);
-				
-//				StringBuilder b = readBackInfo(con);
-				String key = null;
-				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-					if(key.toUpperCase().startsWith("location".toUpperCase())){
-						return con.getHeaderField(i);
-					}
-				}
-			}
-		}catch(Exception e){
-			logger.error(e.getMessage());
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}finally{
-			if(con != null){
-				con.disconnect();
-			}
-		}
-		return "";
-	}
-	private static String getCookie(String pageUrl,User user){
-		HttpURLConnection con = null;
-		try{
-			URL url = new URL(pageUrl);
-			con = (HttpURLConnection) url.openConnection();
-			if(con != null){
-				con.addRequestProperty("Host", user.getHost());
-				con.addRequestProperty("Content-Type",
-						"application/x-www-form-urlencoded");
-				con.setRequestProperty("Cookie", user.getCookie());
-//				setGZipOn(con);
-				HttpURLConnection.setFollowRedirects(false);
-				con.setInstanceFollowRedirects(false);
-				
-				StringBuffer sb = new StringBuffer();
-				String key = null;
-				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-					String value = con.getHeaderField(i);
-					if (key.startsWith("Set-Cookie")) {
-						if (!(value.contains("=deleted;"))) {
-							int index = value.indexOf(";");
-							if (index > 0)
-								sb.append(value.substring(0, index + 1));
-						}
-					} else if ((key.startsWith("location:"))
-							&& (value.contains("error_code"))) {
-						return null;
-					}
-				}
-				return sb.toString();
-			}
-		}catch(Exception e){
-			logger.error(e.getMessage());
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}finally{
-			if(con != null){
-				con.disconnect();
-			}
-		}
-		
-		return "";
-	}
+	
 }

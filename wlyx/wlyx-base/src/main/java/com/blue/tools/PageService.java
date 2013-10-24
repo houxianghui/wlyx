@@ -21,6 +21,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderIterator;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.RequestLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import com.blue.common.User;
@@ -53,180 +65,172 @@ public class PageService {
 
 	}
 	public static boolean setStocktCookie(User user){
-		String page = user.getUrl()+CHECK_STOCK_PWD+Tools.getTimeStamp(true);
-		Pattern p = Pattern.compile("");
-		String data = "pwd="+user.getStockPwd()+"&callback_func_name=callback_submit_form_check_pwd&callback_obj_name=dlg_check_pwd";
-		String result =  PageService.postPage(page, data, user);
-		Matcher m = p.matcher(result);
-		if(!m.find()){
-			logger.info(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ£¨≤ªΩ¯––≤÷ø‚∫œ≤¢≤Ÿ◊˜");
+		HttpClient client = user.getClient();
+		
+		try{
+			HttpPost post = new HttpPost(user.getUrl()+CHECK_STOCK_PWD+Tools.getTimeStamp(true));
+			post.setEntity(new StringEntity("pwd="+user.getStockPwd()+"&callback_func_name=callback_submit_form_check_pwd&callback_obj_name=dlg_check_pwd"));
+			HttpResponse response = client.execute(post);
+			String s = EntityUtils.toString(response.getEntity(),"utf-8");
+			Pattern p = Pattern.compile("");
+			Matcher m = p.matcher(s);
+			if(!m.find()){
+				logger.info(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ£¨≤ªΩ¯––≤÷ø‚∫œ≤¢≤Ÿ◊˜");
+				return false;
+			}
+			return true;
+		}catch(Exception e){
 			return false;
 		}
-		HttpURLConnection con = null;
-		InputStream inputStream = null;
-		try {
-	
-			URL url = new URL(page);
-			con = (HttpURLConnection) url.openConnection();
-			
-			if(con != null){
-				if (user.getCookie() != null) {
-					con.addRequestProperty("Cookie", user.getCookie());
-				}
-				con.setRequestMethod("POST");
-				con.setDoOutput(true);
-				con.setRequestProperty("connection", "none");
-				setGZipOn(con);
-				HttpURLConnection.setFollowRedirects(false);
-				OutputStream os = con.getOutputStream();
-				if(os != null){
-					os.write(data.getBytes("UTF-8"));
-					os.flush();
-					os.close();
-				}
-				StringBuffer sb = new StringBuffer("");
-				String key = null;
-				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
-					String value = con.getHeaderField(i);
-					if (key.startsWith("Set-Cookie")) {
-						if (!(value.contains("=deleted;"))) {
-							int index = value.indexOf(";");
-							if (index > 0)
-								sb.append(value.substring(0, index + 1));
-						}
-					} else if ((key.startsWith("location:"))
-							&& (value.contains("error_code"))) {
-						logger.error(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ");
-						return false;
-					}
-				}
-				user.setCookie(sb.toString());
-				return true;
-			}
-		}catch(SocketTimeoutException e){ 
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}catch (Exception ex) {
-			logger.error(user.getRoleName()+" "+ex.getMessage());
-			if(logger.isDebugEnabled()){
-				logger.error(ex);
-			}
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		} finally {
-			if(inputStream != null){
-				try{
-					inputStream.close();
-				}catch(Exception e){
-					logger.error(e.getMessage());
-				}
-			}
-			if(con != null){
-				con.disconnect();
-			}
-		}
-		return false;
+		
+//		String page = user.getUrl()+CHECK_STOCK_PWD+Tools.getTimeStamp(true);
+//		Pattern p = Pattern.compile("");
+//		String data = "pwd="+user.getStockPwd()+"&callback_func_name=callback_submit_form_check_pwd&callback_obj_name=dlg_check_pwd";
+//		String result =  PageService.postPage(page, data, user);
+//		Matcher m = p.matcher(result);
+//		if(!m.find()){
+//			logger.info(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ£¨≤ªΩ¯––≤÷ø‚∫œ≤¢≤Ÿ◊˜");
+//			return false;
+//		}
+//		HttpURLConnection con = null;
+//		InputStream inputStream = null;
+//		try {
+//	
+//			URL url = new URL(page);
+//			con = (HttpURLConnection) url.openConnection();
+//			
+//			if(con != null){
+//				if (user.getCookie() != null) {
+//					con.addRequestProperty("Cookie", user.getCookie());
+//				}
+//				con.setRequestMethod("POST");
+//				con.setDoOutput(true);
+//				con.setRequestProperty("connection", "none");
+//				setGZipOn(con);
+//				HttpURLConnection.setFollowRedirects(false);
+//				OutputStream os = con.getOutputStream();
+//				if(os != null){
+//					os.write(data.getBytes("UTF-8"));
+//					os.flush();
+//					os.close();
+//				}
+//				StringBuffer sb = new StringBuffer("");
+//				String key = null;
+//				for(int i = 1;(key=con.getHeaderFieldKey(i))!=null ;i++){
+//					String value = con.getHeaderField(i);
+//					if (key.startsWith("Set-Cookie")) {
+//						if (!(value.contains("=deleted;"))) {
+//							int index = value.indexOf(";");
+//							if (index > 0)
+//								sb.append(value.substring(0, index + 1));
+//						}
+//					} else if ((key.startsWith("location:"))
+//							&& (value.contains("error_code"))) {
+//						logger.error(user.getRoleName()+"≤÷ø‚√‹¬Î¥ÌŒÛ");
+//						return false;
+//					}
+//				}
+//				user.setCookie(sb.toString());
+//				return true;
+//			}
+//		}catch(SocketTimeoutException e){ 
+//			if(con != null){
+//				con.setConnectTimeout(1);
+//			}
+//		}catch (Exception ex) {
+//			logger.error(user.getRoleName()+" "+ex.getMessage());
+//			if(logger.isDebugEnabled()){
+//				logger.error(ex);
+//			}
+//			if(con != null){
+//				con.setConnectTimeout(1);
+//			}
+//		} finally {
+//			if(inputStream != null){
+//				try{
+//					inputStream.close();
+//				}catch(Exception e){
+//					logger.error(e.getMessage());
+//				}
+//			}
+//			if(con != null){
+//				con.disconnect();
+//			}
+//		}
+//		return false;
 		
 	}
 	private static String _getPageWithCookie(String page, User user) {
-		HttpURLConnection con = null;
-		InputStream inputStream = null;
-		try {
-	
-			URL url = new URL(page);
-			con = (HttpURLConnection) url.openConnection();
-			
-			if(con != null){
-				if (user.getCookie() != null) {
-					con.addRequestProperty("Cookie", user.getCookie());
-				}
-				con.setRequestProperty("connection", "none");
-				setGZipOn(con);
-				HttpURLConnection.setFollowRedirects(false);
-				inputStream = con.getInputStream();
-				StringBuffer b = readBackInfo(inputStream);
-				return b.toString();
-			}
-		}catch(SocketTimeoutException e){ 
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}catch (Exception ex) {
-			logger.error(user.getRoleName()+" "+ex.getMessage());
-			if(logger.isDebugEnabled()){
-				logger.error(ex);
-			}
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		} finally {
-			if(inputStream != null){
-				try{
-					inputStream.close();
-				}catch(Exception e){
-					logger.error(e.getMessage());
-				}
-			}
-			if(con != null){
-				con.disconnect();
-			}
+		HttpClient client = user.getClient();
+		try{
+			HttpResponse response = client.execute(new HttpGet(page));
+			return EntityUtils.toString(response.getEntity(), "utf-8");
+		}catch(Exception e){
+			return "";
 		}
-		return "";
+		
 	}
 
 	public static String postPage(String page, String data, User user)
 			 {
-		HttpURLConnection con = null;
-		InputStream inputStream = null;
+		HttpClient client = user.getClient();
 		try{
-			URL url = new URL(page);
-			con = (HttpURLConnection) url.openConnection();
-			if(con != null){
-				con.setDoOutput(true);
-				con.setRequestMethod("POST");
-				con.addRequestProperty("Host", user.getHost());
-				con.addRequestProperty("Content-Type",
-						"application/x-www-form-urlencoded");
-				setGZipOn(con);
-				if (user != null) {
-					con.addRequestProperty("Cookie", user.getCookie());
-				}
-				
-				OutputStream os = con.getOutputStream();
-				os.write(data.getBytes("UTF-8"));
-				os.flush();
-				os.close();
-				inputStream = con.getInputStream();
-				StringBuffer b = readBackInfo(inputStream);
-				return b.toString();
-			}
-		}catch(SocketTimeoutException e){ 
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
+			HttpPost post = new HttpPost(page);
+			post.setEntity(new StringEntity(data));
+			HttpResponse response = client.execute(post);
+			return EntityUtils.toString(response.getEntity(), "utf-8");
 		}catch(Exception e){
-			logger.error(user.getRoleName()+" "+e.getMessage());
-			if(logger.isDebugEnabled()){
-				logger.error(e);
-			}
-			if(con != null){
-				con.setConnectTimeout(1);
-			}
-		}finally{
-			if(inputStream != null){
-				try{
-				inputStream.close();
-				}catch(Exception e){
-					logger.error(e.getMessage());
-				}
-			}
-			if(con != null){
-				con.disconnect();
-			}
+			return "";
 		}
-		return "";
+//		HttpURLConnection con = null;
+//		InputStream inputStream = null;
+//		try{
+//			URL url = new URL(page);
+//			con = (HttpURLConnection) url.openConnection();
+//			if(con != null){
+//				con.setDoOutput(true);
+//				con.setRequestMethod("POST");
+//				con.addRequestProperty("Host", user.getHost());
+//				con.addRequestProperty("Content-Type",
+//						"application/x-www-form-urlencoded");
+//				setGZipOn(con);
+//				if (user != null) {
+//					con.addRequestProperty("Cookie", user.getCookie());
+//				}
+//				
+//				OutputStream os = con.getOutputStream();
+//				os.write(data.getBytes("UTF-8"));
+//				os.flush();
+//				os.close();
+//				inputStream = con.getInputStream();
+//				StringBuffer b = readBackInfo(inputStream);
+//				return b.toString();
+//			}
+//		}catch(SocketTimeoutException e){ 
+//			if(con != null){
+//				con.setConnectTimeout(1);
+//			}
+//		}catch(Exception e){
+//			logger.error(user.getRoleName()+" "+e.getMessage());
+//			if(logger.isDebugEnabled()){
+//				logger.error(e);
+//			}
+//			if(con != null){
+//				con.setConnectTimeout(1);
+//			}
+//		}finally{
+//			if(inputStream != null){
+//				try{
+//				inputStream.close();
+//				}catch(Exception e){
+//					logger.error(e.getMessage());
+//				}
+//			}
+//			if(con != null){
+//				con.disconnect();
+//			}
+//		}
+//		return "";
 	}
 
 	private static StringBuffer readBackInfo(InputStream inputStream) throws Exception

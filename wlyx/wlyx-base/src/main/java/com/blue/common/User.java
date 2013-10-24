@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.HttpClient;
 import org.apache.log4j.Logger;
 
 import com.blue.daily.DailyAward;
@@ -31,7 +32,7 @@ import com.blue.warrior.WarriorThread;
 public class User {
 	private Logger logger  = Logger.getLogger(this.getClass());
 	
-	
+	private HttpClient client;
 	public String getFightPersion() {
 		return fightPersion;
 	}
@@ -639,7 +640,7 @@ public class User {
 	public boolean login(boolean startWork)throws Exception{
 		PageService.login(this);
 		
-		while(getCookie() == null || getCookie().trim().length() == 0){
+		while(getClient() == null){
 			logger.info(getUserName()+"µ«¬º ß∞‹£¨3√Î÷”∫Û÷ÿ ‘");
 			Thread.sleep(3*1000);
 			PageService.login(this);
@@ -909,5 +910,11 @@ public class User {
 	}
 	public void setTaskManageType(String taskManageType) {
 		this.taskManageType = taskManageType;
+	}
+	public HttpClient getClient() {
+		return client;
+	}
+	public void setClient(HttpClient client) {
+		this.client = client;
 	}
 }
