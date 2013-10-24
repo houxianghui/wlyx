@@ -28,8 +28,8 @@ public class VeryCD {
 	    	   
 	    	   HttpPost post = new HttpPost("http://secure.verycd.com/signin");
 	    	   List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-	    	   nvps.add(new BasicNameValuePair("username", "sp_lulu"));
-	    	   nvps.add(new BasicNameValuePair("password", "abc123"));
+	    	   nvps.add(new BasicNameValuePair("username", user.getUserName()));
+	    	   nvps.add(new BasicNameValuePair("password", user.getPassword()));
 	    	   nvps.add(new BasicNameValuePair("login_submit", "µÇÂ¼"));
 	    	   nvps.add(new BasicNameValuePair("continue", "http://game.verycd.com/hero/"));
 	    	   post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
